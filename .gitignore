@@ -1,12 +1,11 @@
 /bootstrap/compiled.php
 /vendor
 /.idea
-/public/purchases
-/public/images
-/public/product
-/public/mark
-/public/company
-/public/category
+/public/images/purchases
+/public/images/product
+/public/images/mark
+/public/images/company
+/public/images/category
 composer.phar
 composer.lock
 .env.*.php

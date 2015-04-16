@@ -1,0 +1,115 @@
+b_color = greenEdc1
+s_color = lighten(blackEdc1, 10%)
+t_color = whiteEdc1
+
+header
+	gradientLinear b_color darken(b_color, 6%)
+	border-bottom 2px solid darken(b_color, 18%)
+	box-shadow 0 0 5px 0 s_color
+	line-height 1
+	position relative
+	z-index 2
+	.logo,
+	.nav,
+	.session
+		display inline-block
+		padding .5em
+		vertical-align middle
+	.logo
+		text-align left
+		width 20%
+		a
+			display inline-block
+		img
+			height auto
+			margin auto
+			max-width 40%
+	.nav
+		text-align center
+		width 60%
+		ul
+		list-style none
+		margin 0
+		padding 0
+		li
+			display inline-block
+			margin 0 .5em
+			position relative
+		a
+			color t_color
+			text-decoration none
+			transition color .2s linear
+			&:hover
+				color b_color
+	.session
+		text-align right
+		width 19%
+		.profile,
+		.options,
+		.picture
+			display inline-block
+			padding 0 .5em
+			vertical-align middle
+		.picture
+			img
+				background transparent
+				border 2px solid b_color
+				border-radius 50%
+				display block
+				padding 2px
+				max-width 32px
+		.options
+			.optionList
+				b_color = greenEdc1
+			    t_color = blackEdc1
+
+				line-height 1
+				position relative
+				vertical-align middle
+				.icon
+					display inline-block
+					span
+						background url(sprite) b_color -2px -422px
+						border-radius 2px
+						display inline-block
+						height 26px
+						text-indent -9999px
+						width 26px
+						&:hover
+							background url(sprite) lighten(b_color, 20%) -2px -422px
+						&:active
+							background url(sprite) b_color -2px -422px
+				.list
+					display none
+					position absolute
+					right 0
+					text-align left
+					z-index 9
+					ul
+						list-style none
+						padding 0
+						margin 0
+						li
+							a
+								color t_color
+								display block
+								padding .5em .75em
+								text-decoration none
+								width 230px
+								&:hover
+									background lighten(b_color, 20%)
+							.fa
+								width 20px
+		.profile
+			color t_color
+			a
+				color t_color
+				text-decoration none
+				&:hover
+					color b_color
+
+footer
+	gradientLinear b_color darken(b_color, 6%)
+	border-top 3px solid darken(b_color, 18%)
+	box-shadow 0 0 6px 0 s_color
+

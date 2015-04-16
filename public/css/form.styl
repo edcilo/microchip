@@ -1,0 +1,157 @@
+.form
+    accept_true = greenEdc1
+    accept_false = redEdc1
+    b_color = grayEdc2
+    bo_fieldset = grayConcrete
+    color = blackEdc1
+    i_b_bolor = whiteEdc1
+    i_bo_color = graySilver
+    i_radio = 3px
+    radio = 6px
+
+    b_sub_color = greenEdc1
+    b_res_color = redEdc1
+    bu_color = whiteEdc1
+
+    padding 1px
+
+    fieldset
+        border 1px solid bo_fieldset
+        border-radius radio
+        margin-bottom 7px
+
+    input
+        max-width 100%
+        &[type="submit"]
+            button(b_sub_color, bu_color)
+            height 29px
+
+        &[type="reset"]
+            button(b_res_color, bu_color)
+            height 29px
+
+        &[type="file"]
+            border 1px solid transparent
+            height 29px
+            padding 2px;
+            width 200px
+
+        /*&[type="file"]
+            border 1px solid darken(blue, 10%)
+            border-radius radio
+            box-shadow 0 1px 2px 0 rgba( 0, 0, 0, .2 )
+            cursor pointer
+            height 29px
+            position relative
+            vertical-align top
+            width 160px
+            &:focus
+                outline none
+            &:before
+                gradientLinear(blue, darken(blue, 6%))
+                color white
+                content 'Seleccionar archivo'
+                display block
+                height 100%
+                left 0
+                padding .375rem .5rem
+                position absolute
+                right 0
+                text-align center
+                top 0
+                z-index 2*/
+
+        &[type="text"],
+        &[type="password"],
+        &[type="email"],
+        &[type="number"],
+        &[type="search"],
+        &[type="tel"],
+        &[type="url"],
+        &[type="date"]
+            background i_b_bolor
+            border 1px solid i_bo_color
+            border-radius i_radio
+            height 29px
+            padding .375rem .5rem
+
+            &:focus
+                box-shadow 0 0 4px rgba(0,0,0,.2) inset
+                outline none
+
+    legend
+        background b_color
+        border 1px solid darken(b_color, 20%)
+        border-radius i_radio
+        color color
+        padding .25em .75em
+
+    select
+        height 29px
+        //min-width 182px
+    select,
+    textarea
+        background i_b_bolor
+        border 1px solid i_bo_color
+        border-radius i_radio
+        max-width 100%
+        padding .375rem .5rem
+        resize: vertical
+        &:focus
+            box-shadow 0 0 4px rgba(0,0,0,.2) inset
+            outline none
+
+    input
+    select
+    textarea
+        &[disabled]
+            background rgba(graySilver, .1)
+
+        &[required],
+        &[data-required="required"]
+            border-color darken(i_bo_color, 30%)
+
+        &[data-accept="true"]
+            border-color: accept_true
+
+        &[data-accept="false"]
+            border-color: accept_false
+
+    .row
+        margin 0
+        margin-bottom .5em
+
+    .xs-input
+        width 45px
+    .sm-input
+        width 90px
+    .ml-input
+        width 135px
+    .bg-input
+        width 235px
+    .xb-input
+        width 100%
+
+    .message-error
+        background accept_false
+        border-radius i_radio
+        color bu_color
+        margin .2em 0
+        min-height 0
+        text-align center
+        span
+            padding 2px
+
+    .label50
+        display inline-block
+        width 47%
+
+.btn-search
+    button bluePeterRiver, white
+    height 29px
+    span
+        background url(sprite) transparent -8px -95px
+        display inline-block
+        height 20px
+        text-indent -9999px
+        width 14px

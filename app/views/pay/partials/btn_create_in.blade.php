@@ -1,0 +1,8 @@
+@if( p(72) )
+
+    <a href="{{ route('pay.in') }}" class="btn-green">
+        <i class="fa fa-money"></i>
+        Registrar entrada
+    </a>
+
+    @endif

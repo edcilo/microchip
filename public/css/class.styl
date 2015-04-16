@@ -1,0 +1,229 @@
+.btn
+	button ()
+.btn-blue
+	button bluePeterRiver, whiteEdc1
+.btn-green
+	button greenEdc1, whiteEdc1
+.btn-yellow
+	button yellowSunFlower, whiteEdc1
+.btn-red
+	button redEdc1, whiteEdc1
+
+
+
+.btn-metro
+	button-metro ()
+.btn-metro-blue
+	button-metro bluePeterRiver, whiteEdc1
+.btn-metro-green
+	button-metro greenEdc1, whiteEdc1
+.btn-metro-yellow
+	button-metro yellowSunFlower, whiteEdc1
+.btn-metro-red
+	button-metro redEdc1 whiteEdc1
+
+
+.block
+	b_color = whiteEdc1
+	m_width = 7px
+	p_width = 7px
+	radio = 6px
+	t_color = blackEdc1
+	background b_color
+	border 1px solid darken(b_color, 10%)
+	border-radius radio
+	box-shadow 0 0 6px 0 darken(b_color, 10%)
+	color t_color
+	padding p_width
+	margin m_width
+
+
+.bar-info
+	b_color = yellowSunFlower
+	m_width = 7px
+	p_width = 7px 21px 7px 7px
+	t_color = blackEdc1
+
+	btn_color = redEdc1
+	background b_color
+	border 1px solid darken(b_color, 10%)
+	border-radius 3px
+	box-shadow 0 0 6px 0 darken(b_color, 20%) inset
+	color t_color
+	padding p_width
+	position relative
+	margin m_width
+
+	.close
+		background btn_color
+		border-radius 0 0 3px 3px
+		color whiteEdc1
+		padding .5em .75em
+		position absolute
+		right 7px
+		top 0
+		&:hover
+			background lighten(btn_color, 4%)
+
+.globe-center,
+.globe-left,
+.globe-right
+	b_color = greenEdc1
+	m_width = 7px
+	p_width = 7px
+	radio = 3px
+
+	t_width = 7px
+
+	background b_color
+	border-radius radio
+	border 1px solid darken(b_color, 10%)
+	margin m_width
+	padding p_width
+	position relative
+	z-index 9999
+	&:before
+		border-width t_width
+		border-color transparent transparent b_color transparent
+		border-style solid
+		content ''
+		display block
+		height 0
+		position absolute
+		top -2 * t_width
+		width 0
+
+.globe-center
+	&:before
+		left 49.5%
+
+.globe-left
+	&:before
+		left 7px
+
+.globe-right
+	&:before
+		right 7px
+
+.edcMenuOptions
+	max-width 100%
+	.button
+		margin 0
+		width 100%
+		.fa
+			float right
+	.list
+		background lighten(greenEdc1, 20%);
+		color whiteEdc1
+		margin 0
+		list-style none
+		padding 0
+		position absolute
+		width 199px
+		z-index 1
+		li
+			padding 6px
+			&:hover
+				background lighten(greenEdc1, 40%)
+			input
+				float right
+
+.not-margin
+	margin 0
+
+.pagination
+	b_color = whiteEdc1
+	b_s_color = greenEdc1
+	d_t_color = grayConcrete
+	h_color = greenEdc1
+	h_t_color = whiteEdc1
+	s_color = blackEdc1
+	t_color = greenEdc1
+	t_s_color = whiteEdc1
+
+	list-style none
+	margin .5em 0
+	padding 0
+	text-align center
+	a,
+	span
+		background b_color
+		border 1px solid darken(b_color, 20%)
+		border-radius 3px
+		box-shadow 0 0 3px 0 rgba(s_color, .1)
+		color t_color
+		cursor pointer
+		display block
+		font-weight bold
+		margin 0 .25em
+		padding .5em
+		transition background .2s
+		width 32px
+		&:hover
+			background rgba(h_color, .6)
+			border 1px solid darken(rgba(h_color, .6), 10%)
+			color h_t_color
+			text-decoration none
+	li
+		display inline-block
+	.disabled
+		span
+			color d_t_color
+			cursor default
+			&:hover
+				background b_color
+				border-color darken(b_color, 20%)
+				color d_t_color
+	.active
+		span
+			background b_s_color
+			border-color darken(b_s_color, 20%)
+			color t_s_color
+
+
+.table
+	b_tr_color = lighten(grayConcrete, 80%)
+	f_bo_color = grayConcrete
+	h_b_color = whiteEdc1
+	h_bo_color = grayConcrete
+
+	margin 7px 0
+	width 100%
+
+	td,
+	th
+		padding .25em .5em
+
+	thead
+		background h_b_color
+		border-bottom 2px solid h_bo_color
+	tbody
+		tr
+			&:nth-child(even)
+				background b_tr_color
+	tfoot
+		border-top 1px solid f_bo_color
+
+
+.text-center
+	text-align center
+.text-left
+	text-align left
+.text-right
+	text-align right
+
+
+.text-xsmall
+	font-size .5em
+.text-small
+	font-size .75em
+.text-normal
+	font-size 1em
+.text-middle
+	font-size 1.5em
+.text-big
+	font-size 2em
+
+
+.hide
+	display none

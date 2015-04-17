@@ -124,7 +124,8 @@ return array(
 
 		'Way\Generators\GeneratorsServiceProvider',
 		'Barryvdh\DomPDF\ServiceProvider',
-		'Dinesh\Barcode\BarcodeServiceProvider',
+
+        'Ludo237\Barcode\BarcodeServiceProvider'
 	),
 
 	/*
@@ -193,8 +194,9 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 
 		'PDF' => 'Barryvdh\DomPDF\Facade',
-		'DNS1D' => 'Dinesh\Barcode\Facades\DNS1DFacade',
-		'DNS2D' => 'Dinesh\Barcode\Facades\DNS2DFacade',
+
+        'DNS1D' => 'Ludo237\Barcode\Facades\DNS1DFacade',
+        'DNS2D' => 'Ludo237\Barcode\Facades\DNS2DFacade',
 
 	),
 

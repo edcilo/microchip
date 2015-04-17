@@ -11,8 +11,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
         "barryvdh/laravel-dompdf": "0.4.*",
-        "dinesh/barcode": "dev-master",
-        "nesbot/carbon": "~1.14"
+        "nesbot/carbon": "~1.14",
+        "ludo237/barcode": "dev-master"
 	},
 	"autoload": {
 		"psr-4" : {

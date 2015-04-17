@@ -32,6 +32,7 @@ class CreateSalesTable extends Migration {
             $table->time('delivery_time');          // hora de entrega
             $table->mediumText('shipping_address'); // direccion de entrega
 
+            $table->boolean('sale')->default(0);
             $table->boolean('separated')->default(0);
             $table->boolean('price')->default(0);
             $table->boolean('service')->default(0);

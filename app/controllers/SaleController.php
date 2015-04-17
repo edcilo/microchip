@@ -158,7 +158,7 @@ class SaleController extends \BaseController {
 		{
             $folio = $this->saleRepo->getFolio('Venta');
 
-            $data = Input::all() + ['folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
+            $data = Input::all() + ['folio' => str_pad($folio, 8, '0', STR_PAD_LEFT), 'sale'=>1];
 
 			$manager = new SaleUpdManager($sale, $data);
 			$manager->save();

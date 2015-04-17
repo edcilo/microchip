@@ -5,20 +5,27 @@ use microchip\base\BaseEntity;
 class Sale extends BaseEntity {
 
 	protected $fillable = [
-		'customer_id',
-		'user_id',
         'folio',
-		'iva',
-		'type',				// factura o ticket
-		'classification',	// venta, cotización, pedidos
-		'status',
-		'new_price',
-        'customer_order',
+        'iva',
+        'dollar',
+        'type',				// factura o ticket
+        'classification',	// venta, cotización, pedidos
+        'status',
+        'description',
+        'new_price',
         'advance',
-        'shipping_address',
-		'description',
         'delivery_date',
         'delivery_time',
+        'shipping_address',
+        'sale',
+        'separated',
+        'price',
+        'service',
+        'customer_order',
+        'movements_end',
+        'series_end',
+		'customer_id',
+		'user_id',
 	];
 
     public function getIvaRealAttribute()

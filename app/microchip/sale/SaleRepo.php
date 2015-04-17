@@ -75,7 +75,24 @@ class SaleRepo extends BaseRepo {
     {
         $elements= Sale::where('classification', $classification)
             ->where('folio', '!=', '')
-            ->where('separated', 0)
+            ->where(function ($query) use ($classification) {
+                if( $classification == 'Venta' )
+                {
+                    $query->where('sale', 1);
+                }
+                elseif( $classification == 'Pedido' )
+                {
+                    $query->where('separated', 1);
+                }
+                elseif( $classification == 'Servicio' )
+                {
+                    $query->where('service', 1);
+                }
+                elseif( $classification == 'Cotización' )
+                {
+                    $query->where('price', 1);
+                }
+            })
             ->orderBy('folio', 'asc')
             ->get();
 

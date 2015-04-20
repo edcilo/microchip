@@ -27,7 +27,7 @@
         </div>
     @endif
 
-    @if( p(105) )
+    @if( p(106) )
         <div class="flo col25 center text-center">
             <a href="{{ route('price.create') }}" class="btn-red">
                 <i class="fa fa-file-text-o"></i>

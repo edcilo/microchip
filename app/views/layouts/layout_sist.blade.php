@@ -31,9 +31,7 @@
 
             <div class="flo col80 cont_principal" id="col-der">
 
-                @if ( Session::get('message') )
-                    <aside class="msg_dialog">{{ Session::get('message') }}</aside>
-                @endif
+                @include('layouts.partials.messages')
 
                 @yield('content')
 

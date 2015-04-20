@@ -25,7 +25,6 @@
 
         @include('sale.partials.data')
 
-
         @include('sale.partials.list_products')
 
     </div>

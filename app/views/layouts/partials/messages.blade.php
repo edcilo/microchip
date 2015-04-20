@@ -9,3 +9,7 @@
 @if ( Session::get('alert') )
     <aside class="msg_dialog alert">{{ Session::get('alert') }}</aside>
 @endif
+
+@if ( Session::get('message') )
+    <aside class="msg_dialog">{{ Session::get('message') }}</aside>
+@endif

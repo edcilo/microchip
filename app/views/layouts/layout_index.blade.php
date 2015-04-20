@@ -2,9 +2,7 @@
 
 @section ('title') @stop
 
-@section('scripts')
-    {{-- HTML::script('js/admin.js') --}}
-@stop
+@section('scripts')@stop
 
 @section ('content')
 

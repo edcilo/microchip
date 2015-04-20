@@ -127,18 +127,6 @@ class ServiceController extends \BaseController
         return Redirect::route('service.print', [$service->folio, $service->id]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * DELETE /service/{id}
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function servicePrint($folio, $id)
     {
         $sale = $this->saleRepo->find($id);

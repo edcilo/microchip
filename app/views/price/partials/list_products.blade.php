@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($price->pas as $pa)
+    @foreach($sale->pas as $pa)
         @if($pa->productPrice)
         <tr>
             <td class="text-right">{{ $pa->quantity }}</td>
@@ -25,7 +25,7 @@
     <tr>
         <td colspan="3"></td>
         <td><strong>Total (I.V.A. incluido):</strong></td>
-        <td>$ {{ $price->total_price_f }}</td>
+        <td>$ {{ $sale->total_price_f }}</td>
     </tr>
     </tfoot>
 </table>

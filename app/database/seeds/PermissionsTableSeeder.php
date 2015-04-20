@@ -678,7 +678,7 @@ class PermissionsTableSeeder extends Seeder {
         //95
         Permission::create([
             'name'          => 'Servicios|Modificar',
-            'description'   => 'Modificar los datos de los pedidos',
+            'description'   => 'Modificar los datos/productos de los pedidos',
         ]);
 
         //96
@@ -761,6 +761,18 @@ class PermissionsTableSeeder extends Seeder {
         Permission::create([
             'name'          => 'Cotizaciones|Eliminar partida',
             'description'   => 'Eliminar el registro de una cotización no concretada',
+        ]);
+
+        //109
+        Permission::create([
+            'name'          => 'Cotizaciones|Clonar',
+            'description'   => 'Clonar una partida de una cotización',
+        ]);
+
+        //110
+        Permission::create([
+            'name'          => 'Cotizaciones|Convertir cotización a pedido',
+            'description'   => 'Convertir cotización a pedido',
         ]);
         /*
         Permission::create([

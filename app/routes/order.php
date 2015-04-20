@@ -43,7 +43,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'order.destroy',
-                'uses' => 'OrderController@destroy'
+                'uses' => 'SaleController@destroy'
             ]);
 
         });

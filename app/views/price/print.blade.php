@@ -2,9 +2,7 @@
 
 @section ('title') / Cotización @stop
 
-@section('scripts')
-    {{-- HTML::script('js/admin.js') --}}
-@stop
+@section('scripts')@stop
 
 @section ('content')
 
@@ -12,30 +10,22 @@
 
         <div class="subtitle">
             Cotización
-            ({{ $price->status }})
+            ({{ $sale->status }})
         </div>
 
-        <div class="col col100 text-right">
-            <div class="flo col50 left text-left">
-                <a href="{{ route('home.sale') }}" class="btn-red">
-                    <i class="fa fa-times"></i>
-                    Terminar
-                </a>
+        <div class="col col100">
+            <div class="flo col50">
+                @include('sale.partials.btn_end')
             </div>
 
-            <div class="flo col50 right text-right">
-                <a class="btn-blue" title="Imprimir documento" target="_blank" href="{{ route('price.print.generate', [$price->folio, $price->id]) }}">
-                    <i class="fa fa-print"></i>
-                    Imprimir
-                </a>
+            <div class="flo col50 text-right">
+                @include('price.partials.btn_print')
             </div>
         </div>
 
         @include('price/partials/header')
 
-        <div class="col col100">
-            @include('price/partials/tableProducts')
-        </div>
+        @include('price.partials.list_products')
 
     </div>
 

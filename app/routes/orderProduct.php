@@ -38,7 +38,7 @@ Route::group(
 
         });
 
-        Route::group(['before' => 'pr:102'], function () {
+        Route::group(['before' => 'pr:90,102'], function () {
 
             Route::post('', [
                 'as'   => 'order.product.store',

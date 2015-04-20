@@ -37,7 +37,7 @@ class PriceController extends \BaseController {
 	{
         if ( Request::ajax() ) return $this->saleRepo->getByClassification('Cotización', 'id', 'ASC', 'ajax');
 
-        $prices = $this->saleRepo->getByClassification('Cotización', 'id', 'DESC');
+        $prices = $this->saleRepo->getByClassification('Cotización', 'folio', 'DESC');
 
         return View::make('price/index', compact('prices'));
 	}
@@ -50,21 +50,21 @@ class PriceController extends \BaseController {
 	 */
 	public function create()
 	{
-        $sale   = $this->saleRepo->newSale();
+        $price   = $this->saleRepo->newSale();
         $global = $this->configRepo->first();
 
-        $sale->iva				= $global->iva;
-        $sale->dollar           = $global->dollar;
-        $sale->type				= 'Ticket';
-        $sale->classification	= 'Cotización';
-        $sale->status			= 'Pendiente';
-        $sale->delivery_date    = date('Y-m-d');
-        $sale->user_id			= Auth::user()->id;
-        $sale->customer_id		= 1;
-        $sale->price            = 1;
-        $sale->save();
+        $price->iva				= $global->iva;
+        $price->dollar          = $global->dollar;
+        $price->type			= 'Ticket';
+        $price->classification	= 'Cotización';
+        $price->status			= 'Pendiente';
+        $price->delivery_date   = date('Y-m-d');
+        $price->user_id			= Auth::user()->id;
+        $price->customer_id		= 1;
+        $price->price           = 1;
+        $price->save();
 
-        return Redirect::route('price.edit', [$sale->id]);
+        return Redirect::route('price.edit', [$price->id]);
 	}
 
 	/**
@@ -74,14 +74,14 @@ class PriceController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($folio, $id)
+	public function show($id)
 	{
-        $price  = $this->saleRepo->find($id);
-        $this->notFoundUnless($price);
+        $sale  = $this->saleRepo->find($id);
+        $this->notFoundUnless($sale);
 
-        if ( Request::ajax() ) return Response::json($price);
+        if ( Request::ajax() ) return Response::json($sale);
 
-        return View::make('price/show', compact('price'));
+        return View::make('price/show', compact('sale'));
 	}
 
 	/**
@@ -113,7 +113,9 @@ class PriceController extends \BaseController {
         $price = $this->saleRepo->find($id);
         $this->notFoundUnless($price);
 
-        $data = Input::all() + ['customer_order' => Input::get('customer_id')];
+        $folio = $this->saleRepo->getFolio('Cotización');
+
+        $data = Input::all() + ['customer_order' => Input::get('customer_id'), 'folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
 
         $manager = new SalePriceUpdManager($price, $data);
         $manager->save();
@@ -141,10 +143,10 @@ class PriceController extends \BaseController {
 
     public function pricePrint($folio, $id)
     {
-        $price = $this->saleRepo->find($id);
-        $this->notFoundUnless($price);
+        $sale = $this->saleRepo->find($id);
+        $this->notFoundUnless($sale);
 
-        return View::make('price/print', compact('price'));
+        return View::make('price/print', compact('sale'));
     }
 
     public function generatePrint($id)
@@ -202,7 +204,7 @@ class PriceController extends \BaseController {
             $pa_c->save();
         }
 
-        return Redirect::route('price.edit', [$clone->folio, $clone->id]);
+        return Redirect::route('price.edit', [$clone->id]);
     }
 
 
@@ -259,6 +261,8 @@ class PriceController extends \BaseController {
             if(Request::ajax())
                 return Response::json($this->msg200 + [ 'data' => $price ]);
 
+            Session::flash('success', 'Se creo la orden de pedido correctamente.');
+
             return Redirect::route('order.edit', [$price->id]);
         }
 
@@ -294,6 +298,21 @@ class PriceController extends \BaseController {
             return Response::json($this->msg200 + [ 'data' => $pa ]);
 
         return Redirect::back();
+    }
+
+
+
+    public function search($type)
+    {
+        $terms = \Input::get('terms');
+
+        if ( Request::ajax() ) {
+            return $this->saleRepo->search($terms, $type, 'ajax');
+        }
+
+        $results = $this->saleRepo->search($terms, $type);
+
+        return View::make('price/search', compact('results', 'terms'));
     }
 
 }

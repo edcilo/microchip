@@ -1,35 +1,22 @@
 <div class="col col100">
-    <ul class="text-right">
-        <li>
-            <strong>Folio:</strong>
-            {{ $price->folio }}
-        </li>
-        <li>
-            <strong>Fecha:</strong>
-            {{ date( 'd/M/Y', time($price->created_at)) }}
-        </li>
-    </ul>
-</div>
-
-<div class="col col100">
     <div class="flo col50">
         <ul>
             <li>
                 <strong>C.T.</strong>
-                {{ $price->customer->id }}
+                {{ $sale->customer->id }}
             </li>
             <li>
                 <strong>Razón Social:</strong>
-                {{ $price->customer->prefix }}
-                {{ $price->customer->name }}
+                {{ $sale->customer->prefix }}
+                {{ $sale->customer->name }}
             </li>
             <li>
                 <strong>Telefono(s):</strong>
-                {{ $price->customer->phone }} - {{ $price->customer->cellphone }}
+                {{ $sale->customer->phone }} - {{ $sale->customer->cellphone }}
             </li>
             <li>
                 <strong>E-mail:</strong>
-                {{ $price->customer->email }}
+                {{ $sale->customer->email }}
             </li>
         </ul>
     </div>
@@ -37,12 +24,20 @@
     <div class="flo col50 text-right">
         <ul>
             <li>
+                <strong>Folio:</strong>
+                {{ $sale->folio }}
+            </li>
+            <li>
+                <strong>Fecha:</strong>
+                {{ date( 'd/M/Y', time($sale->created_at)) }}
+            </li>
+            <li>
                 <strong>Vend.</strong>
-                {{ $price->user->id }}
+                {{ $sale->user->id }}
             </li>
             <li>
                 <strong>Nombre:</strong>
-                {{ $price->user->profile->name }} {{ $price->user->profile->f_last_name }} {{ $price->user->profile->s_last_name }}
+                {{ $sale->user->profile->name }} {{ $sale->user->profile->f_last_name }} {{ $sale->user->profile->s_last_name }}
             </li>
         </ul>
     </div>

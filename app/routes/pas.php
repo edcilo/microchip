@@ -21,7 +21,7 @@ Route::group(
             'uses' => 'PendingMovementsController@create'
         ]);
 
-        Route::group(['before' => 'pr:86,95'], function () {
+        Route::group(['before' => 'pr:86,95,107'], function () {
 
             Route::post('order', [
                 'as'   => 'pas.order.store',

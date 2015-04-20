@@ -62,7 +62,7 @@ Route::group(
 
         });
 
-        Route::group(['before' => 'pr:77'], function () {
+        Route::group(['before' => 'pr:78,85,94,106'], function () {
 
             Route::get('sale/create', [
                 'as'   => 'movement.sale.create',
@@ -76,7 +76,7 @@ Route::group(
 
         });
 
-        Route::group(['before' => 'pr:61,77'], function () {
+        Route::group(['before' => 'pr:61,78,86,94,106'], function () {
 
             Route::delete('{id}', [
                 'as'   => 'movement.destroy',

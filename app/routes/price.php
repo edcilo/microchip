@@ -11,7 +11,6 @@ Route::group(
     function ()
     {
 
-        //Route::group(['before' => 'pr:81'], function () {});
         Route::group(['before' => 'pr:106'], function () {
 
             Route::get('create', [
@@ -39,7 +38,16 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'price.destroy',
-                'uses' => 'PriceController@destroy'
+                'uses' => 'SaleController@destroy'
+            ]);
+
+        });
+
+        Route::group(['before' => 'pr:109'], function () {
+
+            Route::get('clone/{price_id}', [
+                'as'   => 'price.clone',
+                'uses' => 'PriceController@clonePrice'
             ]);
 
         });
@@ -51,52 +59,19 @@ Route::group(
                 'uses' => 'PriceController@index'
             ]);
 
-            Route::get('search', [
+            Route::get('search/{type}', [
                 'as'   => 'price.search',
                 'uses' => 'PriceController@search'
             ]);
 
-            Route::get('{slug}/{id}', [
+            Route::get('{id}', [
                 'as'   => 'price.show',
                 'uses' => 'PriceController@show'
             ]);
 
         });
 
-        Route::get('incomplete', [
-            'as'   => 'price.incomplete',
-            'uses' => 'PriceController@incomplete'
-        ]);
-
-
-
-        Route::get('print/generate/{id}', [
-            'as'   => 'price.print.generate',
-            'uses' => 'PriceController@generatePrint'
-        ]);
-
-        Route::get('clone/{price_id}', [
-            'as'   => 'price.clone',
-            'uses' => 'PriceController@clonePrice'
-        ]);
-
-        Route::get('print/{folio}/{id}', [
-            'as'   => 'price.print',
-            'uses' => 'PriceController@pricePrint'
-        ]);
-
-        Route::get('stop/{id}', [
-            'as'   => 'price.stop',
-            'uses' => 'PriceController@stopRegisterMovements'
-        ]);
-
-        Route::post('toOrder/{id}', [
-            'as'   => 'price.to.order',
-            'uses' => 'PriceController@toOrder'
-        ]);
-
-
-        Route::group(['before' => 'pr:101'], function () {
+        Route::group(['before' => 'pr:101,110'], function () {
 
             Route::post('toOrderOne/{id}', [
                 'as'   => 'price.to.order.one',
@@ -105,9 +80,24 @@ Route::group(
 
         });
 
-        Route::put('adjust/{id}', [
-            'as'   => 'price.adjust.price',
-            'uses' => 'PriceController@adjustprice'
+        Route::group(['before' => 'pr:101,110'], function () {
+
+            Route::post('toOrder/{id}', [
+                'as'   => 'price.to.order',
+                'uses' => 'PriceController@toOrder'
+            ]);
+
+        });
+
+
+        Route::get('print/generate/{id}', [
+            'as'   => 'price.print.generate',
+            'uses' => 'PriceController@generatePrint'
+        ]);
+
+        Route::get('print/{folio}/{id}', [
+            'as'   => 'price.print',
+            'uses' => 'PriceController@pricePrint'
         ]);
 
     }

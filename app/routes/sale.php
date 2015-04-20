@@ -81,7 +81,7 @@ Route::group(
         });
 
 
-        Route::group(['before' => 'pr:78,86,95'], function () {
+        Route::group(['before' => 'pr:78,86,95,107'], function () {
 
             Route::get('stop/{id}', [
                 'as'   => 'sale.stop',

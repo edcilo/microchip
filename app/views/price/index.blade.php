@@ -9,22 +9,26 @@
 @section ('content')
 
     <div class="col col100">
-        <div class="flo col30">
+        <div class="flo col66">
             <h2>Cotizaciones</h2>
         </div>
 
-        <div class="flo col30 text-right">
-            &nbsp;
-        </div>
-
-        <div class="flo col40 text-right">
-            {{-- @include('sale/partials/formSearch') --}}
+        <div class="flo col33 text-right">
+            @include('price/partials/form_search')
         </div>
     </div>
 
     <div class="col col100">
 
-        @include('price/partials/listPaginate')
+        @if ( count( $prices ) > 0 )
+
+            @include('price.partials.list_paginate')
+
+        @else
+
+            <p class="title-clear">No hay cotizaciones registradas.</p>
+
+        @endif
 
     </div>
 

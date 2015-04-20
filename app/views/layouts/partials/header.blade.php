@@ -27,6 +27,9 @@
                     @if( p(71) )
                         <li><a href="{{ Route('pay.index') }}">Pagos</a></li>
                     @endif
+                    @if( p(24) )
+                        <li><a href="{{ Route('user.index') }}">Empleados</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="session">

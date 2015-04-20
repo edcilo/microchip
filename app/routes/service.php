@@ -57,7 +57,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'service.destroy',
-                'uses' => 'ServiceController@destroy'
+                'uses' => 'SaleController@destroy'
             ]);
 
         });

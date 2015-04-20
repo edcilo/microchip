@@ -88,7 +88,7 @@ class PayController extends \BaseController {
             $data['change']  = ($data['amount'] > $sale->getRestTotalAttribute()) ? $data['amount'] - $sale->getRestTotalAttribute() : 0;
             $data['total']   = $rest;
             $data['sale_id'] = $sale_id;
-            $data['user_id'] = 1;
+            $data['user_id'] = Auth::user()->id;
 
             $pay = $this->payRepo->newPay();
             $manager = new PayRegManager($pay, $data);
@@ -151,7 +151,7 @@ class PayController extends \BaseController {
         $this->notFoundUnless($pay);
 
         $data = Input::all();
-        $data['user_id'] = 1;
+        $data['user_id'] = Auth::user()->id;
         $data['change']  = ($data['amount'] > ($pay->sale->getRestTotalAttribute() + $pay->amount)) ? $data['amount'] - $pay->sale->getRestTotalAttribute() : 0;
 
         $manager = new PayUpdManager($pay, $data);
@@ -240,7 +240,7 @@ class PayController extends \BaseController {
     public function storeOut()
     {
         $data = Input::all();
-        $data['user_id']    = 1;
+        $data['user_id']    = Auth::user()->id;
 
         $pay = $this->payRepo->newPay();
         $manager = new PayRegisterOutManager($pay, $data);
@@ -267,7 +267,7 @@ class PayController extends \BaseController {
         $this->notFoundUnless($pay);
 
         $data = Input::all();
-        $data['user_id'] = 1;
+        $data['user_id'] = Auth::user()->id;
 
         $manager = new PayUpdOutManager($pay, $data);
         $manager->save();
@@ -283,7 +283,7 @@ class PayController extends \BaseController {
     public function storeIn()
     {
         $data = Input::all();
-        $data['user_id']    = 1;
+        $data['user_id']    = Auth::user()->id;
 
         $pay = $this->payRepo->newPay();
         $manager = new PayRegisterInManager($pay, $data);
@@ -308,7 +308,7 @@ class PayController extends \BaseController {
         $this->notFoundUnless($pay);
 
         $data = Input::all();
-        $data['user_id'] = 1;
+        $data['user_id'] = Auth::user()->id;
 
         $manager = new PayUpdInManager($pay, $data);
         $manager->save();

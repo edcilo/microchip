@@ -1,7 +1,7 @@
 <nav class="nav-v" id="col-izq">
 
     <ul class="menuOptions">
-        @if( p(71) OR p(76) OR p(84) OR p(93) OR p(105) )
+        @if( p(71) OR p(76) OR p(84) OR p(93) OR p(105) OR p(111) )
             <li>
                 <strong>
                     <i class="fa fa-caret-down button" data-options="options1"></i>
@@ -41,12 +41,14 @@
                         </a>
                     </li>
                 @endif
-                <li>
-                    <a href="{{ route('pas.index') }}">
-                        <i class="fa fa-tag"></i>
-                        Productos ordenados
-                    </a>
-                </li>
+                @if( p(111) )
+                    <li>
+                        <a href="{{ route('pas.index') }}">
+                            <i class="fa fa-tag"></i>
+                            Productos ordenados
+                        </a>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ route('warranty.index') }}">
                         <i class="fa fa-truck"></i>

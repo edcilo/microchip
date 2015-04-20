@@ -2,9 +2,7 @@
 
 @section('title') / {{ $pa->barcode }} @stop
 
-@section('scripts')
-    {{-- HTML::script('js/aps.js') --}}
-@stop
+@section('scripts')@stop
 
 @section('content')
 
@@ -14,13 +12,11 @@
         </div>
 
         <div class="flo col40 text-right">
-            <a class="btn-blue" href="{{ route('pas.index') }}">
-                <i class="fa fa-list"></i> Volver a la lista de productos ordenados
-            </a>
+            @include('pa.partials.btn_index')
         </div>
 
         <div class="flo col30 text-right">
-            @include('pa/partials/formSearch')
+            @include('pa/partials/form_search')
         </div>
     </div>
 
@@ -44,7 +40,7 @@
                 @if(!$pa->registered)
                     <p>
                         <strong>
-                            <a href="{{ $pa->provider_link }}">
+                            <a href="{{ $pa->provider_link }}" target="_blank">
                                 <i class="fa fa-link"></i>
                                 Enlace con el proveedor
                             </a>
@@ -85,7 +81,7 @@
 
                     <div class="flo col20">
                         <strong>Cantidad:</strong> <br/>
-                        <span id="series_quantity">{{ $pa->quantity }}</span>
+                        {{ $pa->quantity }}
                     </div>
 
                     <div class="flo col20">
@@ -134,48 +130,11 @@
 
     </div>
 
-    @if($pa->status != 'Surtido')
+    @if($pa->status != 'Surtido' AND ( p(112) OR  p(90) OR p(102) ) )
         <div class="col col100 block description-product">
             <h3 class="header">Archivar PA</h3>
 
-            @if ( Session::get('message') )
-                <aside class="msg_dialog">{{ Session::get('message') }}</aside>
-            @endif
-
-            {{ Form::open(['route'=>['order.product.store'], 'method'=>'post', 'class'=>'form validate']) }}
-            {{ Form::hidden('pa_id', $pa->id) }}
-
-            <div class="message-error">
-                {{ $errors->first('selling_price', '<span>:message</span>') }}
-            </div>
-
-            <div class="row col col100 text-center">
-
-                <div class="flo col33 left">
-                    {{ Form::label('product_id', 'Código de barras:') }}
-                    {{ Form::text('product_id', null, ['class'=>'', 'autofocus', 'data-required'=>'required']) }}
-                    <div class="message-error">
-                        {{ $errors->first('product_id', '<span>:message</span>') }}
-                    </div>
-                </div>
-
-                <div class="flo col33 center">
-                    {{ Form::label('quantity', 'Cantidad:') }}
-                    {{ Form::text('quantity', $pa->orders_rest, ['class'=>'xs-input', 'data-required'=>'required']) }}
-                    <div class="message-error">
-                        {{ $errors->first('quantity', '<span>:message</span>') }}
-                    </div>
-                </div>
-
-                <div class="flo col33 right">
-                    <button type="submit" class="btn-green inline">
-                        <i class="fa fa-archive"></i>
-                        Asignar producto
-                    </button>
-                </div>
-            </div>
-
-            {{ Form::close() }}
+            @include('pa.partials.form_supply')
         </div>
     @endif
 
@@ -188,69 +147,10 @@
                     <aside class="msg_dialog">{{ Session::get('message') }}</aside>
                 @endif
 
-                <div class="col col100">
-                    <figure class="flo col10 left">
-                        <img src="{{ asset($order->product->image) }}" alt="{{ $order->product->barcode }}"/>
-                    </figure>
-                    <div class="flo col20 center">
-                        <strong>Producto:</strong> <br/>
-                        <a href="{{ route('product.show', [$order->product->slug, $order->product->id]) }}">
-                            {{ $order->product->barcode }}
-                        </a>
-                    </div>
-                    <div class="flo col20 center">
-                        <strong>Cantidad:</strong> <br/>
-                        {{ $order->quantity }}
-                    </div>
-                    <div class="flo col50 right">
-                        <strong>Descripción corta:</strong>
-                        {{ $order->product->s_description }}
-                    </div>
-                </div>
+                @include('pa.partials.data_supply')
 
-                @if($order->order->classification != 'Venta')
-                    {{ Form::open(['route'=>['order.product.destroy', $order->id], 'method'=>'delete', 'class'=>'form']) }}
-                    <hr/>
+                @include('pa.partials.form_cancel')
 
-                    <div class="col col100">
-
-                        <div class="flo col75 left text-right">
-                            @if($order->product->type == 'Producto')
-                                @if($order->product->p_description->have_series)
-
-                                    @if($order->order->classification == 'Pedido')
-                                        <a href="{{ route('series.create.separate', [$order->id]) }}" class="btn-green">N/S</a>
-                                    @else
-                                        <a href="{{ route('series.create.price', [$order->id]) }}" class="btn-green">N/S</a>
-                                    @endif
-                                    <div class="text-left">
-                                    <ul>
-                                    @foreach($order->series as $series)
-                                        <li>
-                                            {{ Form::checkbox('ns[]', $series->id, null, ['id'=>'ns'.$series->id]) }}
-                                            {{ Form::label('ns'.$series->id, $series->ns) }}
-                                        </li>
-                                    @endforeach
-                                    </ul>
-                                    </div>
-                                @else
-                                    {{ Form::text('quantity', 0, ['class'=>'xs-input text-right', 'autocomplete'=>'off', 'data-required'=>'required', 'data-integer-unsigned'=>'integer', 'title'=>'Este campo es obligatorio.']) }}
-                                @endif
-                            @else
-                                {{ Form::text('quantity', 0, ['class'=>'xs-input text-right', 'autocomplete'=>'off', 'data-required'=>'required', 'data-integer-unsigned'=>'integer', 'title'=>'Este campo es obligatorio.']) }}
-                            @endif
-
-                        </div>
-
-                        <div class="flo col25 right">
-                            <button type="submit" class="btn-red">
-                                <i class="fa fa-times"></i> Desapartar
-                            </button>
-                        </div>
-
-                    </div>
-                    {{ Form::close() }}
-                @endif
             </div>
         @endforeach
     @endif

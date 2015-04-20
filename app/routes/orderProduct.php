@@ -9,11 +9,6 @@ Route::group(
     function ()
     {
 
-        Route::get('', [
-            'as'   => 'order.product.index',
-            'uses' => 'OrderProductController@index'
-        ]);
-
         Route::get('create', [
             'as'   => 'order.product.create',
             'uses' => 'OrderProductController@create'
@@ -38,7 +33,7 @@ Route::group(
 
         });
 
-        Route::group(['before' => 'pr:90,102'], function () {
+        Route::group(['before' => 'pr:90,102,112'], function () {
 
             Route::post('', [
                 'as'   => 'order.product.store',
@@ -46,6 +41,30 @@ Route::group(
             ]);
 
         });
+
+        Route::group(['before' => 'pr:90,102,113'], function () {
+
+            Route::delete('{id}', [
+                'as'   => 'order.product.destroy',
+                'uses' => 'OrderProductController@destroy'
+            ]);
+
+        });
+
+        Route::group(['before' => 'pr:111'], function () {
+
+            Route::get('', [
+                'as'   => 'order.product.index',
+                'uses' => 'OrderProductController@index'
+            ]);
+
+        });
+
+        Route::get('{id}', [
+            'as'   => 'order.product.show',
+            'uses' => 'OrderProductController@edit'
+        ]);
+
 
         Route::get('{slug}/{id}/edit', [
             'as'   => 'order.product.edit',
@@ -57,15 +76,7 @@ Route::group(
             'uses' => 'OrderProductController@show'
         ]);
 
-        Route::get('{id}', [
-            'as'   => 'order.product.show',
-            'uses' => 'OrderProductController@edit'
-        ]);
 
-        Route::delete('{id}', [
-            'as'   => 'order.product.destroy',
-            'uses' => 'OrderProductController@destroy'
-        ]);
 
     }
 );

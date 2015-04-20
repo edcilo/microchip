@@ -11,15 +11,14 @@ Route::group(
     function ()
     {
 
-        Route::get('', [
-            'as'   => 'pas.index',
-            'uses' => 'PendingMovementsController@index'
-        ]);
+        Route::group(['before' => 'pr:111'], function () {
 
-        Route::get('create/{id}', [
-            'as'   => 'pas.create',
-            'uses' => 'PendingMovementsController@create'
-        ]);
+            Route::get('', [
+                'as'   => 'pas.index',
+                'uses' => 'PendingMovementsController@index'
+            ]);
+
+        });
 
         Route::group(['before' => 'pr:86,95,107'], function () {
 
@@ -29,6 +28,13 @@ Route::group(
             ]);
 
         });
+
+        Route::get('create/{id}', [
+            'as'   => 'pas.create',
+            'uses' => 'PendingMovementsController@create'
+        ]);
+
+
 
         Route::post('', [
             'as'   => 'pas.store',

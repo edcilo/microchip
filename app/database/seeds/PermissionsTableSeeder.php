@@ -774,6 +774,28 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Cotizaciones|Convertir cotización a pedido',
             'description'   => 'Convertir cotización a pedido',
         ]);
+
+
+        /**
+         * Productos ordenados
+         */
+        //111
+        Permission::create([
+            'name'          => 'Productos ordenados|Ver',
+            'description'   => 'Ver lista y detalles de productos ordenados o en espera de surtir',
+        ]);
+
+        //112
+        Permission::create([
+            'name'          => 'Productos ordenados|Surtir',
+            'description'   => 'Surtir productos ordenados'
+        ]);
+
+        //113
+        Permission::create([
+            'name'          => 'Productos ordenados|Desapartar',
+            'description'   => 'Desapartar productos surtidos'
+        ]);
         /*
         Permission::create([
             'name'          => '',

@@ -43,6 +43,14 @@
                         </a>
                         <div class="list globe-right">
                             <ul>
+                                @if( p(111) )
+                                    <li>
+                                        <a href="{{ route('pas.index') }}">
+                                            <i class="fa fa-tag"></i>
+                                            Productos ordenados
+                                        </a>
+                                    </li>
+                                @endif
                                 <li>
                                     <a href="{{ route('auth.logout') }}">
                                         <i class="fa fa-power-off"></i> Cerrar sesión

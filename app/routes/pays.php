@@ -56,6 +56,17 @@ Route::group(
             ]);
 
 
+            Route::get('pay/out/sale', [
+                'as'    => 'pay.out.sale',
+                'uses'  => 'PayController@payOutSale'
+            ]);
+
+            Route::post('pay/out/sale', [
+                'as'    => 'pay.out.sale.store',
+                'uses'  => 'PayController@payOutSaleStore'
+            ]);
+
+
             Route::get('create/{sale_id}', [
                 'as'   => 'pay.create',
                 'uses' => 'PayController@create'

@@ -9,6 +9,7 @@ use microchip\pay\PayRegisterOutManager;
 use microchip\pay\PayRegisterInManager;
 use microchip\pay\PayUpdInManager;
 use microchip\pay\PayUpdOutManager;
+use microchip\pay\PayRegisterOutSaleManager;
 use microchip\pay\PayChangeRegisterManager;
 
 class PayController extends \BaseController {
@@ -290,6 +291,25 @@ class PayController extends \BaseController {
         $manager->save();
 
         $message = ['success' => 'La entrada se registro correctamente'];
+
+        return Redirect::route('pay.pending')->with($message);
+    }
+
+    public function payOutSale()
+    {
+        return View::make('pay.create_out_sale');
+    }
+
+    public function payOutSaleStore()
+    {
+        $data = Input::all();
+        $data['user_id'] = Auth::user()->id;
+
+        $pay = $this->payRepo->newPay();
+        $manager = new PayRegisterOutSaleManager($pay, $data);
+        $manager->save();
+
+        $message = ['success' => 'La salida se registro correctamente'];
 
         return Redirect::route('pay.pending')->with($message);
     }

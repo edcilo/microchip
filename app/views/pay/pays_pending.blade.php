@@ -12,6 +12,8 @@
 
         @include('pay.partials.btn_create_out')
 
+        @include('pay.partials.btn_create_out_sale')
+
         @include('pay.partials.btn_create_in')
 
     </div>

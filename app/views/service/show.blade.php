@@ -76,26 +76,29 @@
         </div>
     @endif
 
-    <div class="col col100">
-        <div class="flo col100">
+    <div class="block description-product">
 
-            <div class="block description-product">
-                <p class="subtitle">
-                    <strong>Cotizado</strong>
-                </p>
-
-                @if( p(95) )
-                    <div class="subtitle">
-                        {{ Form::open(['route'=>['pas.order.store', $sale->id], 'method'=>'post', 'class'=>'form validate']) }}
-                        @include('movement.partials.form_create_sale')
-                    </div>
-                @endif
-
-                @include('service.partials.list_products')
-            </div>
-
+        <div class="subtitle">
+            Cargos y abonos
         </div>
 
+        @include('service.partials.list_pays')
+
+    </div>
+
+    <div class="block description-product">
+        <p class="subtitle">
+            <strong>Cotizado</strong>
+        </p>
+
+        @if( p(95) )
+            <div class="subtitle">
+                {{ Form::open(['route'=>['pas.order.store', $sale->id], 'method'=>'post', 'class'=>'form validate']) }}
+                @include('movement.partials.form_create_sale')
+            </div>
+        @endif
+
+        @include('service.partials.list_products')
     </div>
 
     @if( p(91) )

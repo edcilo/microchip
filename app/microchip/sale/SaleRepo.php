@@ -14,6 +14,11 @@ class SaleRepo extends BaseRepo {
         return $sale = new Sale();
     }
 
+    public function getDocument($classification, $folio)
+    {
+        return Sale::where('classification', $classification)->where('folio', $folio)->first();
+    }
+
     public function getByUser($user_id, $paginate = true)
     {
         $q = Sale::where('user_id', $user_id)

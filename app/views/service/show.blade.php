@@ -82,7 +82,7 @@
             Cargos y abonos
         </div>
 
-        @include('service.partials.list_pays')
+        @include('sale.partials.list_pays')
 
     </div>
 

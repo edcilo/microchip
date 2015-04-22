@@ -81,12 +81,12 @@ class PayController extends \BaseController {
 		$sale = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
-        $rest = $sale->getRestTotalAttribute();
+        $rest = $sale->getUserRestTotalAttribute();
 
         if($rest > 0)
         {
             $data            = Input::all();
-            $data['change']  = ($data['amount'] > $sale->getRestTotalAttribute()) ? $data['amount'] - $sale->getRestTotalAttribute() : 0;
+            $data['change']  = ($data['amount'] > $rest) ? $data['amount'] - $rest : 0;
             $data['total']   = $rest;
             $data['sale_id'] = $sale_id;
             $data['user_id'] = Auth::user()->id;
@@ -116,6 +116,8 @@ class PayController extends \BaseController {
 
         if($sale->status == 'Pagado')
         {
+            $this->addPoints($sale);
+
             return Redirect::route('pay.pending')->with($message);
         }
 
@@ -153,7 +155,7 @@ class PayController extends \BaseController {
 
         $data = Input::all();
         $data['user_id'] = Auth::user()->id;
-        $data['change']  = ($data['amount'] > ($pay->sale->getRestTotalAttribute() + $pay->amount)) ? $data['amount'] - $pay->sale->getRestTotalAttribute() : 0;
+        $data['change']  = ($data['amount'] > ($pay->sale->getUserRestTotalAttribute() + $pay->amount)) ? $data['amount'] - $pay->sale->getUserRestTotalAttribute() : 0;
 
         $manager = new PayUpdManager($pay, $data);
         $manager->save();
@@ -204,7 +206,7 @@ class PayController extends \BaseController {
     {
         if($pay->sale)
         {
-            if($pay->sale->getRestTotalAttribute() > 0)
+            if($pay->sale->getUserRestTotalAttribute() > 0)
             {
                 $pay->sale->status = 'Emitido';
             }
@@ -222,10 +224,12 @@ class PayController extends \BaseController {
         $sale = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
-        if($sale->getRestTotalAttribute() == 0)
+        if($sale->getUserRestTotalAttribute() == 0)
         {
             $sale->status = 'Pagado';
             $sale->save();
+
+            $this->addPoints($sale);
         }
 
         $message = ['success' => "El documento $sale->folio se marco como pagado."];
@@ -355,6 +359,12 @@ class PayController extends \BaseController {
         $manager->save();
 
         return Redirect::route('pay.index');
+    }
+
+    public function addPoints($sale)
+    {
+        $sale->user->profile->current += $sale->getTotalAttribute();
+        $sale->push();
     }
 
 }

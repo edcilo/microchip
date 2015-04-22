@@ -4,7 +4,7 @@
         <th>Monto</th>
         <th>Método</th>
         <th>Descripción</th>
-        <th>Empleado que dio</th>
+        <th>Empleado que registro el movimiento</th>
         <th>Empleado que recibio</th>
     </tr>
     </thead>
@@ -14,8 +14,12 @@
             <td>{{ $pay->amount }}</td>
             <td>{{ $pay->method }}</td>
             <td>{{ $pay->description }}</td>
-            <td>{{ $pay->user_receiving }}</td>
             <td>{{ $pay->user->profile->full_name }}</td>
+            <td>
+                @if( is_object($pay->user_receiving) )
+                    {{ $pay->user_receiving->profile->full_name }}
+                @endif
+            </td>
         </tr>
     @endforeach
     </tbody>

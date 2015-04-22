@@ -21,10 +21,10 @@
                 <td>{{ $sale->customer->name }}</td>
                 <td class="text-center">{{ $sale->created_at }}</td>
                 <td class="text-right">$ {{ $sale->total_f }}</td>
-                <td class="text-right">$ {{ $sale->pay_total_f }}</td>
-                <td class="text-right">$ {{ $sale->rest_total_f }}</td>
+                <td class="text-right">$ {{ $sale->user_total_pay_f }}</td>
+                <td class="text-right">$ {{ $sale->user_rest_total_f }}</td>
                 <td class="text-center">
-                    @if( $sale->getRestTotalAttribute() )
+                    @if( $sale->getUserRestTotalAttribute() != 0 )
 
                         @include('pay.partials.btn_pay')
 

@@ -13,12 +13,12 @@
 
     <div class="row">
         <strong class="label50">Abono:</strong>
-        $ {{ $sale->pay_total_f }}
+        $ {{ $sale->user_total_pay_f }}
     </div>
 
     <div class="row">
         <strong class="label50">Saldo:</strong>
-        $ {{ $sale->rest_total_f }}
+        $ {{ $sale->user_rest_total_f }}
     </div>
 
     @if( $sale->classification != 'Venta' AND $sale->getPaymentTotalAttribute() == 0 )

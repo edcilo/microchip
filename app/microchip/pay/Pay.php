@@ -43,7 +43,7 @@ class Pay extends BaseEntity {
 
     public function userReceiving()
     {
-        return $this->belongsTo('microchip\user\User', 'user_receiving_id');
+        return $this->belongsTo('microchip\user\User', 'user_receiving_id', 'id');
     }
 
 }

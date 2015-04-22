@@ -267,7 +267,7 @@ class UserController extends \BaseController {
 		$user = $this->userRepo->find($id);
 		$this->notFoundUnless($user);
 
-		$user->profile->commission = 0;
+        $user->profile->current = 0;
 		$user->profile->save();
 
 		if ( Request::ajax() ) return Response::json($user);

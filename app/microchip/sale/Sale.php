@@ -93,6 +93,18 @@ class Sale extends BaseEntity {
         return number_format($total, 2, '.', $f);
     }
 
+    public function getUserTotalPayAttribute($f = '')
+    {
+        $total = 0;
+
+        foreach($this->payments as $pay)
+        {
+            if($pay->amount > 0) $total += $pay->amount - $pay->change;
+        }
+
+        return number_format($total, 2, '.', $f);
+    }
+
     public function getRestTotalAttribute($f = '')
     {
         if( $this->classification == 'Venta' )
@@ -103,6 +115,20 @@ class Sale extends BaseEntity {
             $total = $this->getTotalOrder();
 
         $total -= $this->getPaymentTotalAttribute();
+
+        return number_format($total, 2, '.', $f);
+    }
+
+    public function getUserRestTotalAttribute($f = '')
+    {
+        if( $this->classification == 'Venta' )
+            $total = $this->getTotalAttribute();
+        elseif( $this->classification == 'Servicio' )
+            $total = $this->getTotalPrice();
+        else
+            $total = $this->getTotalOrder();
+
+        $total -= $this->getUserTotalPayAttribute();
 
         return number_format($total, 2, '.', $f);
     }
@@ -147,9 +173,19 @@ class Sale extends BaseEntity {
         return $this->getRestTotalAttribute(',');
     }
 
+    public function getUserRestTotalFAttribute()
+    {
+        return $this->getUserRestTotalAttribute(',');
+    }
+
     public function getPayTotalFAttribute()
     {
         return $this->getPaymentTotalAttribute(',');
+    }
+
+    public function getUserTotalPayFAttribute()
+    {
+        return $this->getUserTotalPayAttribute(',');
     }
 
     public function getAdvanceFAttribute()

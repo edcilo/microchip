@@ -1,4 +1,4 @@
-@if( $sale->status == 'Emitido' )
+@if( $sale->status == 'Emitido' AND $sale->user_rest_total != 0)
 
     <div class="col col100 block description-product">
 
@@ -26,8 +26,8 @@
                 <td>{{ $sale->customer->name }}</td>
                 <td class="text-center">{{ $sale->created_at }}</td>
                 <td class="text-right">$ {{ $sale->total_f }}</td>
-                <td class="text-right">$ {{ $sale->pay_total_f }}</td>
-                <td class="text-right">$ {{ $sale->rest_total_f }}</td>
+                <td class="text-right">$ {{ $sale->user_total_pay_f }}</td>
+                <td class="text-right">$ {{ $sale->user_rest_total_f }}</td>
                 <td class="text-center">
                     @include('pay.partials.btn_pay')
                 </td>

@@ -11,7 +11,7 @@
     <div class="col col100 block description-product left">
 
         <div class="header">
-            <h3><strong>Pago a {{ $sale->folio }}</strong></h3>
+            <h3><strong>Pago a {{ $sale->classification }} {{ $sale->folio }}</strong></h3>
         </div>
 
         {{ Form::open(['route'=>['pay.store', $sale->id], 'method'=>'post', 'class'=>'form validate']) }}

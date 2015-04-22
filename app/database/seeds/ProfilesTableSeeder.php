@@ -50,7 +50,7 @@ class ProfilesTableSeeder extends Seeder {
 				'salary'			=> 1500,
 				'commission'		=> $faker->numberBetween(0, 10),
 				'goal'				=> $faker->numberBetween(3000, 9000),
-				'current'			=> $faker->numberBetween(0, 9000),
+				'current'			=> 0,
 				'fired'				=> '',
 				'reason'			=> '',
 				'observations'		=> $faker->text(),

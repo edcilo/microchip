@@ -59,7 +59,7 @@ class CustomersTableSeeder extends Seeder {
 				'classification'	=> $faker->randomElement(['Cliente', 'Distribuidor']),
 				'legal_concept'		=> $faker->randomElement(['Ninguno','Persona Física','Persona Moral']),
 				'card_id'			=> 'ECD4589ASD8S7D5F6C2D4S7E8R9F6D5V2F3D',
-				'points'			=> $faker->numberBetween(0, 100),
+				'points'			=> 0,
 				'expiration'		=> $faker->numberBetween(90, 730),
 				'card_active'		=> $faker->date(),
 				'slug'				=> \Str::slug($name),

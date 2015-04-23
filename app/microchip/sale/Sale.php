@@ -35,7 +35,11 @@ class Sale extends BaseEntity {
 
     public function getDifferenceIvaAttribute()
     {
-        return number_format( $this->new_price - $this->new_price / $this->getIvaRealAttribute() - ($this->getTotalAttribute() - $this->getTotalAttribute() / $this->getIvaRealAttribute()) , 2 , '.', '');
+        $total = $this->new_price - $this->new_price / $this->getIvaRealAttribute() - ($this->getTotalAttribute() - $this->getTotalAttribute() / $this->getIvaRealAttribute());
+
+        $total = ( $total < 0 ) ? 0 : $total;
+
+        return number_format($total, 2 , '.', '');
     }
 
     public function getSubtotalAttribute($f = '')

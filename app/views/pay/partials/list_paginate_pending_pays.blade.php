@@ -23,7 +23,7 @@
                 <td class="text-right">
                     <nobr>
                         $ {{ $sale->total_f }}
-                        @if( $sale->new_price )
+                        @if( $sale->new_price > 0 )
                             + $ {{ $sale->difference_iva }}
                             = $ {{ $sale->pv_di_f }}
                         @endif

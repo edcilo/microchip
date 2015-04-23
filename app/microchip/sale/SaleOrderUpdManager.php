@@ -7,7 +7,7 @@ class SaleOrderUpdManager extends BaseManager{
     public function getRules()
     {
         return [
-            'customer_id'       => 'required|not_in:1,exists:customers,id',
+            'customer_id'       => 'required|not_in:1|exists:customers,id',
             'advance'           => 'required|numeric',
             'delivery_date'     => 'required|date',
             'shipping_address'  => ''

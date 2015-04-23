@@ -394,6 +394,8 @@ class SaleController extends \BaseController {
 
         $this->undoMovements($sale, false);
 
+        $this->restPoints($sale);
+
         $sale->status = 'Cancelado';
         $sale->save();
 
@@ -429,6 +431,35 @@ class SaleController extends \BaseController {
                 $movement->save();
             }
         }
+    }
+
+    public function restPoints($sale)
+    {
+        $sale->user->profile->current -= $sale->getTotalAttribute();
+
+        $total = 0;
+        $total_r = 0;
+        foreach ($sale->movements as $movement) {
+            $points = $movement->selling_price * ($movement->product->points / 100);
+            $total += $points;
+
+            $points_r = $movement->selling_price * ($movement->product->r_points / 100);
+            $total_r += $points_r;
+        }
+
+        if ($sale->customer->card_id) {
+            $sale->customer->points -= $total;
+        }
+
+        if (
+            $sale->customer->referrer AND
+            $sale->customer->referrer->customer->card_id AND
+            $sale->customer->referrer->expiration_date != 'Vencido'
+        ) {
+            $sale->customer->referrer->customer->points -= $total_r;
+        }
+
+        $sale->push();
     }
 
 

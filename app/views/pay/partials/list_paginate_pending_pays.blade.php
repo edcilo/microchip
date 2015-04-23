@@ -20,8 +20,18 @@
                 <td>{{ $sale->folio }}</td>
                 <td>{{ $sale->customer->name }}</td>
                 <td class="text-center">{{ $sale->created_at }}</td>
-                <td class="text-right">$ {{ $sale->total_f }}</td>
-                <td class="text-right">$ {{ $sale->user_total_pay_f }}</td>
+                <td class="text-right">
+                    <nobr>
+                        $ {{ $sale->total_f }}
+                        @if( $sale->new_price )
+                            + $ {{ $sale->difference_iva }}
+                            = $ {{ $sale->pv_di_f }}
+                        @endif
+                    </nobr>
+                </td>
+                <td class="text-right">
+                    <nobr>$ {{ $sale->user_total_pay_f }}</nobr>
+                </td>
                 <td class="text-right">$ {{ $sale->user_rest_total_f }}</td>
                 <td class="text-center">
                     @if( $sale->getUserRestTotalAttribute() != 0 )

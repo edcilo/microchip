@@ -121,12 +121,13 @@ class Sale extends BaseEntity {
 
     public function getUserRestTotalAttribute($f = '')
     {
-        if( $this->classification == 'Venta' )
-            $total = $this->getTotalAttribute();
-        elseif( $this->classification == 'Servicio' )
+        if ( $this->classification == 'Venta' ) {
+            $total = $this->getTotalAttribute() + $this->getDifferenceIvaAttribute();
+        } elseif ( $this->classification == 'Servicio' ) {
             $total = $this->getTotalPrice();
-        else
+        } else {
             $total = $this->getTotalOrder();
+        }
 
         $total -= $this->getUserTotalPayAttribute();
 

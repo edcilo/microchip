@@ -375,9 +375,15 @@ class PayController extends \BaseController {
             $total_r += $points_r;
         }
 
-        $sale->customer->points += $total;
+        if ($sale->customer->card_id) {
+            $sale->customer->points += $total;
+        }
 
-        if ($sale->customer->referrer AND $sale->customer->referrer->expiration_date != 'Vencido') {
+        if (
+            $sale->customer->referrer AND
+            $sale->customer->referrer->customer->card_id AND
+            $sale->customer->referrer->expiration_date != 'Vencido'
+        ) {
             $sale->customer->referrer->customer->points += $total_r;
         }
 

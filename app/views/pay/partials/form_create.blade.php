@@ -7,7 +7,12 @@
         @elseif($sale->classification == 'Pedido')
             $ {{ $sale->total_order_f }}
         @else
-            $ {{ $sale->total_f }}
+            @if( $sale->new_price )
+                $ {{ $sale->pv_di_f }} =
+                [$ {{ $sale->total_f }} + $ {{ $sale->difference_iva }}]
+            @else
+                $ {{ $sale->total_f }}
+            @endif
         @endif
     </div>
 

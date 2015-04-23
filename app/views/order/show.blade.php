@@ -37,7 +37,17 @@
 
             @include('order.partials.form_sale')
 
+            @include('order.partials.form_cancel')
+
         </div>
+
+    </div>
+
+    <div class="block description-product">
+
+        <div class="subtitle">Productos</div>
+
+        @include('order.partials.list_products_order')
 
     </div>
 
@@ -50,14 +60,6 @@
         <?php $sale = $order ?>
 
         @include('sale.partials.list_pays')
-
-    </div>
-
-    <div class="block description-product">
-
-        <div class="subtitle">Productos</div>
-
-        @include('order.partials.list_products_order')
 
     </div>
 

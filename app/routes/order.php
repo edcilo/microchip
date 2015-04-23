@@ -49,7 +49,14 @@ Route::group(
         });
 
         // cancelar
-        Route::group(['before' => 'pr:89'], function () {});
+        Route::group(['before' => 'pr:89'], function () {
+
+            Route::post('{id}/cancel', [
+                'as'   => 'order.cancel',
+                'uses' => 'OrderController@cancel'
+            ]);
+
+        });
 
         // vender pedido
         Route::group(['before' => 'pr:88,99'], function () {
@@ -73,7 +80,7 @@ Route::group(
                 'uses' => 'OrderController@search'
             ]);
 
-            Route::get('{folio}/{id}', [
+            Route::get('{id}', [
                 'as'   => 'order.show',
                 'uses' => 'OrderController@show'
             ]);

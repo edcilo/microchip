@@ -4,6 +4,7 @@ use microchip\sale\SaleRepo;
 use microchip\sale\SaleFormat;
 use microchip\configuration\ConfigurationRepo;
 use microchip\inventoryMovement\InventoryMovementRepo;
+use microchip\orderProduct\OrderProductRepo;
 use microchip\customer\CustomerRepo;
 use microchip\company\CompanyRepo;
 
@@ -21,6 +22,7 @@ class OrderController extends \BaseController {
     protected $movementRepo;
     protected $customerRepo;
     protected $companyRepo;
+    protected $orderProductRepo;
 
     protected $formatData;
 
@@ -29,14 +31,16 @@ class OrderController extends \BaseController {
         ConfigurationRepo		$configurationRepo,
         SaleFormat				$saleFormat,
         CompanyRepo             $companyRepo,
-        InventoryMovementRepo   $inventoryMovementRepo
+        InventoryMovementRepo   $inventoryMovementRepo,
+        OrderProductRepo    $orderProductRepo
     )
     {
-        $this->saleRepo		= $saleRepo;
-        $this->configRepo	= $configurationRepo;
-        $this->formatData	= $saleFormat;
-        $this->companyRepo  = $companyRepo;
-        $this->movementRepo = $inventoryMovementRepo;
+        $this->saleRepo		    = $saleRepo;
+        $this->configRepo	    = $configurationRepo;
+        $this->formatData	    = $saleFormat;
+        $this->companyRepo      = $companyRepo;
+        $this->movementRepo     = $inventoryMovementRepo;
+        $this->orderProductRepo = $orderProductRepo;
     }
 
 	/**
@@ -97,7 +101,7 @@ class OrderController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($folio, $id)
+	public function show($id)
 	{
 		$order  = $this->saleRepo->find($id);
         $this->notFoundUnless($order);
@@ -190,6 +194,46 @@ class OrderController extends \BaseController {
         $results = $this->saleRepo->search($terms, $type);
 
         return View::make('order/search', compact('results', 'terms'));
+    }
+
+    public function cancel($id)
+    {
+        $order = $this->saleRepo->find($id);
+        $this->notFoundUnless($order);
+
+        if( $order->status == 'Pendiente' OR $order->status == 'Cancelado' )
+        {
+            $message = "No es posible cancelar esta venta.";
+
+            if( Request::ajax() )
+            {
+                return Response::json($this->msg304 + ['message' => $message, 'data' => $order]);
+            }
+
+            return Redirect::back()->with('message', $message);
+        }
+
+        foreach ($order->pas as $pa) {
+            $pa->status = 'Pendiente';
+            $pa->productOrder = 1;
+            $pa->productPrice = 0;
+            $pa->save();
+        }
+
+        foreach ($order->order_products as $product) {
+            $this->orderProductRepo->destroy($product->id);
+        }
+
+        $this->undoMovements($order, false);
+
+        $this->restPoints($order);
+
+        $order->status = 'Cancelado';
+        $order->save();
+
+        $message = 'La venta se cancelo correctamente';
+
+        return Redirect::back()->with('message', $message);
     }
 
 

@@ -55,11 +55,11 @@
                         <strong>Folio de documento:</strong> <br/>
                         <a href="
                         @if($pa->sale->classification == 'Venta')
-                            {{ route('sale.show', [$pa->sale->folio, $pa->sale->id]) }}
+                            {{ route('sale.show', [$pa->sale->id]) }}
                         @elseif($pa->sale->classification == 'Pedido')
-                            {{ route('order.show', [$pa->sale->folio, $pa->sale->id]) }}
+                            {{ route('order.show', [$pa->sale->id]) }}
                         @elseif($pa->sale->classification == 'Cotización')
-                            {{ route('price.show', [$pa->sale->folio, $pa->sale->id]) }}
+                            {{ route('price.show', [$pa->sale->id]) }}
                         @else
                             {{ route('service.show', [$pa->sale->id]) }}
                         @endif
@@ -130,7 +130,7 @@
 
     </div>
 
-    @if($pa->status != 'Surtido' AND ( p(112) OR  p(90) OR p(102) ) )
+    @if($pa->status != 'Surtido' AND $pa->sale->status != 'Cancelado' AND ( p(112) OR  p(90) OR p(102) ) )
         <div class="col col100 block description-product">
             <h3 class="header">Archivar PA</h3>
 

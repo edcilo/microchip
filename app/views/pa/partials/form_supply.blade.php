@@ -1,10 +1,6 @@
 {{ Form::open(['route'=>['order.product.store'], 'method'=>'post', 'class'=>'form validate']) }}
 {{ Form::hidden('pa_id', $pa->id) }}
 
-@if ( Session::get('message') )
-    <aside class="msg_dialog">{{ Session::get('message') }}</aside>
-@endif
-
 <div class="message-error">
     {{ $errors->first('selling_price', '<span>:message</span>') }}
 </div>

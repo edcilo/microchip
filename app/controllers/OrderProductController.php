@@ -63,7 +63,7 @@ class OrderProductController extends \BaseController {
         $pa             = $this->pendingMovementRepo->find(Input::get('pa_id'));
         $this->notFoundUnless($pa);
 
-        if($pa->status != 'Surtido')
+        if($pa->status != 'Surtido' AND $pa->sale->status != 'Cancelado')
         {
             $data           = Input::all() + ['selling_price'=>$pa->selling_price, 'pa_quantity'=>$pa->orders_rest, 'pending_movement_id'=>$pa->id, 'sale_id'=>$pa->sale_id];
 

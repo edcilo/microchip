@@ -399,67 +399,9 @@ class SaleController extends \BaseController {
         $sale->status = 'Cancelado';
         $sale->save();
 
-
         $message = 'La venta se cancelo correctamente';
 
         return Redirect::back()->with('message', $message);
-    }
-
-    public function undoMovements($sale, $delete = true)
-    {
-        foreach($sale->movements as $movement)
-        {
-            $movement_in			= $this->movementRepo->find($movement->sales[0]->pivot->movement_in);
-            $movement_in->in_stock	+= $movement->quantity;
-
-            $movement_in->save();
-
-            foreach($movement->seriesOut as $series)
-            {
-                $series->status			= 'Disponible';
-                $series->movement_out	= 0;
-                $series->save();
-            }
-
-            if( $delete )
-            {
-                $movement->delete();
-            }
-            else
-            {
-                $movement->status = 'cancel';
-                $movement->save();
-            }
-        }
-    }
-
-    public function restPoints($sale)
-    {
-        $sale->user->profile->current -= $sale->getTotalAttribute();
-
-        $total = 0;
-        $total_r = 0;
-        foreach ($sale->movements as $movement) {
-            $points = $movement->selling_price * ($movement->product->points / 100);
-            $total += $points;
-
-            $points_r = $movement->selling_price * ($movement->product->r_points / 100);
-            $total_r += $points_r;
-        }
-
-        if ($sale->customer->card_id) {
-            $sale->customer->points -= $total;
-        }
-
-        if (
-            $sale->customer->referrer AND
-            $sale->customer->referrer->customer->card_id AND
-            $sale->customer->referrer->expiration_date != 'Vencido'
-        ) {
-            $sale->customer->referrer->customer->points -= $total_r;
-        }
-
-        $sale->push();
     }
 
 

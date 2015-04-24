@@ -796,6 +796,15 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Productos ordenados|Desapartar',
             'description'   => 'Desapartar productos surtidos'
         ]);
+
+        /**
+         * Documentos cancelados
+         */
+        //114
+        Permission::create([
+            'name'          => 'Cancelaciones|Ver',
+            'description'   => 'Ver todos los documentos cancelados'
+        ]);
         /*
         Permission::create([
             'name'          => '',

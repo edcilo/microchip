@@ -11,6 +11,7 @@
             <thead>
             <tr>
                 <th>Tipo</th>
+                <th>Documento</th>
                 <th>Folio</th>
                 <th>Estado</th>
                 <th>Fecha</th>
@@ -23,6 +24,7 @@
             @foreach($sales as $sale)
                 <tr>
                     <td>{{ $sale->type }}</td>
+                    <td>{{ $sale->classification }}</td>
                     <td>{{ $sale->folio }}</td>
                     <td>{{ $sale->status }}</td>
                     <td class="text-center">{{ $sale->created_at->format('h:m a / d-m-Y') }}</td>

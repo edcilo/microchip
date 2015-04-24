@@ -404,6 +404,18 @@ class SaleController extends \BaseController {
         return Redirect::back()->with('message', $message);
     }
 
+    public function cancellations()
+    {
+        $sales = $this->saleRepo->getCancellations();
+
+        if( Request::ajax() )
+        {
+            return Response::json($this->msg200 + ['data' => $sales]);
+        }
+
+        return View::make('sale.cancellations', compact('sales'));
+    }
+
 
 
     public function search($type)

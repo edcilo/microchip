@@ -63,6 +63,14 @@
                         </a>
                     </li>
                 @endif
+                @if( p(114) )
+                    <li>
+                        <a href="{{ route('sale.cancellations') }}">
+                            <i class="fa fa-ban"></i>
+                            Cancelaciones
+                        </a>
+                    </li>
+                @endif
             </ul>
         @endif
 

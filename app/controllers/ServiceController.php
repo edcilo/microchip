@@ -36,7 +36,8 @@ class ServiceController extends \BaseController
      */
     public function index()
     {
-        if (Request::ajax()) return $this->saleRepo->getByClassification('Servicio', 'id', 'ASC', 'ajax');
+        if (Request::ajax()) return $this->saleRepo->getByClassification('Servicio', 'id', 'ASC', 'ajax', 'Cancelado');
+
         $status = (is_null(Input::get('status'))) ? '' : Input::get('status');
 
         $services = $this->saleRepo->getServiceOrder($status);

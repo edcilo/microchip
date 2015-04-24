@@ -51,9 +51,9 @@ class OrderController extends \BaseController {
 	 */
 	public function index()
 	{
-        if ( Request::ajax() ) return $this->saleRepo->getByClassification('Pedido', 'id', 'ASC', 'ajax');
+        if ( Request::ajax() ) return $this->saleRepo->getByClassification('Pedido', 'id', 'ASC', 'ajax', 'Cancelado');
 
-        $orders = $this->saleRepo->getByClassification('Pedido', 'id', 'DESC');
+        $orders = $this->saleRepo->getByClassification('Pedido', 'id', 'DESC', '', 'Cancelado');
 
 		return View::make('order/index', compact('orders'));
 	}

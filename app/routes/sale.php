@@ -34,21 +34,11 @@ Route::group(
 
         });
 
-        Route::group(['before' => 'pr:76'], function () {
+        Route::group(['before' => 'pr:114'], function () {
 
-            Route::get('', [
-                'as'   => 'sale.index',
-                'uses' => 'SaleController@index'
-            ]);
-
-            Route::get('search/{type}', [
-                'as'   => 'sale.search',
-                'uses' => 'SaleController@search'
-            ]);
-
-            Route::get('{id}', [
-                'as'   => 'sale.show',
-                'uses' => 'SaleController@show'
+            Route::get('cancellations', [
+                'as' => 'sale.cancellations',
+                'uses' => 'SaleController@cancellations'
             ]);
 
         });
@@ -95,6 +85,24 @@ Route::group(
 
         });
 
+        Route::group(['before' => 'pr:76'], function () {
+
+            Route::get('', [
+                'as'   => 'sale.index',
+                'uses' => 'SaleController@index'
+            ]);
+
+            Route::get('search/{type}', [
+                'as'   => 'sale.search',
+                'uses' => 'SaleController@search'
+            ]);
+
+            Route::get('{id}', [
+                'as'   => 'sale.show',
+                'uses' => 'SaleController@show'
+            ]);
+
+        });
 
 
         Route::get('print/generate/{id}', [

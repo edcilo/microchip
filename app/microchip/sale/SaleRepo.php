@@ -27,9 +27,14 @@ class SaleRepo extends BaseRepo {
         return ( $paginate ) ? $q->paginate() : $q->get();
     }
 
-    public function getByClassification($classification, $col='id', $order='asc', $request='')
+    public function getByClassification($classification, $col='id', $order='asc', $request='', $status = null)
     {
         $q = Sale::where('classification', $classification)
+            ->where(function ($q) use ($status) {
+                if ( $status ) {
+                    $q->where('status', '!=', $status);
+                }
+            })
             ->orderby($col, $order);
 
         return ( $request == 'ajax' ) ? $q->get() : $q->paginate();
@@ -70,6 +75,7 @@ class SaleRepo extends BaseRepo {
                 $query->where('service_datas.status', '!=', 'Proceso');
             })
             ->where('classification', 'Servicio')
+            ->where('sales.status', '!=', 'Cancelado')
             ->orderBy('delivery_date')
             ->orderBy('delivery_time');
 
@@ -113,6 +119,13 @@ class SaleRepo extends BaseRepo {
         }
 
         return $c;
+    }
+
+    public function getCancellations($paginate = true)
+    {
+        $q = Sale::where('status', 'Cancelado')->orderBy('updated_at', 'desc');
+
+        return ($paginate) ? $q->paginate() : $q->get();
     }
 
 }

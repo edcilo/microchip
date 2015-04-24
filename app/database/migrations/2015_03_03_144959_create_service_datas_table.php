@@ -16,7 +16,7 @@ class CreateServiceDatasTable extends Migration {
 		{
 			$table->increments('id');
 
-            $table->enum('status', ['Pendiente', 'Proceso', 'Terminado']); //, 'Autorización'
+            $table->enum('status', ['Pendiente', 'Proceso', 'Terminado', 'Cancelado']); //, 'Autorización'
 
             $table->string('equipment');
             $table->string('mark');

@@ -1,4 +1,4 @@
-@if( p(92) )
+@if( p(92) AND $sale->status != 'Cancelado' )
 
     {{ Form::open(['route'=>['comment.store', $sale->id], 'method'=>'post', 'class'=>'form validate']) }}
 

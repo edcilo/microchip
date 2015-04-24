@@ -28,7 +28,7 @@
                     <i class="fa fa-check"></i>
                 </div>
                 <div class="flo col20 text-center right">
-                    @if( p(102) )
+                    @if( p(102) AND $sale->status != 'Cancelado' )
                         <a href="{{ route('pas.show', $pa->id) }}" class="btn-green" title="Surtir producto">
                             <i class="fa fa-check"></i>
                         </a>

@@ -32,7 +32,7 @@ class OrderController extends \BaseController {
         SaleFormat				$saleFormat,
         CompanyRepo             $companyRepo,
         InventoryMovementRepo   $inventoryMovementRepo,
-        OrderProductRepo    $orderProductRepo
+        OrderProductRepo        $orderProductRepo
     )
     {
         $this->saleRepo		    = $saleRepo;
@@ -203,7 +203,7 @@ class OrderController extends \BaseController {
 
         if( $order->status == 'Pendiente' OR $order->status == 'Cancelado' )
         {
-            $message = "No es posible cancelar esta venta.";
+            $message = "No es posible cancelar este pedido.";
 
             if( Request::ajax() )
             {

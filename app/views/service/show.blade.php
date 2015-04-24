@@ -27,7 +27,7 @@
         <div class="header">
             <h1>
                 Folio: {{ $sale->folio }}
-                <small>({{ $sale->data->status }})</small>
+                <small>({{ $sale->status }})</small>
             </h1>
             @include('service.partials.btn_print')
         </div>
@@ -45,23 +45,33 @@
 
     </div>
 
-    <div class="text-right">
-        @if($sale->data->status == 'Terminado')
+    @if( $sale->status != 'Cancelado' )
+        <div class="col col100">
+            <div class="flo col50">
+                @include('service.partials.form_cancel')
+            </div>
 
-            @include('service.partials.form_restart')
+            <div class="flo col50 text-right">
 
-            @include('service.partials.form_sale')
+                @if($sale->data->status == 'Terminado')
 
-        @else
+                    @include('service.partials.form_restart')
 
-            @include('service.partials.form_finish')
+                    @include('service.partials.form_sale')
 
-        @endif
-    </div>
+                @else
+
+                    @include('service.partials.form_finish')
+
+                @endif
+
+            </div>
+        </div>
+    @endif
 
     @include('service.partials.warranty_service')
 
-    @if( p(97) )
+    @if( p(97) AND $sale->status != 'Cancelado' )
         <div class="col col100 block description-product edc-hide-show">
             <div class="subtitle">
                 Posponer fecha de entrega
@@ -77,21 +87,11 @@
     @endif
 
     <div class="block description-product">
-
-        <div class="subtitle">
-            Cargos y abonos
-        </div>
-
-        @include('sale.partials.list_pays')
-
-    </div>
-
-    <div class="block description-product">
         <p class="subtitle">
             <strong>Cotizado</strong>
         </p>
 
-        @if( p(95) )
+        @if( p(95) AND $sale->status != 'Cancelado' )
             <div class="subtitle">
                 {{ Form::open(['route'=>['pas.order.store', $sale->id], 'method'=>'post', 'class'=>'form validate']) }}
                 @include('movement.partials.form_create_sale')
@@ -99,6 +99,16 @@
         @endif
 
         @include('service.partials.list_products')
+    </div>
+
+    <div class="block description-product">
+
+        <div class="subtitle">
+            Cargos y abonos
+        </div>
+
+        @include('sale.partials.list_pays')
+
     </div>
 
     @if( p(91) )

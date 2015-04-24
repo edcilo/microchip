@@ -16,7 +16,7 @@
     <div class="flo col33 center">
 
         {{ Form::label('delivery_time', 'Hora de entrega:') }}
-        {{ Form::text('delivery_time', null, ['class'=>'', 'data-required'=>'required']) }}
+        {{ Form::text('delivery_time', null, ['class'=>'', 'data-required'=>'required']) }} hrs.
 
         <div class="message-error">
             {{ $errors->first('delivery_time', '<span>:message</span>') }}

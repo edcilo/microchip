@@ -89,6 +89,16 @@ Route::group(
 
         });
 
+        // cancelar
+        Route::group(['before' => 'pr:104'], function () {
+
+            Route::post('{id}/cancel', [
+                'as'   => 'service.cancel',
+                'uses' => 'ServiceController@cancel'
+            ]);
+
+        });
+
 
 
         Route::get('print/generate/{id}', [

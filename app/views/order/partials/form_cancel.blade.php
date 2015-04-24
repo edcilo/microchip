@@ -4,7 +4,7 @@
 
     <button type="submit" class="btn-red">
         <i class="fa fa-ban"></i>
-        Cancelar venta
+        Cancelar pedido
     </button>
 
     {{ Form::close() }}

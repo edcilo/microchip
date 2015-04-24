@@ -3,6 +3,7 @@
 use microchip\sale\SaleRepo;
 use microchip\configuration\ConfigurationRepo;
 use microchip\company\CompanyRepo;
+use microchip\orderProduct\OrderProductRepo;
 
 use microchip\sale\SaleServiceUpdManager;
 
@@ -12,16 +13,19 @@ class ServiceController extends \BaseController
     protected $saleRepo;
     protected $configRepo;
     protected $companyRepo;
+    protected $orderProductRepo;
 
     public function __construct(
-        SaleRepo $saleRepo,
-        ConfigurationRepo $configurationRepo,
-        CompanyRepo $companyRepo
+        SaleRepo            $saleRepo,
+        ConfigurationRepo   $configurationRepo,
+        CompanyRepo         $companyRepo,
+        OrderProductRepo    $orderProductRepo
     )
     {
-        $this->saleRepo = $saleRepo;
-        $this->configRepo = $configurationRepo;
-        $this->companyRepo = $companyRepo;
+        $this->saleRepo         = $saleRepo;
+        $this->configRepo       = $configurationRepo;
+        $this->companyRepo      = $companyRepo;
+        $this->orderProductRepo = $orderProductRepo;
     }
 
     /**
@@ -198,6 +202,43 @@ class ServiceController extends \BaseController
         $service->data->save();
 
         return Redirect::back()->with('message', 'El servicio se ha marcado como pendiente.');
+    }
+
+    public function cancel($id)
+    {
+        $service = $this->saleRepo->find($id);
+        $this->notFoundUnless($service);
+
+        if( $service->status == 'Pendiente' OR $service->status == 'Cancelado' )
+        {
+            $message = "No es posible cancelar este servicio.";
+
+            if( Request::ajax() )
+            {
+                return Response::json($this->msg304 + ['message' => $message, 'data' => $service]);
+            }
+
+            return Redirect::back()->with('message', $message);
+        }
+
+        foreach ($service->pas as $pa) {
+            $pa->status = 'Pendiente';
+            $pa->save();
+        }
+
+        foreach ($service->order_products as $product) {
+            $this->orderProductRepo->destroy($product->id);
+        }
+
+        $this->undoMovements($service, false);
+
+        $service->status = 'Cancelado';
+        $service->data->status = 'Cancelado';
+        $service->push();
+
+        $message = 'El servicio se cancelo correctamente';
+
+        return Redirect::back()->with('message', $message);
     }
 
 }

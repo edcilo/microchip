@@ -18,6 +18,8 @@ class CreateConfigurationsTable extends Migration {
 
 			$table->decimal('iva', 4, 2);
 			$table->decimal('dollar');
+            $table->unsignedInteger('coupon_effective_days');
+            $table->text('coupon_terms_use');
 
 			$table->timestamps();
 		});

@@ -11,8 +11,9 @@ class ConfigurationsTableSeeder extends Seeder {
 		$faker = Faker::create();
 
 		Configuration::create([
-			'iva'		=> '16',
-			'dollar'	=> '14.83'
+			'iva'		        => '16',
+			'dollar'	        => '14.83',
+            'coupon_terms_use'  => ''
 		]);
 	}
 

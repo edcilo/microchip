@@ -26,6 +26,7 @@ class CreateSalesTable extends Migration {
 			$table->enum('status', ['Pendiente', 'Emitido', 'Pagado', 'Cancelado']);
 			$table->text('description');
 			$table->decimal('new_price', 10, 2)->default(0);
+            $table->boolean('repayment')->default(0);
 
             $table->decimal('advance');             // anticipo
             $table->date('delivery_date');          // fecha de entrega

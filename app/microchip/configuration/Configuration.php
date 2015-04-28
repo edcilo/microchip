@@ -6,7 +6,9 @@ class Configuration extends BaseEntity {
 
 	protected $fillable = [
 		'iva',
-		'dollar'
+		'dollar',
+        'coupon_effective_days',
+        'coupon_terms_use',
 	];
 
 }

@@ -7,7 +7,7 @@
         @elseif($sale->classification == 'Pedido')
             $ {{ $sale->total_order_f }}
         @else
-            @if( $sale->new_price )
+            @if( $sale->new_price > 0 )
                 $ {{ $sale->pv_di_f }} =
                 [$ {{ $sale->total_f }} + $ {{ $sale->difference_iva }}]
             @else

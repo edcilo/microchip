@@ -38,9 +38,20 @@
                 </td>
                 <td>{{ $configuration->dollar }}</td>
             </tr>
+            <tr>
+                <td>
+                    <strong>Días de vigencia del cupón</strong>
+                </td>
+                <td>{{ $configuration->coupon_effective_days }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Condiciones de uso para el cupón</strong>
+                </td>
+                <td>{{ $configuration->coupon_terms_use }}</td>
+            </tr>
             </tbody>
         </table>
-
     </div>
 
 @stop

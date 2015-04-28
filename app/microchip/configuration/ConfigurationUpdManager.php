@@ -7,8 +7,10 @@ class ConfigurationUpdManager extends BaseManager {
     public function getRules()
     {
         return [
-            'iva'       => 'required|numeric',
-            'dollar'    => 'required|numeric',
+            'iva'                   => 'required|numeric',
+            'dollar'                => 'required|numeric',
+            'coupon_effective_days' => 'required|integer',
+            'coupon_terms_use'      => 'max:255'
         ];
     }
 

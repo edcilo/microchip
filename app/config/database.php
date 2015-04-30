@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'microchipv2',
-			'username'  => 'microchipv2',
-			'password'  => 'microchipV2',
+			'database'  => 'microchip',
+			'username'  => 'microchip',
+			'password'  => 'microchip',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

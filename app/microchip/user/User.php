@@ -83,6 +83,11 @@ class User extends BaseEntity implements UserInterface, RemindableInterface {
 		return $this->hasMany('microchip\sale\Sale');
 	}
 
+    public function coupons()
+    {
+        return $this->hasMany('microchip\coupon\Coupon');
+    }
+
 
 
 	public function department()

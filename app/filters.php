@@ -103,11 +103,11 @@ function p($id)
     return in_array($id, ps());
 }
 
-Route::filter('pr', function ($route, $request, ...$ids)
+Route::filter('pr', function ($route, $request)
 {
     $flag = 0;
 
-    foreach($ids as $id)
+    foreach(func_get_args() as $id)
     {
         if( p($id) ) $flag++;
     }

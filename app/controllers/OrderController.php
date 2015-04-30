@@ -228,6 +228,10 @@ class OrderController extends \BaseController {
 
         $this->restPoints($order);
 
+        if ($order->user_total_pay == 0) {
+            $order->repayment = 1;
+        }
+
         $order->status = 'Cancelado';
         $order->save();
 

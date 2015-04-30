@@ -20,6 +20,9 @@
         height: auto;
         width: 180px;
     }
+    .text-left{
+        text-align: left;
+    }
     .text-center{
         text-align: center;
     }
@@ -34,6 +37,12 @@
     }
     .border{
         border: 1px solid #000;
+    }
+    .line_sign{
+        background: #000000;
+        height: 1px;
+        margin: 0 auto;
+        width: 30%;
     }
     #footer{
         bottom: -20px;

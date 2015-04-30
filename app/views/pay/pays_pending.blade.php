@@ -18,13 +18,23 @@
 
     </div>
 
-    <div class="col col100 block description-product left">
+    <div class="col col100 block description-product">
 
         <div class="header">
             <strong>Ventas</strong>
         </div>
 
         @include('pay.partials.list_paginate_pending_pays')
+    </div>
+
+    <div class="col col100 block description-product">
+
+        <div class="header">
+            <strong>Cancelaciones</strong>
+        </div>
+
+        @include('pay.partials.list_paginate_cancellations')
+
     </div>
 
     <div class="col col100 block description-product">

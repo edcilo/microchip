@@ -396,6 +396,10 @@ class SaleController extends \BaseController {
 
         $this->restPoints($sale);
 
+        if ($sale->user_total_pay == 0) {
+            $sale->repayment = 1;
+        }
+
         $sale->status = 'Cancelado';
         $sale->save();
 

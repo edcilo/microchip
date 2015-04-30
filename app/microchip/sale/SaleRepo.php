@@ -128,4 +128,12 @@ class SaleRepo extends BaseRepo {
         return ($paginate) ? $q->paginate() : $q->get();
     }
 
+    public function getPendingCancellations($paginate = true)
+    {
+        $q = Sale::where('status', 'Cancelado')->orderBy('updated_at', 'desc')
+            ->where('repayment', 0);
+
+        return ($paginate) ? $q->paginate() : $q->get();
+    }
+
 }

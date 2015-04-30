@@ -15,6 +15,7 @@ class CreateCouponsTable extends Migration {
 		Schema::create('coupons', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->boolean('available')->default(1);
             $table->string('folio', 100);
             $table->float('value');
             $table->unsignedInteger('effective_days');

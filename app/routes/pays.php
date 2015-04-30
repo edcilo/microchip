@@ -96,6 +96,22 @@ Route::group(
         });
 
 
+        Route::get('repayment/{id}', [
+            'as'   => 'pay.repayment',
+            'uses'  => 'PayController@repayment'
+        ]);
+
+        Route::post('repayment/{id}/{method}', [
+            'as'   => 'pay.repayment.store',
+            'uses' => 'PayController@repaymentStore'
+        ]);
+
+        Route::get('repayment/{id}/document', [
+            'as'   => 'pay.repayment.print',
+            'uses' => 'PayController@printDocument'
+        ]);
+
+
         Route::group(['before' => 'pr:73'], function () {
 
             Route::get('{id}/edit', [

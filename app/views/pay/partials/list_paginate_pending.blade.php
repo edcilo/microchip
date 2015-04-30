@@ -26,3 +26,5 @@
     @endforeach
     </tbody>
 </table>
+
+{{ $pending->links() }}

@@ -62,6 +62,11 @@ class Customer extends BaseEntity {
 		return $this->hasMany('microchip\sale\Sale');
 	}
 
+    public function coupons()
+    {
+        return $this->hasMany('microchip\coupon\Coupon');
+    }
+
 
 
 

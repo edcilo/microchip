@@ -2,6 +2,9 @@
 
 use microchip\pay\PayRepo;
 use microchip\sale\SaleRepo;
+use microchip\company\CompanyRepo;
+//use microchip\coupon\CouponRepo;
+use microchip\configuration\ConfigurationRepo;
 
 use microchip\pay\PayRegManager;
 use microchip\pay\PayUpdManager;
@@ -12,18 +15,29 @@ use microchip\pay\PayUpdOutManager;
 use microchip\pay\PayRegisterOutSaleManager;
 use microchip\pay\PayChangeRegisterManager;
 
+use microchip\helpers\NumberToLetter;
+
 class PayController extends \BaseController {
 
     protected $payRepo;
     protected $saleRepo;
+    protected $companyRepo;
+    protected $couponRepo;
+    protected $configRepo;
 
     public function __construct(
-        PayRepo     $payRepo,
-        SaleRepo    $saleRepo
+        PayRepo             $payRepo,
+        SaleRepo            $saleRepo,
+        CompanyRepo         $companyRepo,
+        //CouponRepo          $couponRepo,
+        ConfigurationRepo   $configurationRepo
     )
     {
-        $this->payRepo  = $payRepo;
-        $this->saleRepo = $saleRepo;
+        $this->payRepo      = $payRepo;
+        $this->saleRepo     = $saleRepo;
+        $this->companyRepo  = $companyRepo;
+        //$this->couponRepo   = $couponRepo;
+        $this->configRepo   = $configurationRepo;
     }
 
 	/**
@@ -47,13 +61,14 @@ class PayController extends \BaseController {
         $sales = $this->saleRepo->getByClassificationStatus('Venta', 'Emitido');
         $orders = $this->saleRepo->getByClassificationStatus('Pedido', 'Emitido');
         $services = $this->saleRepo->getByClassificationStatus('Servicio', 'Emitido');
+        $cancellations = $this->saleRepo->getPendingCancellations(false);
 
         if(Request::ajax())
         {
             return Response::json($sales);
         }
 
-        return View::make('pay/pays_pending', compact('sales', 'orders', 'services'));
+        return View::make('pay/pays_pending', compact('sales', 'orders', 'services', 'cancellations'));
     }
 
 	/**
@@ -388,6 +403,77 @@ class PayController extends \BaseController {
         }
 
         $sale->push();
+    }
+
+    public function repayment($id)
+    {
+        $sale = $this->saleRepo->find($id);
+        $this->notFoundUnless($sale);
+
+        return View::make('pay.repayment', compact('sale'));
+    }
+
+    public function repaymentStore($id, $method)
+    {
+        $sale = $this->saleRepo->find($id);
+        $this->notFoundUnless($sale);
+
+        $success = false;
+        $coupon_id = 0;
+        $message = "No se pudo registrar la devolución.";
+
+        if ($method == 'repayment') {
+            $pay = $this->payRepo->newPay();
+            $pay->amount    = -1 * $sale->user_total_pay;
+            $pay->method    = 'Efectivo';
+            $pay->sale_id   = $sale->id;
+            $pay->user_id   = Auth::user()->id;
+            $pay->date      = date('Y-m-d');
+            $pay->save();
+
+            $success = true;
+            $message = "Se registro correctamente la devolución en efectivo por la cantidad de $ $sale->user_total_pay_f.";
+        } elseif ($method == 'card') {
+            $sale->customer->points += $sale->user_total_pay;
+
+            $success = true;
+            $message = "El rembolso de $ $sale->user_total_pay_f se agrego al monedero del cliente correctamente.";
+        } elseif ($method == 'coupon') {
+            $config = $this->configRepo->find(1);
+
+            $coupon = $this->couponRepo->newCoupon();
+            $coupon->value          = $sale->user_total_pay;
+            $coupon->effective_days = $config->coupon_effective_days;
+            $coupon->customer_id    = $sale->customer->id;
+            $coupon->user_id        = Auth::user()->id;
+            $coupon->save();
+
+            $success = true;
+            $message = "El vale por $ $sale->user_total_pay_f se registro correctamente.";
+            $coupon_id = $coupon->id;
+        }
+
+        if ($success) {
+            $sale->repayment = 1;
+            $sale->push();
+        }
+
+        return Redirect::back()->with(['message' => $message, 'coupon_id' => $coupon_id]);
+    }
+
+    public function printDocument($id)
+    {
+        $sale = $this->saleRepo->find($id);
+        $this->notFoundUnless($sale);
+
+        $company	= $this->companyRepo->find(1);
+
+        $no2letter          = new NumberToLetter();
+        $sale->total_text   = strtoupper( $no2letter->ValorEnLetras($sale->user_total_pay, 'pesos') );
+        $concept            = 'Cancelación de '. $sale->classification .' con folio ' . $sale->folio;
+
+        $pdf = PDF::loadView('pay/layout_print', compact('sale', 'concept', 'company'))->setPaper('letter');
+        return $pdf->stream();
     }
 
 }

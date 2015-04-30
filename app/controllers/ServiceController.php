@@ -233,6 +233,10 @@ class ServiceController extends \BaseController
 
         $this->undoMovements($service, false);
 
+        if ($service->user_total_pay == 0) {
+            $service->repayment = 1;
+        }
+
         $service->status = 'Cancelado';
         $service->data->status = 'Cancelado';
         $service->push();

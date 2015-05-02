@@ -3,7 +3,7 @@
 use microchip\pay\PayRepo;
 use microchip\sale\SaleRepo;
 use microchip\company\CompanyRepo;
-//use microchip\coupon\CouponRepo;
+use microchip\coupon\CouponRepo;
 use microchip\configuration\ConfigurationRepo;
 
 use microchip\pay\PayRegManager;
@@ -29,14 +29,14 @@ class PayController extends \BaseController {
         PayRepo             $payRepo,
         SaleRepo            $saleRepo,
         CompanyRepo         $companyRepo,
-        //CouponRepo          $couponRepo,
+        CouponRepo          $couponRepo,
         ConfigurationRepo   $configurationRepo
     )
     {
         $this->payRepo      = $payRepo;
         $this->saleRepo     = $saleRepo;
         $this->companyRepo  = $companyRepo;
-        //$this->couponRepo   = $couponRepo;
+        $this->couponRepo   = $couponRepo;
         $this->configRepo   = $configurationRepo;
     }
 
@@ -445,7 +445,11 @@ class PayController extends \BaseController {
             $coupon->value          = $sale->user_total_pay;
             $coupon->effective_days = $config->coupon_effective_days;
             $coupon->customer_id    = $sale->customer->id;
+            $coupon->sale_id        = $sale->id;
             $coupon->user_id        = Auth::user()->id;
+            $coupon->save();
+
+            $coupon->folio          = str_pad($coupon->id, 8, '0', STR_PAD_LEFT);
             $coupon->save();
 
             $success = true;

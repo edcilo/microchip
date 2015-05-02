@@ -20,10 +20,12 @@ class CreateCouponsTable extends Migration {
             $table->float('value');
             $table->unsignedInteger('effective_days');
             $table->unsignedInteger('customer_id');
+            $table->unsignedInteger('sale_id');
             $table->unsignedInteger('user_id');
 			$table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}

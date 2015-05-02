@@ -202,6 +202,11 @@ Route::group(['before' => 'auth'], function ()
     require( __DIR__ .'/routes/pays.php' );
 
     /*
+     * Rutas relacionadas con la administracion de los vales
+     */
+    require( __DIR__ . '/routes/coupon.php' );
+
+    /*
      * Rutas relacionadas con la administracion de garantías
      */
     require( __DIR__ . '/routes/warranty.php' );

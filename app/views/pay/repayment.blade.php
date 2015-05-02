@@ -93,8 +93,8 @@
             </div>
 
             <div class="flo col50 right text-right">
-                @if(Session::get('coupon_id') AND Session::get('coupon_id') != 0)
-                    <a href="{{ route('coupon.print', [Session::get('coupon_id')]) }}" class="btn-blue" target="_blank">
+                @if($sale->coupon)
+                    <a href="{{ route('coupon.print', [$sale->coupon->id]) }}" class="btn-blue" target="_blank">
                         <i class="fa fa-print"></i>
                         <i class="fa fa-ticket"></i>
                         Imprimir vale

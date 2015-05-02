@@ -253,6 +253,11 @@ class Sale extends BaseEntity {
         return $this->hasOne('microchip\serviceData\ServiceData');
     }
 
+    public function coupon()
+    {
+        return $this->hasOne('microchip\coupon\Coupon');
+    }
+
 
 
     public function pas()

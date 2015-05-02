@@ -6,29 +6,30 @@
  */
 Route::group(
     [
-        'prefix' => 'serviceData/'
+        'prefix' => 'serviceData/',
+        'before' => 'pr:94,95,96'
     ],
     function ()
     {
 
         Route::post('{sale_id}', [
             'as'   => 'service.data.store',
-            'uses' => 'serviceDataController@store'
+            'uses' => 'ServiceDataController@store'
         ]);
 
         Route::get('{slug}/{id}/edit', [
             'as'   => 'service.data.edit',
-            'uses' => 'serviceDataController@edit'
+            'uses' => 'ServiceDataController@edit'
         ]);
 
         Route::put('{id}', [
             'as'   => 'service.data.update',
-            'uses' => 'serviceDataController@update'
+            'uses' => 'ServiceDataController@update'
         ]);
 
         Route::delete('{id}', [
             'as'   => 'service.data.destroy',
-            'uses' => 'serviceDataController@destroy'
+            'uses' => 'ServiceDataController@destroy'
         ]);
 
     }

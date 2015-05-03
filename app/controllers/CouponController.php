@@ -30,7 +30,11 @@ class CouponController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        if ( Request::ajax() ) return $this->couponRepo->getAll('all', 'folio', 'DESC');
+
+        $coupons = $this->couponRepo->getAll('paginate', 'folio', 'DESC');
+
+        return View::make('coupon/index', compact('coupons'));
 	}
 
 	/**

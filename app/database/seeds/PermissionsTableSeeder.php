@@ -805,6 +805,21 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Cancelaciones|Ver',
             'description'   => 'Ver todos los documentos cancelados'
         ]);
+
+        /**
+         * Vales
+         */
+        //115
+        Permission::create([
+            'name'          => 'Vales|Ver',
+            'description'   => 'Ver todos los vales'
+        ]);
+
+        //116
+        Permission::create([
+            'name'          => 'Vales|Eliminar',
+            'description'   => 'Eliminar vales registrados'
+        ]);
         /*
         Permission::create([
             'name'          => '',

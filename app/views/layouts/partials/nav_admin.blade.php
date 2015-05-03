@@ -63,6 +63,14 @@
                         </a>
                     </li>
                 @endif
+                @if( p(115) )
+                    <li>
+                        <a href="{{ route('coupon.index') }}">
+                            <i class="fa fa-ticket"></i>
+                            Vales
+                        </a>
+                    </li>
+                @endif
                 @if( p(114) )
                     <li>
                         <a href="{{ route('sale.cancellations') }}">
@@ -261,12 +269,12 @@
             </li>
             <ul>
                 @if( p(3) )
-                <li>
-                    <a href="{{ route('company.show', 1) }}">
-                        <i class="fa fa-bank"></i>
-                        Datos de la empresa
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('company.show', 1) }}">
+                            <i class="fa fa-bank"></i>
+                            Datos de la empresa
+                        </a>
+                    </li>
                 @endif
                 @if( p(1) )
                     <li>

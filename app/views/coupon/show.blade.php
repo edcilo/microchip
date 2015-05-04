@@ -42,6 +42,14 @@
                         $ {{ $coupon->value_f }}
                     </li>
                     <li>
+                        <strong>Pendiente:</strong>
+                        @if( $coupon->available )
+                            <i class="fa fa-check"></i>
+                        @else
+                            <i class="fa fa-times" title="Pagado"></i>
+                        @endif
+                    </li>
+                    <li>
                         <strong>Fecha de vencimiento:</strong>
                         @if($coupon->last_date)
                             {{ $coupon->last_date }}

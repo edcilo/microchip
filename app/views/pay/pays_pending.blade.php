@@ -27,15 +27,17 @@
         @include('pay.partials.list_paginate_pending_pays')
     </div>
 
-    <div class="col col100 block description-product">
+    @if(count($cancellations))
+        <div class="col col100 block description-product">
 
-        <div class="header">
-            <strong>Cancelaciones</strong>
+            <div class="header">
+                <strong>Cancelaciones</strong>
+            </div>
+
+            @include('pay.partials.list_paginate_cancellations')
+
         </div>
-
-        @include('pay.partials.list_paginate_cancellations')
-
-    </div>
+    @endif
 
     <div class="col col100 block description-product">
         <div class="header">

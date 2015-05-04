@@ -21,7 +21,7 @@
 
         <div class="row flo col20 center">
             {{ Form::label('delivery_date', 'Fecha de entrega: ') }} <br/>
-            {{ Form::text('delivery_date', null, ['class'=>'', 'data-required'=>'required', 'data-date'=>'date', 'title'=>'Este campo es obligatorio y debe ser una fecha.']) }}
+            {{ Form::input('date', 'delivery_date', null, ['class'=>'', 'data-required'=>'required', 'data-date'=>'date', 'title'=>'Este campo es obligatorio y debe ser una fecha.']) }}
             <div class="message-error">
                 {{ $errors->first('delivery_date', '<span>:message</span>') }}
             </div>

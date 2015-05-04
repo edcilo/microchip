@@ -104,7 +104,19 @@ class CouponController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+        $coupon = $this->couponRepo->find($id);
+        $this->notFoundUnless($coupon);
+
+        $this->couponRepo->destroy($id);
+
+        if ( Request::ajax() )
+        {
+            $response = $this->msg200 + [ 'data' => $coupon ];
+
+            return Response::json($response);
+        }
+
+        return Redirect::route('coupon.index');
 	}
 
     public function generatePrint($id)

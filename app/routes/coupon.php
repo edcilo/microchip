@@ -18,4 +18,13 @@ Route::group(
             'uses'  => 'CouponController@generatePrint'
         ]);
 
+        Route::group(['before' => 'pr:116'], function () {
+
+            Route::delete('{id}', [
+                'as'   => 'coupon.destroy',
+                'uses' => 'CouponController@destroy'
+            ]);
+
+        });
+
 });

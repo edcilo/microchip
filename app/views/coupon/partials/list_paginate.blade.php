@@ -47,7 +47,8 @@
             </td>
             <td>
                 @include('coupon.partials.btn_print')
-                [<i class="fa fa-times"></i>]
+                
+                @include('coupon.partials.btn_destroy')
             </td>
         </tr>
     @endforeach

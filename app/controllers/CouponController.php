@@ -66,9 +66,14 @@ class CouponController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($folio, $id)
 	{
-		//
+        $coupon = $this->couponRepo->find($id);
+        $this->notFoundUnless($coupon);
+
+        if ( Request::ajax() ) return Response::json($coupon);
+
+        return View::make('coupon.show', compact('coupon'));
 	}
 
 	/**

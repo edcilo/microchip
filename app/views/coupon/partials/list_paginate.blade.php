@@ -52,6 +52,8 @@
                 </a>
             </td>
             <td>
+                @include('coupon.partials.btn_show')
+
                 @include('coupon.partials.btn_print')
 
                 @include('coupon.partials.btn_destroy')

@@ -23,6 +23,11 @@ Route::group(
             'uses' => 'CouponController@search'
         ]);
 
+        Route::get('{folio}/{id}', [
+            'as'   => 'coupon.show',
+            'uses' => 'CouponController@show'
+        ]);
+
         Route::group(['before' => 'pr:116'], function () {
 
             Route::delete('{id}', [

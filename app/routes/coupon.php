@@ -18,6 +18,11 @@ Route::group(
             'uses'  => 'CouponController@generatePrint'
         ]);
 
+        Route::get('search', [
+            'as'   => 'coupon.search',
+            'uses' => 'CouponController@search'
+        ]);
+
         Route::group(['before' => 'pr:116'], function () {
 
             Route::delete('{id}', [

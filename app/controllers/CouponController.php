@@ -134,4 +134,23 @@ class CouponController extends \BaseController {
         return $pdf->stream();
     }
 
+    /**
+     * Busca elementos que coincidan con el termino recibido
+     */
+    public function search()
+    {
+        $terms = \Input::get('terms');
+
+        if ( Request::ajax() ) {
+            $results = $this->couponRepo->search($terms, 'ajax');
+
+            return Response::json($results);
+        }
+
+        $results = $this->couponRepo->search($terms);
+
+        return View::make('coupon/search', compact('results', 'terms'));
+
+    }
+
 }

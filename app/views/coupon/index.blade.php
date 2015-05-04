@@ -9,11 +9,11 @@
 @section ('content')
 
     <div class="col col100">
-        <div class="flo col50">
+        <div class="flo col60">
             <h2><i class="fa fa-ticket"></i> Vales</h2>
         </div>
 
-        <div class="flo col50 text-right">
+        <div class="flo col40 text-right">
             @include('coupon.partials.form_search')
         </div>
     </div>

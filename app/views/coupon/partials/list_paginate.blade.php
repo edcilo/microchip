@@ -1,23 +1,29 @@
 <table class="table">
     <thead>
     <tr>
-        <td>Folio</td>
-        <td>Pendiente</td>
-        <td>Valor</td>
-        <td>Fecha de vencimiento</td>
-        <td>Cliente</td>
-        <td>Tipo de documento</td>
-        <td>Folio</td>
-        <td>
+        <th>Folio</th>
+        <th>Pendiente</th>
+        <th>Valor</th>
+        <th>Fecha de vencimiento</th>
+        <th>Cliente</th>
+        <th>Tipo de documento</th>
+        <th>Folio</th>
+        <th>
             <i class="fa fa-gears"></i>
-        </td>
+        </th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
     @foreach($coupons as $coupon)
         <tr>
             <td>{{ $coupon->folio }}</td>
-            <td>{{ $coupon->available }}</td>
+            <td>
+                @if( $coupon->available )
+                    <i class="fa fa-check"></i>
+                @else
+                    <i class="fa fa-times" title="Pagado"></i>
+                @endif
+            </td>
             <td>${{ $coupon->value_f }}</td>
             <td>
                 @if( $coupon->last_date )
@@ -26,7 +32,7 @@
                     Indefinido
                 @endif
             </td>
-            <td>
+            <td class="text-left">
                 <a href="{{ route('customer.show', [$coupon->customer->slug, $coupon->customer->id]) }}">
                     {{ $coupon->customer->name }}
                 </a>
@@ -47,7 +53,7 @@
             </td>
             <td>
                 @include('coupon.partials.btn_print')
-                
+
                 @include('coupon.partials.btn_destroy')
             </td>
         </tr>

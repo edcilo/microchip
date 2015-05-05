@@ -26,4 +26,9 @@ class CustomerRepo extends BaseRepo{
         return ( $request == 'ajax' ) ? $q->take($take)->get() : $q->paginate();
     }
 
+    public function getByCard($card_id)
+    {
+        return Customer::where('card_id', $card_id)->first();
+    }
+
 }

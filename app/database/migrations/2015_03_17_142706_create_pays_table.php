@@ -21,7 +21,7 @@ class CreatePaysTable extends Migration {
             $table->boolean('pending');
             $table->string('description');
 
-            $table->enum('method', ['Efectivo', 'Tarjeta de crédito/débito', 'Cheque', 'Transferencia', 'Vale']);
+            $table->enum('method', ['Efectivo', 'Tarjeta de crédito/débito', 'Cheque', 'Transferencia', 'Vale', 'Monedero']);
 
             $table->string('reference');
             $table->string('entity');

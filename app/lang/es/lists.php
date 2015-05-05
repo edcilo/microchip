@@ -14,6 +14,7 @@ return [
         'Tarjeta de crédito/débito' => 'Tarjeta de crédito/débito',
         'Cheque'                    => 'Cheque',
         'Vale'                      => 'Vale',
+        'Monedero'                  => 'Monedero',
         'Transferencia'             => 'Transferencia',
     ],
 

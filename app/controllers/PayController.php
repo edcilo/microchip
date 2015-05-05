@@ -5,6 +5,7 @@ use microchip\sale\SaleRepo;
 use microchip\company\CompanyRepo;
 use microchip\coupon\CouponRepo;
 use microchip\configuration\ConfigurationRepo;
+use microchip\customer\CustomerRepo;
 
 use microchip\pay\PayRegManager;
 use microchip\pay\PayUpdManager;
@@ -24,13 +25,15 @@ class PayController extends \BaseController {
     protected $companyRepo;
     protected $couponRepo;
     protected $configRepo;
+    protected $customerRepo;
 
     public function __construct(
         PayRepo             $payRepo,
         SaleRepo            $saleRepo,
         CompanyRepo         $companyRepo,
         CouponRepo          $couponRepo,
-        ConfigurationRepo   $configurationRepo
+        ConfigurationRepo   $configurationRepo,
+        CustomerRepo        $customerRepo
     )
     {
         $this->payRepo      = $payRepo;
@@ -38,6 +41,7 @@ class PayController extends \BaseController {
         $this->companyRepo  = $companyRepo;
         $this->couponRepo   = $couponRepo;
         $this->configRepo   = $configurationRepo;
+        $this->customerRepo = $customerRepo;
     }
 
 	/**
@@ -100,7 +104,7 @@ class PayController extends \BaseController {
 
         if ($rest > 0) {
             $data            = Input::all();
-            if ($data['method'] != 'Vale') {
+            if ($data['method'] != 'Vale' AND $data['method'] != 'Monedero') {
                 $data['change']  = ($data['amount'] > $rest) ? $data['amount'] - $rest : 0;
                 $data['total']   = $rest;
                 $data['sale_id'] = $sale_id;
@@ -111,7 +115,7 @@ class PayController extends \BaseController {
                 $manager->save();
 
                 $amount = $pay->amount;
-            } else {
+            } elseif ($data['method'] == 'Vale') {
                 $validator = Validator::make($data, [
                     'method'    => 'required',
                     'folio'     => 'required|exists:coupons,folio',
@@ -130,6 +134,7 @@ class PayController extends \BaseController {
                 if ($coupon->lapsed) {
                     return Redirect::back()->withINput()->withErrors(['folio' => "El vale $coupon->folio ya esta vencido."]);
                 }
+
                 $pay = $this->payRepo->newPay();
                 $pay->amount = $coupon->value;
                 $pay->change = 0;
@@ -145,6 +150,41 @@ class PayController extends \BaseController {
                 $coupon->save();
 
                 $amount = $coupon->value;
+            } else {
+                $validator = Validator::make($data, [
+                    'method'    => 'required',
+                    'reference' => 'required|exists:customers,card_id',
+                ]);
+
+                if ($validator->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+
+                $customer = $this->customerRepo->getByCard($data['reference']);
+                $points = $customer->points;
+
+                if ($points <= 0) {
+                    return Redirect::back()->withINput()->withErrors(['reference' => "El monedero no tiene puntos a favor."]);
+                }
+
+                if ($customer->expiration_date == 'Vencido') {
+                    return Redirect::back()->withINput()->withErrors(['reference' => "El monedero ha expirado."]);
+                }
+
+                $amount = ($rest > $points) ? $points : $rest;
+
+                $pay = $this->payRepo->newPay();
+                $pay->amount = $amount;
+                $pay->change = 0;
+                $pay->description = 'Pago con monedero.';
+                $pay->method = 'Monedero';
+                $pay->sale_id = $sale_id;
+                $pay->user_id = Auth::user()->id;
+                $pay->date = date('Y-m-d');
+                $pay->save();
+
+                $customer->points -= $amount;
+                $customer->save();
             }
 
             if (($rest - $amount) <= 0) {

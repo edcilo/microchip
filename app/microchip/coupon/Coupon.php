@@ -58,4 +58,9 @@ class Coupon extends BaseEntity {
         return $this->belongsTo('microchip\sale\Sale');
     }
 
+    public function pay()
+    {
+        return $this->hasOne('microchip\pay\Pay');
+    }
+
 }

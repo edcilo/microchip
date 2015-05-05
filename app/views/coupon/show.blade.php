@@ -73,18 +73,18 @@
                     </li>
                     <li>
                         <strong>Folio:</strong>
-                        <a href="
-                            @if($coupon->sale->classification == 'Venta')
-                                {{ route('sale.show', $coupon->sale->id) }}
-                            @elseif($coupon->sale->classification == 'Pedido')
-                                {{ route('order.show', $coupon->sale->id) }}
-                            @else
-                                {{ route('service.show', $coupon->sale->id) }}
-                            @endif
-                                ">
-                            {{ $coupon->sale->folio }}
-                        </a>
+                        @include('coupon.partials.link_sale', ['sale' => $coupon->sale])
                     </li>
+                    @if(!$coupon->available)
+                        <li>
+                            <strong>Usado en:</strong>
+                            {{ $coupon->pay->sale->classification }}
+                        </li>
+                        <li>
+                            <strong>Folio:</strong>
+                            @include('coupon.partials.link_sale', ['sale' => $coupon->pay->sale])
+                        </li>
+                    @endif
                 </ul>
 
             </div>

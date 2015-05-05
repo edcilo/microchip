@@ -133,10 +133,11 @@ class PayController extends \BaseController {
                 $pay = $this->payRepo->newPay();
                 $pay->amount = $coupon->value;
                 $pay->change = 0;
-                $pay->description = 'Pago con vale '. $coupon->folio;
+                $pay->description = 'Pago con vale.';
                 $pay->method = 'Vale';
                 $pay->sale_id = $sale_id;
                 $pay->user_id = Auth::user()->id;
+                $pay->coupon_id = $coupon->id;
                 $pay->date = date('Y-m-d');
                 $pay->save();
 

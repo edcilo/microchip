@@ -22,7 +22,15 @@
                     <nobr>$ {{ $pay->amount - $pay->change }}</nobr>
                 </td>
                 <td>{{ $pay->method }}</td>
-                <td>{{ $pay->reference }}</td>
+                <td>
+                    @if($pay->method == 'Vale')
+                        <a href="{{ route('coupon.show', [$pay->coupon->folio, $pay->coupon->id]) }}">
+                            {{ $pay->coupon->folio }}
+                        </a>
+                    @else
+                        {{ $pay->reference }}
+                    @endif
+                </td>
                 <td>{{ $pay->entity }}</td>
                 <td>{{ $pay->description }}</td>
                 <td>

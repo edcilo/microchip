@@ -46,4 +46,9 @@ class Pay extends BaseEntity {
         return $this->belongsTo('microchip\user\User', 'user_receiving_id', 'id');
     }
 
+    public function coupon()
+    {
+        return $this->belongsTo('microchip\coupon\Coupon');
+    }
+
 }

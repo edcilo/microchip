@@ -39,17 +39,7 @@
             </td>
             <td>{{ $coupon->sale->classification }}</td>
             <td>
-                <a href="
-                    @if($coupon->sale->classification == 'Venta')
-                        {{ route('sale.show', $coupon->sale->id) }}
-                    @elseif($coupon->sale->classification == 'Pedido')
-                        {{ route('order.show', $coupon->sale->id) }}
-                    @else
-                        {{ route('service.show', $coupon->sale->id) }}
-                    @endif
-                ">
-                    {{ $coupon->sale->folio }}
-                </a>
+                @include('coupon.partials.link_sale', ['sale' => $coupon->sale])
             </td>
             <td>
                 @include('coupon.partials.btn_show')

@@ -9,4 +9,12 @@ return [
         'Pedido'        => 'Pedido',
     ],
 
+    'payment_methods' => [
+        'Efectivo'                  => 'Efectivo',
+        'Tarjeta de crédito/débito' => 'Tarjeta de crédito/débito',
+        'Cheque'                    => 'Cheque',
+        'Vale'                      => 'Vale',
+        'Transferencia'             => 'Transferencia',
+    ],
+
 ];

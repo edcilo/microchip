@@ -34,25 +34,26 @@
     @endif
 
     <div class="row">
+        <strong>{{ Form::label('method', 'Método de pago:', ['class'=>'label50']) }}</strong>
+        {{ Form::select('method', trans('lists.payment_methods'), null, ['title'=>'Este campo es obligatorio', 'autofocus', 'data-required']) }}
+        <div class="message-error">
+            {{ $errors->first('method', '<span>:message</span>') }}
+        </div>
+    </div>
+
+    <div class="row">
         <strong>{{ Form::label('amount', 'Pago: ', ['class'=>'label50']) }}</strong>
-        $ {{ Form::text('amount', null, ['class'=>'text-right', 'autofocus', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
+        $ {{ Form::text('amount', null, ['class'=>'text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
             {{ $errors->first('amount', '<span>:message</span>') }}
         </div>
     </div>
 
     <div class="row">
-        <strong>{{ Form::label('method', 'Método de pago:', ['class'=>'label50']) }}</strong>
-        {{ Form::select('method',
-        [
-        'Efectivo' => 'Efectivo',
-        'Tarjeta de crédito/débito' => 'Tarjeta de crédito/débito',
-        'Cheque' => 'Cheque',
-        'Transferencia' => 'Transferencia',
-        'Nota de crédito' => 'Nota de crédito'
-        ], null, ['title'=>'Este campo es obligatorio', 'data-required']) }}
+        <strong>{{ Form::label('folio', 'Folio: ', ['class'=>'label50']) }}</strong>
+        {{ Form::text('folio', null, ['class'=>'text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
-            {{ $errors->first('method', '<span>:message</span>') }}
+            {{ $errors->first('folio', '<span>:message</span>') }}
         </div>
     </div>
 

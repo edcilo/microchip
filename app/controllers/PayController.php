@@ -93,31 +93,64 @@ class PayController extends \BaseController {
 	 */
 	public function store($sale_id)
 	{
-		$sale = $this->saleRepo->find($sale_id);
+		$sale   = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
-        $rest = $sale->getUserRestTotalAttribute();
+        $rest   = $sale->getUserRestTotalAttribute();
 
-        if($rest > 0)
-        {
+        if ($rest > 0) {
             $data            = Input::all();
-            $data['change']  = ($data['amount'] > $rest) ? $data['amount'] - $rest : 0;
-            $data['total']   = $rest;
-            $data['sale_id'] = $sale_id;
-            $data['user_id'] = Auth::user()->id;
+            if ($data['method'] != 'Vale') {
+                $data['change']  = ($data['amount'] > $rest) ? $data['amount'] - $rest : 0;
+                $data['total']   = $rest;
+                $data['sale_id'] = $sale_id;
+                $data['user_id'] = Auth::user()->id;
 
-            $pay = $this->payRepo->newPay();
-            $manager = new PayRegManager($pay, $data);
-            $manager->save();
+                $pay = $this->payRepo->newPay();
+                $manager = new PayRegManager($pay, $data);
+                $manager->save();
 
-            if($rest - $pay->amount <= 0)
-            {
+                $amount = $pay->amount;
+            } else {
+                $validator = Validator::make($data, [
+                    'method'    => 'required',
+                    'folio'     => 'required|exists:coupons,folio',
+                ]);
+
+                if ($validator->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+
+                $coupon = $this->couponRepo->find($data['folio']);
+
+                if (! $coupon->available) {
+                    return Redirect::back()->withINput()->withErrors(['folio' => "El vale $coupon->folio ya fue utilizado."]);
+                }
+
+                if ($coupon->lapsed) {
+                    return Redirect::back()->withINput()->withErrors(['folio' => "El vale $coupon->folio ya esta vencido."]);
+                }
+                $pay = $this->payRepo->newPay();
+                $pay->amount = $coupon->value;
+                $pay->change = 0;
+                $pay->description = 'Pago con vale '. $coupon->folio;
+                $pay->method = 'Vale';
+                $pay->sale_id = $sale_id;
+                $pay->user_id = Auth::user()->id;
+                $pay->date = date('Y-m-d');
+                $pay->save();
+
+                $coupon->available = 0;
+                $coupon->save();
+
+                $amount = $coupon->value;
+            }
+
+            if (($rest - $amount) <= 0) {
                 $sale->status = 'Pagado';
                 $sale->save();
             }
-        }
-        else
-        {
+        } else {
             $sale->status = 'Pagado';
             $sale->save();
         }

@@ -1,5 +1,6 @@
 <?php namespace microchip\coupon;
 
+use Carbon\Carbon;
 use microchip\base\BaseEntity;
 
 class Coupon extends BaseEntity {
@@ -27,6 +28,18 @@ class Coupon extends BaseEntity {
         }
 
         return false;
+    }
+
+    public function getLapsedAttribute()
+    {
+        if (! $this->getLastDateAttribute()) {
+            return false;
+        }
+
+        $first = $this->getLastDateAttribute();
+        $second = Carbon::now();
+
+        return $first->lte($second);
     }
 
 

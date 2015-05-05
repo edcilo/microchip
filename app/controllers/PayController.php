@@ -185,6 +185,10 @@ class PayController extends \BaseController {
         $pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
 
+        if ($pay->sale->status == 'Cancelado') {
+            return Redirect::back()->with('message', 'No es posible editar el pago de una venta cancelada');
+        }
+
         $sale = $pay->sale;
 
         return View::make('pay/edit', compact('pay', 'sale'));
@@ -201,6 +205,10 @@ class PayController extends \BaseController {
 	{
 		$pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
+
+        if ($pay->sale->status == 'Cancelado') {
+            return Redirect::back()->with('message', 'No es posible editar el pago de una venta cancelada');
+        }
 
         $data = Input::all();
         $data['user_id'] = Auth::user()->id;
@@ -233,6 +241,17 @@ class PayController extends \BaseController {
 	{
 		$pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
+
+        if ($pay->sale->status == 'Cancelado') {
+            if ( Request::ajax() )
+            {
+                $response = $this->msg304 + [ 'data' => $pay->sale ];
+
+                return Response::json($response);
+            }
+
+            return Redirect::back()->with('message', 'No es posible eliminar el pago de una venta cancelada');
+        }
 
         $this->payRepo->destroy($id);
 

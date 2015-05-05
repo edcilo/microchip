@@ -1,4 +1,4 @@
-@if( p(104) AND ( $sale->status == 'Emitido'))
+@if( p(104) AND ( $sale->status == 'Emitido' OR $sale->status == 'Pagado'))
 
     {{ Form::open(['route'=>['service.cancel', $sale->id], 'class' => 'inline']) }}
 

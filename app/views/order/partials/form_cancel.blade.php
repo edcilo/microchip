@@ -1,4 +1,4 @@
-@if( p(89) AND ( $order->status == 'Emitido'))
+@if( p(89) AND ( $order->status == 'Emitido' OR $order->status == 'Pagado'))
 
     {{ Form::open(['route'=>['order.cancel', $order->id], 'class' => 'inline']) }}
 

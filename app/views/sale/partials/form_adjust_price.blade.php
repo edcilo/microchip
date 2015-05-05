@@ -14,7 +14,7 @@
 
             <div class="row flo col33 right">
                 <strong>{{ Form::label('new_price', 'Precio de factura:') }}</strong> $
-                @if( p(80) )
+                @if( p(80) AND $sale->status != 'Cancelado' )
                     {{ Form::text('new_price', null, ['class'=>'sm-input text-right', 'data-required'=>'required', 'data-integer-unsigned'=>'integer']) }}
                 @else
                     {{ $sale->new_price }}
@@ -25,7 +25,7 @@
             </div>
 
             <div class="row flo col33 right text-right">
-                @if( p(80) )
+                @if( p(80) AND $sale->status != 'Cancelado' )
                     <button type="submit" class="btn-green">
                         <i class="fa fa-save"></i>
                         Guardar ajuste

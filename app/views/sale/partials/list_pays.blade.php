@@ -10,9 +10,11 @@
             <th>Empleado en caja</th>
             <th>Empleado que recibio</th>
             <th>Fecha de pago</th>
-            <th>
-                <i class="fa fa-gears"></i>
-            </th>
+            @if ($sale->status != 'Cancelado')
+                <th>
+                    <i class="fa fa-gears"></i>
+                </th>
+            @endif
         </tr>
         </thead>
         <tbody>
@@ -46,13 +48,15 @@
                     @endif
                 </td>
                 <td class="text-center">{{ $pay->date }}</td>
-                <td class="text-center">
-                    <nobr>
-                        @include('pay.partials.btn_edit')
+                @if ($sale->status != 'Cancelado')
+                    <td class="text-center">
+                        <nobr>
+                            @include('pay.partials.btn_edit')
 
-                        @include('pay.partials.btn_destroy')
-                    </nobr>
-                </td>
+                            @include('pay.partials.btn_destroy')
+                        </nobr>
+                    </td>
+                @endif
             </tr>
         @endforeach
         </tbody>

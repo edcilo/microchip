@@ -57,9 +57,9 @@
             Cargos y abonos
         </div>
 
-        <?php $sale = $order ?>
+        @include('sale.partials.list_pays', ['sale' => $order])
 
-        @include('sale.partials.list_pays')
+        @include('pay.partials.form_destroy_float')
 
     </div>
 

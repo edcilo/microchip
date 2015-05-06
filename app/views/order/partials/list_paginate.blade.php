@@ -33,4 +33,3 @@
 </table>
 
 {{ $orders->links() }}
-

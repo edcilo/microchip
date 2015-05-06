@@ -1,9 +1,11 @@
-<?php namespace microchip\warranty;
+<?php
+
+namespace microchip\warranty;
 
 use microchip\base\BaseRepo;
 
-class WarrantyRepo extends BaseRepo {
-
+class WarrantyRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Warranty();
@@ -13,5 +15,4 @@ class WarrantyRepo extends BaseRepo {
     {
         return $warranty = new Warranty();
     }
-
 }

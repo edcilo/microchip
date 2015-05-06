@@ -1,9 +1,11 @@
-<?php namespace microchip\purchasePayment;
+<?php
+
+namespace microchip\purchasePayment;
 
 use microchip\base\BaseRepo;
 
-class PurchasePaymentRepo extends BaseRepo {
-
+class PurchasePaymentRepo extends BaseRepo
+{
     public function getModel()
     {
         return new PurchasePayment();
@@ -13,5 +15,4 @@ class PurchasePaymentRepo extends BaseRepo {
     {
         return $payment = new PurchasePayment();
     }
-
 }

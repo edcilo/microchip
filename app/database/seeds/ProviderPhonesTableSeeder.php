@@ -4,19 +4,17 @@
 use Faker\Factory as Faker;
 use microchip\providerPhone\ProviderPhone;
 
-class ProviderPhonesTableSeeder extends Seeder {
+class ProviderPhonesTableSeeder extends Seeder
+{
+    public function run()
+    {
+        $faker = Faker::create();
 
-	public function run()
-	{
-		$faker = Faker::create();
-
-		foreach(range(1, 6) as $index)
-		{
-			ProviderPhone::create([
-				'phone'			=> $faker->phoneNumber,
-				'provider_id'	=> $faker->numberBetween(1,2)
-			]);
-		}
-	}
-
+        foreach (range(1, 6) as $index) {
+            ProviderPhone::create([
+                'phone'            => $faker->phoneNumber,
+                'provider_id'    => $faker->numberBetween(1, 2),
+            ]);
+        }
+    }
 }

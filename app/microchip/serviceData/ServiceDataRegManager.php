@@ -1,9 +1,11 @@
-<?php namespace microchip\serviceData;
+<?php
+
+namespace microchip\serviceData;
 
 use microchip\base\BaseManager;
 
-class ServiceDataRegManager extends BaseManager {
-
+class ServiceDataRegManager extends BaseManager
+{
     public function getRules()
     {
         $rules = [
@@ -14,11 +16,10 @@ class ServiceDataRegManager extends BaseManager {
             'series'        => 'required',
             'details'       => 'required',
             'internal'      => '',
-            'sale_id'       => 'required|exists:sales,id'
+            'sale_id'       => 'required|exists:sales,id',
         ];
 
-        if(trim($this->data['warranty_id']) != 0)
-        {
+        if (trim($this->data['warranty_id']) != 0) {
             $rules['warranty_id'] = 'exists:sales,id';
         }
 
@@ -33,5 +34,4 @@ class ServiceDataRegManager extends BaseManager {
 
         return $data;
     }
-
 }

@@ -4,12 +4,10 @@ use microchip\sale\SaleRepo;
 use microchip\configuration\ConfigurationRepo;
 use microchip\company\CompanyRepo;
 use microchip\orderProduct\OrderProductRepo;
-
 use microchip\sale\SaleServiceUpdManager;
 
 class ServiceController extends \BaseController
 {
-
     protected $saleRepo;
     protected $configRepo;
     protected $companyRepo;
@@ -20,8 +18,7 @@ class ServiceController extends \BaseController
         ConfigurationRepo   $configurationRepo,
         CompanyRepo         $companyRepo,
         OrderProductRepo    $orderProductRepo
-    )
-    {
+    ) {
         $this->saleRepo         = $saleRepo;
         $this->configRepo       = $configurationRepo;
         $this->companyRepo      = $companyRepo;
@@ -30,13 +27,15 @@ class ServiceController extends \BaseController
 
     /**
      * Display a listing of the resource.
-     * GET /service
+     * GET /service.
      *
      * @return Response
      */
     public function index()
     {
-        if (Request::ajax()) return $this->saleRepo->getByClassification('Servicio', 'id', 'ASC', 'ajax', 'Cancelado');
+        if (Request::ajax()) {
+            return $this->saleRepo->getByClassification('Servicio', 'id', 'ASC', 'ajax', 'Cancelado');
+        }
 
         $status = (is_null(Input::get('status'))) ? '' : Input::get('status');
 
@@ -47,7 +46,7 @@ class ServiceController extends \BaseController
 
     /**
      * Show the form for creating a new resource.
-     * GET /service/create
+     * GET /service/create.
      *
      * @return Response
      */
@@ -72,9 +71,10 @@ class ServiceController extends \BaseController
 
     /**
      * Display the specified resource.
-     * GET /service/{id}
+     * GET /service/{id}.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
@@ -82,16 +82,19 @@ class ServiceController extends \BaseController
         $sale = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
-        if (Request::ajax()) return Response::json($sale);
+        if (Request::ajax()) {
+            return Response::json($sale);
+        }
 
         return View::make('service/show', compact('sale'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     * GET /service/{id}/edit
+     * GET /service/{id}/edit.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
@@ -99,16 +102,19 @@ class ServiceController extends \BaseController
         $sale = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
-        if ($sale->status != 'Pendiente') return Redirect::route('home.sale');
+        if ($sale->status != 'Pendiente') {
+            return Redirect::route('home.sale');
+        }
 
         return View::make('service/edit', compact('sale'));
     }
 
     /**
      * Update the specified resource in storage.
-     * PUT /service/{id}
+     * PUT /service/{id}.
      *
-     * @param  int $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update($id)
@@ -148,9 +154,9 @@ class ServiceController extends \BaseController
         $company = $this->companyRepo->find(1);
 
         $pdf = PDF::loadView('service/layout_print', compact('service', 'company'))->setPaper('letter');
+
         return $pdf->stream();
     }
-
 
     public function setAuthorization($id)
     {
@@ -160,8 +166,9 @@ class ServiceController extends \BaseController
         $service->data->status = 'Autorización';
         $service->data->save();
 
-        if (Request::ajax())
+        if (Request::ajax()) {
             return Response::json($this->msg200 + ['data' => $service]);
+        }
 
         return Redirect::back();
     }
@@ -174,8 +181,9 @@ class ServiceController extends \BaseController
         $service->data->status = 'Proceso';
         $service->data->save();
 
-        if (Request::ajax())
+        if (Request::ajax()) {
             return Response::json($this->msg200 + ['data' => $service]);
+        }
 
         return Redirect::back();
     }
@@ -188,8 +196,9 @@ class ServiceController extends \BaseController
         $service->data->status = 'Terminado';
         $service->data->save();
 
-        if (Request::ajax())
+        if (Request::ajax()) {
             return Response::json($this->msg200);
+        }
 
         return Redirect::back()->with('message', 'El servicio se ha marcado como terminado.');
     }
@@ -210,12 +219,10 @@ class ServiceController extends \BaseController
         $service = $this->saleRepo->find($id);
         $this->notFoundUnless($service);
 
-        if( $service->status == 'Pendiente' OR $service->status == 'Cancelado' )
-        {
-            $message = "No es posible cancelar este servicio.";
+        if ($service->status == 'Pendiente' or $service->status == 'Cancelado') {
+            $message = 'No es posible cancelar este servicio.';
 
-            if( Request::ajax() )
-            {
+            if (Request::ajax()) {
                 return Response::json($this->msg304 + ['message' => $message, 'data' => $service]);
             }
 
@@ -245,5 +252,4 @@ class ServiceController extends \BaseController
 
         return Redirect::back()->with('message', $message);
     }
-
 }

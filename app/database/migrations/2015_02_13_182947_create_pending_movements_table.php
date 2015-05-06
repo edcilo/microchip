@@ -3,18 +3,15 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePendingMovementsTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('pending_movements', function(Blueprint $table)
-		{
-			$table->increments('id');
+class CreatePendingMovementsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('pending_movements', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->string('barcode');
             $table->string('s_description');
@@ -40,19 +37,15 @@ class CreatePendingMovementsTable extends Migration {
             $table->integer('sale_id')->unsigned();
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade')->onUpdate('cascade');
 
-			$table->timestamps();
-		});
-	}
+            $table->timestamps();
+        });
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('pending_movements');
-	}
-
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('pending_movements');
+    }
 }

@@ -6,7 +6,6 @@ use microchip\company\CompanyRepo;
 use microchip\coupon\CouponRepo;
 use microchip\configuration\ConfigurationRepo;
 use microchip\customer\CustomerRepo;
-
 use microchip\pay\PayRegManager;
 use microchip\pay\PayUpdManager;
 use microchip\pay\PayRegisterOutManager;
@@ -15,11 +14,10 @@ use microchip\pay\PayUpdInManager;
 use microchip\pay\PayUpdOutManager;
 use microchip\pay\PayRegisterOutSaleManager;
 use microchip\pay\PayChangeRegisterManager;
-
 use microchip\helpers\NumberToLetter;
 
-class PayController extends \BaseController {
-
+class PayController extends \BaseController
+{
     protected $payRepo;
     protected $saleRepo;
     protected $companyRepo;
@@ -34,8 +32,7 @@ class PayController extends \BaseController {
         CouponRepo          $couponRepo,
         ConfigurationRepo   $configurationRepo,
         CustomerRepo        $customerRepo
-    )
-    {
+    ) {
         $this->payRepo      = $payRepo;
         $this->saleRepo     = $saleRepo;
         $this->companyRepo  = $companyRepo;
@@ -44,21 +41,23 @@ class PayController extends \BaseController {
         $this->customerRepo = $customerRepo;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /pay
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        if ( Request::ajax() ) return $this->payRepo->getAll('all', 'id', 'ASC');
+    /**
+     * Display a listing of the resource.
+     * GET /pay.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        if (Request::ajax()) {
+            return $this->payRepo->getAll('all', 'id', 'ASC');
+        }
 
         $pays = $this->payRepo->getAll('paginate', 'id', 'desc');
         $pending = $this->payRepo->getPending();
 
         return View::make('pay/index', compact('pays', 'pending'));
-	}
+    }
 
     public function pending()
     {
@@ -67,44 +66,43 @@ class PayController extends \BaseController {
         $services = $this->saleRepo->getByClassificationStatus('Servicio', 'Emitido');
         $cancellations = $this->saleRepo->getPendingCancellations(false);
 
-        if(Request::ajax())
-        {
+        if (Request::ajax()) {
             return Response::json($sales);
         }
 
         return View::make('pay/pays_pending', compact('sales', 'orders', 'services', 'cancellations'));
     }
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /pay/create
-	 *
-	 * @return Response
-	 */
-	public function create($sale_id)
-	{
+    /**
+     * Show the form for creating a new resource.
+     * GET /pay/create.
+     *
+     * @return Response
+     */
+    public function create($sale_id)
+    {
         $sale = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
-		return View::make('pay/create', compact('sale'));
-	}
+        return View::make('pay/create', compact('sale'));
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /pay
-	 *
-	 * @return Response
-	 */
-	public function store($sale_id)
-	{
-		$sale   = $this->saleRepo->find($sale_id);
+    /**
+     * Store a newly created resource in storage.
+     * POST /pay.
+     *
+     * @return Response
+     */
+    public function store($sale_id)
+    {
+        $sale   = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
         $rest   = $sale->getUserRestTotalAttribute();
 
         if ($rest > 0) {
             $data            = Input::all();
-            if ($data['method'] != 'Vale' AND $data['method'] != 'Monedero') {
+            if ($data['method'] != 'Vale' and $data['method'] != 'Monedero') {
                 $data['change']  = ($data['amount'] > $rest) ? $data['amount'] - $rest : 0;
                 $data['total']   = $rest;
                 $data['sale_id'] = $sale_id;
@@ -127,7 +125,7 @@ class PayController extends \BaseController {
 
                 $coupon = $this->couponRepo->find($data['folio']);
 
-                if (! $coupon->available) {
+                if (!$coupon->available) {
                     return Redirect::back()->withINput()->withErrors(['folio' => "El vale $coupon->folio ya fue utilizado."]);
                 }
 
@@ -164,11 +162,11 @@ class PayController extends \BaseController {
                 $points = $customer->points;
 
                 if ($points <= 0) {
-                    return Redirect::back()->withINput()->withErrors(['reference' => "El monedero no tiene puntos a favor."]);
+                    return Redirect::back()->withINput()->withErrors(['reference' => 'El monedero no tiene puntos a favor.']);
                 }
 
                 if ($customer->expiration_date == 'Vencido') {
-                    return Redirect::back()->withINput()->withErrors(['reference' => "El monedero ha expirado."]);
+                    return Redirect::back()->withINput()->withErrors(['reference' => 'El monedero ha expirado.']);
                 }
 
                 $amount = ($rest > $points) ? $points : $rest;
@@ -198,30 +196,29 @@ class PayController extends \BaseController {
 
         $message = ['success' => 'El pago se registro correctamente'];
 
-        if(Request::ajax())
-        {
+        if (Request::ajax()) {
             return Response::json($this->msg200 + $message);
         }
 
-        if($sale->status == 'Pagado')
-        {
+        if ($sale->status == 'Pagado') {
             $this->addPoints($sale);
 
             return Redirect::route('pay.pending')->with($message);
         }
 
         return Redirect::back()->with($message);
-	}
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /pay/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
+    /**
+     * Show the form for editing the specified resource.
+     * GET /pay/{id}/edit.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
         $pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
 
@@ -232,18 +229,19 @@ class PayController extends \BaseController {
         $sale = $pay->sale;
 
         return View::make('pay/edit', compact('pay', 'sale'));
-	}
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /pay/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$pay = $this->payRepo->find($id);
+    /**
+     * Update the specified resource in storage.
+     * PUT /pay/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function update($id)
+    {
+        $pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
 
         if ($pay->sale->status == 'Cancelado') {
@@ -260,32 +258,31 @@ class PayController extends \BaseController {
         $pay = $this->payRepo->find($id);
         $this->modifiedStatus($pay);
 
-        if ( Request::ajax() )
-        {
-            $response = $this->msg200 + [ 'data' => $pay ];
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $pay];
 
             return Response::json($response);
         }
 
         return Redirect::route('sale.show', [$pay->sale->folio, $pay->sale->id]);
-	}
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /pay/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$pay = $this->payRepo->find($id);
+    /**
+     * Remove the specified resource from storage.
+     * DELETE /pay/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
 
         if ($pay->sale->status == 'Cancelado') {
-            if ( Request::ajax() )
-            {
-                $response = $this->msg304 + [ 'data' => $pay->sale ];
+            if (Request::ajax()) {
+                $response = $this->msg304 + ['data' => $pay->sale];
 
                 return Response::json($response);
             }
@@ -297,29 +294,25 @@ class PayController extends \BaseController {
 
         $this->modifiedStatus($pay);
 
-        if ( Request::ajax() )
-        {
-            $response = $this->msg200 + [ 'data' => $pay ];
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $pay];
 
             return Response::json($response);
         }
 
-        if( $pay->sale )
+        if ($pay->sale) {
             return Redirect::route('sale.show', [$pay->sale->folio, $pay->sale->id]);
+        }
 
         return Redirect::back();
-	}
+    }
 
     public function modifiedStatus($pay)
     {
-        if($pay->sale)
-        {
-            if($pay->sale->getUserRestTotalAttribute() > 0)
-            {
+        if ($pay->sale) {
+            if ($pay->sale->getUserRestTotalAttribute() > 0) {
                 $pay->sale->status = 'Emitido';
-            }
-            else
-            {
+            } else {
                 $pay->sale->status = 'Pagado';
             }
 
@@ -332,8 +325,7 @@ class PayController extends \BaseController {
         $sale = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
-        if($sale->getUserRestTotalAttribute() == 0)
-        {
+        if ($sale->getUserRestTotalAttribute() == 0) {
             $sale->status = 'Pagado';
             $sale->save();
 
@@ -488,8 +480,8 @@ class PayController extends \BaseController {
         }
 
         if (
-            $sale->customer->referrer AND
-            $sale->customer->referrer->customer->card_id AND
+            $sale->customer->referrer and
+            $sale->customer->referrer->customer->card_id and
             $sale->customer->referrer->expiration_date != 'Vencido'
         ) {
             $sale->customer->referrer->customer->points += $total_r;
@@ -513,7 +505,7 @@ class PayController extends \BaseController {
 
         $success = false;
         $coupon_id = 0;
-        $message = "No se pudo registrar la devolución.";
+        $message = 'No se pudo registrar la devolución.';
 
         if ($method == 'repayment') {
             $pay = $this->payRepo->newPay();
@@ -563,14 +555,14 @@ class PayController extends \BaseController {
         $sale = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
-        $company	= $this->companyRepo->find(1);
+        $company    = $this->companyRepo->find(1);
 
         $no2letter          = new NumberToLetter();
-        $sale->total_text   = strtoupper( $no2letter->ValorEnLetras($sale->user_total_pay, 'pesos') );
-        $concept            = 'Cancelación de '. $sale->classification .' con folio ' . $sale->folio;
+        $sale->total_text   = strtoupper($no2letter->ValorEnLetras($sale->user_total_pay, 'pesos'));
+        $concept            = 'Cancelación de '.$sale->classification.' con folio '.$sale->folio;
 
         $pdf = PDF::loadView('pay/layout_print', compact('sale', 'concept', 'company'))->setPaper('letter');
+
         return $pdf->stream();
     }
-
 }

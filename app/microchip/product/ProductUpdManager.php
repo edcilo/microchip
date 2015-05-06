@@ -1,13 +1,15 @@
-<?php namespace microchip\product;
+<?php
+
+namespace microchip\product;
 
 use microchip\base\BaseManager;
 
-class ProductUpdManager extends BaseManager {
-
+class ProductUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
-            'barcode'       => 'required|unique:products,barcode,' . $this->entity->id,
+            'barcode'       => 'required|unique:products,barcode,'.$this->entity->id,
             'type'          => 'in:Producto,Servicio',
             's_description' => 'required|max:120',
             'description'   => '',
@@ -41,9 +43,8 @@ class ProductUpdManager extends BaseManager {
         } else {
             $path_image     = $this->saveFile(\Input::file('image'), $path, false, $data['slug']);
         }
-        $data['image']  = ( $path_image ) ? $path_image : $this->entity->image;
+        $data['image']  = ($path_image) ? $path_image : $this->entity->image;
 
         return $data;
     }
-
 }

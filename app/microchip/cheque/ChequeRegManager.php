@@ -1,14 +1,16 @@
-<?php namespace microchip\cheque;
+<?php
+
+namespace microchip\cheque;
 
 use microchip\base\BaseManager;
 
-class ChequeRegManager extends BaseManager {
-
+class ChequeRegManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
             'folio'        => 'required|integer|digits_between:1,8',
-            'bank_id'      => 'integer|exists:banks,id'
+            'bank_id'      => 'integer|exists:banks,id',
         ];
     }
 
@@ -21,5 +23,4 @@ class ChequeRegManager extends BaseManager {
 
         return $data;
     }
-
 }

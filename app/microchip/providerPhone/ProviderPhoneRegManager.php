@@ -1,9 +1,11 @@
-<?php namespace microchip\providerPhone;
+<?php
+
+namespace microchip\providerPhone;
 
 use microchip\base\BaseManager;
 
-class ProviderPhoneRegManager extends BaseManager {
-
+class ProviderPhoneRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -11,5 +13,4 @@ class ProviderPhoneRegManager extends BaseManager {
             'provider_id'   => 'required|exists:providers,id',
         ];
     }
-
 }

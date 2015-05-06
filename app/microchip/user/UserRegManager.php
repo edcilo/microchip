@@ -1,9 +1,11 @@
-<?php namespace microchip\user;
+<?php
+
+namespace microchip\user;
 
 use microchip\base\BaseManager;
 
-class UserRegManager extends BaseManager {
-
+class UserRegManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
@@ -58,5 +60,4 @@ class UserRegManager extends BaseManager {
 
         return $data;
     }
-
 }

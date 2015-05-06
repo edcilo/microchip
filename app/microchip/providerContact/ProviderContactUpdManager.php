@@ -1,9 +1,11 @@
-<?php namespace microchip\providerContact;
+<?php
+
+namespace microchip\providerContact;
 
 use microchip\base\BaseManager;
 
-class ProviderContactUpdManager extends BaseManager {
-
+class ProviderContactUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -22,5 +24,4 @@ class ProviderContactUpdManager extends BaseManager {
 
         return $data;
     }
-
 }

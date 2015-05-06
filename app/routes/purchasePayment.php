@@ -7,19 +7,18 @@
 Route::group(
     [
         'prefix' => 'purchasePayment/',
-        'before' => 'pr:61'
+        'before' => 'pr:61',
     ],
-    function ()
-    {
+    function () {
 
         Route::get('create', [
             'as'   => 'purchasePayment.create',
-            'uses' => 'PurchasePaymentController@create'
+            'uses' => 'PurchasePaymentController@create',
         ]);
 
         Route::post('', [
             'as'   => 'purchasePayment.store',
-            'uses' => 'PurchasePaymentController@store'
+            'uses' => 'PurchasePaymentController@store',
         ]);
 
     }

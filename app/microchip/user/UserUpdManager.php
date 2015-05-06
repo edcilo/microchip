@@ -1,13 +1,15 @@
-<?php namespace microchip\user;
+<?php
+
+namespace microchip\user;
 
 use microchip\base\BaseManager;
 
-class UserUpdManager extends BaseManager {
-
+class UserUpdManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
-            'username'       => 'required|max:255|unique:users,username,' . $this->entity->id,
+            'username'       => 'required|max:255|unique:users,username,'.$this->entity->id,
             'password'       => 'min:8|max:255',
             'department_id'  => 'required|exists:departments,id',
         ];
@@ -17,12 +19,9 @@ class UserUpdManager extends BaseManager {
     {
         $this->stripTags($data, ['password']);
 
-        if ( empty($data['password']) )
-        {
+        if (empty($data['password'])) {
             $data['password'] = $this->entity->password;
-        }
-        else
-        {
+        } else {
             $data['password'] = \Hash::make($data['password']);
         }
 
@@ -30,5 +29,4 @@ class UserUpdManager extends BaseManager {
 
         return $data;
     }
-
 }

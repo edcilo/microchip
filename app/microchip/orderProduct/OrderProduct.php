@@ -1,10 +1,12 @@
-<?php namespace microchip\orderProduct;
+<?php
+
+namespace microchip\orderProduct;
 
 use microchip\base\BaseEntity;
 
-class OrderProduct extends BaseEntity {
-
-	protected $fillable = [
+class OrderProduct extends BaseEntity
+{
+    protected $fillable = [
         'quantity',
         'selling_price',
         'user_id',
@@ -12,7 +14,7 @@ class OrderProduct extends BaseEntity {
         'support_id',
         'pending_movement_id',
         'sale_id',
-        'product_id'
+        'product_id',
     ];
 
     public function getTotalAttribute($f = '')
@@ -36,12 +38,9 @@ class OrderProduct extends BaseEntity {
     {
         $color = '';
 
-        if($this->product->type == 'Producto')
-        {
-            if( $this->product->p_description->have_series )
-            {
-                if( count($this->series) != $this->quantity )
-                {
+        if ($this->product->type == 'Producto') {
+            if ($this->product->p_description->have_series) {
+                if (count($this->series) != $this->quantity) {
                     $color = 'red';
                 }
             }
@@ -49,8 +48,6 @@ class OrderProduct extends BaseEntity {
 
         return $color;
     }
-
-
 
     public function product()
     {
@@ -72,9 +69,6 @@ class OrderProduct extends BaseEntity {
         return $this->hasMany('microchip\series\Series', 'separated_id', 'id');
     }
 
-
-
-
     public function permissionUser()
     {
         return $this->belongsTo('microchip\user\User', 'user_id', 'id');
@@ -89,5 +83,4 @@ class OrderProduct extends BaseEntity {
     {
         return $this->belongsTo('microchip\user\User', 'support_id', 'id');
     }
-
 }

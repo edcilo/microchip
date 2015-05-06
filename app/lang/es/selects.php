@@ -11,7 +11,7 @@ return [
     'pay_method'    => [
         ''          => 'Selecciona...',
         'Contado'   => 'Contado',
-        'Crédito'   => 'Crédito'
+        'Crédito'   => 'Crédito',
     ],
 
     'pay_type'      => [
@@ -20,9 +20,7 @@ return [
         'Cheque'            => 'Cheque',
         'Transferencia'     => 'Transferencia',
         'Nota de crédito'   => 'Nota de crédito',
-        'Otro'              => 'Otro'
+        'Otro'              => 'Otro',
     ],
-
-
 
 ];

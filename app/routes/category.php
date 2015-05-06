@@ -7,26 +7,25 @@
 Route::group(
     [
         'prefix' => 'category/',
-        'before' => 'pr:45'
+        'before' => 'pr:45',
     ],
-    function ()
-    {
+    function () {
 
         Route::get('', [
             'as'   => 'category.index',
-            'uses' => 'CategoryController@index'
+            'uses' => 'CategoryController@index',
         ]);
 
         Route::group(['before' => 'pr:46'], function () {
 
             Route::get('create', [
                 'as'   => 'category.create',
-                'uses' => 'CategoryController@create'
+                'uses' => 'CategoryController@create',
             ]);
 
             Route::post('', [
                 'as'   => 'category.store',
-                'uses' => 'CategoryController@store'
+                'uses' => 'CategoryController@store',
             ]);
 
         });
@@ -35,12 +34,12 @@ Route::group(
 
             Route::get('{slug}/{id}/edit', [
                 'as'   => 'category.edit',
-                'uses' => 'CategoryController@edit'
+                'uses' => 'CategoryController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'category.update',
-                'uses' => 'CategoryController@update'
+                'uses' => 'CategoryController@update',
             ]);
 
         });
@@ -49,19 +48,19 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'category.destroy',
-                'uses' => 'CategoryController@destroy'
+                'uses' => 'CategoryController@destroy',
             ]);
 
         });
 
         Route::get('{slug}/{id}', [
             'as'   => 'category.show',
-            'uses' => 'CategoryController@show'
+            'uses' => 'CategoryController@show',
         ]);
 
         Route::get('search', [
             'as'   => 'category.search',
-            'uses' => 'CategoryController@search'
+            'uses' => 'CategoryController@search',
         ]);
 
     }

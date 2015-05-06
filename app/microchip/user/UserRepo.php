@@ -1,10 +1,12 @@
-<?php namespace microchip\user;
+<?php
+
+namespace microchip\user;
 
 use Illuminate\Support\Facades\Hash;
 use microchip\base\BaseRepo;
 
-class UserRepo extends BaseRepo {
-
+class UserRepo extends BaseRepo
+{
     public function getModel()
     {
         return new User();
@@ -19,10 +21,8 @@ class UserRepo extends BaseRepo {
     {
         $users = User::all();
 
-        foreach($users as $user)
-        {
-            if( Hash::check($password, $user->password) )
-            {
+        foreach ($users as $user) {
+            if (Hash::check($password, $user->password)) {
                 return true;
             }
         }
@@ -34,15 +34,12 @@ class UserRepo extends BaseRepo {
     {
         $users = User::all();
 
-        foreach($users as $user)
-        {
-            if( Hash::check($password, $user->password) )
-            {
+        foreach ($users as $user) {
+            if (Hash::check($password, $user->password)) {
                 return $user;
             }
         }
 
         return false;
     }
-
 }

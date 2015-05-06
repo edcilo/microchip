@@ -1,16 +1,18 @@
-<?php namespace microchip\sale;
+<?php
+
+namespace microchip\sale;
 
 use microchip\base\BaseManager;
 
-class SaleOrderUpdManager extends BaseManager{
-
+class SaleOrderUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
             'customer_id'       => 'required|not_in:1|exists:customers,id',
             'advance'           => 'required|numeric',
             'delivery_date'     => 'required|date',
-            'shipping_address'  => ''
+            'shipping_address'  => '',
         ];
     }
 
@@ -22,5 +24,4 @@ class SaleOrderUpdManager extends BaseManager{
 
         return $data;
     }
-
 }

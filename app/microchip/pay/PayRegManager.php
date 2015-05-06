@@ -1,9 +1,11 @@
-<?php namespace microchip\pay;
+<?php
+
+namespace microchip\pay;
 
 use microchip\base\BaseManager;
 
-class PayRegManager extends BaseManager {
-
+class PayRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -25,12 +27,11 @@ class PayRegManager extends BaseManager {
         $data['change'] = ($data['amount'] > $data['total']) ? $data['amount'] - $data['total'] : 0;
         $data['date']   = date('Y-m-d');
 
-        if ($data['method'] == 'Efectivo' OR $data['method'] == 'Vale') {
+        if ($data['method'] == 'Efectivo' or $data['method'] == 'Vale') {
             $data['reference'] = '';
             $data['entity'] = '';
         }
 
         return $data;
     }
-
 }

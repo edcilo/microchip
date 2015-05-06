@@ -1,9 +1,11 @@
-<?php namespace microchip\productDescription;
+<?php
+
+namespace microchip\productDescription;
 
 use microchip\base\BaseManager;
 
-class ProductDescriptionRegManager extends BaseManager {
-
+class ProductDescriptionRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -28,9 +30,8 @@ class ProductDescriptionRegManager extends BaseManager {
     {
         $path               = 'images/product';
         $path_file          = $this->saveFile(\Input::file('data_sheet'), $path, true, $data['model']);
-        $data['data_sheet'] = ( $path_file ) ? $path_file : '';
+        $data['data_sheet'] = ($path_file) ? $path_file : '';
 
         return $data;
     }
-
 }

@@ -31,4 +31,3 @@
 {{ $counts->links() }}
 
 @include('bankCount.partials.form_destroy')
-

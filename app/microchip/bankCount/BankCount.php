@@ -1,22 +1,23 @@
-<?php namespace microchip\bankCount;
+<?php
+
+namespace microchip\bankCount;
 
 use microchip\base\BaseEntity;
 
-class BankCount extends BaseEntity {
-
-	protected $fillable = [
+class BankCount extends BaseEntity
+{
+    protected $fillable = [
         'amount',
         'status',
         'description',
         'date',
-        'bank_id'
+        'bank_id',
     ];
 
     public function getDateFAttribute()
     {
         return date('d-m-Y', time($this->date));
     }
-
 
     public function bank()
     {
@@ -27,5 +28,4 @@ class BankCount extends BaseEntity {
     {
         return $this->hasOne('microchip\cheque\Cheque');
     }
-
 }

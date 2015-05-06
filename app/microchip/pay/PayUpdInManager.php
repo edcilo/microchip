@@ -1,9 +1,11 @@
-<?php namespace microchip\pay;
+<?php
+
+namespace microchip\pay;
 
 use microchip\base\BaseManager;
 
-class PayUpdInManager extends BaseManager {
-
+class PayUpdInManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -18,5 +20,4 @@ class PayUpdInManager extends BaseManager {
     {
         return $data;
     }
-
 }

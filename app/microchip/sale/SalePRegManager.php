@@ -1,13 +1,15 @@
-<?php namespace microchip\sale;
+<?php
+
+namespace microchip\sale;
 
 use microchip\base\BaseManager;
 
-class SalePRegManager extends BaseManager{
-
+class SalePRegManager extends BaseManager
+{
     public function getRules()
     {
         $rules = [
-            'barcode'   => 'required|exists:products,barcode'
+            'barcode'   => 'required|exists:products,barcode',
         ];
 
         return $rules;
@@ -17,5 +19,4 @@ class SalePRegManager extends BaseManager{
     {
         return $data;
     }
-
 }

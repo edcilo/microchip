@@ -1,9 +1,11 @@
-<?php namespace microchip\inventoryMovement;
+<?php
+
+namespace microchip\inventoryMovement;
 
 use microchip\base\BaseRepo;
 
-class InventoryMovementRepo extends BaseRepo {
-
+class InventoryMovementRepo extends BaseRepo
+{
     public function getModel()
     {
         return new InventoryMovement();
@@ -13,7 +15,6 @@ class InventoryMovementRepo extends BaseRepo {
     {
         return $movement = new InventoryMovement();
     }
-
 
     public function firstIn($id)
     {
@@ -28,5 +29,4 @@ class InventoryMovementRepo extends BaseRepo {
         return InventoryMovement::where('product_id', $id)
             ->sum('in_stock');
     }
-
 }

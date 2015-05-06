@@ -1,9 +1,11 @@
-<?php namespace microchip\bank;
+<?php
+
+namespace microchip\bank;
 
 use microchip\base\BaseManager;
 
-class BankRegManager extends BaseManager {
-
+class BankRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -30,15 +32,14 @@ class BankRegManager extends BaseManager {
     {
         $this->stripTags($data);
 
-        $data['terminal']           = ( ! isset($data['terminal']) ) ? 0 : $data['terminal'];
+        $data['terminal']           = (!isset($data['terminal'])) ? 0 : $data['terminal'];
 
-        $data['commission_debit']   = ( $data['terminal'] == 1 ) ? $data['commission_debit'] : 0 ;
-        $data['commission_credit']  = ( $data['terminal'] == 1 ) ? $data['commission_credit'] : 0 ;
+        $data['commission_debit']   = ($data['terminal'] == 1) ? $data['commission_debit'] : 0;
+        $data['commission_credit']  = ($data['terminal'] == 1) ? $data['commission_credit'] : 0;
 
         $data['slug']               = \Str::slug($data['name']);
         $data['active']             = 1;
 
         return $data;
     }
-
 }

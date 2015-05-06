@@ -1,16 +1,17 @@
-<?php namespace microchip\comment;
+<?php
+
+namespace microchip\comment;
 
 use microchip\base\BaseEntity;
 
-class Comment extends BaseEntity {
-
-	protected $fillable = [
+class Comment extends BaseEntity
+{
+    protected $fillable = [
         'comment',
         'print',
         'sale_id',
         'user_id',
     ];
-
 
     public function sale()
     {
@@ -21,5 +22,4 @@ class Comment extends BaseEntity {
     {
         return $this->belongsTo('microchip\user\User');
     }
-
 }

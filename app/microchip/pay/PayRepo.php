@@ -1,9 +1,11 @@
-<?php namespace microchip\pay;
+<?php
+
+namespace microchip\pay;
 
 use microchip\base\BaseRepo;
 
-class PayRepo extends BaseRepo {
-
+class PayRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Pay();
@@ -31,5 +33,4 @@ class PayRepo extends BaseRepo {
     {
         return Pay::where('change_check', 1)->paginate();
     }
-
 }

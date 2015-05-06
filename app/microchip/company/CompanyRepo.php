@@ -1,9 +1,11 @@
-<?php namespace microchip\company;
+<?php
+
+namespace microchip\company;
 
 use microchip\base\BaseRepo;
 
-class CompanyRepo extends BaseRepo {
-
+class CompanyRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Company();
@@ -13,5 +15,4 @@ class CompanyRepo extends BaseRepo {
     {
         return $company = new Company();
     }
-
 }

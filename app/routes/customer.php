@@ -7,26 +7,25 @@
 Route::group(
     [
         'prefix' => 'customer/',
-        'before' => 'pr:63'
+        'before' => 'pr:63',
     ],
-    function ()
-    {
+    function () {
 
         Route::get('', [
             'as'   => 'customer.index',
-            'uses' => 'CustomerController@index'
+            'uses' => 'CustomerController@index',
         ]);
 
         Route::group(['before' => 'pr:64'], function () {
 
             Route::get('create', [
                 'as'   => 'customer.create',
-                'uses' => 'CustomerController@create'
+                'uses' => 'CustomerController@create',
             ]);
 
             Route::post('', [
                 'as'   => 'customer.store',
-                'uses' => 'CustomerController@store'
+                'uses' => 'CustomerController@store',
             ]);
 
         });
@@ -35,31 +34,31 @@ Route::group(
 
             Route::get('card/{id}', [
                 'as'   => 'customer.card.edit',
-                'uses' => 'CustomerController@cardEdit'
+                'uses' => 'CustomerController@cardEdit',
             ]);
 
             Route::put('card/{id}', [
                 'as'   => 'customer.card.update',
-                'uses' => 'CustomerController@cardUpdate'
+                'uses' => 'CustomerController@cardUpdate',
             ]);
 
             Route::get('{slug}/{id}/edit', [
                 'as'   => 'customer.edit',
-                'uses' => 'CustomerController@edit'
+                'uses' => 'CustomerController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'customer.update',
-                'uses' => 'CustomerController@update'
+                'uses' => 'CustomerController@update',
             ]);
 
         });
 
         Route::group(['before' => 'pr:66'], function () {
 
-            Route::get('soft/delete/{id}',[
+            Route::get('soft/delete/{id}', [
                 'as'   => 'customer.soft.delete',
-                'uses' => 'CustomerController@softDelete'
+                'uses' => 'CustomerController@softDelete',
             ]);
 
         });
@@ -68,7 +67,7 @@ Route::group(
 
             Route::get('restore/{id}', [
                 'as'   => 'customer.restore',
-                'uses' => 'CustomerController@restore'
+                'uses' => 'CustomerController@restore',
             ]);
 
         });
@@ -77,25 +76,24 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'customer.destroy',
-                'uses' => 'CustomerController@destroy'
+                'uses' => 'CustomerController@destroy',
             ]);
 
         });
 
-
         Route::get('trash', [
             'as'   => 'customer.trash',
-            'uses' => 'CustomerController@trash'
+            'uses' => 'CustomerController@trash',
         ]);
 
         Route::get('{slug}/{id}', [
             'as'   => 'customer.show',
-            'uses' => 'CustomerController@show'
+            'uses' => 'CustomerController@show',
         ]);
 
         Route::get('search', [
             'as'   => 'customer.search',
-            'uses' => 'CustomerController@search'
+            'uses' => 'CustomerController@search',
         ]);
 
     }

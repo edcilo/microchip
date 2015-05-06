@@ -1,14 +1,15 @@
-<?php namespace microchip\provider;
+<?php
+
+namespace microchip\provider;
 
 use microchip\base\BaseManager;
 
-
-class ProviderUpdManager extends BaseManager {
-
+class ProviderUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
-            'name'              => 'required|max:255|unique:providers,name,' . $this->entity->id,
+            'name'              => 'required|max:255|unique:providers,name,'.$this->entity->id,
             'rfc'               => 'max:255',
             'email'             => 'email',
             'number'            => 'numeric',
@@ -33,5 +34,4 @@ class ProviderUpdManager extends BaseManager {
 
         return $data;
     }
-
 }

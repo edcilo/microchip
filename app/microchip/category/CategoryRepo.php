@@ -1,9 +1,11 @@
-<?php namespace microchip\category;
+<?php
+
+namespace microchip\category;
 
 use microchip\base\BaseRepo;
 
-class CategoryRepo extends BaseRepo {
-
+class CategoryRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Category();
@@ -14,12 +16,11 @@ class CategoryRepo extends BaseRepo {
         return $category = new Category();
     }
 
-    public function search($terms, $request='', $take=10)
+    public function search($terms, $request = '', $take = 10)
     {
         $q = Category::where('name', 'like', "%$terms%")
             ->orwhere('description', 'like', "%$terms%");
 
-        return ( $request == 'ajax' ) ? $q->take($take)->get() : $q->paginate();
+        return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
-
 }

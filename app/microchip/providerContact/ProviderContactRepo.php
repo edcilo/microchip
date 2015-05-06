@@ -1,9 +1,11 @@
-<?php namespace microchip\providerContact;
+<?php
+
+namespace microchip\providerContact;
 
 use microchip\base\BaseRepo;
 
-class ProviderContactRepo extends BaseRepo {
-
+class ProviderContactRepo extends BaseRepo
+{
     public function getModel()
     {
         return new ProviderContact();
@@ -13,5 +15,4 @@ class ProviderContactRepo extends BaseRepo {
     {
         return $contact = new ProviderContact();
     }
-
 }

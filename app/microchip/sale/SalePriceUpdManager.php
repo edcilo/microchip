@@ -1,9 +1,11 @@
-<?php namespace microchip\sale;
+<?php
+
+namespace microchip\sale;
 
 use microchip\base\BaseManager;
 
-class SalePriceUpdManager extends BaseManager{
-
+class SalePriceUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -21,5 +23,4 @@ class SalePriceUpdManager extends BaseManager{
 
         return $data;
     }
-
 }

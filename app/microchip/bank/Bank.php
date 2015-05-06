@@ -1,10 +1,12 @@
-<?php namespace microchip\bank;
+<?php
+
+namespace microchip\bank;
 
 use microchip\base\BaseEntity;
 
-class Bank extends BaseEntity {
-
-	protected $fillable = [
+class Bank extends BaseEntity
+{
+    protected $fillable = [
         'name',
         'number_account',
         'branch',
@@ -22,8 +24,7 @@ class Bank extends BaseEntity {
         'commission_debit',
         'commission_credit',
         'slug',
-	];
-
+    ];
 
     public function cheques()
     {
@@ -35,9 +36,6 @@ class Bank extends BaseEntity {
         return $this->hasMany('microchip\bankCount\BankCount');
     }
 
-
-
-
     // Atributos
     public function getTerminalIAttribute()
     {
@@ -46,22 +44,20 @@ class Bank extends BaseEntity {
 
     public function getCommissionDebitFAttribute()
     {
-        return number_format( $this->commission_debit, 2 );
+        return number_format($this->commission_debit, 2);
     }
 
     public function getCommissionCreditFAttribute()
     {
-        return number_format( $this->commission_debit, 2 );
+        return number_format($this->commission_debit, 2);
     }
 
     public function getTotalAttribute()
     {
         $total = 0;
 
-        foreach($this->bankCount as $count)
-        {
-            if($count->status == 'Salida')
-            {
+        foreach ($this->bankCount as $count) {
+            if ($count->status == 'Salida') {
                 $count->amount *= -1;
             }
 

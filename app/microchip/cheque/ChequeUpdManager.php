@@ -1,9 +1,11 @@
-<?php namespace microchip\cheque;
+<?php
+
+namespace microchip\cheque;
 
 use microchip\base\BaseManager;
 
-class ChequeUpdManager extends BaseManager {
-
+class ChequeUpdManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
@@ -13,7 +15,7 @@ class ChequeUpdManager extends BaseManager {
             'concept'      => 'required|max:512',
             'status'       => 'required|in:Pagado,Post-fechado,Cancelado,Elaborado',
             'observations' => 'max:510',
-            'message'      => 'in:0,1'
+            'message'      => 'in:0,1',
         ];
     }
 
@@ -21,9 +23,10 @@ class ChequeUpdManager extends BaseManager {
     {
         $this->stripTags($data);
 
-        if ( !isset($data['message']) ) $data['message'] = 0;
+        if (!isset($data['message'])) {
+            $data['message'] = 0;
+        }
 
         return $data;
     }
-
 }

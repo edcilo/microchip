@@ -1,9 +1,11 @@
-<?php namespace microchip\serviceData;
+<?php
+
+namespace microchip\serviceData;
 
 use microchip\base\BaseRepo;
 
-class ServiceDataRepo extends BaseRepo {
-
+class ServiceDataRepo extends BaseRepo
+{
     public function getModel()
     {
         return new ServiceData();
@@ -13,5 +15,4 @@ class ServiceDataRepo extends BaseRepo {
     {
         return $data = new ServiceData();
     }
-
 }

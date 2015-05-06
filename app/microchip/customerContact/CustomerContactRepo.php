@@ -1,9 +1,11 @@
-<?php namespace microchip\customerContact;
+<?php
+
+namespace microchip\customerContact;
 
 use microchip\bank\BankRepo;
 
-class CustomerContactRepo extends BankRepo {
-
+class CustomerContactRepo extends BankRepo
+{
     public function getModel()
     {
         return new CustomerContact();
@@ -13,5 +15,4 @@ class CustomerContactRepo extends BankRepo {
     {
         return $contact = new CustomerContact();
     }
-
 }

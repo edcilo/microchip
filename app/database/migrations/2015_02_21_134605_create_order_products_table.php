@@ -3,18 +3,15 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateOrderProductsTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('order_products', function(Blueprint $table)
-		{
-			$table->increments('id');
+class CreateOrderProductsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('order_products', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->integer('quantity');
             $table->decimal('selling_price', 10, 2);
@@ -32,19 +29,15 @@ class CreateOrderProductsTable extends Migration {
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('no action')->onUpdate('cascade');
 
-			$table->timestamps();
-		});
-	}
+            $table->timestamps();
+        });
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('order_products');
-	}
-
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('order_products');
+    }
 }

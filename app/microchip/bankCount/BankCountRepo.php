@@ -1,9 +1,11 @@
-<?php namespace microchip\bankCount;
+<?php
+
+namespace microchip\bankCount;
 
 use microchip\base\BaseRepo;
 
-class BankCountRepo extends BaseRepo{
-
+class BankCountRepo extends BaseRepo
+{
     public function getModel()
     {
         return new BankCount();
@@ -14,13 +16,11 @@ class BankCountRepo extends BaseRepo{
         return $count = new BankCount();
     }
 
-
-    public function getByBank($bank_id, $col='id', $order='desc', $pagination = true)
+    public function getByBank($bank_id, $col = 'id', $order = 'desc', $pagination = true)
     {
         $q = BankCount::where('bank_id', $bank_id)
             ->orderBy($col, $order);
 
         return ($pagination) ? $q->paginate() : $q->get();
     }
-
 }

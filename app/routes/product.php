@@ -7,21 +7,20 @@
 Route::group(
     [
         'prefix' => 'inventory/',
-        'before' => 'pr:54'
+        'before' => 'pr:54',
     ],
-    function ()
-    {
+    function () {
 
         Route::group(['before' => 'pr:55'], function () {
 
             Route::get('create/{type}', [
                 'as'   => 'product.create',
-                'uses' => 'ProductController@create'
+                'uses' => 'ProductController@create',
             ]);
 
             Route::post('', [
                 'as'   => 'product.store',
-                'uses' => 'ProductController@store'
+                'uses' => 'ProductController@store',
             ]);
 
         });
@@ -30,21 +29,21 @@ Route::group(
 
             Route::get('{slug}/{id}/edit', [
                 'as'   => 'product.edit',
-                'uses' => 'ProductController@edit'
+                'uses' => 'ProductController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'product.update',
-                'uses' => 'ProductController@update'
+                'uses' => 'ProductController@update',
             ]);
 
         });
 
         Route::group(['before' => 'pr:57'], function () {
 
-            Route::get('soft/delete/{id}',[
+            Route::get('soft/delete/{id}', [
                 'as'   => 'product.soft.delete',
-                'uses' => 'ProductController@softDelete'
+                'uses' => 'ProductController@softDelete',
             ]);
 
         });
@@ -53,7 +52,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'product.destroy',
-                'uses' => 'ProductController@destroy'
+                'uses' => 'ProductController@destroy',
             ]);
 
         });
@@ -62,35 +61,34 @@ Route::group(
 
             Route::get('restore/{id}', [
                 'as'   => 'product.restore',
-                'uses' => 'ProductController@restore'
+                'uses' => 'ProductController@restore',
             ]);
 
         });
 
-
         Route::get('products', [
             'as'   => 'product.index.product',
-            'uses' => 'ProductController@indexProducts'
+            'uses' => 'ProductController@indexProducts',
         ]);
 
         Route::get('services', [
             'as'   => 'product.index.service',
-            'uses' => 'ProductController@indexServices'
+            'uses' => 'ProductController@indexServices',
         ]);
 
         Route::get('trash', [
             'as'   => 'product.trash',
-            'uses' => 'ProductController@trash'
+            'uses' => 'ProductController@trash',
         ]);
 
         Route::get('{slug}/{id}', [
             'as'   => 'product.show',
-            'uses' => 'ProductController@show'
+            'uses' => 'ProductController@show',
         ]);
 
         Route::get('search/q/{type}', [
             'as'   => 'product.search',
-            'uses' => 'ProductController@search'
+            'uses' => 'ProductController@search',
         ]);
 
     }

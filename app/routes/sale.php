@@ -6,16 +6,15 @@
  */
 Route::group(
     [
-        'prefix' => 'sale/'
+        'prefix' => 'sale/',
     ],
-    function ()
-    {
+    function () {
 
         Route::group(['before' => 'pr:77'], function () {
 
             Route::get('create', [
                 'as'   => 'sale.create',
-                'uses' => 'SaleController@create'
+                'uses' => 'SaleController@create',
             ]);
 
         });
@@ -24,12 +23,12 @@ Route::group(
 
             Route::get('{id}/edit', [
                 'as'   => 'sale.edit',
-                'uses' => 'SaleController@edit'
+                'uses' => 'SaleController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'sale.update',
-                'uses' => 'SaleController@update'
+                'uses' => 'SaleController@update',
             ]);
 
         });
@@ -38,7 +37,7 @@ Route::group(
 
             Route::get('cancellations', [
                 'as' => 'sale.cancellations',
-                'uses' => 'SaleController@cancellations'
+                'uses' => 'SaleController@cancellations',
             ]);
 
         });
@@ -47,7 +46,7 @@ Route::group(
 
             Route::put('adjust/{id}', [
                 'as'   => 'sale.adjust.price',
-                'uses' => 'SaleController@adjustPrice'
+                'uses' => 'SaleController@adjustPrice',
             ]);
 
         });
@@ -56,7 +55,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'sale.destroy',
-                'uses' => 'SaleController@destroy'
+                'uses' => 'SaleController@destroy',
             ]);
 
         });
@@ -65,22 +64,21 @@ Route::group(
 
             Route::post('{id}/cancel', [
                 'as'   => 'sale.cancel',
-                'uses' => 'SaleController@cancel'
+                'uses' => 'SaleController@cancel',
             ]);
 
         });
-
 
         Route::group(['before' => 'pr:78,86,95,107'], function () {
 
             Route::get('stop/{id}', [
                 'as'   => 'sale.stop',
-                'uses' => 'SaleController@stopRegisterMovements'
+                'uses' => 'SaleController@stopRegisterMovements',
             ]);
 
             Route::get('start/{id}', [
                 'as'   => 'sale.start',
-                'uses' => 'SaleController@startRegisterMovements'
+                'uses' => 'SaleController@startRegisterMovements',
             ]);
 
         });
@@ -89,30 +87,29 @@ Route::group(
 
             Route::get('', [
                 'as'   => 'sale.index',
-                'uses' => 'SaleController@index'
+                'uses' => 'SaleController@index',
             ]);
 
             Route::get('search/{type}', [
                 'as'   => 'sale.search',
-                'uses' => 'SaleController@search'
+                'uses' => 'SaleController@search',
             ]);
 
             Route::get('{id}', [
                 'as'   => 'sale.show',
-                'uses' => 'SaleController@show'
+                'uses' => 'SaleController@show',
             ]);
 
         });
 
-
         Route::get('print/generate/{id}', [
             'as'   => 'sale.print.generate',
-            'uses' => 'SaleController@generatePrint'
+            'uses' => 'SaleController@generatePrint',
         ]);
 
         Route::get('print/{folio}/{id}', [
             'as'   => 'sale.print',
-            'uses' => 'SaleController@salePrint'
+            'uses' => 'SaleController@salePrint',
         ]);
 
     }

@@ -1,9 +1,11 @@
-<?php namespace microchip\customer;
+<?php
+
+namespace microchip\customer;
 
 use microchip\base\BaseManager;
 
-class CustomerRegManager extends BaseManager {
-
+class CustomerRegManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
@@ -44,12 +46,10 @@ class CustomerRegManager extends BaseManager {
         $data['slug']   = \Str::slug($data['name']);
         $data['rfc']    = strtoupper($data['rfc']);
 
-        if ( ! empty( $data['card_id'] ) )
-        {
+        if (!empty($data['card_id'])) {
             $data['card_active'] = date('Y-m-d');
         }
 
         return $data;
     }
-
 }

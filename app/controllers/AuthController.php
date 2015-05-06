@@ -2,25 +2,23 @@
 
 use microchip\user\UserRepo;
 
-class AuthController extends \BaseController {
-
+class AuthController extends \BaseController
+{
     protected $userRepo;
 
     public function __construct(
         UserRepo    $userRepo
-    )
-    {
+    ) {
         $this->userRepo = $userRepo;
     }
 
-	public function login()
+    public function login()
     {
         $data = Input::all();
 
         $user = $this->userRepo->getUserByPassword($data['password']);
 
-        if( $user )
-        {
+        if ($user) {
             Auth::login($user);
 
             return Redirect::route('home.sale');
@@ -35,5 +33,4 @@ class AuthController extends \BaseController {
 
         return Redirect::route('home.index');
     }
-
 }

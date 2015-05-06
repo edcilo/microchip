@@ -1,13 +1,15 @@
-<?php namespace microchip\warranty;
+<?php
+
+namespace microchip\warranty;
 
 use microchip\base\BaseManager;
 
-class WarrantyRegManager extends BaseManager {
-
+class WarrantyRegManager extends BaseManager
+{
     public function getRules()
     {
         $rules = [
-            'quantity'      => 'required|integer|min:1|max:' . $this->data['quantity_max'],
+            'quantity'      => 'required|integer|min:1|max:'.$this->data['quantity_max'],
             'product_id'    => 'required|exists:products,id',
             'provider_id'   => 'required|exists:providers,id',
             //'series_id'     => 'exists:series,id',
@@ -21,5 +23,4 @@ class WarrantyRegManager extends BaseManager {
     {
         return $data;
     }
-
 }

@@ -1,16 +1,18 @@
-<?php namespace microchip\inventoryMovement;
+<?php
+
+namespace microchip\inventoryMovement;
 
 use microchip\base\BaseManager;
 
-class InventoryMovementPRegManager extends BaseManager {
-
+class InventoryMovementPRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
             'quantity'          => 'required|integer',
             'purchase_price'    => 'required|numeric',
             'product_id'        => 'required|exists:products,id',
-            'purchase_id'		=> 'required|exists:purchases,id',
+            'purchase_id'        => 'required|exists:purchases,id',
         ];
     }
 
@@ -25,5 +27,4 @@ class InventoryMovementPRegManager extends BaseManager {
 
         return $data;
     }
-
 }

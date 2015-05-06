@@ -1,9 +1,11 @@
-<?php namespace microchip\productDescription;
+<?php
+
+namespace microchip\productDescription;
 
 use microchip\base\BaseRepo;
 
-class ProductDescriptionRepo extends BaseRepo {
-
+class ProductDescriptionRepo extends BaseRepo
+{
     public function getModel()
     {
         return new ProductDescription();
@@ -13,5 +15,4 @@ class ProductDescriptionRepo extends BaseRepo {
     {
         return $description = new ProductDescription();
     }
-
 }

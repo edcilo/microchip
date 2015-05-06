@@ -1,9 +1,11 @@
-<?php namespace microchip\purchasePayment;
+<?php
+
+namespace microchip\purchasePayment;
 
 use microchip\base\BaseManager;
 
-class PurchasePaymentRegManager extends BaseManager {
-
+class PurchasePaymentRegManager extends BaseManager
+{
     public function getRules()
     {
         $rules = [
@@ -12,11 +14,10 @@ class PurchasePaymentRegManager extends BaseManager {
             'cheque_id'    => 'required_if:type,Cheque|integer',
             'method'       => 'required|in:Contado,Crédito',
             'payment_date' => 'required|date',
-            'status'       => 'required|in:Pagado,Pendiente'
+            'status'       => 'required|in:Pagado,Pendiente',
         ];
 
-        if( !empty($this->data['cheque_id']) )
-        {
+        if (!empty($this->data['cheque_id'])) {
             $rules['cheque_id'] .= '|exists:cheques,id';
         }
 
@@ -27,12 +28,10 @@ class PurchasePaymentRegManager extends BaseManager {
     {
         $this->stripTags($data);
 
-        if ( $data['type'] != 'Cheque' )
-        {
+        if ($data['type'] != 'Cheque') {
             $data['cheque_id']  = 0;
         }
 
         return $data;
     }
-
 }

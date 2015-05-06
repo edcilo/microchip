@@ -1,9 +1,11 @@
-<?php namespace microchip\warranty;
+<?php
+
+namespace microchip\warranty;
 
 use microchip\base\BaseManager;
 
-class WarrantyUpdManager  extends BaseManager {
-
+class WarrantyUpdManager  extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -19,5 +21,4 @@ class WarrantyUpdManager  extends BaseManager {
     {
         return $data;
     }
-
 }

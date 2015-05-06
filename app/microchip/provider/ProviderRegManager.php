@@ -1,9 +1,11 @@
-<?php namespace microchip\provider;
+<?php
+
+namespace microchip\provider;
 
 use microchip\base\BaseManager;
 
-class ProviderRegManager extends BaseManager {
-
+class ProviderRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -32,5 +34,4 @@ class ProviderRegManager extends BaseManager {
 
         return $data;
     }
-
 }

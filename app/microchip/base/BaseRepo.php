@@ -1,7 +1,9 @@
-<?php namespace microchip\base;
+<?php
 
-abstract class BaseRepo{
+namespace microchip\base;
 
+abstract class BaseRepo
+{
     protected $model;
 
     public function __construct()
@@ -9,10 +11,10 @@ abstract class BaseRepo{
         $this->model = $this->getModel();
     }
 
-    abstract function getModel();
+    abstract public function getModel();
 
     /**
-     * devolver coleccion de todas las filas de un modelo
+     * devolver coleccion de todas las filas de un modelo.
      *
      * @return mixed
      */
@@ -23,9 +25,10 @@ abstract class BaseRepo{
 
     /**
      * eliminar una fila o una collecion de filas de un modelo según su id
-     * $id puede ser un valor entero o un arreglo de valores enteros
+     * $id puede ser un valor entero o un arreglo de valores enteros.
      *
      * @param $id
+     *
      * @return mixed
      */
     public function destroy($id)
@@ -35,9 +38,10 @@ abstract class BaseRepo{
 
     /**
      * devolver una fila o una coleccion de filas según su id
-     * $id puede ser un valor entero o un arreglo de valores enteros
+     * $id puede ser un valor entero o un arreglo de valores enteros.
      *
      * @param $id
+     *
      * @return mixed
      */
     public function find($id)
@@ -46,7 +50,7 @@ abstract class BaseRepo{
     }
 
     /**
-     * devolver la primera fila de un modelo
+     * devolver la primera fila de un modelo.
      *
      * @return mixed
      */
@@ -57,21 +61,23 @@ abstract class BaseRepo{
 
     /**
      * devolver una coleccion de filas con una o dos columnas
-     * para generar la lista de opciones de un elemento select de HTML
+     * para generar la lista de opciones de un elemento select de HTML.
      *
      * @param string $column
      * @param null   $key
+     *
      * @return array
      */
-    public function lists($column, $key=null)
+    public function lists($column, $key = null)
     {
-        return ( is_null($key) ) ? $this->model->lists($column) : $this->model->lists($column, $key);
+        return (is_null($key)) ? $this->model->lists($column) : $this->model->lists($column, $key);
     }
 
     /**
-     * devolver una columna de la primer fila de un modelo
+     * devolver una columna de la primer fila de un modelo.
      *
-     * @param  string $column
+     * @param string $column
+     *
      * @return mixed
      */
     public function pluck($column)
@@ -80,7 +86,7 @@ abstract class BaseRepo{
     }
 
     /**
-     * Borrar todas las filas de un modelo
+     * Borrar todas las filas de un modelo.
      *
      * @return mixed
      */
@@ -90,25 +96,25 @@ abstract class BaseRepo{
     }
 
     /**
-     * devolver coleccion de todas las filas de un modelo
+     * devolver coleccion de todas las filas de un modelo.
      *
-     * @param string $like    devolver toda la colleccion en forma de arreglo o paginada
-     * @param string $column  columna para ordenar la coleccion
-     * @param string $order   orden en que se devolvera la coleccion (ASC|DESC)
+     * @param string $like   devolver toda la colleccion en forma de arreglo o paginada
+     * @param string $column columna para ordenar la coleccion
+     * @param string $order  orden en que se devolvera la coleccion (ASC|DESC)
+     *
      * @return mixed
      */
-    public function getAll($like='all', $column='id', $order='ASC')
+    public function getAll($like = 'all', $column = 'id', $order = 'ASC')
     {
         $q = $this->model->orderby($column, $order);
 
-        return ( $like == 'all' ) ? $q->get() : $q->paginate();
+        return ($like == 'all') ? $q->get() : $q->paginate();
     }
 
-    public function getActive($active=1, $like='all', $column='id', $order='ASC')
+    public function getActive($active = 1, $like = 'all', $column = 'id', $order = 'ASC')
     {
         $q = $this->model->orderby($column, $order)->where('active', $active);
 
-        return ( $like == 'all' ) ? $q->get() : $q->paginate();
+        return ($like == 'all') ? $q->get() : $q->paginate();
     }
-
 }

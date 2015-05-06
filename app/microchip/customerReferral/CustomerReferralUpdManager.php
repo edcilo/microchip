@@ -1,13 +1,15 @@
-<?php namespace microchip\customerReferral;
+<?php
+
+namespace microchip\customerReferral;
 
 use microchip\base\BaseManager;
 
-class CustomerReferralUpdManager extends BaseManager {
-
+class CustomerReferralUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
-            'expiration' => 'required|integer'
+            'expiration' => 'required|integer',
         ];
     }
 
@@ -19,5 +21,4 @@ class CustomerReferralUpdManager extends BaseManager {
 
         return $data;
     }
-
 }

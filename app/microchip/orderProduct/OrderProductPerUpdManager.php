@@ -1,9 +1,11 @@
-<?php namespace microchip\orderProduct;
+<?php
+
+namespace microchip\orderProduct;
 
 use microchip\base\BaseManager;
 
-class OrderProductPerUpdManager extends BaseManager {
-
+class OrderProductPerUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -17,5 +19,4 @@ class OrderProductPerUpdManager extends BaseManager {
     {
         return $data;
     }
-
 }

@@ -3,18 +3,15 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePaysTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('pays', function(Blueprint $table)
-		{
-			$table->increments('id');
+class CreatePaysTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('pays', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->decimal('amount');
             $table->decimal('change');
@@ -38,19 +35,15 @@ class CreatePaysTable extends Migration {
             $table->unsignedInteger('coupon_id');
 
             $table->date('date');
-			$table->timestamps();
-		});
-	}
+            $table->timestamps();
+        });
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('pays');
-	}
-
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('pays');
+    }
 }

@@ -1,10 +1,12 @@
-<?php namespace microchip\permission;
+<?php
+
+namespace microchip\permission;
 
 use microchip\base\BaseEntity;
 
-class Permission extends BaseEntity {
-
-	protected $fillable = [
+class Permission extends BaseEntity
+{
+    protected $fillable = [
         'name',
         'description',
     ];
@@ -13,5 +15,4 @@ class Permission extends BaseEntity {
     {
         return $this->belongsToMany('microchip\user\User');
     }
-
 }

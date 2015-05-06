@@ -1,34 +1,34 @@
 <?php
+
 /*
  * Routes
  */
 Route::group(
     [
-        'prefix' => 'order_product/'
+        'prefix' => 'order_product/',
     ],
-    function ()
-    {
+    function () {
 
         Route::get('create', [
             'as'   => 'order.product.create',
-            'uses' => 'OrderProductController@create'
+            'uses' => 'OrderProductController@create',
         ]);
 
         Route::group(['before' => 'pr:103'], function () {
 
             Route::get('support/{id}', [
                 'as' => 'order.product.support',
-                'uses' => 'OrderProductController@support'
+                'uses' => 'OrderProductController@support',
             ]);
 
             Route::post('permission/up/{id}', [
                 'as'   => 'order.product.permission',
-                'uses' => 'OrderProductController@permission'
+                'uses' => 'OrderProductController@permission',
             ]);
 
             Route::post('permission/down/{id}', [
                 'as'   => 'order.product.permission.down',
-                'uses' => 'OrderProductController@permissionDown'
+                'uses' => 'OrderProductController@permissionDown',
             ]);
 
         });
@@ -37,7 +37,7 @@ Route::group(
 
             Route::post('', [
                 'as'   => 'order.product.store',
-                'uses' => 'OrderProductController@store'
+                'uses' => 'OrderProductController@store',
             ]);
 
         });
@@ -46,7 +46,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'order.product.destroy',
-                'uses' => 'OrderProductController@destroy'
+                'uses' => 'OrderProductController@destroy',
             ]);
 
         });
@@ -55,28 +55,25 @@ Route::group(
 
             Route::get('', [
                 'as'   => 'order.product.index',
-                'uses' => 'OrderProductController@index'
+                'uses' => 'OrderProductController@index',
             ]);
 
         });
 
         Route::get('{id}', [
             'as'   => 'order.product.show',
-            'uses' => 'OrderProductController@edit'
+            'uses' => 'OrderProductController@edit',
         ]);
-
 
         Route::get('{slug}/{id}/edit', [
             'as'   => 'order.product.edit',
-            'uses' => 'OrderProductController@update'
+            'uses' => 'OrderProductController@update',
         ]);
 
         Route::put('{id}', [
             'as'   => 'order.product.update',
-            'uses' => 'OrderProductController@show'
+            'uses' => 'OrderProductController@show',
         ]);
-
-
 
     }
 );

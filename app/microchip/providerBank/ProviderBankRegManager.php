@@ -1,9 +1,11 @@
-<?php namespace microchip\providerBank;
+<?php
+
+namespace microchip\providerBank;
 
 use microchip\base\BaseManager;
 
-class ProviderBankRegManager extends BaseManager {
-
+class ProviderBankRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -21,5 +23,4 @@ class ProviderBankRegManager extends BaseManager {
 
         return $data;
     }
-
 }

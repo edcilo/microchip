@@ -1,10 +1,12 @@
-<?php namespace microchip\coupon;
+<?php
+
+namespace microchip\coupon;
 
 use Carbon\Carbon;
 use microchip\base\BaseEntity;
 
-class Coupon extends BaseEntity {
-
+class Coupon extends BaseEntity
+{
     protected $fillable = [
         'available',
         'folio',
@@ -32,7 +34,7 @@ class Coupon extends BaseEntity {
 
     public function getLapsedAttribute()
     {
-        if (! $this->getLastDateAttribute()) {
+        if (!$this->getLastDateAttribute()) {
             return false;
         }
 
@@ -41,7 +43,6 @@ class Coupon extends BaseEntity {
 
         return $first->lte($second);
     }
-
 
     public function user()
     {
@@ -62,5 +63,4 @@ class Coupon extends BaseEntity {
     {
         return $this->hasOne('microchip\pay\Pay');
     }
-
 }

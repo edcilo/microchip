@@ -1,7 +1,9 @@
-<?php namespace microchip\product;
+<?php
 
-class ProductFormat {
+namespace microchip\product;
 
+class ProductFormat
+{
     public function formatData(&$product)
     {
         $this->getPriceWithIva($product);
@@ -11,8 +13,7 @@ class ProductFormat {
         $product->web       = $this->checkOrFail($product->web);
         $product->active_i  = $this->checkOrFail($product->active);
 
-        if ( is_object($product->p_description) )
-        {
+        if (is_object($product->p_description)) {
             $this->getUtilities($product);
 
             $product->p_description->have_serie = $this->checkOrFail($product->p_description->have_serie);
@@ -30,7 +31,7 @@ class ProductFormat {
 
     public function getIva($price)
     {
-        return number_format( $price * ((16 / 100) + 1) , 2 );
+        return number_format($price * ((16 / 100) + 1), 2);
     }
 
     public function getUtilities($product)
@@ -44,7 +45,7 @@ class ProductFormat {
 
     public function getUtility($purchase, $price)
     {
-        $utility = number_format( ( ($price / $purchase) - 1 ) * 100 , 2 );
+        $utility = number_format((($price / $purchase) - 1) * 100, 2);
 
         return $utility;
     }
@@ -53,5 +54,4 @@ class ProductFormat {
     {
         return ($data) ? '<i class="fa fa-check"></i> Si' : '<i class="fa fa-times"></i> No';
     }
-
 }

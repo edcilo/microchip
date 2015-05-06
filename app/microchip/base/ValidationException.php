@@ -1,7 +1,9 @@
-<?php namespace microchip\base;
+<?php
 
-class ValidationException extends \Exception {
+namespace microchip\base;
 
+class ValidationException extends \Exception
+{
     protected $errors;
 
     public function __construct($message, $errors)
@@ -14,5 +16,4 @@ class ValidationException extends \Exception {
     {
         return $this->errors;
     }
-
 }

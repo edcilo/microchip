@@ -1,9 +1,11 @@
-<?php namespace microchip\series;
+<?php
+
+namespace microchip\series;
 
 use microchip\base\BaseManager;
 
-class SeriesRegManager extends BaseManager {
-
+class SeriesRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -21,5 +23,4 @@ class SeriesRegManager extends BaseManager {
 
         return $data;
     }
-
 }

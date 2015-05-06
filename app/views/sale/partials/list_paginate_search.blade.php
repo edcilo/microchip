@@ -30,4 +30,3 @@
 </table>
 
 {{ $results->appends(['terms' => $terms])->links() }}
-

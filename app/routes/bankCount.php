@@ -7,26 +7,25 @@
 Route::group(
     [
         'prefix' => 'bankCount/',
-        'before' => 'pr:16'
+        'before' => 'pr:16',
     ],
-    function ()
-    {
+    function () {
 
         Route::get('{bank_id}', [
             'as'   => 'bankCount.index',
-            'uses' => 'BankCountController@index'
+            'uses' => 'BankCountController@index',
         ]);
 
         Route::group(['before' => 'pr:17'], function () {
 
             Route::get('create/{bank_id}', [
                 'as'   => 'bankCount.create',
-                'uses' => 'BankCountController@create'
+                'uses' => 'BankCountController@create',
             ]);
 
             Route::post('{bank_id}', [
                 'as'   => 'bankCount.store',
-                'uses' => 'BankCountController@store'
+                'uses' => 'BankCountController@store',
             ]);
 
         });
@@ -35,12 +34,12 @@ Route::group(
 
             Route::get('{id}/edit', [
                 'as'   => 'bankCount.edit',
-                'uses' => 'BankCountController@edit'
+                'uses' => 'BankCountController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'bankCount.update',
-                'uses' => 'BankCountController@update'
+                'uses' => 'BankCountController@update',
             ]);
 
         });
@@ -49,7 +48,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'bankCount.destroy',
-                'uses' => 'BankCountController@destroy'
+                'uses' => 'BankCountController@destroy',
             ]);
 
         });

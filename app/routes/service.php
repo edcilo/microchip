@@ -6,16 +6,15 @@
  */
 Route::group(
     [
-        'prefix' => 'service/'
+        'prefix' => 'service/',
     ],
-    function ()
-    {
+    function () {
 
         Route::group(['before' => 'pr:94'], function () {
 
             Route::get('create', [
                 'as' => 'service.create',
-                'uses' => 'ServiceController@create'
+                'uses' => 'ServiceController@create',
             ]);
 
         });
@@ -24,12 +23,12 @@ Route::group(
 
             Route::get('{id}/edit', [
                 'as'   => 'service.edit',
-                'uses' => 'ServiceController@edit'
+                'uses' => 'ServiceController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'service.update',
-                'uses' => 'ServiceController@update'
+                'uses' => 'ServiceController@update',
             ]);
 
         });
@@ -38,17 +37,17 @@ Route::group(
 
             Route::get('', [
                 'as'   => 'service.index',
-                'uses' => 'ServiceController@index'
+                'uses' => 'ServiceController@index',
             ]);
 
             Route::get('search/{type}', [
                 'as'   => 'service.search',
-                'uses' => 'ServiceController@search'
+                'uses' => 'ServiceController@search',
             ]);
 
             Route::get('{id}', [
                 'as'   => 'service.show',
-                'uses' => 'ServiceController@show'
+                'uses' => 'ServiceController@show',
             ]);
 
         });
@@ -57,7 +56,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'service.destroy',
-                'uses' => 'SaleController@destroy'
+                'uses' => 'SaleController@destroy',
             ]);
 
         });
@@ -66,7 +65,7 @@ Route::group(
 
             Route::post('finish/{id}', [
                 'as'   => 'service.finish',
-                'uses' => 'ServiceController@finish'
+                'uses' => 'ServiceController@finish',
             ]);
 
         });
@@ -75,7 +74,7 @@ Route::group(
 
             Route::post('restart/{id}', [
                 'as'   => 'service.restart',
-                'uses' => 'ServiceController@restart'
+                'uses' => 'ServiceController@restart',
             ]);
 
         });
@@ -84,7 +83,7 @@ Route::group(
 
             Route::put('delivery/date/{id}', [
                 'as'   => 'service.edit.delivery.date',
-                'uses' => 'SaleController@editDeliveryDate'
+                'uses' => 'SaleController@editDeliveryDate',
             ]);
 
         });
@@ -94,31 +93,29 @@ Route::group(
 
             Route::post('{id}/cancel', [
                 'as'   => 'service.cancel',
-                'uses' => 'ServiceController@cancel'
+                'uses' => 'ServiceController@cancel',
             ]);
 
         });
 
-
-
         Route::get('print/generate/{id}', [
             'as'   => 'service.print.generate',
-            'uses' => 'ServiceController@generatePrint'
+            'uses' => 'ServiceController@generatePrint',
         ]);
 
         Route::get('print/{folio}/{id}', [
             'as'   => 'service.print',
-            'uses' => 'ServiceController@servicePrint'
+            'uses' => 'ServiceController@servicePrint',
         ]);
 
         Route::get('authorization/{id}', [
             'as'   => 'service.authorization',
-            'uses' => 'ServiceController@setAuthorization'
+            'uses' => 'ServiceController@setAuthorization',
         ]);
 
         Route::get('continue/{id}', [
             'as'   => 'service.continue',
-            'uses' => 'ServiceController@setContinue'
+            'uses' => 'ServiceController@setContinue',
         ]);
 
     }

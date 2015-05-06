@@ -3,10 +3,10 @@
 // Composer: "fzaninotto/faker": "v1.3.0"
 use microchip\permission\Permission;
 
-class PermissionsTableSeeder extends Seeder {
-
-	public function run()
-	{
+class PermissionsTableSeeder extends Seeder
+{
+    public function run()
+    {
 
         /*
          * Configuraciones
@@ -23,8 +23,6 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Modificar las variables globales del sistema.',
         ]);
 
-
-
         /*
          * Datos de la emresa
          */
@@ -39,8 +37,6 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Datos de la empresa|Modificar',
             'description'   => 'Modificar los datos de la empresa',
         ]);
-
-
 
         /*
          * Bancos
@@ -66,13 +62,13 @@ class PermissionsTableSeeder extends Seeder {
         //8
         Permission::create([
             'name'          => 'Bancos|Enviar a papelera',
-            'description'   => 'Enviar un banco a la papelera'
+            'description'   => 'Enviar un banco a la papelera',
         ]);
 
         //9
         Permission::create([
             'name'          => 'Bancos|Devolver de papelera',
-            'description'   => 'Devolver un banco enviado a papelera a la lista de bancos activos'
+            'description'   => 'Devolver un banco enviado a papelera a la lista de bancos activos',
         ]);
 
         //10
@@ -80,8 +76,6 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Bancos|Eliminar',
             'description'   => 'Eliminar el registro de un banco',
         ]);
-
-
 
         /*
          * Cheques
@@ -107,16 +101,14 @@ class PermissionsTableSeeder extends Seeder {
         //14
         Permission::create([
             'name'          => 'Cheques|Enviar a papelera',
-            'description'   => 'Enviar un cheque a la papelera'
+            'description'   => 'Enviar un cheque a la papelera',
         ]);
 
         //15
         Permission::create([
             'name'          => 'Cheques|Devolver de papelera',
-            'description'   => 'Devolver un cheque enviado a papelera a la lista de cheques activos'
+            'description'   => 'Devolver un cheque enviado a papelera a la lista de cheques activos',
         ]);
-
-
 
         /*
          * Estado de cuenta
@@ -145,8 +137,6 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar el registro de un movimiento de las cuentas',
         ]);
 
-
-
         /*
          * Departamentos
          */
@@ -174,8 +164,6 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar el registro de un departamento',
         ]);
 
-
-
         /*
          * Empleados
          */
@@ -200,19 +188,19 @@ class PermissionsTableSeeder extends Seeder {
         //27
         Permission::create([
             'name'          => 'Empleados|Modificar datos de usuario',
-            'description'   => 'Modificar los datos de acceso al sistema'
+            'description'   => 'Modificar los datos de acceso al sistema',
         ]);
 
         //28
         Permission::create([
             'name'          => 'Empleados|Enviar a papelera',
-            'description'   => 'Enviar un empleado a la papelera'
+            'description'   => 'Enviar un empleado a la papelera',
         ]);
 
         //29
         Permission::create([
             'name'          => 'Empleados|Devolver de papelera',
-            'description'   => 'Devolver un empleado enviado a papelera a la lista de cheques activos'
+            'description'   => 'Devolver un empleado enviado a papelera a la lista de cheques activos',
         ]);
 
         //30
@@ -224,28 +212,26 @@ class PermissionsTableSeeder extends Seeder {
         //31
         Permission::create([
             'name'          => 'Empleados|Ver información de pago del empleado',
-            'description'   => 'Ver los datos de pago del empleado'
+            'description'   => 'Ver los datos de pago del empleado',
         ]);
 
         //32
         Permission::create([
             'name'          => 'Empleados|Pagar',
-            'description'   => 'Ver los datos de pago del empleado'
+            'description'   => 'Ver los datos de pago del empleado',
         ]);
 
         //33
         Permission::create([
             'name'          => 'Empleados|Ver permisos',
-            'description'   => 'Ver la lista de permisos del empleado'
+            'description'   => 'Ver la lista de permisos del empleado',
         ]);
 
         //34
         Permission::create([
             'name'          => 'Empleados|Modificar permisos',
-            'description'   => 'Modificar permisos del empleado'
+            'description'   => 'Modificar permisos del empleado',
         ]);
-
-
 
         /*
          * Proveedores
@@ -271,13 +257,13 @@ class PermissionsTableSeeder extends Seeder {
         //38
         Permission::create([
             'name'          => 'Proveedores|Enviar a papelera',
-            'description'   => 'Enviar un proveedor a la papelera'
+            'description'   => 'Enviar un proveedor a la papelera',
         ]);
 
         //39
         Permission::create([
             'name'          => 'Proveedores|Devolver de papelera',
-            'description'   => 'Devolver un proveedor enviado a papelera a la lista de cheques activos'
+            'description'   => 'Devolver un proveedor enviado a papelera a la lista de cheques activos',
         ]);
 
         //40
@@ -285,8 +271,6 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Proveedores|Eliminar',
             'description'   => 'Eliminar el registro de un proveedores',
         ]);
-
-
 
         /*
          * Marcas
@@ -315,8 +299,6 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar el registro de una marca',
         ]);
 
-
-
         /*
          * Categorías
          */
@@ -344,8 +326,6 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar el registro de una categoría',
         ]);
 
-
-
         /*
          * Permisos
          */
@@ -360,8 +340,6 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Permisos|Modificar',
             'description'   => 'Modificar los datos de un permiso',
         ]);
-
-
 
         /*
          * Movimientos
@@ -383,8 +361,6 @@ class PermissionsTableSeeder extends Seeder {
             'name'          => 'Movimientos|Eliminar',
             'description'   => 'Eliminar el registro de un movimiento',
         ]);
-
-
 
         /*
          * Productos y servicios
@@ -410,13 +386,13 @@ class PermissionsTableSeeder extends Seeder {
         //57
         Permission::create([
             'name'          => 'Productos y Servicios|Enviar a papelera',
-            'description'   => 'Enviar un producto o servicio a la papelera'
+            'description'   => 'Enviar un producto o servicio a la papelera',
         ]);
 
         //58
         Permission::create([
             'name'          => 'Productos y Servicios|Devolver de papelera',
-            'description'   => 'Devolver un producto o servicio a la lista de activos'
+            'description'   => 'Devolver un producto o servicio a la lista de activos',
         ]);
 
         //59
@@ -425,9 +401,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar el registro de un producto o servicio',
         ]);
 
-
-
-        /**
+        /*
          * Compras
          */
         //60
@@ -448,9 +422,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar el registro de una compra',
         ]);
 
-
-
-        /**
+        /*
          * Clientes
          */
         //63
@@ -474,13 +446,13 @@ class PermissionsTableSeeder extends Seeder {
         //66
         Permission::create([
             'name'          => 'Clientes|Enviar a papelera',
-            'description'   => 'Enviar un cliente a la papelera'
+            'description'   => 'Enviar un cliente a la papelera',
         ]);
 
         //67
         Permission::create([
             'name'          => 'Clientes|Devolver de papelera',
-            'description'   => 'Devolver un cliente enviado a papelera a la lista de clientes activos'
+            'description'   => 'Devolver un cliente enviado a papelera a la lista de clientes activos',
         ]);
 
         //68
@@ -489,15 +461,13 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar el registro de un cliente',
         ]);
 
-
-
-        /**
+        /*
          * Referidos
          */
         //69
         Permission::create([
             'name'          => 'Cliente|Renovar referidos',
-            'description'   => 'Renovar o modificar la vigencia de un cliente referido.'
+            'description'   => 'Renovar o modificar la vigencia de un cliente referido.',
         ]);
 
         //70
@@ -506,9 +476,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Eliminar un cliente referido',
         ]);
 
-
-
-        /**
+        /*
          * Pagos
          */
         //71
@@ -541,9 +509,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Ver los datos de los pagos',
         ]);
 
-
-
-        /**
+        /*
          * Ventas
          */
         //76
@@ -594,9 +560,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Cancelar un producto de una venta',
         ]);
 
-
-
-        /**
+        /*
          * Pedidos
          */
         //84
@@ -641,9 +605,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Surtir los productos de un pedido',
         ]);
 
-
-
-        /**
+        /*
          * Bitácora
          */
         //91
@@ -658,9 +620,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Agregar nuevos registros a la bitácora',
         ]);
 
-
-
-        /**
+        /*
          * Servicios
          */
         //93
@@ -708,7 +668,7 @@ class PermissionsTableSeeder extends Seeder {
         //100
         Permission::create([
             'name'          => 'Servicios|Volver en proceso',
-            'description'   => 'Marcar servicio como en proceso'
+            'description'   => 'Marcar servicio como en proceso',
         ]);
 
         //101
@@ -735,8 +695,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Cancelar un pedido',
         ]);
 
-
-        /**
+        /*
          * Cotizaciones
          */
         //105
@@ -775,8 +734,7 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => 'Convertir cotización a pedido',
         ]);
 
-
-        /**
+        /*
          * Productos ordenados
          */
         //111
@@ -788,37 +746,37 @@ class PermissionsTableSeeder extends Seeder {
         //112
         Permission::create([
             'name'          => 'Productos ordenados|Surtir',
-            'description'   => 'Surtir productos ordenados'
+            'description'   => 'Surtir productos ordenados',
         ]);
 
         //113
         Permission::create([
             'name'          => 'Productos ordenados|Desapartar',
-            'description'   => 'Desapartar productos surtidos'
+            'description'   => 'Desapartar productos surtidos',
         ]);
 
-        /**
+        /*
          * Documentos cancelados
          */
         //114
         Permission::create([
             'name'          => 'Cancelaciones|Ver',
-            'description'   => 'Ver todos los documentos cancelados'
+            'description'   => 'Ver todos los documentos cancelados',
         ]);
 
-        /**
+        /*
          * Vales
          */
         //115
         Permission::create([
             'name'          => 'Vales|Ver',
-            'description'   => 'Ver todos los vales'
+            'description'   => 'Ver todos los vales',
         ]);
 
         //116
         Permission::create([
             'name'          => 'Vales|Eliminar',
-            'description'   => 'Eliminar vales registrados'
+            'description'   => 'Eliminar vales registrados',
         ]);
         /*
         Permission::create([
@@ -826,7 +784,5 @@ class PermissionsTableSeeder extends Seeder {
             'description'   => '',
         ]);
         */
-
-	}
-
+    }
 }

@@ -3,18 +3,15 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateServiceDatasTable extends Migration {
-
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('service_datas', function(Blueprint $table)
-		{
-			$table->increments('id');
+class CreateServiceDatasTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('service_datas', function (Blueprint $table) {
+            $table->increments('id');
 
             $table->enum('status', ['Pendiente', 'Proceso', 'Terminado', 'Cancelado']); //, 'Autorización'
 
@@ -32,19 +29,15 @@ class CreateServiceDatasTable extends Migration {
             $table->unsignedInteger('sale_id');
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade')->onUpdate('cascade');
 
-			$table->timestamps();
-		});
-	}
+            $table->timestamps();
+        });
+    }
 
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('service_datas');
-	}
-
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('service_datas');
+    }
 }

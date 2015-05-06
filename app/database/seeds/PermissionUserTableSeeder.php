@@ -1,17 +1,15 @@
 <?php
 
-class PermissionUserTableSeeder extends Seeder {
-
-	public function run()
-	{
-		foreach(range(1, 116) as $index)
-		{
+class PermissionUserTableSeeder extends Seeder
+{
+    public function run()
+    {
+        foreach (range(1, 116) as $index) {
             \DB::table('permission_user')->insert([
                 'user_id'       => 1,
-                'permission_id' => $index
+                'permission_id' => $index,
             ]);
-		}
-
+        }
 
 /*
         \DB::table('permission_user')->insert([
@@ -62,6 +60,5 @@ class PermissionUserTableSeeder extends Seeder {
             'permission_id' => 96
         ]);
 */
-	}
-
+    }
 }

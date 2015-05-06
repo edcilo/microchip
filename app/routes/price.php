@@ -6,16 +6,15 @@
  */
 Route::group(
     [
-        'prefix' => 'price/'
+        'prefix' => 'price/',
     ],
-    function ()
-    {
+    function () {
 
         Route::group(['before' => 'pr:106'], function () {
 
             Route::get('create', [
                 'as'   => 'price.create',
-                'uses' => 'PriceController@create'
+                'uses' => 'PriceController@create',
             ]);
 
         });
@@ -24,12 +23,12 @@ Route::group(
 
             Route::get('{id}/edit', [
                 'as'   => 'price.edit',
-                'uses' => 'PriceController@edit'
+                'uses' => 'PriceController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'price.update',
-                'uses' => 'PriceController@update'
+                'uses' => 'PriceController@update',
             ]);
 
         });
@@ -38,7 +37,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'price.destroy',
-                'uses' => 'SaleController@destroy'
+                'uses' => 'SaleController@destroy',
             ]);
 
         });
@@ -47,7 +46,7 @@ Route::group(
 
             Route::get('clone/{price_id}', [
                 'as'   => 'price.clone',
-                'uses' => 'PriceController@clonePrice'
+                'uses' => 'PriceController@clonePrice',
             ]);
 
         });
@@ -56,17 +55,17 @@ Route::group(
 
             Route::get('', [
                 'as'   => 'price.index',
-                'uses' => 'PriceController@index'
+                'uses' => 'PriceController@index',
             ]);
 
             Route::get('search/{type}', [
                 'as'   => 'price.search',
-                'uses' => 'PriceController@search'
+                'uses' => 'PriceController@search',
             ]);
 
             Route::get('{id}', [
                 'as'   => 'price.show',
-                'uses' => 'PriceController@show'
+                'uses' => 'PriceController@show',
             ]);
 
         });
@@ -75,7 +74,7 @@ Route::group(
 
             Route::post('toOrderOne/{id}', [
                 'as'   => 'price.to.order.one',
-                'uses' => 'PriceController@toOrderOne'
+                'uses' => 'PriceController@toOrderOne',
             ]);
 
         });
@@ -84,20 +83,19 @@ Route::group(
 
             Route::post('toOrder/{id}', [
                 'as'   => 'price.to.order',
-                'uses' => 'PriceController@toOrder'
+                'uses' => 'PriceController@toOrder',
             ]);
 
         });
 
-
         Route::get('print/generate/{id}', [
             'as'   => 'price.print.generate',
-            'uses' => 'PriceController@generatePrint'
+            'uses' => 'PriceController@generatePrint',
         ]);
 
         Route::get('print/{folio}/{id}', [
             'as'   => 'price.print',
-            'uses' => 'PriceController@pricePrint'
+            'uses' => 'PriceController@pricePrint',
         ]);
 
     }

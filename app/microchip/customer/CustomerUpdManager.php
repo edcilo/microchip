@@ -1,9 +1,11 @@
-<?php namespace microchip\customer;
+<?php
+
+namespace microchip\customer;
 
 use microchip\base\BaseManager;
 
-class CustomerUpdManager extends BaseManager {
-
+class CustomerUpdManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
@@ -19,15 +21,15 @@ class CustomerUpdManager extends BaseManager {
             'birthday'         => 'date',
             'phone'            => 'numeric',
             'cellphone'        => 'numeric',
-            'email'            => 'email|unique:customers,email,' . $this->entity->id,
-            'rfc'              => 'size:13|unique:customers,rfc,' . $this->entity->id,
+            'email'            => 'email|unique:customers,email,'.$this->entity->id,
+            'rfc'              => 'size:13|unique:customers,rfc,'.$this->entity->id,
             'credit_limit'     => 'numeric',
             'credit_days'      => 'integer',
-            'card_id'          => 'max:255|unique:customers,card_id,' . $this->entity->id,
+            'card_id'          => 'max:255|unique:customers,card_id,'.$this->entity->id,
             'points'           => 'float',
             'expiration'       => 'integer',
             'classification'   => 'required|in:Distribuidor,Cliente',
-            'legal_concept'    => 'in:Ninguno,Persona Física,Persona Moral'
+            'legal_concept'    => 'in:Ninguno,Persona Física,Persona Moral',
         ];
     }
 
@@ -36,12 +38,10 @@ class CustomerUpdManager extends BaseManager {
         $data['slug'] = \Str::slug($data['name']);
         $data['rfc']  = strtoupper($data['rfc']);
 
-        if ( !empty( $data['card_id'] ) && $data['card_id'] != $this->entity->card_id )
-        {
+        if (!empty($data['card_id']) && $data['card_id'] != $this->entity->card_id) {
             $data['card_active'] = date('Y-m-d');
         }
 
         return $data;
     }
-
 }

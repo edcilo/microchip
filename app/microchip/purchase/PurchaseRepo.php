@@ -1,9 +1,11 @@
-<?php namespace microchip\purchase;
+<?php
+
+namespace microchip\purchase;
 
 use microchip\base\BaseRepo;
 
-class PurchaseRepo extends BaseRepo {
-
+class PurchaseRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Purchase();
@@ -21,7 +23,7 @@ class PurchaseRepo extends BaseRepo {
             ->get();
     }
 
-    public function getIncomplete($like='all', $column='id', $order='ASC')
+    public function getIncomplete($like = 'all', $column = 'id', $order = 'ASC')
     {
         $q = Purchase::where('progress_1', 0)
             ->orwhere('progress_2', 0)
@@ -29,14 +31,13 @@ class PurchaseRepo extends BaseRepo {
             ->orwhere('progress_4', 1)
             ->orderby($column, $order);
 
-        return ( $like == 'all' ) ? $q->get() : $q->paginate();
+        return ($like == 'all') ? $q->get() : $q->paginate();
     }
 
-    public function search($terms, $request='', $take=10)
+    public function search($terms, $request = '', $take = 10)
     {
         $q = Purchase::where('folio', 'like', "%$terms%");
 
-        return ( $request == 'ajax' ) ? $q->take($take)->get() : $q->paginate();
+        return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
-
 }

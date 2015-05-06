@@ -6,21 +6,20 @@
  */
 Route::group(
     [
-        'prefix' => 'order/'
+        'prefix' => 'order/',
     ],
-    function ()
-    {
+    function () {
 
         Route::group(['before' => 'pr:85'], function () {
 
             Route::get('create', [
                 'as'   => 'order.create',
-                'uses' => 'OrderController@create'
+                'uses' => 'OrderController@create',
             ]);
 
             Route::post('', [
                 'as'   => 'order.store',
-                'uses' => 'OrderController@store'
+                'uses' => 'OrderController@store',
             ]);
 
         });
@@ -29,12 +28,12 @@ Route::group(
 
             Route::get('{id}/edit', [
                 'as'   => 'order.edit',
-                'uses' => 'OrderController@edit'
+                'uses' => 'OrderController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'order.update',
-                'uses' => 'OrderController@update'
+                'uses' => 'OrderController@update',
             ]);
 
         });
@@ -43,7 +42,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'order.destroy',
-                'uses' => 'SaleController@destroy'
+                'uses' => 'SaleController@destroy',
             ]);
 
         });
@@ -53,7 +52,7 @@ Route::group(
 
             Route::post('{id}/cancel', [
                 'as'   => 'order.cancel',
-                'uses' => 'OrderController@cancel'
+                'uses' => 'OrderController@cancel',
             ]);
 
         });
@@ -63,7 +62,7 @@ Route::group(
 
             Route::post('toSale/{id}', [
                 'as'   => 'order.to.sale',
-                'uses' => 'OrderController@toSale'
+                'uses' => 'OrderController@toSale',
             ]);
 
         });
@@ -72,31 +71,29 @@ Route::group(
 
             Route::get('', [
                 'as'   => 'order.index',
-                'uses' => 'OrderController@index'
+                'uses' => 'OrderController@index',
             ]);
 
             Route::get('search/{type}', [
                 'as'   => 'order.search',
-                'uses' => 'OrderController@search'
+                'uses' => 'OrderController@search',
             ]);
 
             Route::get('{id}', [
                 'as'   => 'order.show',
-                'uses' => 'OrderController@show'
+                'uses' => 'OrderController@show',
             ]);
 
         });
 
-
-
         Route::get('print/generate/{id}', [
             'as'   => 'order.print.generate',
-            'uses' => 'OrderController@generatePrint'
+            'uses' => 'OrderController@generatePrint',
         ]);
 
         Route::get('print/{folio}/{id}', [
             'as'   => 'order.print',
-            'uses' => 'OrderController@orderPrint'
+            'uses' => 'OrderController@orderPrint',
         ]);
 
     }

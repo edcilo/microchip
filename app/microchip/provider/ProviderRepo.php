@@ -1,9 +1,11 @@
-<?php namespace microchip\provider;
+<?php
+
+namespace microchip\provider;
 
 use microchip\base\BaseRepo;
 
-class ProviderRepo extends BaseRepo {
-
+class ProviderRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Provider();
@@ -14,7 +16,7 @@ class ProviderRepo extends BaseRepo {
         return $provider = new Provider();
     }
 
-    public function search($terms, $request='', $take=10)
+    public function search($terms, $request = '', $take = 10)
     {
         $q = Provider::where('name', 'like', "%$terms%")
             ->orwhere('rfc', 'like', "%$terms%")
@@ -22,7 +24,6 @@ class ProviderRepo extends BaseRepo {
             ->orwhere('classification', 'like', "%$terms%")
             ->orwhere('observations', 'like', "%$terms%");
 
-        return ( $request == 'ajax' ) ? $q->take($take)->get() : $q->paginate();
+        return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
-
 }

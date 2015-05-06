@@ -1,17 +1,19 @@
-<?php namespace microchip\providerBank;
+<?php
+
+namespace microchip\providerBank;
 
 use microchip\base\BaseManager;
 
-class ProviderBankUpdManager extends BaseManager {
-
+class ProviderBankUpdManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
             'bank'          => 'required',
-            'account'       => 'required|numeric|digits:11|unique:provider_banks,account,' . $this->entity->id,
+            'account'       => 'required|numeric|digits:11|unique:provider_banks,account,'.$this->entity->id,
             'plaza'         => '',
             'clabe'         => 'numeric|digits:18',
-            'provider_id'   => 'required|exists:providers,id'
+            'provider_id'   => 'required|exists:providers,id',
         ];
     }
 
@@ -21,5 +23,4 @@ class ProviderBankUpdManager extends BaseManager {
 
         return $data;
     }
-
 }

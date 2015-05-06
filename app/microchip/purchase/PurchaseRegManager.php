@@ -1,9 +1,11 @@
-<?php namespace microchip\purchase;
+<?php
+
+namespace microchip\purchase;
 
 use microchip\base\BaseManager;
 
-class PurchaseRegManager extends BaseManager {
-
+class PurchaseRegManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
@@ -26,5 +28,4 @@ class PurchaseRegManager extends BaseManager {
 
         return $data;
     }
-
 }

@@ -1,14 +1,17 @@
-<?php namespace microchip\warranty;
+<?php
+
+namespace microchip\warranty;
 
 use microchip\base\BaseEntity;
 
-class Warranty extends BaseEntity {
-	protected $fillable = [
+class Warranty extends BaseEntity
+{
+    protected $fillable = [
         'quantity',
         'product_id',
         'provider_id',
         'series_id',
-        'sale_id'
+        'sale_id',
     ];
 
     public function product()

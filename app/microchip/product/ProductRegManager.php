@@ -1,9 +1,11 @@
-<?php namespace microchip\product;
+<?php
+
+namespace microchip\product;
 
 use microchip\base\BaseManager;
 
-class ProductRegManager extends BaseManager {
-
+class ProductRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -37,9 +39,8 @@ class ProductRegManager extends BaseManager {
 
         $path               = 'images/product';
         $path_image         = $this->saveFile(\Input::file('image'), $path, false, $data['slug']);
-        $data['image']      = ( $path_image ) ? $path_image : $path . '/default.png';
+        $data['image']      = ($path_image) ? $path_image : $path.'/default.png';
 
         return $data;
     }
-
 }

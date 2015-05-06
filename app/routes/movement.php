@@ -1,32 +1,32 @@
 <?php
+
 /*
  * Routes
  */
 Route::group(
     [
         'prefix' => 'movement/',
-        'before' => 'pr:51'
+        'before' => 'pr:51',
     ],
-    function ()
-    {
+    function () {
 
         Route::group(['before' => 'pr:51'], function () {
 
             Route::get('', [
                 'as'   => 'movement.index',
-                'uses' => 'InventoryMovementController@index'
+                'uses' => 'InventoryMovementController@index',
             ]);
 
             Route::group(['before' => 'pr:52'], function () {
 
                 Route::get('create', [
                     'as'   => 'movement.create',
-                    'uses' => 'InventoryMovementController@create'
+                    'uses' => 'InventoryMovementController@create',
                 ]);
 
                 Route::post('', [
                     'as'   => 'movement.store',
-                    'uses' => 'InventoryMovementController@store'
+                    'uses' => 'InventoryMovementController@store',
                 ]);
 
             });
@@ -35,29 +35,28 @@ Route::group(
 
                 Route::delete('{id}/simple', [
                     'as'   => 'movement.destroy.simple',
-                    'uses' => 'InventoryMovementController@destroySimple'
+                    'uses' => 'InventoryMovementController@destroySimple',
                 ]);
 
             });
 
             Route::get('{id}', [
                 'as'   => 'movement.show',
-                'uses' => 'InventoryMovementController@show'
+                'uses' => 'InventoryMovementController@show',
             ]);
 
         });
-
 
         Route::group(['before' => 'pr:61'], function () {
 
             Route::get('purchase/create', [
                 'as'   => 'movement.purchase.create',
-                'uses' => 'InventoryMovementController@purchaseCreate'
+                'uses' => 'InventoryMovementController@purchaseCreate',
             ]);
 
             Route::post('purchase', [
                 'as'   => 'movement.purchase.store',
-                'uses' => 'InventoryMovementController@purchaseStore'
+                'uses' => 'InventoryMovementController@purchaseStore',
             ]);
 
         });
@@ -66,12 +65,12 @@ Route::group(
 
             Route::get('sale/create', [
                 'as'   => 'movement.sale.create',
-                'uses' => 'InventoryMovementController@saleCreate'
+                'uses' => 'InventoryMovementController@saleCreate',
             ]);
 
             Route::post('sale', [
                 'as'   => 'movement.sale.store',
-                'uses' => 'InventoryMovementController@saleStore'
+                'uses' => 'InventoryMovementController@saleStore',
             ]);
 
         });
@@ -80,7 +79,7 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'movement.destroy',
-                'uses' => 'InventoryMovementController@destroy'
+                'uses' => 'InventoryMovementController@destroy',
             ]);
 
         });

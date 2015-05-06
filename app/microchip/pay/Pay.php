@@ -1,10 +1,12 @@
-<?php namespace microchip\pay;
+<?php
+
+namespace microchip\pay;
 
 use microchip\base\BaseEntity;
 
-class Pay extends BaseEntity {
-
-	protected $fillable = [
+class Pay extends BaseEntity
+{
+    protected $fillable = [
         'amount',
         'change',
         'pending',
@@ -19,7 +21,6 @@ class Pay extends BaseEntity {
         'user_id',
     ];
 
-
     public function getClassRowAttribute()
     {
         return ($this->amount < 0) ? 'red' : '';
@@ -29,7 +30,6 @@ class Pay extends BaseEntity {
     {
         return date('d-m-Y', time($this->date));
     }
-
 
     public function sale()
     {
@@ -50,5 +50,4 @@ class Pay extends BaseEntity {
     {
         return $this->belongsTo('microchip\coupon\Coupon');
     }
-
 }

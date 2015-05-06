@@ -30,4 +30,3 @@
 </table>
 
 {{ $sales->links() }}
-

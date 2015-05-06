@@ -1,9 +1,11 @@
-<?php namespace microchip\bank;
+<?php
+
+namespace microchip\bank;
 
 use microchip\base\BaseRepo;
 
-class BankRepo extends BaseRepo {
-
+class BankRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Bank();
@@ -14,7 +16,7 @@ class BankRepo extends BaseRepo {
         return $bank = new Bank();
     }
 
-    public function search($terms, $response='', $take=10)
+    public function search($terms, $response = '', $take = 10)
     {
         $q = Bank::where('name', 'LIKE', "%$terms%")
             ->orwhere('branch', 'LIKE', "%$terms%")
@@ -27,5 +29,4 @@ class BankRepo extends BaseRepo {
 
         return ($response == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
-
 }

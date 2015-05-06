@@ -1,9 +1,11 @@
-<?php namespace microchip\profile;
+<?php
+
+namespace microchip\profile;
 
 use microchip\base\BaseManager;
 
-class ProfileUpdManager extends BaseManager {
-
+class ProfileUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -42,9 +44,8 @@ class ProfileUpdManager extends BaseManager {
     {
         $path           = 'images/user';
         $path_image     = $this->saveFile(\Input::file('photo'), $path, false, $this->entity->user->slug, false, true, $this->entity->photo);
-        $data['photo']  = ( $path_image ) ? $path_image : $this->entity->photo;
+        $data['photo']  = ($path_image) ? $path_image : $this->entity->photo;
 
         return $data;
     }
-
 }

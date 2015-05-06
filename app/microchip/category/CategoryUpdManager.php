@@ -1,13 +1,15 @@
-<?php namespace microchip\category;
+<?php
+
+namespace microchip\category;
 
 use microchip\base\BaseManager;
 
-class CategoryUpdManager extends BaseManager {
-
+class CategoryUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
-            'name'          => 'required|unique:categories,name,' . $this->entity->id,
+            'name'          => 'required|unique:categories,name,'.$this->entity->id,
             'image'         => 'image',
             'description'   => '',
         ];
@@ -25,9 +27,8 @@ class CategoryUpdManager extends BaseManager {
         } else {
             $path_photo     = $this->saveFile(\Input::file('image'), $path, false, $data['slug']);
         }
-        $data['image']  = ( $path_photo ) ? $path_photo : $this->entity->image;
+        $data['image']  = ($path_photo) ? $path_photo : $this->entity->image;
 
         return $data;
     }
-
 }

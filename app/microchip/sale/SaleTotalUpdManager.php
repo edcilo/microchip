@@ -1,13 +1,15 @@
-<?php namespace microchip\sale;
+<?php
+
+namespace microchip\sale;
 
 use microchip\base\BaseManager;
 
-class SaleTotalUpdManager extends BaseManager {
-
+class SaleTotalUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
-            'new_price'	=> 'required|numeric|min:'.$this->entity->getTotalAttribute()
+            'new_price'    => 'required|numeric|min:'.$this->entity->getTotalAttribute(),
         ];
     }
 
@@ -26,5 +28,4 @@ class SaleTotalUpdManager extends BaseManager {
 
         return $data;
     }
-
 }

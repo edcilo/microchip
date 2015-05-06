@@ -7,26 +7,25 @@
 Route::group(
     [
         'prefix' => 'department/',
-        'before' => 'pr:20'
+        'before' => 'pr:20',
     ],
-    function ()
-    {
+    function () {
 
         Route::get('', [
             'as'   => 'department.index',
-            'uses' => 'DepartmentController@index'
+            'uses' => 'DepartmentController@index',
         ]);
 
         Route::group(['before' => 'pr:21'], function () {
 
             Route::get('create', [
                 'as'   => 'department.create',
-                'uses' => 'DepartmentController@create'
+                'uses' => 'DepartmentController@create',
             ]);
 
             Route::post('', [
                 'as'   => 'department.store',
-                'uses' => 'DepartmentController@store'
+                'uses' => 'DepartmentController@store',
             ]);
 
         });
@@ -35,12 +34,12 @@ Route::group(
 
             Route::get('{slug}/{id}/edit', [
                 'as'   => 'department.edit',
-                'uses' => 'DepartmentController@edit'
+                'uses' => 'DepartmentController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'department.update',
-                'uses' => 'DepartmentController@update'
+                'uses' => 'DepartmentController@update',
             ]);
 
         });
@@ -49,19 +48,19 @@ Route::group(
 
             Route::delete('{id}', [
                 'as'   => 'department.destroy',
-                'uses' => 'DepartmentController@destroy'
+                'uses' => 'DepartmentController@destroy',
             ]);
 
         });
 
         Route::get('{slug}/{id}', [
             'as'   => 'department.show',
-            'uses' => 'DepartmentController@show'
+            'uses' => 'DepartmentController@show',
         ]);
 
         Route::get('search', [
             'as'   => 'department.search',
-            'uses' => 'DepartmentController@search'
+            'uses' => 'DepartmentController@search',
         ]);
 
     }

@@ -1,14 +1,16 @@
-<?php namespace microchip\permission;
+<?php
+
+namespace microchip\permission;
 
 use microchip\base\BaseManager;
 
-class PermissionUpdateManager extends BaseManager {
-
+class PermissionUpdateManager extends BaseManager
+{
     public function getRules()
     {
         return [
-            'name'          => 'required|unique:permissions,name,' . $this->entity->id,
-            'description'   => 'required'
+            'name'          => 'required|unique:permissions,name,'.$this->entity->id,
+            'description'   => 'required',
         ];
     }
 
@@ -16,5 +18,4 @@ class PermissionUpdateManager extends BaseManager {
     {
         return $data;
     }
-
 }

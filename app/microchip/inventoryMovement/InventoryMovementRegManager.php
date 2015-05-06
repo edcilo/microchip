@@ -1,9 +1,11 @@
-<?php namespace microchip\inventoryMovement;
+<?php
+
+namespace microchip\inventoryMovement;
 
 use microchip\base\BaseManager;
 
-class InventoryMovementRegManager extends BaseManager {
-
+class InventoryMovementRegManager extends BaseManager
+{
     public function getRules()
     {
         $movementRepo   = new InventoryMovementRepo();
@@ -18,9 +20,8 @@ class InventoryMovementRegManager extends BaseManager {
             'description'    => 'required|max:255',
         ];
 
-        if ( \Input::get('status') == 'out' )
-        {
-            $rules['quantity'] .= '|max:' . $total;
+        if (\Input::get('status') == 'out') {
+            $rules['quantity'] .= '|max:'.$total;
         }
 
         return $rules;
@@ -30,18 +31,13 @@ class InventoryMovementRegManager extends BaseManager {
     {
         $this->stripTags($data);
 
-        if ( $data['status'] == 'out' )
-        {
+        if ($data['status'] == 'out') {
             $data['in_stock']       = 0;
-        }
-        else
-        {
+        } else {
             $data['in_stock']       = $data['quantity'];
             $data['selling_price']  = 0;
         }
 
-
         return $data;
     }
-
 }

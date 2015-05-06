@@ -5,13 +5,10 @@ use microchip\sale\SaleRepo;
 use microchip\inventoryMovement\InventoryMovementRepo;
 use microchip\product\ProductRepo;
 use microchip\configuration\ConfigurationRepo;
-
 use microchip\pendingMovement\PendingMovementRegManager;
-use microchip\sale\SalePRegManager;
-use microchip\inventoryMovement\InventoryMovementSRegManager;
 
-class PendingMovementsController extends \BaseController {
-
+class PendingMovementsController extends \BaseController
+{
     protected $paRepo;
     protected $saleRepo;
     protected $movementRepo;
@@ -24,8 +21,7 @@ class PendingMovementsController extends \BaseController {
         InventoryMovementRepo   $inventoryMovementRepo,
         ProductRepo             $productRepo,
         ConfigurationRepo       $configurationRepo
-    )
-    {
+    ) {
         $this->paRepo   = $pendingMovementRepo;
         $this->saleRepo = $saleRepo;
         $this->movementRepo = $inventoryMovementRepo;
@@ -33,73 +29,74 @@ class PendingMovementsController extends \BaseController {
         $this->configRepo   = $configurationRepo;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /pendingmovements
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        if ( Request::ajax() ) return $this->paRepo->getAll('all', 'barcode', 'ASC');
+    /**
+     * Display a listing of the resource.
+     * GET /pendingmovements.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        if (Request::ajax()) {
+            return $this->paRepo->getAll('all', 'barcode', 'ASC');
+        }
 
         $pas = $this->paRepo->getAll('paginate', 'barcode', 'asc');
 
-        foreach($pas as $pa)
-        {
-            $pa->s_description = substr( $pa->s_description, 0, 117 ) . '...';
+        foreach ($pas as $pa) {
+            $pa->s_description = substr($pa->s_description, 0, 117).'...';
             $pa->sale->folio = str_pad($pa->sale->id, 8, '0', STR_PAD_LEFT);
         }
 
         return View::make('pa/index', compact('pas'));
-	}
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /pendingmovements/create
-	 *
-	 * @return Response
-	 */
-	public function create($id)
-	{
+    /**
+     * Show the form for creating a new resource.
+     * GET /pendingmovements/create.
+     *
+     * @return Response
+     */
+    public function create($id)
+    {
         $sale   = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
-		return View::make('pa/create', compact('sale'));
-	}
+        return View::make('pa/create', compact('sale'));
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /pendingmovements
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$pa         = $this->paRepo->newPA();
+    /**
+     * Store a newly created resource in storage.
+     * POST /pendingmovements.
+     *
+     * @return Response
+     */
+    public function store()
+    {
+        $pa         = $this->paRepo->newPA();
         $manager    = new PendingMovementRegManager($pa, Input::all());
         $manager->save();
 
-        if ( Request::ajax() ) {
-            $response = $this->msg200 + [ 'data' => $pa ];
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $pa];
 
             return Response::json($response);
         }
 
-        if($pa->sale->classification == 'Pedido')
+        if ($pa->sale->classification == 'Pedido') {
             return Redirect::route('order.edit', [Input::get('sale_id')]);
-        elseif($pa->sale->classification == 'Cotización')
+        } elseif ($pa->sale->classification == 'Cotización') {
             return Redirect::route('price.edit', [$pa->sale->id]);
-        elseif($pa->sale->classification == 'Servicio')
-        {
-            if($pa->sale->data->status == 'Pendiente')
+        } elseif ($pa->sale->classification == 'Servicio') {
+            if ($pa->sale->data->status == 'Pendiente') {
                 return Redirect::route('service.edit', [$pa->sale->id]);
-            else
+            } else {
                 return Redirect::route('service.show', [$pa->sale->folio, $pa->sale->id]);
-        }
-        else
+            }
+        } else {
             return Redirect::back();
-	}
+        }
+    }
 
     public function orderStore()
     {
@@ -111,9 +108,10 @@ class PendingMovementsController extends \BaseController {
             ]
         );
 
-        if ( $validator->fails() )
-        {
-            if ( Request::ajax() ) return Response::json($this->msg304 + [$validator->messages()] );
+        if ($validator->fails()) {
+            if (Request::ajax()) {
+                return Response::json($this->msg304 + [$validator->messages()]);
+            }
 
             return Redirect::back()->withInput()->withErrors($validator->messages());
         }
@@ -122,19 +120,20 @@ class PendingMovementsController extends \BaseController {
 
         $product    = $this->productRepo->find(Input::get('product_id'));
         $iva        = $sale->iva;
-        $max        = ($product->type == 'product') ? '|max:' .$this->movementRepo->totalStock(Input::get('product_id')) : '';
+        $max        = ($product->type == 'product') ? '|max:'.$this->movementRepo->totalStock(Input::get('product_id')) : '';
 
         $validator = Validator::make(
             Input::all(),
             [
-                'selling_price' => 'required|numeric|min:' . (number_format($product->price_5 * (($iva / 100) + 1), 2, '.', '')),
-                'quantity'      => 'required|integer|min:1' . $max,
+                'selling_price' => 'required|numeric|min:'.(number_format($product->price_5 * (($iva / 100) + 1), 2, '.', '')),
+                'quantity'      => 'required|integer|min:1'.$max,
             ]
         );
 
-        if ( $validator->fails() )
-        {
-            if ( Request::ajax() ) return Response::json($this->msg304 + [$validator->messages()] );
+        if ($validator->fails()) {
+            if (Request::ajax()) {
+                return Response::json($this->msg304 + [$validator->messages()]);
+            }
 
             return Redirect::back()->withInput()->withErrors($validator->messages());
         }
@@ -147,84 +146,87 @@ class PendingMovementsController extends \BaseController {
         $pa->selling_price  = Input::get('selling_price');
         $pa->product_id     = $product->id;
         $pa->productOrder   = ($sale->classification == 'Pedido') ? 1 : 0;
-        $pa->productPrice   = ($sale->classification == 'Cotización' OR $sale->classification == 'Servicio') ? 1 : 0;
+        $pa->productPrice   = ($sale->classification == 'Cotización' or $sale->classification == 'Servicio') ? 1 : 0;
         $pa->sale_id        = Input::get('sale_id');
         $pa->save();
 
-        if ( Request::ajax() ) return Response::json($this->msg200 + ['data' => $pa] );
+        if (Request::ajax()) {
+            return Response::json($this->msg200 + ['data' => $pa]);
+        }
 
         return Redirect::back();
     }
 
-	/**
-	 * Display the specified resource.
-	 * GET /pendingmovements/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
+    /**
+     * Display the specified resource.
+     * GET /pendingmovements/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
         $pa = $this->paRepo->find($id);
         $this->notFoundUnless($pa);
 
-        if ( Request::ajax() ) return Response::json($pa);
+        if (Request::ajax()) {
+            return Response::json($pa);
+        }
 
         return View::make('pa/show', compact('pa'));
-	}
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /pendingmovements/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     * GET /pendingmovements/{id}/edit.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /pendingmovements/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     * PUT /pendingmovements/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /pendingmovements/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
+    /**
+     * Remove the specified resource from storage.
+     * DELETE /pendingmovements/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
         $pa = $this->paRepo->find($id);
         $this->notFoundUnless($pa);
 
-        if($pa->sale->separated AND $pa->sale->price)
-        {
+        if ($pa->sale->separated and $pa->sale->price) {
             $pa->soft_delete = 1;
             $pa->save();
-        }
-        elseif($pa->sale->service)
-        {
+        } elseif ($pa->sale->service) {
             $pa->quantity       = $pa->quantity_price;
             $pa->productOrder   = 0;
             $pa->status         = 'Pendiente';
             $pa->save();
 
-            if( isset($pa->orders[0]) )
-            {
-                foreach($pa->orders[0]->series as $series)
-                {
+            if (isset($pa->orders[0])) {
+                foreach ($pa->orders[0]->series as $series) {
                     $series->status         = 'Disponible';
                     $series->separated_id   = 0;
                     $series->save();
@@ -234,20 +236,16 @@ class PendingMovementsController extends \BaseController {
             } else {
                 $this->paRepo->destroy($id);
             }
-        }
-        else
-        {
+        } else {
             $this->paRepo->destroy($id);
         }
 
-        if ( Request::ajax() )
-        {
-            $response = $this->msg200 + [ 'data' => $pa ];
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $pa];
 
             return Response::json($response);
         }
 
         return Redirect::back();
-	}
-
+    }
 }

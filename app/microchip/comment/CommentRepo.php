@@ -1,9 +1,11 @@
-<?php namespace microchip\comment;
+<?php
+
+namespace microchip\comment;
 
 use microchip\base\BaseRepo;
 
-class CommentRepo extends BaseRepo {
-
+class CommentRepo extends BaseRepo
+{
     public function getModel()
     {
         return new Comment();

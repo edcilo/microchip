@@ -1,9 +1,11 @@
-<?php namespace microchip\company;
+<?php
+
+namespace microchip\company;
 
 use microchip\base\BaseManager;
 
-class CompanyRegManager extends BaseManager{
-
+class CompanyRegManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
@@ -22,7 +24,7 @@ class CompanyRegManager extends BaseManager{
             'web'      => 'url',
             'services' => 'max:255',
             'schedule' => 'max:255',
-            'note'     => 'max:1024'
+            'note'     => 'max:1024',
         ];
     }
 
@@ -38,9 +40,8 @@ class CompanyRegManager extends BaseManager{
 
         $path           = 'images/company';
         $path_image     = $this->saveFile(\Input::file('photo'), $path, false, $name);
-        $data['photo']  = ( $path_image ) ? $path_image : $path . '/default.png';
+        $data['photo']  = ($path_image) ? $path_image : $path.'/default.png';
 
         return $data;
     }
-
 }

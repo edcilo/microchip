@@ -1,10 +1,12 @@
-<?php namespace microchip\pendingMovement;
+<?php
+
+namespace microchip\pendingMovement;
 
 use microchip\base\BaseEntity;
 
-class PendingMovement extends BaseEntity {
-
-	protected $fillable = [
+class PendingMovement extends BaseEntity
+{
+    protected $fillable = [
         'barcode',
         's_description',
         'l_description',
@@ -17,7 +19,7 @@ class PendingMovement extends BaseEntity {
         'utility',
         'shipping',
         'product_id',
-        'sale_id'
+        'sale_id',
     ];
 
     public function getRegisteredAttribute()
@@ -60,8 +62,6 @@ class PendingMovement extends BaseEntity {
     {
         return $this->quantity - $this->getOrdersTotalAttribute();
     }
-
-
 
     public function sale()
     {

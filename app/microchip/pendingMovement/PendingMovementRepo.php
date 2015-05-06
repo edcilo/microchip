@@ -1,9 +1,11 @@
-<?php namespace microchip\pendingMovement;
+<?php
+
+namespace microchip\pendingMovement;
 
 use microchip\base\BaseRepo;
 
-class PendingMovementRepo extends BaseRepo {
-
+class PendingMovementRepo extends BaseRepo
+{
     public function getModel()
     {
         return new PendingMovement();
@@ -13,5 +15,4 @@ class PendingMovementRepo extends BaseRepo {
     {
         return $pa = new PendingMovement();
     }
-
 }

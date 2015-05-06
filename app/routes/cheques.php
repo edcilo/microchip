@@ -3,7 +3,7 @@
 Route::group(
     [
         'prefix' => 'cheque/',
-        'before' => 'pr:11'
+        'before' => 'pr:11',
     ],
     function () {
 
@@ -11,12 +11,12 @@ Route::group(
 
             Route::get('create/{bank_id}', [
                 'as'   => 'cheque.create',
-                'uses' => 'ChequeController@create'
+                'uses' => 'ChequeController@create',
             ]);
 
             Route::post('', [
                 'as'   => 'cheque.store',
-                'uses' => 'ChequeController@store'
+                'uses' => 'ChequeController@store',
             ]);
 
         });
@@ -25,21 +25,21 @@ Route::group(
 
             Route::get('{slug}/{id}/edit', [
                 'as'   => 'cheque.edit',
-                'uses' => 'ChequeController@edit'
+                'uses' => 'ChequeController@edit',
             ]);
 
             Route::put('{id}', [
                 'as'   => 'cheque.update',
-                'uses' => 'ChequeController@update'
+                'uses' => 'ChequeController@update',
             ]);
 
         });
 
         Route::group(['before' => 'pr:14'], function () {
 
-            Route::get('soft/delete/{id}',[
+            Route::get('soft/delete/{id}', [
                 'as'   => 'cheque.soft.delete',
-                'uses' => 'ChequeController@softDelete'
+                'uses' => 'ChequeController@softDelete',
             ]);
 
         });
@@ -48,25 +48,25 @@ Route::group(
 
             Route::get('restore/{id}', [
                 'as'   => 'cheque.restore',
-                'uses' => 'ChequeController@restore'
+                'uses' => 'ChequeController@restore',
             ]);
 
         });
 
         Route::get('filter', [
             'as'   => 'cheque.filter',
-            'uses' => 'ChequeController@filter'
+            'uses' => 'ChequeController@filter',
         ]);
 
         Route::get('{slug}/{id}', [
             'as'   => 'cheque.show',
-            'uses' => 'ChequeController@show'
+            'uses' => 'ChequeController@show',
         ]);
 
         // registrar movimiento de salida de la cuenta bancaria
         Route::post('generate/count/{id}', [
             'as'   => 'cheque.count',
-            'uses' => 'ChequeController@generateBankCount'
+            'uses' => 'ChequeController@generateBankCount',
         ]);
 
     }

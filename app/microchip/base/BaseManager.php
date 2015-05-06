@@ -1,7 +1,9 @@
-<?php namespace microchip\base;
+<?php
 
-abstract class BaseManager {
+namespace microchip\base;
 
+abstract class BaseManager
+{
     protected $entity;
     protected $data;
     protected $response;
@@ -21,14 +23,10 @@ abstract class BaseManager {
 
         $validation = \Validator::make($this->data, $rules);
 
-        if ( $validation->fails() )
-        {
-            if ( $this->response == 'json' )
-            {
+        if ($validation->fails()) {
+            if ($this->response == 'json') {
                 return $validation->getMessageBag()->toArray();
-            }
-            else
-            {
+            } else {
                 throw new ValidationException('Validation failed', $validation->messages());
             }
         }
@@ -45,8 +43,7 @@ abstract class BaseManager {
     {
         $result = $this->isValid();
 
-        if( is_array( $result ) )
-        {
+        if (is_array($result)) {
             return $result;
         }
 
@@ -57,90 +54,89 @@ abstract class BaseManager {
     }
 
     /**
-     * Eliminar etiquetas HTML
+     * Eliminar etiquetas HTML.
      *
-     * @param  array $data   paso por referencia, arreglo bidireccional a limpiar
-     * @param  array $needle arreglo simple con los nombres de llaves a excentuar
+     * @param array $data   paso por referencia, arreglo bidireccional a limpiar
+     * @param array $needle arreglo simple con los nombres de llaves a excentuar
+     *
      * @return array $data   arreglo limpio
      */
-    public function stripTags(&$data, $needle=[])
+    public function stripTags(&$data, $needle = [])
     {
-        foreach ( $data as $key => $value )
-        {
-            $data[$key] = ( ! in_array($key, $needle) ) ? strip_tags($value) : $value;
+        foreach ($data as $key => $value) {
+            $data[$key] = (!in_array($key, $needle)) ? strip_tags($value) : $value;
         }
 
         return $data;
     }
 
     /**
-     * Convierte las etiquetas HTML a entidades HTML
+     * Convierte las etiquetas HTML a entidades HTML.
      *
-     * @param  array   $data   paso por referencia, arreglo bidireccional a limpiar
-     * @param  array   $needle areglo simple con los nombres de llaves a excentuar
-     * @param  integer $flag mascara de bits (http://php.net/manual/es/function.htmlentities.php)
-     * @return array   $data
+     * @param array $data   paso por referencia, arreglo bidireccional a limpiar
+     * @param array $needle areglo simple con los nombres de llaves a excentuar
+     * @param int   $flag   mascara de bits (http://php.net/manual/es/function.htmlentities.php)
+     *
+     * @return array $data
      */
-    public function htmlEntities(&$data, $needle=[], $flag = ENT_HTML5)
+    public function htmlEntities(&$data, $needle = [], $flag = ENT_HTML5)
     {
-        foreach ( $data as $key => $value )
-        {
-            $data[$key] = ( ! in_array($key, $needle) ) ? htmlspecialchars($value, $flag) : $value;
+        foreach ($data as $key => $value) {
+            $data[$key] = (!in_array($key, $needle)) ? htmlspecialchars($value, $flag) : $value;
         }
 
         return $data;
     }
 
     /**
-     * Guarda la imagen en el directorio especificado
+     * Guarda la imagen en el directorio especificado.
      *
-     * @param  object $file
-     * @param  string $path
-     * @param  bool   $date
+     * @param object $file
+     * @param string $path
+     * @param bool   $date
      * @param  $name
      * @param  $extension
-     * @param  bool   $delete
+     * @param bool   $delete
      * @param  $file_remove
+     *
      * @return bool
      */
-    public function saveFile($file, $path, $date=false, $name=false, $extension=false, $delete=false, $file_remove=null)
+    public function saveFile($file, $path, $date = false, $name = false, $extension = false, $delete = false, $file_remove = null)
     {
-        if ( is_null($file) ) return false;
+        if (is_null($file)) {
+            return false;
+        }
 
-        if ( $delete )
-        {
-            if ( file_exists( $file_remove ) )
-            {
-                unlink( $file_remove );
+        if ($delete) {
+            if (file_exists($file_remove)) {
+                unlink($file_remove);
             }
         }
 
-        if ( $name )
-        {
+        if ($name) {
             $name = \Str::slug($name);
-        }
-        else
-        {
+        } else {
             $name      = $file->getClientOriginalName();
-            $name      = explode(".", $name);
+            $name      = explode('.', $name);
             array_pop($name);
-            $name      = implode("_", $name);
+            $name      = implode('_', $name);
         }
 
-        $extension = ( $extension ) ? $extension : $file->guessExtension();
+        $extension = ($extension) ? $extension : $file->guessExtension();
 
-        $name .= ( $date ) ? '_' . date('YmdHis') : '';
+        $name .= ($date) ? '_'.date('YmdHis') : '';
         $name .= ".$extension";
 
         $file->move($path, $name);
 
-        return $path . '/' . $name;
+        return $path.'/'.$name;
     }
 
     /**
-     * Devuelve solo la ruta de un archivo pasado como parametro
+     * Devuelve solo la ruta de un archivo pasado como parametro.
      *
-     * @param  string $file
+     * @param string $file
+     *
      * @return string
      */
     public function getPath($file)
@@ -151,5 +147,4 @@ abstract class BaseManager {
 
         return $path;
     }
-
 }

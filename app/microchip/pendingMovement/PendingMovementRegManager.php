@@ -1,9 +1,11 @@
-<?php namespace microchip\pendingMovement;
+<?php
+
+namespace microchip\pendingMovement;
 
 use microchip\base\BaseManager;
 
-class PendingMovementRegManager extends BaseManager {
-
+class PendingMovementRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -26,13 +28,13 @@ class PendingMovementRegManager extends BaseManager {
     {
         $this->stripTags($data);
 
-        if( empty($data['image_link']))
+        if (empty($data['image_link'])) {
             $data['image_link'] = 'images/product/default.png';
+        }
 
         $data['barcode']    = strtoupper($data['barcode']);
         $data['product_id'] = 0;
 
         return $data;
     }
-
 }

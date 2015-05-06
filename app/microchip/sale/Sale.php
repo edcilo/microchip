@@ -1,15 +1,17 @@
-<?php namespace microchip\sale;
+<?php
+
+namespace microchip\sale;
 
 use microchip\base\BaseEntity;
 
-class Sale extends BaseEntity {
-
-	protected $fillable = [
+class Sale extends BaseEntity
+{
+    protected $fillable = [
         'folio',
         'iva',
         'dollar',
-        'type',				// factura o ticket
-        'classification',	// venta, cotización, pedidos
+        'type',                // factura o ticket
+        'classification',    // venta, cotización, pedidos
         'status',
         'description',
         'new_price',
@@ -24,9 +26,9 @@ class Sale extends BaseEntity {
         'customer_order',
         'movements_end',
         'series_end',
-		'customer_id',
-		'user_id',
-	];
+        'customer_id',
+        'user_id',
+    ];
 
     public function getIvaRealAttribute()
     {
@@ -37,15 +39,17 @@ class Sale extends BaseEntity {
     {
         $total = $this->new_price - $this->new_price / $this->getIvaRealAttribute() - ($this->getTotalAttribute() - $this->getTotalAttribute() / $this->getIvaRealAttribute());
 
-        $total = ( $total < 0 ) ? 0 : $total;
+        $total = ($total < 0) ? 0 : $total;
 
-        return number_format($total, 2 , '.', '');
+        return number_format($total, 2, '.', '');
     }
 
     public function getSubtotalAttribute($f = '')
     {
         $subtotal = 0;
-        foreach($this->movements as $movement) $subtotal += $movement->getTotalWithoutIvaAttribute();
+        foreach ($this->movements as $movement) {
+            $subtotal += $movement->getTotalWithoutIvaAttribute();
+        }
 
         return number_format($subtotal, 2, '.', $f);
     }
@@ -53,41 +57,42 @@ class Sale extends BaseEntity {
     public function getTotalAttribute($f = '')
     {
         $total = 0;
-        foreach($this->movements as $movement) $total += $movement->getTotalAttribute();
+        foreach ($this->movements as $movement) {
+            $total += $movement->getTotalAttribute();
+        }
 
-        return number_format($total , 2 , '.', $f);
+        return number_format($total, 2, '.', $f);
     }
 
     public function getTotalPrice($f = '')
     {
         $total = 0;
 
-        foreach($this->pas as $pa)
+        foreach ($this->pas as $pa) {
             $total += ($pa->productPrice) ? $pa->getTotalAttribute() : 0;
+        }
 
-        return number_format($total , 2 , '.', $f);
+        return number_format($total, 2, '.', $f);
     }
 
     public function getTotalOrder($f = '')
     {
         $total = $this->getTotalAttribute();
 
-        if($this->classification != 'Venta')
-        {
-            foreach($this->pas as $pa)
-            {
-                $total += ($pa->productOrder AND !$pa->soft_delete) ? $pa->getTotalAttribute() : 0;
+        if ($this->classification != 'Venta') {
+            foreach ($this->pas as $pa) {
+                $total += ($pa->productOrder and !$pa->soft_delete) ? $pa->getTotalAttribute() : 0;
             }
         }
 
-        return number_format($total , 2 , '.', $f);
+        return number_format($total, 2, '.', $f);
     }
 
     public function getRestAttribute($f = '')
     {
         $rest = $this->getTotalOrder() - $this->advance;
 
-        return number_format($rest, 2 , '.', $f);
+        return number_format($rest, 2, '.', $f);
     }
 
     public function getPaymentTotalAttribute($f = '')
@@ -101,9 +106,10 @@ class Sale extends BaseEntity {
     {
         $total = 0;
 
-        foreach($this->payments as $pay)
-        {
-            if($pay->amount > 0) $total += $pay->amount - $pay->change;
+        foreach ($this->payments as $pay) {
+            if ($pay->amount > 0) {
+                $total += $pay->amount - $pay->change;
+            }
         }
 
         return number_format($total, 2, '.', $f);
@@ -111,12 +117,13 @@ class Sale extends BaseEntity {
 
     public function getRestTotalAttribute($f = '')
     {
-        if( $this->classification == 'Venta' )
+        if ($this->classification == 'Venta') {
             $total = $this->getTotalAttribute();
-        elseif( $this->classification == 'Servicio' )
+        } elseif ($this->classification == 'Servicio') {
             $total = $this->getTotalPrice();
-        else
+        } else {
             $total = $this->getTotalOrder();
+        }
 
         $total -= $this->getPaymentTotalAttribute();
 
@@ -125,9 +132,9 @@ class Sale extends BaseEntity {
 
     public function getUserRestTotalAttribute($f = '')
     {
-        if ( $this->classification == 'Venta' ) {
+        if ($this->classification == 'Venta') {
             $total = $this->getTotalAttribute() + $this->getDifferenceIvaAttribute();
-        } elseif ( $this->classification == 'Servicio' ) {
+        } elseif ($this->classification == 'Servicio') {
             $total = $this->getTotalPrice();
         } else {
             $total = $this->getTotalOrder();
@@ -140,7 +147,7 @@ class Sale extends BaseEntity {
 
     public function getPvDiAttribute($f = '')
     {
-        return number_format($this->getTotalAttribute() + $this->getDifferenceIvaAttribute(), 2 , '.', $f);
+        return number_format($this->getTotalAttribute() + $this->getDifferenceIvaAttribute(), 2, '.', $f);
     }
 
     public function getSubtotalFAttribute()
@@ -208,25 +215,19 @@ class Sale extends BaseEntity {
     public function getDaysOverdueAttribute()
     {
         $now = \Carbon\Carbon::now();
-        $delivery = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $this->delivery_date . ' ' . $this->delivery_time);
+        $delivery = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $this->delivery_date.' '.$this->delivery_time);
 
         $rest = $now->diffInDays($delivery, false);
 
-        if($rest == 0)
-        {
+        if ($rest == 0) {
             $rest = $now->diffInHours($delivery, false);
 
-            if($rest == 0)
-            {
-                $rest = $now->diffInMinutes($delivery, false) . ' Minutos';
-            }
-            else
-            {
+            if ($rest == 0) {
+                $rest = $now->diffInMinutes($delivery, false).' Minutos';
+            } else {
                 $rest .= ' Horas';
             }
-        }
-        else
-        {
+        } else {
             $rest .= ' Días';
         }
 
@@ -238,15 +239,14 @@ class Sale extends BaseEntity {
         $color = '';
 
         $now = \Carbon\Carbon::now();
-        $delivery = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $this->delivery_date . ' ' . $this->delivery_time);
+        $delivery = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $this->delivery_date.' '.$this->delivery_time);
 
-        if( $delivery->lte($now) )
+        if ($delivery->lte($now)) {
             $color = 'red';
+        }
 
         return $color;
     }
-
-
 
     public function data()
     {
@@ -257,8 +257,6 @@ class Sale extends BaseEntity {
     {
         return $this->hasOne('microchip\coupon\Coupon');
     }
-
-
 
     public function pas()
     {
@@ -280,26 +278,23 @@ class Sale extends BaseEntity {
         return $this->hasMany('microchip\pay\Pay');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('microchip\user\User');
+    }
 
-	public function user()
-	{
-		return $this->belongsTo('microchip\user\User');
-	}
-
-	public function customer()
-	{
-		return $this->belongsTo('microchip\customer\Customer');
-	}
+    public function customer()
+    {
+        return $this->belongsTo('microchip\customer\Customer');
+    }
 
     public function customerOrder()
     {
         return $this->belongsTo('microchip\customer\Customer', 'customer_order', 'id');
     }
 
-
-	public function movements()
-	{
-		return $this->belongsToMany('microchip\inventoryMovement\InventoryMovement')->withPivot('movement_in');
-	}
-
+    public function movements()
+    {
+        return $this->belongsToMany('microchip\inventoryMovement\InventoryMovement')->withPivot('movement_in');
+    }
 }

@@ -3,40 +3,33 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateProviderBanksTable extends Migration {
+class CreateProviderBanksTable extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up()
+    {
+        Schema::create('provider_banks', function (Blueprint $table) {
+            $table->increments('id');
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('provider_banks', function(Blueprint $table)
-		{
-			$table->increments('id');
+            $table->string('bank');
+            $table->string('account');
+            $table->string('plaza');
+            $table->string('clabe');
 
-			$table->string('bank');
-			$table->string('account');
-			$table->string('plaza');
-			$table->string('clabe');
+            $table->integer('provider_id')->unsigned();
+            $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade')->onUpdate('cascade');
 
-			$table->integer('provider_id')->unsigned();
-			$table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade')->onUpdate('cascade');
+            $table->timestamps();
+        });
+    }
 
-			$table->timestamps();
-		});
-	}
-
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('provider_banks');
-	}
-
+    /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('provider_banks');
+    }
 }

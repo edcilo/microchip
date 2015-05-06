@@ -42,4 +42,3 @@
 </table>
 
 {{ $sales->links() }}
-

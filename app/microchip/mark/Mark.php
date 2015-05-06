@@ -1,19 +1,20 @@
-<?php namespace microchip\mark;
+<?php
+
+namespace microchip\mark;
 
 use microchip\base\BaseEntity;
 
-class Mark extends BaseEntity {
+class Mark extends BaseEntity
+{
+    protected $fillable = [
+        'name',
+        'image',
+        'description',
+        'slug',
+    ];
 
-	protected $fillable = [
-		'name',
-		'image',
-		'description',
-		'slug',
-	];
-
-	public function products()
-	{
-		return $this->hasMany('microchip\productDescription\ProductDescription');
-	}
-
+    public function products()
+    {
+        return $this->hasMany('microchip\productDescription\ProductDescription');
+    }
 }

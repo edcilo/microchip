@@ -1,9 +1,11 @@
-<?php namespace microchip\category;
+<?php
+
+namespace microchip\category;
 
 use microchip\base\BaseManager;
 
-class CategoryRegManager extends BaseManager {
-
+class CategoryRegManager extends BaseManager
+{
     public function getRules()
     {
         return [
@@ -21,9 +23,8 @@ class CategoryRegManager extends BaseManager {
 
         $path           = 'images/category';
         $path_image     = $this->saveFile(\Input::file('image'), $path, false, $data['slug']);
-        $data['image']  = ( $path_image ) ? $path_image : $path . '/default.png';
+        $data['image']  = ($path_image) ? $path_image : $path.'/default.png';
 
         return $data;
     }
-
 }

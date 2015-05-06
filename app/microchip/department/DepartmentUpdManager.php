@@ -1,14 +1,16 @@
-<?php namespace microchip\department;
+<?php
+
+namespace microchip\department;
 
 use microchip\base\BaseManager;
 
-class DepartmentUpdManager extends BaseManager {
-
+class DepartmentUpdManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
-            'name'        => 'required|max:255|unique:departments,name, ' . $this->entity->id,
-            'description' => ''
+            'name'        => 'required|max:255|unique:departments,name, '.$this->entity->id,
+            'description' => '',
         ];
     }
 
@@ -20,5 +22,4 @@ class DepartmentUpdManager extends BaseManager {
 
         return $data;
     }
-
-} 
+}

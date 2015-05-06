@@ -2,58 +2,57 @@
 
 use microchip\warranty\WarrantyRepo;
 use microchip\inventoryMovement\InventoryMovementRepo;
-
 use microchip\warranty\WarrantyRegManager;
-use microchip\warranty\WarrantyUpdManager;
 
-class WarrantyController extends \BaseController {
-
+class WarrantyController extends \BaseController
+{
     protected $warrantyRepo;
     protected $movementRepo;
 
     public function __construct(
         WarrantyRepo            $warrantyRepo,
         InventoryMovementRepo   $inventoryMovementRepo
-    )
-    {
+    ) {
         $this->warrantyRepo = $warrantyRepo;
         $this->movementRepo = $inventoryMovementRepo;
     }
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /warranty
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        if ( Request::ajax() ) return $this->warrantyRepo->getAll('all', 'created_at', 'ASC');
+    /**
+     * Display a listing of the resource.
+     * GET /warranty.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        if (Request::ajax()) {
+            return $this->warrantyRepo->getAll('all', 'created_at', 'ASC');
+        }
 
         $warranties = $this->warrantyRepo->getAll('paginate', 'created_at', 'asc');
 
         return View::make('warranty/index', compact('warranties'));
-	}
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 * GET /warranty/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+    /**
+     * Show the form for creating a new resource.
+     * GET /warranty/create.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /warranty
-	 *
-	 * @return Response
-	 */
-	public function store($movement_id)
-	{
+    /**
+     * Store a newly created resource in storage.
+     * POST /warranty.
+     *
+     * @return Response
+     */
+    public function store($movement_id)
+    {
         $movement = $this->movementRepo->find($movement_id);
         $this->notFoundUnless($movement);
 
@@ -78,54 +77,57 @@ class WarrantyController extends \BaseController {
         $message = ['success' => 'Se registro correctamente la garantía.'];
 
         return Redirect::back()->with($message);
-	}
+    }
 
-	/**
-	 * Display the specified resource.
-	 * GET /warranty/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    /**
+     * Display the specified resource.
+     * GET /warranty/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * GET /warranty/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Show the form for editing the specified resource.
+     * GET /warranty/{id}/edit.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 * PUT /warranty/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    /**
+     * Update the specified resource in storage.
+     * PUT /warranty/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function update($id)
+    {
+        //
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 * DELETE /warranty/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    /**
+     * Remove the specified resource from storage.
+     * DELETE /warranty/{id}.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

@@ -1,10 +1,12 @@
-<?php namespace microchip\serviceData;
+<?php
+
+namespace microchip\serviceData;
 
 use microchip\base\BaseEntity;
 
-class ServiceData extends BaseEntity {
-
-	protected $fillable = [
+class ServiceData extends BaseEntity
+{
+    protected $fillable = [
         'status',
         'equipment',
         'mark',
@@ -14,7 +16,7 @@ class ServiceData extends BaseEntity {
         'observations',
         'internal',
         'warranty_id',
-        'sale_id'
+        'sale_id',
     ];
 
     public function sale()
@@ -26,5 +28,4 @@ class ServiceData extends BaseEntity {
     {
         return $this->belongsTo('microchip\sale\Sale', 'warranty_id', 'id');
     }
-
 }

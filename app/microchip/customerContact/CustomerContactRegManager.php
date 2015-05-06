@@ -1,9 +1,11 @@
-<?php namespace microchip\customerContact;
+<?php
+
+namespace microchip\customerContact;
 
 use microchip\base\BaseManager;
 
-class CustomerContactRegManager extends BaseManager {
-
+class CustomerContactRegManager extends BaseManager
+{
     public function getRules()
     {
         return $rules = [
@@ -16,5 +18,4 @@ class CustomerContactRegManager extends BaseManager {
     {
         return $data;
     }
-
 }

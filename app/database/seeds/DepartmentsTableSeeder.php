@@ -4,11 +4,11 @@
 use Faker\Factory as Faker;
 use microchip\department\Department;
 
-class DepartmentsTableSeeder extends Seeder {
-
-	public function run()
-	{
-		$faker = Faker::create();
+class DepartmentsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        $faker = Faker::create();
 
         Department::create([
             'name'          => 'Administradores',
@@ -16,17 +16,16 @@ class DepartmentsTableSeeder extends Seeder {
             'slug'          => \Str::slug('Administradores'),
         ]);
 
-		Department::create([
-			'name'			=> 'Ventas',
-			'description'	=> 'Empleado de ventas de mostrador.',
-			'slug'			=> \Str::slug('Ventas'),
-		]);
+        Department::create([
+            'name'            => 'Ventas',
+            'description'    => 'Empleado de ventas de mostrador.',
+            'slug'            => \Str::slug('Ventas'),
+        ]);
 
-		Department::create([
-			'name'			=> 'Almacen',
-			'description'	=> 'Empleado de control de almacen e inventario.',
-			'slug'			=> \Str::slug('Almacen'),
-		]);
-	}
-
+        Department::create([
+            'name'            => 'Almacen',
+            'description'    => 'Empleado de control de almacen e inventario.',
+            'slug'            => \Str::slug('Almacen'),
+        ]);
+    }
 }

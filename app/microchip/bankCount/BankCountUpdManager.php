@@ -1,16 +1,18 @@
-<?php namespace microchip\bankCount;
+<?php
+
+namespace microchip\bankCount;
 
 use microchip\base\BaseManager;
 
-class BankCountUpdManager extends BaseManager{
-
+class BankCountUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
             'amount'        => 'required|numeric',
             'status'        => 'required|in:Entrada,Salida',
             'date'          => 'required|date',
-            'description'   => 'max:255'
+            'description'   => 'max:255',
         ];
     }
 
@@ -22,5 +24,4 @@ class BankCountUpdManager extends BaseManager{
 
         return $data;
     }
-
 }

@@ -1,13 +1,15 @@
-<?php namespace microchip\mark;
+<?php
+
+namespace microchip\mark;
 
 use microchip\base\BaseManager;
 
-class MarkUpdManager extends BaseManager {
-
+class MarkUpdManager extends BaseManager
+{
     public function getRules()
     {
         return [
-            'name'          => 'required|unique:marks,name,' . $this->entity->id,
+            'name'          => 'required|unique:marks,name,'.$this->entity->id,
             'image'         => 'image',
             'description'   => '',
         ];
@@ -25,9 +27,8 @@ class MarkUpdManager extends BaseManager {
         } else {
             $path_photo     = $this->saveFile(\Input::file('image'), $path, false, $data['slug']);
         }
-        $data['image']  = ( $path_photo ) ? $path_photo : $this->entity->image;
+        $data['image']  = ($path_photo) ? $path_photo : $this->entity->image;
 
         return $data;
     }
-
 }

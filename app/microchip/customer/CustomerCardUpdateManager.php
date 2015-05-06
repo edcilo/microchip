@@ -14,8 +14,8 @@ class CustomerCardUpdateManager extends BaseManager {
 
     public function prepareData($data)
     {
-        if ( !empty( $data['card_id'] ) && $data['card_id'] != $this->entity->card_id )
-        {
+        //if ( !empty( $data['card_id'] ) && $data['card_id'] != $this->entity->card_id )
+        if ( !empty( $data['card_id'] ) ) {
             $data['card_active'] = date('Y-m-d');
         }
 

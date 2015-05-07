@@ -69,7 +69,7 @@
 
         @if ( !count($purchase->payment) AND p(61) )
 
-            @include('purchasePayment\partials\formCreate')
+            @include('purchasePayment.partials.formCreate')
 
         @endif
 

@@ -7,21 +7,19 @@ use microchip\base\BaseEntity;
 class Warranty extends BaseEntity
 {
     protected $fillable = [
-        'quantity',
-        'product_id',
-        'provider_id',
+        'status',
+        'description',
+        'sent_at',
         'series_id',
         'sale_id',
+        'purchase_id',
+        'created_by',
+        'sent_by',
     ];
 
-    public function product()
+    public function getFolioAttribute()
     {
-        return $this->belongsTo('microchip\product\Product');
-    }
-
-    public function provider()
-    {
-        return $this->belongsTo('microchip\provider\Provider');
+        return str_pad($this->id, 8, '0', STR_PAD_LEFT);
     }
 
     public function series()
@@ -32,5 +30,20 @@ class Warranty extends BaseEntity
     public function sale()
     {
         return $this->belongsTo('microchip\sale\Sale');
+    }
+
+    public function purchase()
+    {
+        return $this->belongsTo('microchip\purchase\Purchase');
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo('microchip\user\User', 'created_by');
+    }
+
+    public function sentBy()
+    {
+        return $this->belongsTo('microchip\user\User', 'sent_by');
     }
 }

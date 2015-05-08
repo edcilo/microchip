@@ -26,7 +26,26 @@
                 </ul>
             </div>
 
-            <div class="flo col33 right"></div>
+            <div class="flo col33 right">
+
+                {{ Form::open(['route'=>'warranty.store', 'class'=>'form']) }}
+
+                <div class="text-right">
+                    {{ Form::text('series', null, ['placeholder' => 'Número de serie']) }}
+
+                    <button class="btn-blue" title="Hacer valida la garantía">
+                        <i class="fa fa-check"></i>
+                        <i class="fa fa-truck"></i>
+                    </button>
+                </div>
+
+                <div class="message-error">
+                    {{ $errors->first('quantity', '<span>:message</span>') }}
+                </div>
+
+                {{ Form::close() }}
+
+            </div>
 
             <table class="table">
                 <thead>
@@ -35,10 +54,6 @@
                     <th>Producto</th>
                     <th>Descripción</th>
                     <th>Garantía valida hasta</th>
-                    <th>
-                        <i class="fa fa-gears"></i>
-                        Opciones
-                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,19 +63,6 @@
                         <td>{{ $movement->product->barcode}}</td>
                         <td>{{ $movement->product->s_description }}</td>
                         <td class="text-center">{{ $movement->date_warranty }}</td>
-                        <td class="text-center">
-                            {{ Form::open(['route'=>['warranty.store', $movement->id], 'class'=>'form']) }}
-                            {{ Form::text('quantity', $movement->quantity, ['class'=>'xs-input']) }}
-
-                            <button class="btn-blue" title="Hacer valida la garantía">
-                                <i class="fa fa-check"></i>
-                                <i class="fa fa-truck"></i>
-                            </button>
-                            <div class="message-error">
-                                {{ $errors->first('quantity', '<span>:message</span>') }}
-                            </div>
-                            {{ Form::close() }}
-                        </td>
                     </tr>
                     @foreach( $movement->seriesOut as $series )
                         <tr>

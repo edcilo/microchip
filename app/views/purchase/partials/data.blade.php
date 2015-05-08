@@ -54,9 +54,7 @@
                 <li>
                     @if ( $purchase->bill_scan != '' )
                         <strong>Descargar factura escaneada:</strong>
-                        <a class="btn-blue" download href="{{ asset($purchase->bill_scan) }}" title="Descargar archivo adjunto">
-                            <i class="fa fa-download"></i>
-                        </a>
+                        @include('purchase.partials.btn_download')
                     @endif
 
                     @include('purchase.partials.btn_upload')

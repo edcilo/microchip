@@ -13,18 +13,22 @@ class CreateWarrantiesTable extends Migration
         Schema::create('warranties', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('quantity')->unsigned();
-
-            $table->unsignedInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('no action');
-
-            $table->unsignedInteger('provider_id');
-            $table->foreign('provider_id')->references('id')->on('providers')->onDelete('no action');
+            $table->enum('status', ['Pendiente', 'Enviado', 'Terminado'])->default('Pendiente');
+            $table->text('description');
+            $table->date('sent_at')->nullable();
 
             $table->unsignedInteger('series_id');
+            $table->foreign('series_id')->references('id')->on('series')->onDelete('no action');
 
             $table->unsignedInteger('sale_id');
-            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('no action');
+
+            $table->unsignedInteger('purchase_id');
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('no action');
+
+            $table->unsignedInteger('created_by');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('no action');
+
+            $table->unsignedInteger('sent_by');
 
             $table->timestamps();
         });

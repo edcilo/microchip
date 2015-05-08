@@ -1,20 +1,20 @@
 <?php
 
 use microchip\warranty\WarrantyRepo;
-use microchip\inventoryMovement\InventoryMovementRepo;
 use microchip\warranty\WarrantyRegManager;
+use microchip\series\SeriesRepo;
 
 class WarrantyController extends \BaseController
 {
     protected $warrantyRepo;
-    protected $movementRepo;
+    protected $seriesRepo;
 
     public function __construct(
-        WarrantyRepo            $warrantyRepo,
-        InventoryMovementRepo   $inventoryMovementRepo
+        WarrantyRepo    $warrantyRepo,
+        SeriesRepo      $seriesRepo
     ) {
         $this->warrantyRepo = $warrantyRepo;
-        $this->movementRepo = $inventoryMovementRepo;
+        $this->seriesRepo   = $seriesRepo;
     }
 
     /**
@@ -29,7 +29,7 @@ class WarrantyController extends \BaseController
             return $this->warrantyRepo->getAll('all', 'created_at', 'ASC');
         }
 
-        $warranties = $this->warrantyRepo->getAll('paginate', 'created_at', 'asc');
+        $warranties = $this->warrantyRepo->getAll('paginate', 'created_at', 'desc');
 
         return View::make('warranty/index', compact('warranties'));
     }
@@ -42,7 +42,7 @@ class WarrantyController extends \BaseController
      */
     public function create()
     {
-        //
+        return View::make('warranty.create');
     }
 
     /**
@@ -51,24 +51,29 @@ class WarrantyController extends \BaseController
      *
      * @return Response
      */
-    public function store($movement_id)
+    public function store()
     {
-        $movement = $this->movementRepo->find($movement_id);
-        $this->notFoundUnless($movement);
+        $ns = Input::get('series');
 
-        /*
-         * 'quantity'      => 'required|integer',
-            'product_id'    => 'required|exists:products,id',
-            'provider_id'   => 'required|exists:providers,id',
-            'series_id'     => 'required|exists:series,id',
-            'sale_id'       => 'required|exists:sales',
-         */
-        $data = Input::all() + [
-                'product_id' => $movement->product->id,
-                'provider_id' => $movement->movementIn->purchases[0]->provider->id, // que hacer cuando el movimiento de entrada no sea por compra?
-                'sale_id' => $movement->sales[0]->id,
-                'quantity_max' => $movement->quantity,
-            ];
+        $series = $this->seriesRepo->findBySeriesForWarranty($ns);
+
+        if (is_null($series)) {
+            return Redirect::back()->withInput()->withErrors(['series' => 'El producto no se encuentra registrado o ya esta en garantía.']);
+        }
+
+        if (count($series->movement->purchases) == 0) {
+            return Redirect::back()->withInput()->withErrors(['series' => 'Este producto no puede ser enviado a garantía.']);
+        }
+
+        $series->status = 'Garantía';
+        $series->save();
+
+        $data = [
+            'description'   => Input::get('description'),
+            'series_id'     => $series->id,
+            'purchase_id'   => $series->movement->purchases[0]->id,
+            'created_by'    => Auth::user()->id
+        ];
 
         $warranty = $this->warrantyRepo->newWarranty();
         $manager = new WarrantyRegManager($warranty, $data);
@@ -76,46 +81,21 @@ class WarrantyController extends \BaseController
 
         $message = ['success' => 'Se registro correctamente la garantía.'];
 
-        return Redirect::back()->with($message);
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $warranty];
+
+            return Response::json($response);
+        }
+
+        return Redirect::route('warranty.index')->with($message);
     }
 
-    /**
-     * Display the specified resource.
-     * GET /warranty/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
     public function show($id)
     {
-        //
-    }
+        $warranty = $this->warrantyRepo->find($id);
+        $this->notFoundUnless($warranty);
 
-    /**
-     * Show the form for editing the specified resource.
-     * GET /warranty/{id}/edit.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * PUT /warranty/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
+        return View::make('warranty.show', compact('warranty'));
     }
 
     /**
@@ -128,6 +108,36 @@ class WarrantyController extends \BaseController
      */
     public function destroy($id)
     {
-        //
+        $warranty = $this->warrantyRepo->find($id);
+        $this->notFoundUnless($warranty);
+
+        $warranty->series->status =
+        $this->warrantyRepo->destroy($id);
+
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $warranty];
+
+            return Response::json($response);
+        }
+
+        return Redirect::route('warranty.index');
+    }
+
+    /**
+     * Busca elementos que coincidan con el termino recibido.
+     */
+    public function search()
+    {
+        $terms = \Input::get('terms');
+
+        if (Request::ajax()) {
+            $results = $this->warrantyRepo->search($terms, 'ajax');
+
+            return Response::json($results);
+        } else {
+            $results = $this->warrantyRepo->search($terms);
+
+            return View::make('warranty/search', compact('results', 'terms'));
+        }
     }
 }

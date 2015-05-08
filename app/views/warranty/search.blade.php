@@ -1,6 +1,6 @@
 @extends('layouts/layout_sist')
 
-@section ('title') / Garantías @stop
+@section ('title') / Buscar garantías @stop
 
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
@@ -10,11 +10,11 @@
 
     <div class="col col100">
         <div class="flo col30">
-            <h2><i class="fa fa-truck"></i> Garantías</h2>
+            <h2><i class="fa fa-search"></i> Resultados de garantías</h2>
         </div>
 
         <div class="flo col40 text-right">
-            @include('warranty.partials.btn_create')
+            @include('warranty.partials.btn_index')
         </div>
 
         <div class="flo col30 text-right">
@@ -24,20 +24,18 @@
 
     <div class="col col100">
 
-        @if ( count( $warranties ) > 0 )
+        @if ( count( $results ) > 0 )
 
-            @include('warranty.partials.list_paginate')
+            @include('warranty.partials.list_paginate', ['warranties' => $results])
 
             @include('warranty.partials.form_destroy_float')
 
         @else
 
-            <p class="title-clear">No hay garantías registradas.</p>
+            <p class="title-clear">No se obtuvieron resultados.</p>
 
         @endif
 
     </div>
-
-    @include('warranty.partials.form_create_float')
 
 @stop

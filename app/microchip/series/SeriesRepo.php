@@ -30,4 +30,11 @@ class SeriesRepo extends BaseRepo
             ->where('product_id', $product_id)
             ->first();
     }
+
+    public function findBySeriesForWarranty($ns)
+    {
+        return Series::where('ns', $ns)
+            ->where('status', '!=', 'Garantía')
+            ->first();
+    }
 }

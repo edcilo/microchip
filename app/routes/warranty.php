@@ -20,24 +20,14 @@ Route::group(
             'uses' => 'WarrantyController@create',
         ]);
 
-        Route::post('{movement_id}', [
+        Route::post('', [
             'as'   => 'warranty.store',
             'uses' => 'WarrantyController@store',
         ]);
 
-        Route::get('{slug}/{id}', [
+        ROute::get('{id}', [
             'as'   => 'warranty.show',
-            'uses' => 'WarrantyController@show',
-        ]);
-
-        Route::get('{slug}/{id}/edit', [
-            'as'   => 'warranty.edit',
-            'uses' => 'WarrantyController@edit',
-        ]);
-
-        Route::put('{id}', [
-            'as'   => 'warranty.update',
-            'uses' => 'WarrantyController@update',
+            'uses' => 'WarrantyController@show'
         ]);
 
         Route::delete('{id}', [

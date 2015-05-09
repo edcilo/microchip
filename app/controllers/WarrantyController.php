@@ -3,18 +3,22 @@
 use microchip\warranty\WarrantyRepo;
 use microchip\warranty\WarrantyRegManager;
 use microchip\series\SeriesRepo;
+use microchip\company\CompanyRepo;
 
 class WarrantyController extends \BaseController
 {
     protected $warrantyRepo;
     protected $seriesRepo;
+    protected $companyRepo;
 
     public function __construct(
         WarrantyRepo    $warrantyRepo,
-        SeriesRepo      $seriesRepo
+        SeriesRepo      $seriesRepo,
+        CompanyRepo     $companyRepo
     ) {
         $this->warrantyRepo = $warrantyRepo;
         $this->seriesRepo   = $seriesRepo;
+        $this->companyRepo  = $companyRepo;
     }
 
     /**
@@ -150,6 +154,8 @@ class WarrantyController extends \BaseController
         $this->notFoundUnless($warranty);
 
         $warranty->status = 'Enviado';
+        $warranty->sent_at = date('Y-m-d H:i:s');
+        $warranty->sent_by = Auth::user()->id;
         $warranty->save();
 
         if (Request::ajax()) {
@@ -159,5 +165,17 @@ class WarrantyController extends \BaseController
         }
 
         return Redirect::back()->with('message', 'Se cambio el status de la garantía ' . $warranty->folio . ' a enviado.');
+    }
+
+    public function generatePrint($id)
+    {
+        $warranty = $this->warrantyRepo->find($id);
+        $this->notFoundUnless($warranty);
+
+        $company    = $this->companyRepo->find(1);
+
+        $pdf = PDF::loadView('warranty/layout_print', compact('warranty', 'company'))->setPaper('letter');
+
+        return $pdf->stream();
     }
 }

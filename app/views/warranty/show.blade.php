@@ -20,12 +20,12 @@
 
         <div class="header">
             <h1>{{ $warranty->folio }}</h1>
-
-            {{--@include('warranty.partials.btn_print')--}}
         </div>
 
         <div class="col col100 text-right">
             @include('warranty.partials.form_send')
+
+            @include('warranty.partials.btn_print')
 
             @include('purchase.partials.btn_download', ['purchase' => $warranty->purchase])
             <hr/>
@@ -55,7 +55,7 @@
                             @if($warranty->sent_at)
                                 <li>
                                     <strong>Fecha de envío:</strong>
-                                    {{ date('d-m-Y H:i:s a', $warranty->sent_at) }}
+                                    {{ date('d-m-Y H:i:s a', time($warranty->sent_at)) }}
                                 </li>
                             @endif
                             <li>

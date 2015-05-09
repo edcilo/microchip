@@ -45,5 +45,10 @@ Route::group(
             'uses' => 'WarrantyController@send'
         ]);
 
+        Route::get('print/{id}', [
+            'as'   => 'warranty.print',
+            'uses' => 'WarrantyController@generatePrint'
+        ]);
+
     }
 );

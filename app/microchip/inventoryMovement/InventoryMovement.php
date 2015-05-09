@@ -23,6 +23,22 @@ class InventoryMovement extends BaseEntity
         return number_format($this->purchase_price, 2, '.', $f);
     }
 
+    public function getPurchasePriceWithIvaAttribute($f = '')
+    {
+        $total = 0;
+
+        if (count($this->purchases) > 0) {
+            $total = $this->purchase_price * ($this->purchases[0]->iva / 100 + 1);
+        }
+
+        return number_format($total, 2, '.', $f);
+    }
+
+    public function getPurchasePriceWithIvaFAttribute()
+    {
+        return $this->getPurchasePriceWithIvaAttribute(',');
+    }
+
     public function getTotalAttribute()
     {
         return number_format($this->selling_price * $this->quantity, 2, '.', '');

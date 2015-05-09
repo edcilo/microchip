@@ -2,7 +2,7 @@
 
     {{ Form::open(['route'=>['warranty.send', $warranty->id], 'class'=>'inline']) }}
 
-    <button type="submit" class="btn-blue" title="Enviar producto a garantía">
+    <button type="submit" class="btn-green" title="Enviar producto a garantía">
         <i class="fa fa-truck"></i>
     </button>
 

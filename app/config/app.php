@@ -125,7 +125,7 @@ return array(
         'Way\Generators\GeneratorsServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
 
-        'Ludo237\Barcode\BarcodeServiceProvider',
+        'Dinesh\Barcode\BarcodeServiceProvider'
     ),
 
     /*

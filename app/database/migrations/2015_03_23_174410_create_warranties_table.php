@@ -14,6 +14,7 @@ class CreateWarrantiesTable extends Migration
             $table->increments('id');
 
             $table->enum('status', ['Pendiente', 'Enviado', 'Terminado'])->default('Pendiente');
+            $table->string('former_status');
             $table->text('description');
             $table->date('sent_at')->nullable();
 

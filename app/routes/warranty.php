@@ -25,7 +25,7 @@ Route::group(
             'uses' => 'WarrantyController@store',
         ]);
 
-        ROute::get('{id}', [
+        Route::get('{id}', [
             'as'   => 'warranty.show',
             'uses' => 'WarrantyController@show'
         ]);
@@ -38,6 +38,11 @@ Route::group(
         Route::get('search', [
             'as'   => 'warranty.search',
             'uses' => 'WarrantyController@search',
+        ]);
+
+        Route::post('status/send/{id}', [
+            'as'   => 'warranty.send',
+            'uses' => 'WarrantyController@send'
         ]);
 
     }

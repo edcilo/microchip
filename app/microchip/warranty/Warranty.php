@@ -8,6 +8,7 @@ class Warranty extends BaseEntity
 {
     protected $fillable = [
         'status',
+        'former_status',
         'description',
         'sent_at',
         'series_id',

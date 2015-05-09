@@ -65,10 +65,12 @@ class WarrantyController extends \BaseController
             return Redirect::back()->withInput()->withErrors(['series' => 'Este producto no puede ser enviado a garantía.']);
         }
 
+        $former_status  = $series->status;
         $series->status = 'Garantía';
         $series->save();
 
         $data = [
+            'former_status' => $former_status,
             'description'   => Input::get('description'),
             'series_id'     => $series->id,
             'purchase_id'   => $series->movement->purchases[0]->id,
@@ -139,5 +141,23 @@ class WarrantyController extends \BaseController
 
             return View::make('warranty/search', compact('results', 'terms'));
         }
+    }
+
+
+    public function send($id)
+    {
+        $warranty = $this->warrantyRepo->find($id);
+        $this->notFoundUnless($warranty);
+
+        $warranty->status = 'Enviado';
+        $warranty->save();
+
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $warranty];
+
+            return Response::json($response);
+        }
+
+        return Redirect::back()->with('message', 'Se cambio el status de la garantía ' . $warranty->folio . ' a enviado.');
     }
 }

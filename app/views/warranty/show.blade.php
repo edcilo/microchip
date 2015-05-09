@@ -24,6 +24,13 @@
             {{--@include('warranty.partials.btn_print')--}}
         </div>
 
+        <div class="col col100 text-right">
+            @include('warranty.partials.form_send')
+
+            @include('purchase.partials.btn_download', ['purchase' => $warranty->purchase])
+            <hr/>
+        </div>
+
         <div class="col col100">
             <figure class="flo col20 left">
                 <img src="{{ asset($warranty->series->product->image) }}" alt="{{ $warranty->series->ns }}"/>

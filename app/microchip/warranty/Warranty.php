@@ -16,6 +16,7 @@ class Warranty extends BaseEntity
         'purchase_id',
         'created_by',
         'sent_by',
+        'movement_out',
     ];
 
     public function getFolioAttribute()
@@ -46,5 +47,10 @@ class Warranty extends BaseEntity
     public function sentBy()
     {
         return $this->belongsTo('microchip\user\User', 'sent_by');
+    }
+
+    public function movementOut()
+    {
+        return $this->belongsTo('microchip\inventoryMovement\InventoryMovement', 'movement_out');
     }
 }

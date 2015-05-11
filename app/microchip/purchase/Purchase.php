@@ -62,4 +62,9 @@ class Purchase extends BaseEntity
     {
         return $this->belongsToMany('microchip\inventoryMovement\InventoryMovement');
     }
+
+    public function warranties()
+    {
+        return $this->hasMany('microchip\warranty\Warranty');
+    }
 }

@@ -9,7 +9,7 @@ class WarrantyRegManager extends BaseManager
     public function getRules()
     {
         $rules = [
-            'description'   => 'max:562',
+            'description'   => 'required|max:562',
             'series_id'     => 'required|exists:series,id',
             'sale_id'       => 'exists:sales',
             'purchase_id'   => 'required|exists:purchases,id',

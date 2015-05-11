@@ -78,7 +78,7 @@
             {{ $warranty->series->product->s_description }}
         </td>
         <td>
-            {{ $warranty->series->movement->purchase_price_with_iva_f }}
+            $ {{ $warranty->series->movement->purchase_price_with_iva_f }}
         </td>
     </tr>
     </tbody>
@@ -88,10 +88,6 @@
     <tr>
         <td>
             <ul class="unlist">
-                <li>
-                    <strong>Núm. de serie:</strong>
-                    {{ $warranty->series->ns }}
-                </li>
                 <li>
                     <strong>Descripción de falla:</strong>
                     {{ $warranty->description }}

@@ -22,14 +22,21 @@
             <h1>{{ $warranty->folio }}</h1>
         </div>
 
-        <div class="col col100 text-right">
-            @include('warranty.partials.form_send')
+        <div class="col col100">
+            <div class="flo col50 left">
+                @include('warranty.partials.btn_receive')
+            </div>
 
-            @include('warranty.partials.btn_print')
+            <div class="flo col50 right text-right">
+                @include('warranty.partials.form_send')
 
-            @include('purchase.partials.btn_download', ['purchase' => $warranty->purchase])
-            <hr/>
+                @include('warranty.partials.btn_print')
+
+                @include('purchase.partials.btn_download', ['purchase' => $warranty->purchase])
+            </div>
         </div>
+
+        <hr/>
 
         <div class="col col100">
             <figure class="flo col20 left">

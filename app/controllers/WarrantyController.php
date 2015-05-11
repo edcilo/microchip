@@ -4,21 +4,25 @@ use microchip\warranty\WarrantyRepo;
 use microchip\warranty\WarrantyRegManager;
 use microchip\series\SeriesRepo;
 use microchip\company\CompanyRepo;
+use microchip\inventoryMovement\InventoryMovementRepo;
 
 class WarrantyController extends \BaseController
 {
     protected $warrantyRepo;
     protected $seriesRepo;
     protected $companyRepo;
+    protected $movementRepo;
 
     public function __construct(
-        WarrantyRepo    $warrantyRepo,
-        SeriesRepo      $seriesRepo,
-        CompanyRepo     $companyRepo
+        WarrantyRepo            $warrantyRepo,
+        SeriesRepo              $seriesRepo,
+        CompanyRepo             $companyRepo,
+        InventoryMovementRepo   $inventoryMovementRepo
     ) {
         $this->warrantyRepo = $warrantyRepo;
         $this->seriesRepo   = $seriesRepo;
         $this->companyRepo  = $companyRepo;
+        $this->movementRepo = $inventoryMovementRepo;
     }
 
     /**
@@ -70,8 +74,6 @@ class WarrantyController extends \BaseController
         }
 
         $former_status  = $series->status;
-        $series->status = 'Garantía';
-        $series->save();
 
         $data = [
             'former_status' => $former_status,
@@ -84,6 +86,9 @@ class WarrantyController extends \BaseController
         $warranty = $this->warrantyRepo->newWarranty();
         $manager = new WarrantyRegManager($warranty, $data);
         $manager->save();
+
+        $series->status = 'Garantía';
+        $series->save();
 
         $message = ['success' => 'Se registro correctamente la garantía.'];
 
@@ -117,7 +122,17 @@ class WarrantyController extends \BaseController
         $warranty = $this->warrantyRepo->find($id);
         $this->notFoundUnless($warranty);
 
-        $warranty->series->status =
+        $warranty->series->status = $warranty->former_status;
+        $warranty->push();
+
+        if ($warranty->movementOut) {
+            $movement_in = $this->movementRepo->find($warranty->movementOut->movement_in_id);
+            $movement_in->in_stock += 1;
+            $movement_in->save();
+
+            $warranty->movementOut->delete();
+        }
+
         $this->warrantyRepo->destroy($id);
 
         if (Request::ajax()) {
@@ -153,10 +168,22 @@ class WarrantyController extends \BaseController
         $warranty = $this->warrantyRepo->find($id);
         $this->notFoundUnless($warranty);
 
+        $movement = $this->movementRepo->newMovement();
+        $movement->product_id = $warranty->series->product->id;
+        $movement->warranty = 0;
+        $movement->quantity = 1;
+        $movement->status = 'out';
+        $movement->purchase_price = $warranty->series->movement->purchase_price;
+        $movement->description = 'Producto enviado a garantía';
+        $movement->movement_in_id = $warranty->series->movement->id;
+        $movement->save();
+
         $warranty->status = 'Enviado';
+        $warranty->movement_out = $movement->id;
         $warranty->sent_at = date('Y-m-d H:i:s');
         $warranty->sent_by = Auth::user()->id;
-        $warranty->save();
+        $warranty->series->movement->in_stock -= 1;
+        $warranty->push();
 
         if (Request::ajax()) {
             $response = $this->msg200 + ['data' => $warranty];

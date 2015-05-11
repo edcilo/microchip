@@ -31,6 +31,8 @@ class CreateWarrantiesTable extends Migration
 
             $table->unsignedInteger('sent_by');
 
+            $table->unsignedInteger('movement_out');
+
             $table->timestamps();
         });
     }

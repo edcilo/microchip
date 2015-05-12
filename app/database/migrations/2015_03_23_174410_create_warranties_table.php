@@ -33,6 +33,8 @@ class CreateWarrantiesTable extends Migration
 
             $table->unsignedInteger('movement_out');
 
+            $table->tinyInteger('solution', false, true);
+
             $table->timestamps();
         });
     }

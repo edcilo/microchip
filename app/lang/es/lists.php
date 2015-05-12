@@ -18,4 +18,12 @@ return [
         'Transferencia'             => 'Transferencia',
     ],
 
+    'warranty_solutions' => [
+        0   => 'No definido',
+        1   => 'Producto no defectuoso',
+        2   => 'Cambio de producto',
+        3   => 'Nota de crédito',
+        4   => 'Garantía no valida',
+    ]
+
 ];

@@ -22,18 +22,12 @@
             <h1>{{ $warranty->folio }}</h1>
         </div>
 
-        <div class="col col100">
-            <div class="flo col50 left">
-                @include('warranty.partials.btn_receive')
-            </div>
+        <div class="col col100 text-right">
+            @include('warranty.partials.form_send')
 
-            <div class="flo col50 right text-right">
-                @include('warranty.partials.form_send')
+            @include('warranty.partials.btn_print')
 
-                @include('warranty.partials.btn_print')
-
-                @include('purchase.partials.btn_download', ['purchase' => $warranty->purchase])
-            </div>
+            @include('purchase.partials.btn_download', ['purchase' => $warranty->purchase])
         </div>
 
         <hr/>
@@ -134,17 +128,44 @@
                                 </li>
                             @endif
                         </ul>
+
+                        <hr/>
+
+                        <ul>
+                            <li>
+                                <strong>Solución de garantía: </strong>
+                                {{ trans('lists.warranty_solutions.' . $warranty->solution) }}
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <hr/>
-
-        <div class="text-right">
-            @include('warranty.partials.form_destroy')
-        </div>
-
     </div>
+
+    @if($warranty->status == 'Enviado')
+        <div class="block description-product">
+
+            <div class="header">
+                Resolución de garantía
+            </div>
+
+            @include('warranty.partials.form_solution')
+
+        </div>
+    @endif
+
+    @if($warranty->status != 'Terminado')
+        <div class="block description-product">
+
+            <div class="subtitle">Eliminar garantía</div>
+
+            <div class="text-center">
+                @include('warranty.partials.form_destroy')
+            </div>
+
+        </div>
+    @endif
 
 @stop

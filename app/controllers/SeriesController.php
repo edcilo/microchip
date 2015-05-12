@@ -126,11 +126,11 @@ class SeriesController extends \BaseController
 
             if (!$validator->fails()) {
                 if ($movement->status == 'in') {
-                    $series        = $this->seriesRepo->newSeries();
+                    $series     = $this->seriesRepo->newSeries();
                     $manager    = new SeriesRegManager($series, $data);
                     $manager->save();
                 } else {
-                    $series        = $this->seriesRepo->findBySeries($data['ns'], 'Disponible', $movement->product->id);
+                    $series     = $this->seriesRepo->findBySeries($data['ns'], 'Disponible', $movement->product->id);
 
                     if ($series) {
                         $series->status = 'Vendido';

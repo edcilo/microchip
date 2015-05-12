@@ -35,6 +35,11 @@ Route::group(
             'uses' => 'WarrantyController@destroy',
         ]);
 
+        Route::put('{id}/solution', [
+            'as'    => 'warranty.save.solution',
+            'uses'  => 'WarrantyController@storeSolution'
+        ]);
+
         Route::get('search', [
             'as'   => 'warranty.search',
             'uses' => 'WarrantyController@search',

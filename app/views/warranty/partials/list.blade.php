@@ -25,7 +25,7 @@
             <td>{{ $warranty->series->ns }}</td>
             <td>{{ $warranty->description }}</td>
             <td>{{ $warranty->purchase->provider->name }}</td>
-            <td class="text-center">
+            <td>
                 <nobr>
                     @include('warranty.partials.btn_show')
 

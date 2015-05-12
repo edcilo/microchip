@@ -17,6 +17,7 @@ class Warranty extends BaseEntity
         'created_by',
         'sent_by',
         'movement_out',
+        'solutions',
     ];
 
     public function getFolioAttribute()

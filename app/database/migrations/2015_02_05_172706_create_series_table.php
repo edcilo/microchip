@@ -14,7 +14,7 @@ class CreateSeriesTable extends Migration
             $table->increments('id');
 
             $table->string('ns');
-            $table->enum('status', ['Disponible', 'Vendido', 'Garantía', 'Baja', 'Apartado']);
+            $table->enum('status', ['Disponible', 'Vendido', 'Garantía', 'Baja', 'Apartado'])->default('Disponible');
             $table->boolean('generate');
             $table->date('date_warranty');
 

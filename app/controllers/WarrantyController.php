@@ -5,6 +5,7 @@ use microchip\warranty\WarrantyRegManager;
 use microchip\series\SeriesRepo;
 use microchip\company\CompanyRepo;
 use microchip\inventoryMovement\InventoryMovementRepo;
+use microchip\product\ProductRepo;
 
 class WarrantyController extends \BaseController
 {
@@ -12,17 +13,20 @@ class WarrantyController extends \BaseController
     protected $seriesRepo;
     protected $companyRepo;
     protected $movementRepo;
+    protected $productRepo;
 
     public function __construct(
         WarrantyRepo            $warrantyRepo,
         SeriesRepo              $seriesRepo,
         CompanyRepo             $companyRepo,
-        InventoryMovementRepo   $inventoryMovementRepo
+        InventoryMovementRepo   $inventoryMovementRepo,
+        ProductRepo             $productRepo
     ) {
         $this->warrantyRepo = $warrantyRepo;
         $this->seriesRepo   = $seriesRepo;
         $this->companyRepo  = $companyRepo;
         $this->movementRepo = $inventoryMovementRepo;
+        $this->productRepo  = $productRepo;
     }
 
     public function getWarranty($id)
@@ -235,9 +239,29 @@ class WarrantyController extends \BaseController
                 $warranty->save();
                 break;
             case 2:
+                $product = $this->productRepo->getByBarcode(Input::get('barcode'));
+                $unique = $this->seriesRepo->unique(Input::get('ns'));
+                $errors = [];
+
+                if (is_null($product)) {
+                    $errors['barcode'] = 'El producto no es valido.';
+                } elseif (is_null($product->p_description)) {
+                    $errors['barcode'] = 'El producto no es valido.';
+                } elseif (!$product->p_description->have_series) {
+                    $errors['barcode'] = 'El producto no es valido.';
+                }
+
+                if (!$unique) {
+                    $errors['ns'] = 'EL número de serie ya se encuentra registrado.';
+                }
+
+                if (count($errors)) {
+                    return Redirect::back()->withInput()->withErrors($errors);
+                }
+
                 $movement = $this->movementRepo->newMovement();
                 $movement->warranty       = 1;
-                $movement->product_id     = $warranty->series->product_id;
+                $movement->product_id     = $product->id;
                 $movement->in_stock       = 1;
                 $movement->quantity       = 1;
                 $movement->status         = 'in';
@@ -247,15 +271,15 @@ class WarrantyController extends \BaseController
 
                 $movement->purchases()->attach($warranty->purchase_id);
 
-                //TODO validar que el numero de serie sea unico
                 $series = $this->seriesRepo->newSeries();
                 $series->ns = Input::get('ns');
-                $series->product_id = $warranty->series->product_id;
+                $series->product_id = $product->id;
                 $series->inventory_movement_id = $movement->id;
                 $series->save();
 
                 $warranty->status = 'Terminado';
                 $warranty->solution = $solution;
+                $warranty->movement_in = $movement->id;
                 $warranty->save();
                 break;
             default:

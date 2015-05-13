@@ -14,37 +14,39 @@
     </thead>
     <tbody>
     @foreach($purchase->movements as $movement)
-        <tr class="{{ $movement->class_row_series }}">
-            <td>
-                <a href="{{ route('product.show', [$movement->product->slug, $movement->product->id]) }}">
-                    {{ $movement->product->barcode }}
-                </a>
-            </td>
-            <td>
-                {{ $movement->product->s_description }}
-            </td>
-            <td class="text-right">
-                {{ $movement->quantity }}
-            </td>
-            <td class="text-right">
-                $ {{ $movement->purchase_price_f }}
-            </td>
-            <td class="text-right">
-                $ {{ $movement->total_purchase_without_iva_f }}
-            </td>
+        @if(! $movement->warranty)
+            <tr class="{{ $movement->class_row_series }}">
+                <td>
+                    <a href="{{ route('product.show', [$movement->product->slug, $movement->product->id]) }}">
+                        {{ $movement->product->barcode }}
+                    </a>
+                </td>
+                <td>
+                    {{ $movement->product->s_description }}
+                </td>
+                <td class="text-right">
+                    {{ $movement->quantity }}
+                </td>
+                <td class="text-right">
+                    $ {{ $movement->purchase_price_f }}
+                </td>
+                <td class="text-right">
+                    $ {{ $movement->total_purchase_without_iva_f }}
+                </td>
 
-            <td class="text-right">
-                @if ( $movement->product->p_description->have_series )
-                    @include('purchase.partials.btn_series')
-                @endif
+                <td class="text-right">
+                    @if ( $movement->product->p_description->have_series )
+                        @include('purchase.partials.btn_series')
+                    @endif
 
-                @if( $purchase->status == 'En proceso...' )
+                    @if( $purchase->status == 'En proceso...' )
 
-                    @include('movement.partials.form_destroy_purchase')
+                        @include('movement.partials.form_destroy_purchase')
 
-                @endif
-            </td>
-        </tr>
+                    @endif
+                </td>
+            </tr>
+        @endif
     @endforeach
     </tbody>
     <tfoot>

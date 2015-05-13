@@ -17,6 +17,7 @@ class Warranty extends BaseEntity
         'created_by',
         'sent_by',
         'movement_out',
+        'movement_in',
         'solutions',
     ];
 
@@ -53,5 +54,10 @@ class Warranty extends BaseEntity
     public function movementOut()
     {
         return $this->belongsTo('microchip\inventoryMovement\InventoryMovement', 'movement_out');
+    }
+
+    public function movementIn()
+    {
+        return $this->belongsTo('microchip\inventoryMovement\InventoryMovement', 'movement_in');
     }
 }

@@ -9,6 +9,14 @@
 </div>
 
 <div class="row">
+    {{ Form::label('barcode', 'Código de barras:', ['class' => 'label50 text-right']) }}
+    {{ Form::text('barcode', $warranty->series->product->barcode) }}
+    <div class="message-error">
+        {{ $errors->first('barcode', '<span>:message</span>') }}
+    </div>
+</div>
+
+<div class="row">
     {{ Form::label('ns', 'Número de serie:', ['class' => 'label50 text-right']) }}
     {{ Form::text('ns') }}
     <div class="message-error">

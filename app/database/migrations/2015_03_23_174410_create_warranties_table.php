@@ -32,6 +32,7 @@ class CreateWarrantiesTable extends Migration
             $table->unsignedInteger('sent_by');
 
             $table->unsignedInteger('movement_out');
+            $table->unsignedInteger('movement_in');
 
             $table->tinyInteger('solution', false, true);
 

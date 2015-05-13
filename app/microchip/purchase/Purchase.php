@@ -26,7 +26,9 @@ class Purchase extends BaseEntity
         $total = 0;
 
         foreach ($this->movements as $movement) {
-            $total += $movement->getTotalPurchaseWithoutIvaAttribute();
+            if (!$movement->warranty) {
+                $total += $movement->getTotalPurchaseWithoutIvaAttribute();
+            }
         }
 
         return number_format($total, 2, '.', $f);
@@ -37,7 +39,9 @@ class Purchase extends BaseEntity
         $total = 0;
 
         foreach ($this->movements as $movement) {
-            $total += $movement->purchase_price * $movement->quantity * (($this->iva / 100) + 1);
+            if (!$movement->warranty) {
+                $total += $movement->purchase_price * $movement->quantity * (($this->iva / 100) + 1);
+            }
         }
 
         return number_format($total, 2, '.', $f);

@@ -2,7 +2,7 @@
 <div class="col col100 block description-product">
 
     <div class="subtitle">
-        Garantias
+        Garantias enviadas
     </div>
 
     @include('warranty.partials.list', ['warranties' => $purchase->warranties])

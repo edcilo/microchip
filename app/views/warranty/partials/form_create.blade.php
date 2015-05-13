@@ -8,7 +8,7 @@
 
 
 <div class="row">
-    {{ Form::label('description', 'Descripción: ', ['class'=>'label50']) }}
+    {{ Form::label('description', 'Descripción de la falla detectada: ', ['class'=>'label50']) }}
     {{ Form::textarea('description', null, ['rows'=>'3', 'class'=>'label50', 'data-required'=>'required']) }}
     <div class="message-error">
         {{ $errors->first('description', '<span>:message</span>') }}

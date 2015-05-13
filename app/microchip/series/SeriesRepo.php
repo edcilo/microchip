@@ -31,6 +31,13 @@ class SeriesRepo extends BaseRepo
             ->first();
     }
 
+    public function unique($ns)
+    {
+        $result = Series::where('ns', $ns)->first();
+
+        return is_null($result);
+    }
+
     public function findBySeriesForWarranty($ns)
     {
         return Series::where('ns', $ns)

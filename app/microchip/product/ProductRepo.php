@@ -47,6 +47,11 @@ class ProductRepo extends BaseRepo
         return ($paginate) ? $q->paginate() : $q->get();
     }
 
+    public function getByBarcode($barcode)
+    {
+        return Product::where('barcode', $barcode)->first();
+    }
+
     public function search($terms, $type = 'all', $request = '', $take = 10)
     {
         $q = Product::with('pDescription')

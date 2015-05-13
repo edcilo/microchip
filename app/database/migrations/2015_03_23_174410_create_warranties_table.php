@@ -17,6 +17,7 @@ class CreateWarrantiesTable extends Migration
             $table->string('former_status');
             $table->text('description');
             $table->date('sent_at')->nullable();
+            $table->text('observations');
 
             $table->unsignedInteger('series_id');
             $table->foreign('series_id')->references('id')->on('series')->onDelete('no action');

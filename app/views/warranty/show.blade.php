@@ -136,6 +136,10 @@
                                 <strong>Solución de garantía: </strong>
                                 {{ trans('lists.warranty_solutions.' . $warranty->solution) }}
                             </li>
+                            <li>
+                                <strong>Observaciones:</strong>
+                                {{ $warranty->observations }}
+                            </li>
                         </ul>
                     </div>
                 </div>

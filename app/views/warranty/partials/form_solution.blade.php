@@ -24,6 +24,14 @@
     </div>
 </div>
 
+<div class="row">
+    {{ Form::label('observations', 'Observaciones:', ['class' => 'label50 text-right']) }}
+    {{ Form::textarea('observations', null, ['rows'=>2, 'cols'=>30]) }}
+    <div class="message-error">
+        {{ $errors->first('observations', '<span>:message</span>') }}
+    </div>
+</div>
+
 <div class="row text-center">
     <button class="btn-green" type="submit">
         <i class="fa fa-save"></i>

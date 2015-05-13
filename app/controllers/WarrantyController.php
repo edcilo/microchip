@@ -234,9 +234,6 @@ class WarrantyController extends \BaseController
             case 4:
                 $this->changeMovementStatus($warranty->series, $warranty->former_status);
                 $this->removeMovementOut($warranty);
-                $warranty->status = 'Terminado';
-                $warranty->solution = $solution;
-                $warranty->save();
                 break;
             case 2:
                 $product = $this->productRepo->getByBarcode(Input::get('barcode'));
@@ -277,14 +274,16 @@ class WarrantyController extends \BaseController
                 $series->inventory_movement_id = $movement->id;
                 $series->save();
 
-                $warranty->status = 'Terminado';
-                $warranty->solution = $solution;
                 $warranty->movement_in = $movement->id;
-                $warranty->save();
                 break;
             default:
                 return Redirect::back()->withInput()->withErrors(['solution' => 'La solución propuesta no es admisible.']);
         }
+
+        $warranty->observations = Input::get('observations');
+        $warranty->status = 'Terminado';
+        $warranty->solution = $solution;
+        $warranty->save();
 
         return Redirect::back()->with('message', 'El registro del termino del proceso de garantía se ha registrado satisfactoriamente.');
     }

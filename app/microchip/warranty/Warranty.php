@@ -10,6 +10,7 @@ class Warranty extends BaseEntity
         'status',
         'former_status',
         'description',
+        'observations',
         'sent_at',
         'series_id',
         'sale_id',

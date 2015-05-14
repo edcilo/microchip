@@ -99,6 +99,10 @@ return array(
     |
     */
 
-    'attributes' => array(),
+    'attributes' => array(
+        'folio_c'        => 'Folio',
+        'value'          => 'Valor',
+        'observations_c' => 'Observaciones de la note de crédito'
+    ),
 
 );

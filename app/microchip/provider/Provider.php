@@ -43,4 +43,9 @@ class Provider extends BaseEntity
     {
         return $this->hasMany('microchip\purchase\Purchase');
     }
+
+    public function coupons()
+    {
+        return $this->hasMany('microchip\couponPurchase\CouponPurchase');
+    }
 }

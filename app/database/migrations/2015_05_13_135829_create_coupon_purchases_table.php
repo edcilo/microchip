@@ -15,12 +15,15 @@ class CreateCouponPurchasesTable extends Migration {
 		Schema::create('coupon_purchases', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->boolean('available')->default(1);
             $table->string('folio');
             $table->float('value');
             $table->string('observations');
+            $table->unsignedInteger('purchase_id');
             $table->unsignedInteger('provider_id');
             $table->unsignedInteger('warranty_id');
 
+            $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
             $table->foreign('warranty_id')->references('id')->on('warranties')->onDelete('cascade');
 			$table->timestamps();

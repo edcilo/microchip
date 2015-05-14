@@ -89,6 +89,8 @@
 
     @include('purchase.partials.warranty_products')
 
+    @include('purchase.partials.coupons')
+
     @if( p(61) )
         <div class="description-product" title="Subir factura escaneada" id="dialogRegister" data-width="500">
 

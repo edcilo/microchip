@@ -6,6 +6,7 @@ use microchip\series\SeriesRepo;
 use microchip\company\CompanyRepo;
 use microchip\inventoryMovement\InventoryMovementRepo;
 use microchip\product\ProductRepo;
+use microchip\couponPurchase\CouponPurchaseRepo;
 
 class WarrantyController extends \BaseController
 {
@@ -14,19 +15,22 @@ class WarrantyController extends \BaseController
     protected $companyRepo;
     protected $movementRepo;
     protected $productRepo;
+    protected $couponPurchaseRepo;
 
     public function __construct(
         WarrantyRepo            $warrantyRepo,
         SeriesRepo              $seriesRepo,
         CompanyRepo             $companyRepo,
         InventoryMovementRepo   $inventoryMovementRepo,
-        ProductRepo             $productRepo
+        ProductRepo             $productRepo,
+        CouponPurchaseRepo      $couponPurchaseRepo
     ) {
         $this->warrantyRepo = $warrantyRepo;
         $this->seriesRepo   = $seriesRepo;
         $this->companyRepo  = $companyRepo;
         $this->movementRepo = $inventoryMovementRepo;
         $this->productRepo  = $productRepo;
+        $this->couponPurchaseRepo = $couponPurchaseRepo;
     }
 
     public function getWarranty($id)
@@ -275,6 +279,30 @@ class WarrantyController extends \BaseController
                 $series->save();
 
                 $warranty->movement_in = $movement->id;
+                break;
+            case 3:
+                // todo registrar la nota de credito
+                $data = Input::all();
+                $rules = [
+                    'folio_c'           => 'required|unique:coupon_purchases,folio',
+                    'value'             => 'required|numeric',
+                    'observations_c'    => 'required|max:255'
+                ];
+
+                $validator = Validator::make($data, $rules);
+
+                if ($validator->fails()) {
+                    return Redirect::back()->withInput()->withErrors($validator);
+                }
+
+                $coupon                 = $this->couponPurchaseRepo->newCoupon();
+                $coupon->folio          = $data['folio_c'];
+                $coupon->value          = $data['value'];
+                $coupon->observations   = $data['observations_c'];
+                $coupon->purchase_id    = $warranty->purchase->id;
+                $coupon->provider_id    = $warranty->purchase->provider_id;
+                $coupon->warranty_id    = $warranty->id;
+                $coupon->save();
                 break;
             default:
                 return Redirect::back()->withInput()->withErrors(['solution' => 'La solución propuesta no es admisible.']);

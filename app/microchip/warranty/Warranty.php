@@ -61,4 +61,9 @@ class Warranty extends BaseEntity
     {
         return $this->belongsTo('microchip\inventoryMovement\InventoryMovement', 'movement_in');
     }
+
+    public function coupon()
+    {
+        return $this->hasOne('microchip\couponPurchase\CouponPurchase');
+    }
 }

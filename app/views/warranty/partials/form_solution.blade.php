@@ -25,6 +25,31 @@
 </div>
 
 <div class="row">
+    {{ Form::label('folio_c', 'Folio:', ['class' => 'label50 text-right']) }}
+    {{ Form::text('folio_c') }}
+    <div class="message-error">
+        {{ $errors->first('folio_c', '<span>:message</span>') }}
+    </div>
+</div>
+
+
+<div class="row">
+    {{ Form::label('value', 'Valor: $', ['class' => 'label50 text-right']) }}
+    {{ Form::text('value', null, ['data-numeric'=>'numeric']) }}
+    <div class="message-error">
+        {{ $errors->first('value', '<span>:message</span>') }}
+    </div>
+</div>
+
+<div class="row">
+    {{ Form::label('observations_c', 'Observaciones acerca de la nota de crédito:', ['class' => 'label50 text-right']) }}
+    {{ Form::textarea('observations_c', null, ['rows'=>2, 'cols'=>30]) }}
+    <div class="message-error">
+        {{ $errors->first('observations_c', '<span>:message</span>') }}
+    </div>
+</div>
+
+<div class="row">
     {{ Form::label('observations', 'Observaciones:', ['class' => 'label50 text-right']) }}
     {{ Form::textarea('observations', null, ['rows'=>2, 'cols'=>30]) }}
     <div class="message-error">

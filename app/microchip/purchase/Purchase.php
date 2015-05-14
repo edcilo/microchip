@@ -71,4 +71,9 @@ class Purchase extends BaseEntity
     {
         return $this->hasMany('microchip\warranty\Warranty');
     }
+
+    public function coupons()
+    {
+        return $this->hasMany('microchip\couponPurchase\CouponPurchase');
+    }
 }

@@ -84,5 +84,17 @@
         </td>
         <td></td>
     </tr>
+    <tr>
+        <td colspan="3"></td>
+        <td>
+            <strong>
+                Restante:
+            </strong>
+        </td>
+        <td class="text-right">
+            $ {{ $purchase->rest}}
+        </td>
+        <td></td>
+    </tr>
     </tfoot>
 </table>

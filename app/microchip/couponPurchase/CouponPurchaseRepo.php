@@ -21,4 +21,13 @@ class CouponPurchaseRepo extends BaseRepo {
         return CouponPurchase::where('folio', $folio)->first();
     }
 
+    public function search($terms, $request = '', $take = 10)
+    {
+        $q = CouponPurchase::where('folio', 'like', "%$terms%")
+            ->orwhere('value', 'like', "%$terms%")
+            ->orwhere('observations', 'like', "%$terms%");
+
+        return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
+    }
+
 }

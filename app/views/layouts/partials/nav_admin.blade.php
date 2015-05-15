@@ -125,6 +125,12 @@
                         Facturas incompletas
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('coupon.purchase.index') }}">
+                        <i class="fa fa-ticket"></i>
+                        Notas de crédito
+                    </a>
+                </li>
             </ul>
         @endif
 

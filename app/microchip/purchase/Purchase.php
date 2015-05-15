@@ -47,9 +47,31 @@ class Purchase extends BaseEntity
         return number_format($total, 2, '.', $f);
     }
 
-    public function payment()
+    public function getTotalPayAttribute($f = '')
     {
-        return $this->hasOne('microchip\purchasePayment\PurchasePayment');
+        $total = 0;
+        $payments = $this->payments;
+
+        if (count($payments)) {
+            foreach ($payments as $payment) {
+                $total += $payment->value;
+            }
+        }
+
+        return number_format($total, 2, '.', $f);
+    }
+
+    public function getRestAttribute($f = '')
+    {
+        $total = $this->getTotalAttribute();
+        $pay   = $this->getTotalPayAttribute();
+        $rest  = $total - $pay;
+        return number_format($rest, 2, '.', $f);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany('microchip\purchasePayment\PurchasePayment');
     }
 
     public function provider()

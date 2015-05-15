@@ -191,4 +191,9 @@ Route::group(['before' => 'auth'], function () {
      */
     require __DIR__.'/routes/warranty.php';
 
+    /*
+     * Rutas relacionadas con la administración de las notas de credito
+     */
+    require __DIR__.'/routes/couponPurchase.php';
+
 });

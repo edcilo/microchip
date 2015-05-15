@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th>Cantidad</th>
         <th>Estado</th>
         <th>Método de pago</th>
         <th>Tipo de pago</th>
@@ -8,19 +9,27 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>{{ $purchase->payment->status }}</td>
-        <td>{{ $purchase->payment->method }}</td>
-        <td>
-            {{ $purchase->payment->type }}
-            @if( is_object($purchase->payment->cheque) )
-                :
-                <a href="{{ route('cheque.show', [$purchase->payment->cheque->folio, $purchase->payment->cheque->id]) }}">
-                    {{ $purchase->payment->cheque->folio }}
-                </a>
-            @endif
-        </td>
-        <td>{{ $purchase->payment->payment_date }}</td>
-    </tr>
+    @foreach($purchase->payments as $payment)
+        <tr>
+            <td>$ {{ $payment->value }}</td>
+            <td>{{ $payment->status }}</td>
+            <td>{{ $payment->method }}</td>
+            <td>
+                {{ $payment->type }}
+                @if( is_object($payment->cheque) )
+                    :
+                    <a href="{{ route('cheque.show', [$payment->cheque->folio, $payment->cheque->id]) }}">
+                        {{ $payment->cheque->folio }}
+                    </a>
+                @elseif( is_object($payment->coupon) )
+                    :
+                    <a href="{{ route('coupon.purchase.show', [$payment->coupon->id]) }}">
+                        {{ $payment->coupon->folio }}
+                    </a>
+                @endif
+            </td>
+            <td>{{ $payment->payment_date }}</td>
+        </tr>
+    @endforeach
     </tbody>
 </table>

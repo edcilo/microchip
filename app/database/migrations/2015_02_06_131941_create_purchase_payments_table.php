@@ -13,10 +13,13 @@ class CreatePurchasePaymentsTable extends Migration
         Schema::create('purchase_payments', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->decimal('value');
+
             $table->integer('purchase_id')->unsigned();
             $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade')->onUpdate('cascade');
 
             $table->integer('cheque_id')->unsigned();
+            $table->unsignedInteger('coupon_purchase_id');
 
             $table->enum('method', ['Contado', 'Crédito']);
             $table->string('type');

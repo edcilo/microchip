@@ -67,13 +67,13 @@
         </div>
 
 
-        @if ( !count($purchase->payment) AND p(61) )
+        @if ( $purchase->status != 'Pagado' AND p(61) )
 
             @include('purchasePayment.partials.formCreate')
 
         @endif
 
-        @if( count($purchase->payment) )
+        @if( count($purchase->payments) )
 
             @include('purchase.partials.data_pay')
 

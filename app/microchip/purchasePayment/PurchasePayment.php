@@ -7,8 +7,10 @@ use microchip\base\BaseEntity;
 class PurchasePayment extends BaseEntity
 {
     protected $fillable = [
+        'value',
         'purchase_id',
         'cheque_id',
+        'coupon_purchase_id',
         'method',
         'type',
         'payment_date',
@@ -23,5 +25,10 @@ class PurchasePayment extends BaseEntity
     public function cheque()
     {
         return $this->belongsTo('microchip\cheque\Cheque');
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo('microchip\couponPurchase\CouponPurchase', 'coupon_purchase_id');
     }
 }

@@ -43,6 +43,12 @@
             {{ $errors->first('cheque_id', '<span>:message</span>') }}
         </div>
 
+        {{ Form::label('folio', 'Folio:') }} <br/>
+        {{ Form::text('folio', null, ['placeholder'=>'Folio de la nota de crédito']) }}
+        <div class="message-error">
+            {{ $errors->first('folio', '<span>:message</span>') }}
+        </div>
+
     </div>
 
 </div>

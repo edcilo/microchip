@@ -19,7 +19,7 @@ class PurchasePayment extends BaseEntity
 
     public function bill()
     {
-        return $this->belongsTo('microchip\purchase\Purchase');
+        return $this->belongsTo('microchip\purchase\Purchase', 'purchase_id');
     }
 
     public function cheque()

@@ -30,4 +30,9 @@ class CouponPurchase extends BaseEntity {
         return $this->belongsTo('microchip\provider\Provider');
     }
 
+    public function pay()
+    {
+        return $this->hasOne('microchip\purchasePayment\PurchasePayment', 'coupon_purchase_id');
+    }
+
 }

@@ -48,14 +48,31 @@
                 <ul>
                     <li>
                         <strong>Proveedor:</strong>
-                        {{ $coupon->provider->name }}
+                        <a href="{{ route('provider.show', [$coupon->provider->slug, $coupon->provider->id]) }}">
+                            {{ $coupon->provider->name }}
+                        </a>
                     </li>
                     <li>
                         <strong>Adquirido en la garantía:</strong>
-                        {{ $coupon->warranty->folio }}
+                        <a href="{{ route('warranty.show', $coupon->warranty->id) }}">
+                            {{ $coupon->warranty->folio }}
+                        </a>
                     </li>
                 </ul>
             </div>
+
+            @if (! $coupon->available)
+                <div class="flo col33 right">
+                    <ul>
+                        <li>
+                            <strong>Compra:</strong>
+                            <a href="{{ route('purchase.show', [$coupon->pay->bill->folio, $coupon->pay->bill->id]) }}">
+                                {{ $coupon->pay->bill->folio }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            @endif
         </div>
 
     </div>

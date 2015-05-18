@@ -23,6 +23,7 @@ class CreateWarrantiesTable extends Migration
             $table->foreign('series_id')->references('id')->on('series')->onDelete('no action');
 
             $table->unsignedInteger('sale_id');
+            $table->unsignedInteger('service_id');
 
             $table->unsignedInteger('purchase_id');
             $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('no action');

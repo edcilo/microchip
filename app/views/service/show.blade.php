@@ -71,6 +71,8 @@
 
     @include('service.partials.warranty_service')
 
+    @include('service.partials.warranty_control')
+
     @if( p(97) AND $sale->status != 'Cancelado' )
         <div class="col col100 block description-product edc-hide-show">
             <div class="subtitle">

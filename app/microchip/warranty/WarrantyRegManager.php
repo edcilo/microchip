@@ -11,9 +11,13 @@ class WarrantyRegManager extends BaseManager
         $rules = [
             'description'   => 'required|max:562',
             'series_id'     => 'required|exists:series,id',
-            'sale_id'       => 'exists:sales',
             'purchase_id'   => 'required|exists:purchases,id',
         ];
+
+        if (isset($this->data['sale_id'])) {
+            $rules['sale_id'] = 'required|exists:sales,id';
+            $rules['service_id'] = 'required|exists:sales,id';
+        }
 
         return $rules;
     }

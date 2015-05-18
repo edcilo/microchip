@@ -10,20 +10,22 @@
     </thead>
     <tbody>
     @foreach($sale->movements as $movement)
-        <tr>
-            <td class="text-right">{{ $movement->quantity }}</td>
-            <td>{{ $movement->product->barcode}}</td>
-            <td>{{ $movement->product->s_description }}</td>
-            <td class="text-right">$ {{ $movement->selling_price_f }}</td>
-            <td class="text-right">$ {{ $movement->total_f }}</td>
-        </tr>
-        @foreach( $movement->seriesOut as $series )
+        @if(!$movement->q_warranty)
             <tr>
-                <td></td>
-                <td><strong>S/N</strong> {{ $series->ns }}</td>
-                <td colspan="3"></td>
+                <td class="text-right">{{ $movement->quantity }}</td>
+                <td>{{ $movement->product->barcode}}</td>
+                <td>{{ $movement->product->s_description }}</td>
+                <td class="text-right">$ {{ $movement->selling_price_f }}</td>
+                <td class="text-right">$ {{ $movement->total_f }}</td>
             </tr>
-        @endforeach
+            @foreach( $movement->seriesOut as $series )
+                <tr>
+                    <td></td>
+                    <td><strong>S/N</strong> {{ $series->ns }}</td>
+                    <td colspan="3"></td>
+                </tr>
+            @endforeach
+        @endif
     @endforeach
     </tbody>
     <tfoot class="text-right">

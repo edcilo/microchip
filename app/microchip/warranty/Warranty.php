@@ -14,6 +14,7 @@ class Warranty extends BaseEntity
         'sent_at',
         'series_id',
         'sale_id',
+        'service_id',
         'purchase_id',
         'created_by',
         'sent_by',
@@ -35,6 +36,11 @@ class Warranty extends BaseEntity
     public function sale()
     {
         return $this->belongsTo('microchip\sale\Sale');
+    }
+
+    public function service()
+    {
+        return $this->belongsTo('microchip\sale\Sale', 'service_id');
     }
 
     public function purchase()

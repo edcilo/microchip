@@ -48,7 +48,9 @@ class Sale extends BaseEntity
     {
         $subtotal = 0;
         foreach ($this->movements as $movement) {
-            $subtotal += $movement->getTotalWithoutIvaAttribute();
+            if (!$movement->q_warranty) {
+                $subtotal += $movement->getTotalWithoutIvaAttribute();
+            }
         }
 
         return number_format($subtotal, 2, '.', $f);
@@ -58,7 +60,9 @@ class Sale extends BaseEntity
     {
         $total = 0;
         foreach ($this->movements as $movement) {
-            $total += $movement->getTotalAttribute();
+            if (!$movement->q_warranty) {
+                $total += $movement->getTotalAttribute();
+            }
         }
 
         return number_format($total, 2, '.', $f);
@@ -296,5 +300,10 @@ class Sale extends BaseEntity
     public function movements()
     {
         return $this->belongsToMany('microchip\inventoryMovement\InventoryMovement')->withPivot('movement_in');
+    }
+
+    public function warranties()
+    {
+        return $this->hasMany('microchip\warranty\Warranty');
     }
 }

@@ -103,6 +103,11 @@ class WarrantyController extends \BaseController
             'created_by'    => Auth::user()->id
         ];
 
+        if ($series->movement_out) {
+            $data['sale_id'] = $series->movementOut->sales[0]->id;
+            $data['service_id'] = Input::get('service_id');
+        }
+
         $warranty = $this->warrantyRepo->newWarranty();
         $manager = new WarrantyRegManager($warranty, $data);
         $manager->save();
@@ -118,7 +123,7 @@ class WarrantyController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('warranty.index')->with($message);
+        return Redirect::back()->with($message);
     }
 
     public function show($id)
@@ -240,6 +245,7 @@ class WarrantyController extends \BaseController
                 $this->removeMovementOut($warranty);
                 break;
             case 2:
+                // todo generar salida del producto relacionandola con la venta
                 $product = $this->productRepo->getByBarcode(Input::get('barcode'));
                 $unique = $this->seriesRepo->unique(Input::get('ns'));
                 $errors = [];
@@ -261,7 +267,7 @@ class WarrantyController extends \BaseController
                 }
 
                 $movement = $this->movementRepo->newMovement();
-                $movement->warranty       = 1;
+                $movement->q_warranty     = 1;
                 $movement->product_id     = $product->id;
                 $movement->in_stock       = 1;
                 $movement->quantity       = 1;
@@ -278,10 +284,27 @@ class WarrantyController extends \BaseController
                 $series->inventory_movement_id = $movement->id;
                 $series->save();
 
+                if ($warranty->sale_id) {
+                    $movement_out = $this->movementRepo->newMovement();
+                    $movement_out->q_warranty     = 1;
+                    $movement_out->product_id     = $product->id;
+                    $movement_out->quantity       = 1;
+                    $movement_out->status         = 'out';
+                    $movement_out->purchase_price = $warranty->series->movement->purchase_price;
+                    $movement_out->description    = 'Salida por garantía';
+                    $movement_out->movement_in_id = $movement->id;
+                    $movement_out->save();
+
+                    $movement_out->sales()->attach([$warranty->sale_id => ['movement_in' => $movement->id]]);
+
+                    $series->movement_out = $movement_out->id;
+                    $series->save();
+                }
+
                 $warranty->movement_in = $movement->id;
                 break;
             case 3:
-                // todo registrar la nota de credito
+                // todo si la garantia proviene de una venta generar el vale de compra
                 $data = Input::all();
                 $rules = [
                     'folio_c'           => 'required|unique:coupon_purchases,folio',

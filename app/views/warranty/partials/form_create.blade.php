@@ -14,3 +14,5 @@
         {{ $errors->first('description', '<span>:message</span>') }}
     </div>
 </div>
+
+@yield('warranty_fields')

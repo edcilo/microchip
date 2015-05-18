@@ -53,6 +53,10 @@
 
     </div>
 
+    @include('sale.partials.warranties')
+
+    @include('sale.partials.warranty_products')
+
     @include('sale.partials.form_adjust_price')
 
     @include('sale.partials.list_pay_pending')

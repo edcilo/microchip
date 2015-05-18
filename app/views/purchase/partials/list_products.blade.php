@@ -14,7 +14,7 @@
     </thead>
     <tbody>
     @foreach($purchase->movements as $movement)
-        @if(! $movement->warranty)
+        @if(! $movement->q_warranty)
             <tr class="{{ $movement->class_row_series }}">
                 <td>
                     <a href="{{ route('product.show', [$movement->product->slug, $movement->product->id]) }}">

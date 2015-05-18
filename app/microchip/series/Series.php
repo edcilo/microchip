@@ -32,7 +32,7 @@ class Series extends \Eloquent
         return $this->belongsTo('microchip\inventoryMovement\InventoryMovement', 'inventory_movement_id', 'id');
     }
 
-    public function movement_out()
+    public function movementOut()
     {
         return $this->belongsTo('microchip\inventoryMovement\InventoryMovement', 'movement_out', 'id');
     }

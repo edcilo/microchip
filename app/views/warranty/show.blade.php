@@ -107,11 +107,38 @@
                         @if($warranty->sale)
                             <hr/>
 
-                            <ul>
-                                <li>
-                                    <strong>Cliente:</strong>
-                                </li>
-                            </ul>
+                            <div class="col col100">
+                                <div class="flo col50 left">
+                                    <ul>
+                                        <li>
+                                            <strong>Venta:</strong>
+                                            <a href="{{ route('sale.show', $warranty->sale->id) }}">
+                                                {{ $warranty->sale->folio }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <strong>Cliente:</strong>
+                                            {{ $warranty->sale->customer->name }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="flo col50 right">
+                                    <ul>
+                                        <li>
+                                            <strong>Servicio:</strong>
+                                            <a href="{{ route('service.show', $warranty->service->id) }}">
+                                                {{ $warranty->service->folio }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <strong>Cliente:</strong>
+                                            <a href="{{ route('customer.show', $warranty->service->customer->id) }}">
+                                                {{ $warranty->service->customer->name }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         @endif
 
                         <hr/>

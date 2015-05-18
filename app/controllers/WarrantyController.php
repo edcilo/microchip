@@ -194,7 +194,6 @@ class WarrantyController extends \BaseController
 
         $movement = $this->movementRepo->newMovement();
         $movement->product_id = $warranty->series->product->id;
-        $movement->warranty = 0;
         $movement->quantity = 1;
         $movement->status = 'out';
         $movement->purchase_price = $warranty->series->movement->purchase_price;
@@ -207,6 +206,7 @@ class WarrantyController extends \BaseController
         $warranty->sent_at = date('Y-m-d H:i:s');
         $warranty->sent_by = Auth::user()->id;
         $warranty->series->movement->in_stock -= 1;
+        //$warranty->series->movement_out = $movement->id;
         $warranty->push();
 
         if (Request::ajax()) {
@@ -245,7 +245,6 @@ class WarrantyController extends \BaseController
                 $this->removeMovementOut($warranty);
                 break;
             case 2:
-                // todo generar salida del producto relacionandola con la venta
                 $product = $this->productRepo->getByBarcode(Input::get('barcode'));
                 $unique = $this->seriesRepo->unique(Input::get('ns'));
                 $errors = [];
@@ -279,9 +278,10 @@ class WarrantyController extends \BaseController
                 $movement->purchases()->attach($warranty->purchase_id);
 
                 $series = $this->seriesRepo->newSeries();
-                $series->ns = Input::get('ns');
+                $series->ns = strtoupper(Input::get('ns'));
                 $series->product_id = $product->id;
                 $series->inventory_movement_id = $movement->id;
+                $series->status = $warranty->former_status;
                 $series->save();
 
                 if ($warranty->sale_id) {
@@ -298,10 +298,12 @@ class WarrantyController extends \BaseController
                     $movement_out->sales()->attach([$warranty->sale_id => ['movement_in' => $movement->id]]);
 
                     $series->movement_out = $movement_out->id;
+                    $series->status = 'Vendido';
                     $series->save();
                 }
 
                 $warranty->movement_in = $movement->id;
+                $warranty->series->status = 'Baja';
                 break;
             case 3:
                 // todo si la garantia proviene de una venta generar el vale de compra
@@ -334,7 +336,7 @@ class WarrantyController extends \BaseController
         $warranty->observations = Input::get('observations');
         $warranty->status = 'Terminado';
         $warranty->solution = $solution;
-        $warranty->save();
+        $warranty->push();
 
         return Redirect::back()->with('message', 'El registro del termino del proceso de garantía se ha registrado satisfactoriamente.');
     }

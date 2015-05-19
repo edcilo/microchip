@@ -7,6 +7,8 @@ use microchip\company\CompanyRepo;
 use microchip\inventoryMovement\InventoryMovementRepo;
 use microchip\product\ProductRepo;
 use microchip\couponPurchase\CouponPurchaseRepo;
+use microchip\coupon\CouponRepo;
+use microchip\configuration\ConfigurationRepo;
 
 class WarrantyController extends \BaseController
 {
@@ -16,6 +18,8 @@ class WarrantyController extends \BaseController
     protected $movementRepo;
     protected $productRepo;
     protected $couponPurchaseRepo;
+    protected $couponRepo;
+    protected $configRepo;
 
     public function __construct(
         WarrantyRepo            $warrantyRepo,
@@ -23,7 +27,9 @@ class WarrantyController extends \BaseController
         CompanyRepo             $companyRepo,
         InventoryMovementRepo   $inventoryMovementRepo,
         ProductRepo             $productRepo,
-        CouponPurchaseRepo      $couponPurchaseRepo
+        CouponPurchaseRepo      $couponPurchaseRepo,
+        CouponRepo              $couponRepo,
+        ConfigurationRepo       $configurationRepo
     ) {
         $this->warrantyRepo = $warrantyRepo;
         $this->seriesRepo   = $seriesRepo;
@@ -31,6 +37,8 @@ class WarrantyController extends \BaseController
         $this->movementRepo = $inventoryMovementRepo;
         $this->productRepo  = $productRepo;
         $this->couponPurchaseRepo = $couponPurchaseRepo;
+        $this->couponRepo         = $couponRepo;
+        $this->configRepo         = $configurationRepo;
     }
 
     public function getWarranty($id)
@@ -313,7 +321,6 @@ class WarrantyController extends \BaseController
                 $warranty->series->status = 'Baja';
                 break;
             case 3:
-                // todo si la garantia proviene de una venta generar el vale de compra
                 $data = Input::all();
                 $rules = [
                     'folio_c'           => 'required|unique:coupon_purchases,folio',

@@ -39,28 +39,6 @@ class CouponController extends \BaseController
     }
 
     /**
-     * Show the form for creating a new resource.
-     * GET /coupon/create.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * POST /coupon.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      * GET /coupon/{id}.
      *
@@ -78,32 +56,6 @@ class CouponController extends \BaseController
         }
 
         return View::make('coupon.show', compact('coupon'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * GET /coupon/{id}/edit.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * PUT /coupon/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
     }
 
     /**

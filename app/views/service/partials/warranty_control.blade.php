@@ -6,7 +6,7 @@
             <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
         </div>
 
-        <div class="edc-hide-show-element col col100">
+        <div class="edc-hide-show-element col col100 hide">
 
             @include('warranty.partials.list_paginate', ['warranties' => $sale->data->warranty->warranties()->paginate()])
 

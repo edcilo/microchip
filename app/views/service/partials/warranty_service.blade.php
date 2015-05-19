@@ -54,7 +54,7 @@
                             <td class="text-right">{{ $movement->quantity }}</td>
                             <td>{{ $movement->product->barcode}}</td>
                             <td>{{ $movement->product->s_description }}</td>
-                            <td class="text-center">{{ $movement->date_warranty }}</td>
+                            <td class="text-center">{{ date('d-m-Y H:i:s a', time($movement->date_warranty)) }}</td>
                         </tr>
                         @foreach( $movement->seriesOut as $series )
                             <tr>

@@ -306,6 +306,7 @@ class WarrantyController extends \BaseController
                     $movement_out->quantity       = 1;
                     $movement_out->status         = 'out';
                     $movement_out->purchase_price = $warranty->series->movement->purchase_price;
+                    $movement_out->selling_price  = $warranty->series->movement->selling_price;
                     $movement_out->description    = 'Salida por garantía';
                     $movement_out->movement_in_id = $movement->id;
                     $movement_out->save();

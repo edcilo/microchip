@@ -45,6 +45,21 @@
 
     </div>
 
+    @if( p(97) AND $sale->status != 'Cancelado' )
+        <div class="col col100 block description-product edc-hide-show">
+            <div class="subtitle">
+                Posponer fecha de entrega
+                <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
+            </div>
+
+            <div class="edc-hide-show-element hide">
+
+                @include('service.partials.form_delivery_date')
+
+            </div>
+        </div>
+    @endif
+
     @if( $sale->status != 'Cancelado' )
         <div class="col col100">
             <div class="flo col50">
@@ -73,20 +88,7 @@
 
     @include('service.partials.warranty_control')
 
-    @if( p(97) AND $sale->status != 'Cancelado' )
-        <div class="col col100 block description-product edc-hide-show">
-            <div class="subtitle">
-                Posponer fecha de entrega
-                <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
-            </div>
-
-            <div class="edc-hide-show-element hide">
-
-                @include('service.partials.form_delivery_date')
-
-            </div>
-        </div>
-    @endif
+    @include('service.partials.warranty_coupons')
 
     <div class="block description-product">
         <p class="subtitle">

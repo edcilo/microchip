@@ -89,6 +89,10 @@ class WarrantyController extends \BaseController
             return Redirect::back()->withInput()->withErrors(['series' => 'El producto ya se encuentra en garantía']);
         }
 
+        if ($series->status == 'Baja') {
+            return Redirect::back()->withInput()->withErrors(['series' => 'El producto ya fue dado de baja.']);
+        }
+
         if (count($series->movement->purchases) == 0) {
             return Redirect::back()->withInput()->withErrors(['series' => 'Este producto no puede ser enviado a garantía.']);
         }
@@ -192,21 +196,24 @@ class WarrantyController extends \BaseController
     {
         $warranty = $this->getWarranty($id);
 
-        $movement = $this->movementRepo->newMovement();
-        $movement->product_id = $warranty->series->product->id;
-        $movement->quantity = 1;
-        $movement->status = 'out';
-        $movement->purchase_price = $warranty->series->movement->purchase_price;
-        $movement->description = 'Producto enviado a garantía';
-        $movement->movement_in_id = $warranty->series->movement->id;
-        $movement->save();
+        if (!$warranty->sale_id) {
+            $movement = $this->movementRepo->newMovement();
+            $movement->product_id = $warranty->series->product->id;
+            $movement->quantity = 1;
+            $movement->status = 'out';
+            $movement->purchase_price = $warranty->series->movement->purchase_price;
+            $movement->description = 'Producto enviado a garantía';
+            $movement->movement_in_id = $warranty->series->movement->id;
+            $movement->save();
+
+            $warranty->series->movement_out = $movement->id;
+            $warranty->series->movement->in_stock -= 1;
+            $warranty->movement_out = $movement->id;
+        }
 
         $warranty->status = 'Enviado';
-        $warranty->movement_out = $movement->id;
         $warranty->sent_at = date('Y-m-d H:i:s');
         $warranty->sent_by = Auth::user()->id;
-        $warranty->series->movement->in_stock -= 1;
-        //$warranty->series->movement_out = $movement->id;
         $warranty->push();
 
         if (Request::ajax()) {
@@ -328,6 +335,8 @@ class WarrantyController extends \BaseController
                 $coupon->provider_id    = $warranty->purchase->provider_id;
                 $coupon->warranty_id    = $warranty->id;
                 $coupon->save();
+
+                $warranty->series->status = 'Baja';
                 break;
             default:
                 return Redirect::back()->withInput()->withErrors(['solution' => 'La solución propuesta no es admisible.']);
@@ -343,12 +352,16 @@ class WarrantyController extends \BaseController
 
     public function removeMovementOut($warranty)
     {
+        // todo validar que no sea una garantia de venta
         if ($warranty->movementOut) {
+            $warranty->series->movement_out = 0;
+            $warranty->push();
+
             $movement_in = $this->movementRepo->find($warranty->movementOut->movement_in_id);
             $movement_in->in_stock += 1;
             $movement_in->save();
 
-            $warranty->movementOut->delete();
+            $this->movementRepo->destroy($warranty->movementOut->id);
         }
     }
 

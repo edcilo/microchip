@@ -60,30 +60,32 @@
 
     </div>
 
-    <div class="col col100 block description-product">
+    @if(!$purchase->progress_4)
+        <div class="col col100 block description-product">
 
-        <div class="subtitle">
-            Pago
+            <div class="subtitle">
+                Pago
+            </div>
+
+
+            @if ( $purchase->status != 'Pagado' AND p(61) )
+
+                @include('purchasePayment.partials.formCreate')
+
+            @endif
+
+            @if( count($purchase->payments) )
+
+                @include('purchase.partials.data_pay')
+
+            @else
+
+                <p class="title-clear">Aún no se registra un método de pago.</p>
+
+            @endif
+
         </div>
-
-
-        @if ( $purchase->status != 'Pagado' AND p(61) )
-
-            @include('purchasePayment.partials.formCreate')
-
-        @endif
-
-        @if( count($purchase->payments) )
-
-            @include('purchase.partials.data_pay')
-
-        @else
-
-            <p class="title-clear">Aún no se registra un método de pago.</p>
-
-        @endif
-
-    </div>
+    @endif
 
     @include('purchase.partials.warranties')
 

@@ -14,6 +14,7 @@ class Coupon extends BaseEntity
         'effective_days',
         'customer_id',
         'user_id',
+        'warranty_id',
     ];
 
     public function getValueFAttribute()
@@ -62,5 +63,10 @@ class Coupon extends BaseEntity
     public function pay()
     {
         return $this->hasOne('microchip\pay\Pay');
+    }
+
+    public function warranty()
+    {
+        return $this->belongsTo('mmicrochip\warranty\Warranty');
     }
 }

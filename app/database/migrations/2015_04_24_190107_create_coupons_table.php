@@ -19,6 +19,7 @@ class CreateCouponsTable extends Migration
             $table->unsignedInteger('customer_id');
             $table->unsignedInteger('sale_id');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('warranty_id');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');

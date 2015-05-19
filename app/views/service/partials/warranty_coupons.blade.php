@@ -35,22 +35,38 @@
                         <td class="text-right">$ {{ $warranty->series->movementOut->selling_price }}</td>
                         <td class="text-center">
 
-                            {{ Form::open(['class'=>'form validate']) }}
+                            @if($warranty->couponCustomer)
 
-                            $ {{ Form::text('value', $warranty->series->movementOut->selling_price, ['placeholder' => 'Valor', 'class'=>'sm-input text-right', 'title'=>'Valor de vale o monto a depositar en el monedero', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
+                                Vale creado:
+                                <a href="{{ route('coupon.show', [$warranty->couponCustomer->folio, $warranty->couponCustomer->id]) }}">
+                                    {{ $warranty->couponCustomer->folio }}
+                                </a>
 
-                            {{ Form::radio('type', 'coupon', 1, ['id' => 'type_coupon']) }}
-                            {{ Form::label('type_coupon', 'Vale') }}
+                            @else
+                                {{ Form::open(['route'=>['coupon.store', $warranty->sale->id], 'class'=>'form validate']) }}
 
-                            {{ Form::radio('type', 'card', null, ['id' => 'type_card']) }}
-                            {{ Form::label('type_card', 'Monedero') }}
+                                {{ Form::hidden('warranty_id', $warranty->id) }}
 
-                            <button type="submit" class="btn-green">
-                                <i class="fa fa-save"></i>
-                                Guardar
-                            </button>
+                                $ {{ Form::text('value', $warranty->series->movementOut->selling_price, ['placeholder' => 'Valor', 'class'=>'sm-input text-right', 'title'=>'Valor de vale o monto a depositar en el monedero', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
 
-                            {{ Form::close() }}
+                                {{ Form::radio('type', 'coupon', 1, ['id' => 'type_coupon']) }}
+                                {{ Form::label('type_coupon', 'Vale') }}
+
+                                {{ Form::radio('type', 'card', null, ['id' => 'type_card']) }}
+                                {{ Form::label('type_card', 'Monedero') }}
+
+                                <button type="submit" class="btn-green">
+                                    <i class="fa fa-save"></i>
+                                    Guardar
+                                </button>
+
+                                <div class="message-error">
+                                    {{ $errors->first('value', '<span>:message</span>') }}
+                                    {{ $errors->first('type', '<span>:message</span>') }}
+                                </div>
+
+                                {{ Form::close() }}
+                            @endif
 
                         </td>
                     </tr>

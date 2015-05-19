@@ -17,6 +17,11 @@ Route::group(
             'uses'  => 'CouponController@generatePrint',
         ]);
 
+        Route::post('store/{sale}', [
+            'as'    => 'coupon.store',
+            'uses'  => 'CouponController@store'
+        ]);
+
         Route::get('search', [
             'as'   => 'coupon.search',
             'uses' => 'CouponController@search',

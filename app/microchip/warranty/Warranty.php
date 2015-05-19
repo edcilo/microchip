@@ -72,4 +72,9 @@ class Warranty extends BaseEntity
     {
         return $this->hasOne('microchip\couponPurchase\CouponPurchase');
     }
+
+    public function couponCustomer()
+    {
+        return $this->hasOne('microchip\coupon\Coupon');
+    }
 }

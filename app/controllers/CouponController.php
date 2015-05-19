@@ -4,21 +4,25 @@ use microchip\coupon\CouponRepo;
 use microchip\company\CompanyRepo;
 use microchip\helpers\NumberToLetter;
 use microchip\configuration\ConfigurationRepo;
+use microchip\sale\SaleRepo;
 
 class CouponController extends \BaseController
 {
     protected $couponRepo;
     protected $companyRepo;
     protected $confRepo;
+    protected $saleRepo;
 
     public function __construct(
-        CouponRepo  $couponRepo,
-        CompanyRepo $companyRepo,
-        ConfigurationRepo   $configurationRepo
+        CouponRepo          $couponRepo,
+        CompanyRepo         $companyRepo,
+        ConfigurationRepo   $configurationRepo,
+        SaleRepo            $saleRepo
     ) {
         $this->couponRepo   = $couponRepo;
         $this->companyRepo  = $companyRepo;
         $this->confRepo     = $configurationRepo;
+        $this->saleRepo     = $saleRepo;
     }
 
     /**
@@ -36,6 +40,58 @@ class CouponController extends \BaseController
         $coupons = $this->couponRepo->getAll('paginate', 'folio', 'DESC');
 
         return View::make('coupon/index', compact('coupons'));
+    }
+
+    public function store($sale_id)
+    {
+        $sale = $this->saleRepo->find($sale_id);
+        $this->notFoundUnless($sale);
+
+        $success   = false;
+        $message   = 'No se pudo registrar la devolución.';
+        $data      = Input::all();
+        $rules     = [
+            'value' => 'required|numeric',
+            'type' => 'required|in:coupon,card',
+            'warranty_id' => 'required|exists:warranties,id'
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withInput()->withErrors($validator);
+        }
+// todo preguntar por cliente
+        if ($data['type'] == 'card') {
+            $sale->customer->points += $data['value'];
+
+            $success = true;
+            $message = "El rembolso de $ ". $data['value'] ." se agrego al monedero del cliente correctamente.";
+        } elseif ($data['type'] == 'coupon') {
+            $config = $this->confRepo->find(1);
+
+            $coupon = $this->couponRepo->newCoupon();
+            $coupon->value          = $data['value'];
+            $coupon->effective_days = $config->coupon_effective_days;
+            $coupon->customer_id    = $sale->customer->id;
+            $coupon->sale_id        = $sale->id;
+            $coupon->user_id        = Auth::user()->id;
+            $coupon->warranty_id    = $data['warranty_id'];
+            $coupon->save();
+
+            $coupon->folio          = str_pad($coupon->id, 8, '0', STR_PAD_LEFT);
+            $coupon->save();
+
+            $success = true;
+            $message = "El vale por $ ". $data['value'] ." se registro correctamente.";
+        }
+
+        if ($success) {
+            //$sale->repayment = 1;
+            $sale->push();
+        }
+
+        return Redirect::back()->with(['message' => $message]);
     }
 
     /**

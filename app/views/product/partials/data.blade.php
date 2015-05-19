@@ -65,7 +65,7 @@
                 @if ( is_object($product->p_description) )
                     <li>
                         <strong>Existencias:</strong>
-                        {{ $product->p_description->quantity }}
+                        {{ $product->stock }}
                         <ul>
                             <li>
                                 <strong>Minimo en stock</strong>

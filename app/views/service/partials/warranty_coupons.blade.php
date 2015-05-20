@@ -35,17 +35,23 @@
                         <td class="text-right">$ {{ $warranty->series->movementOut->selling_price }}</td>
                         <td class="text-center">
 
-                            @if($warranty->couponCustomer)
+                            @if($warranty->coupon->coupon_customer)
 
-                                Vale creado:
-                                <a href="{{ route('coupon.show', [$warranty->couponCustomer->folio, $warranty->couponCustomer->id]) }}">
-                                    {{ $warranty->couponCustomer->folio }}
-                                </a>
+                                @if($warranty->couponCustomer)
+                                    Vale creado:
+                                    <a href="{{ route('coupon.show', [$warranty->couponCustomer->folio, $warranty->couponCustomer->id]) }}">
+                                        {{ $warranty->couponCustomer->folio }}
+                                    </a>
+                                @else
+                                    Depositado a monedero
+                                @endif
 
                             @else
                                 {{ Form::open(['route'=>['coupon.store', $warranty->sale->id], 'class'=>'form validate']) }}
 
                                 {{ Form::hidden('warranty_id', $warranty->id) }}
+
+                                {{ Form::text('customer_id', $sale->customer->id, ['placeholder' => 'Búsqueda por ID Cliente', 'class'=>'sm-input', 'title'=>'ID cliente, Nombre, Monedero, RFC, Correo electrónico, Teléfono', 'data-required'=>'required']) }}
 
                                 $ {{ Form::text('value', $warranty->series->movementOut->selling_price, ['placeholder' => 'Valor', 'class'=>'sm-input text-right', 'title'=>'Valor de vale o monto a depositar en el monedero', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
 
@@ -61,8 +67,10 @@
                                 </button>
 
                                 <div class="message-error">
+                                    {{ $errors->first('customer', '<span>:message</span>') }}
                                     {{ $errors->first('value', '<span>:message</span>') }}
                                     {{ $errors->first('type', '<span>:message</span>') }}
+                                    {{ $errors->first('warranty', '<span>:message</span>') }}
                                 </div>
 
                                 {{ Form::close() }}

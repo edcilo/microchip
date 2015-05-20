@@ -5,6 +5,8 @@ use microchip\company\CompanyRepo;
 use microchip\helpers\NumberToLetter;
 use microchip\configuration\ConfigurationRepo;
 use microchip\sale\SaleRepo;
+use microchip\customer\CustomerRepo;
+use microchip\warranty\WarrantyRepo;
 
 class CouponController extends \BaseController
 {
@@ -12,17 +14,23 @@ class CouponController extends \BaseController
     protected $companyRepo;
     protected $confRepo;
     protected $saleRepo;
+    protected $customerRepo;
+    protected $warrantyRepo;
 
     public function __construct(
         CouponRepo          $couponRepo,
         CompanyRepo         $companyRepo,
         ConfigurationRepo   $configurationRepo,
-        SaleRepo            $saleRepo
+        SaleRepo            $saleRepo,
+        CustomerRepo        $customerRepo,
+        WarrantyRepo        $warrantyRepo
     ) {
         $this->couponRepo   = $couponRepo;
         $this->companyRepo  = $companyRepo;
         $this->confRepo     = $configurationRepo;
         $this->saleRepo     = $saleRepo;
+        $this->customerRepo = $customerRepo;
+        $this->warrantyRepo = $warrantyRepo;
     }
 
     /**
@@ -47,25 +55,32 @@ class CouponController extends \BaseController
         $sale = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
-        $success   = false;
         $message   = 'No se pudo registrar la devolución.';
         $data      = Input::all();
         $rules     = [
-            'value' => 'required|numeric',
-            'type' => 'required|in:coupon,card',
+            'customer_id' => 'required|exists:customers,id',
+            'value'       => 'required|numeric',
+            'type'        => 'required|in:coupon,card',
             'warranty_id' => 'required|exists:warranties,id'
         ];
 
         $validator = Validator::make($data, $rules);
-
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }
-// todo preguntar por cliente
-        if ($data['type'] == 'card') {
-            $sale->customer->points += $data['value'];
 
-            $success = true;
+        $warranty = $this->warrantyRepo->find($data['warranty_id']);
+        if (is_null($warranty->coupon)) {
+            return Redirect::back()->withInput()->withErrors(['warranty' => 'La nota de crédito no existe']);
+        } elseif ($warranty->coupon->coupon_customer) {
+            return Redirect::back()->withInput()->withErrors(['warranty' => 'La nota de crédito ya fue otorgada a un cliente']);
+        }
+
+        if ($data['type'] == 'card') {
+            $customer = $this->customerRepo->find($data['customer_id']);
+            $customer->points += $data['value'];
+            $customer->save();
+
             $message = "El rembolso de $ ". $data['value'] ." se agrego al monedero del cliente correctamente.";
         } elseif ($data['type'] == 'coupon') {
             $config = $this->confRepo->find(1);
@@ -73,7 +88,7 @@ class CouponController extends \BaseController
             $coupon = $this->couponRepo->newCoupon();
             $coupon->value          = $data['value'];
             $coupon->effective_days = $config->coupon_effective_days;
-            $coupon->customer_id    = $sale->customer->id;
+            $coupon->customer_id    = $data['customer_id'];
             $coupon->sale_id        = $sale->id;
             $coupon->user_id        = Auth::user()->id;
             $coupon->warranty_id    = $data['warranty_id'];
@@ -82,14 +97,11 @@ class CouponController extends \BaseController
             $coupon->folio          = str_pad($coupon->id, 8, '0', STR_PAD_LEFT);
             $coupon->save();
 
-            $success = true;
             $message = "El vale por $ ". $data['value'] ." se registro correctamente.";
         }
 
-        if ($success) {
-            //$sale->repayment = 1;
-            $sale->push();
-        }
+        $warranty->coupon->coupon_customer = 1;
+        $warranty->push();
 
         return Redirect::back()->with(['message' => $message]);
     }

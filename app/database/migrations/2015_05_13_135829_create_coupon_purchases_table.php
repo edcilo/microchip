@@ -22,6 +22,7 @@ class CreateCouponPurchasesTable extends Migration {
             $table->unsignedInteger('purchase_id');
             $table->unsignedInteger('provider_id');
             $table->unsignedInteger('warranty_id');
+            $table->boolean('coupon_customer')->default(0);
 
             $table->foreign('purchase_id')->references('id')->on('purchases')->onDelete('cascade');
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');

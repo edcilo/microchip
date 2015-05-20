@@ -778,6 +778,55 @@ class PermissionsTableSeeder extends Seeder
             'name'          => 'Vales|Eliminar',
             'description'   => 'Eliminar vales registrados',
         ]);
+
+        //117
+        Permission::create([
+            'name'          => 'Garantías|Crear vale',
+            'description'   => 'Crear vale o depositar a monedero a cliente por garantia',
+        ]);
+
+        /*
+         * Notas de credito
+         */
+        //118
+        Permission::create([
+            'name'          => 'Nota de crédito|Ver',
+            'description'   => 'Ver lista y detalles de notas de crédito',
+        ]);
+
+        /*
+         * Garantías
+         */
+        //119
+        Permission::create([
+            'name'          => 'Garantías|Ver',
+            'description'   => 'Ver los datos de las garantías',
+        ]);
+
+        //120
+        Permission::create([
+            'name'          => 'Garantías|Registrar',
+            'description'   => 'Agregar nuevas garantías',
+        ]);
+
+        //121
+        Permission::create([
+            'name'          => 'Garantías|Eliminar',
+            'description'   => 'Eliminar el registro de una garantía',
+        ]);
+
+        //122
+        Permission::create([
+            'name'          => 'Garantías|Enviar',
+            'description'   => 'Marcar garantía como enviada',
+        ]);
+
+        //123
+        Permission::create([
+            'name'          => 'Garantías|Resolver',
+            'description'   => 'Registrar resolución de garantía',
+        ]);
+
         /*
         Permission::create([
             'name'          => '',

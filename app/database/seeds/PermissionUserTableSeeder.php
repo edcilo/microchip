@@ -4,7 +4,7 @@ class PermissionUserTableSeeder extends Seeder
 {
     public function run()
     {
-        foreach (range(1, 116) as $index) {
+        foreach (range(1, 123) as $index) {
             \DB::table('permission_user')->insert([
                 'user_id'       => 1,
                 'permission_id' => $index,

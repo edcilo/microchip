@@ -2,7 +2,8 @@
 
 Route::group(
     [
-        'prefix' => 'credits/'
+        'prefix' => 'credits/',
+        'before' => 'pr:118',
     ],
     function () {
 

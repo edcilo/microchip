@@ -17,10 +17,14 @@ Route::group(
             'uses'  => 'CouponController@generatePrint',
         ]);
 
-        Route::post('store/{sale}', [
-            'as'    => 'coupon.store',
-            'uses'  => 'CouponController@store'
-        ]);
+        Route::group(['before' => 'pr:117'], function () {
+
+            Route::post('store/{sale}', [
+                'as' => 'coupon.store',
+                'uses' => 'CouponController@store'
+            ]);
+
+        });
 
         Route::get('search', [
             'as'   => 'coupon.search',

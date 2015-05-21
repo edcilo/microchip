@@ -1,4 +1,4 @@
-@if($sale->data->warranty AND count($sale->data->warranty->warranties))
+@if($sale->data->warranty AND count($sale->data->warranty->warranties) AND p(119))
     <div class="col col100 block description-product edc-hide-show">
 
         <div class="subtitle">

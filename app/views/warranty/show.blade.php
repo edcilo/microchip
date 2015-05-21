@@ -175,7 +175,7 @@
 
     </div>
 
-    @if($warranty->status == 'Enviado')
+    @if($warranty->status == 'Enviado' AND p(123))
         <div class="block description-product">
 
             <div class="header">
@@ -187,7 +187,7 @@
         </div>
     @endif
 
-    @if($warranty->status != 'Terminado')
+    @if($warranty->status != 'Terminado' AND p(121))
         <div class="block description-product">
 
             <div class="subtitle">Eliminar garantía</div>

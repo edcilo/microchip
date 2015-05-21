@@ -1,4 +1,4 @@
-@if($warranty->status == 'Pendiente')
+@if($warranty->status == 'Pendiente' AND p(122))
 
     {{ Form::open(['route'=>['warranty.send', $warranty->id], 'class'=>'inline']) }}
 

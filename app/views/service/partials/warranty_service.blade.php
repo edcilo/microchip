@@ -1,4 +1,4 @@
-@if($sale->data->warranty_id != 0)
+@if($sale->data->warranty_id != 0 AND p(119))
     <div class="col col100 block description-product edc-hide-show">
 
         <div class="subtitle">

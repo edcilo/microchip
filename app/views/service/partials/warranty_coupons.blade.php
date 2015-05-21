@@ -46,7 +46,7 @@
                                     Depositado a monedero
                                 @endif
 
-                            @else
+                            @elseif(p(117))
                                 {{ Form::open(['route'=>['coupon.store', $warranty->sale->id], 'class'=>'form validate']) }}
 
                                 {{ Form::hidden('warranty_id', $warranty->id) }}

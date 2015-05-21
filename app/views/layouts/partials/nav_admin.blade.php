@@ -49,12 +49,14 @@
                         </a>
                     </li>
                 @endif
-                <li>
-                    <a href="{{ route('warranty.index') }}">
-                        <i class="fa fa-truck"></i>
-                        Productos en garantía
-                    </a>
-                </li>
+                @if(p(119))
+                    <li>
+                        <a href="{{ route('warranty.index') }}">
+                            <i class="fa fa-truck"></i>
+                            Productos en garantía
+                        </a>
+                    </li>
+                @endif
                 @if( p(71) )
                     <li>
                         <a href="{{ route('pay.index') }}">
@@ -125,12 +127,14 @@
                         Facturas incompletas
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('coupon.purchase.index') }}">
-                        <i class="fa fa-ticket"></i>
-                        Notas de crédito
-                    </a>
-                </li>
+                @if(p(118))
+                    <li>
+                        <a href="{{ route('coupon.purchase.index') }}">
+                            <i class="fa fa-ticket"></i>
+                            Notas de crédito
+                        </a>
+                    </li>
+                @endif
             </ul>
         @endif
 

@@ -1,7 +1,7 @@
 <nav class="nav-v" id="col-izq">
 
     <ul class="menuOptions">
-        @if( p(71) OR p(76) OR p(84) OR p(93) OR p(105) OR p(111) )
+        @if( p(71) OR p(76) OR p(84) OR p(93) OR p(105) OR p(111) OR p(119) OR p(71) OR p(115) OR p(114))
             <li>
                 <strong>
                     <i class="fa fa-caret-down button" data-options="options1"></i>
@@ -107,7 +107,7 @@
             </ul>
         @endif
 
-        @if( p(60) )
+        @if( p(60) OR p(118))
             <li>
                 <strong>
                     <i class="fa fa-caret-down button" data-options="options1"></i>
@@ -115,18 +115,20 @@
                 </strong>
             </li>
             <ul class="options1">
-                <li>
-                    <a href="{{ route('purchase.index') }}">
-                        <i class="fa fa-list"></i>
-                        Facturas de compra
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('purchase.incomplete') }}">
-                        <i class="fa fa-times"></i>
-                        Facturas incompletas
-                    </a>
-                </li>
+                @if(p(60))
+                    <li>
+                        <a href="{{ route('purchase.index') }}">
+                            <i class="fa fa-list"></i>
+                            Facturas de compra
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('purchase.incomplete') }}">
+                            <i class="fa fa-times"></i>
+                            Facturas incompletas
+                        </a>
+                    </li>
+                @endif
                 @if(p(118))
                     <li>
                         <a href="{{ route('coupon.purchase.index') }}">

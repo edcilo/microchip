@@ -272,6 +272,21 @@
             </ul>
         @endif
 
+            <li>
+                <strong>
+                    <i class="fa fa-caret-down button"></i>
+                    Reportes
+                </strong>
+            </li>
+            <ul>
+                <li>
+                    <a href="{{ route('report.money') }}">
+                        <i class="fa fa-book"></i>
+                        Corte de caja
+                    </a>
+                </li>
+            </ul>
+
         @if( p(1) OR p(3) )
             <li>
                 <strong>

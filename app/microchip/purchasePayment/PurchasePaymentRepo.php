@@ -15,4 +15,5 @@ class PurchasePaymentRepo extends BaseRepo
     {
         return $payment = new PurchasePayment();
     }
+
 }

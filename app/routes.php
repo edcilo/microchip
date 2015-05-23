@@ -196,4 +196,9 @@ Route::group(['before' => 'auth'], function () {
      */
     require __DIR__.'/routes/couponPurchase.php';
 
+    /*
+     * Rutas relacionadas con los reportes
+     */
+    require __DIR__.'/routes/report.php';
+
 });

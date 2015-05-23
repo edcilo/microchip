@@ -100,6 +100,8 @@ return array(
     */
 
     'attributes' => array(
+        'date_init'      => 'Fecha inicial',
+        'date_end'       => 'Fecha final',
         'folio_c'        => 'Folio',
         'value'          => 'Valor',
         'observations_c' => 'Observaciones de la note de crédito'

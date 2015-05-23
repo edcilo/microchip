@@ -2,6 +2,7 @@
 
 namespace microchip\pay;
 
+use Carbon\Carbon;
 use microchip\base\BaseEntity;
 
 class Pay extends BaseEntity
@@ -28,7 +29,9 @@ class Pay extends BaseEntity
 
     public function getDateFAttribute()
     {
-        return date('d-m-Y', time($this->date));
+        $date = Carbon::createFromFormat('Y-m-d', $this->date);
+
+        return $date->format('d-m-Y');
     }
 
     public function sale()

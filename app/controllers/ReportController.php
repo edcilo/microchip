@@ -21,11 +21,11 @@ class ReportController extends \BaseController {
     {
         $data = Input::all();
         $date_init = date('Y-m-d');
+        $date_end  = null;
         $report = [];
 
         if (isset($data['date_init'])) {
             $date_init = $data['date_init'];
-            $date_end  = null;
 
             $rules['date_init'] = 'date';
 
@@ -52,10 +52,28 @@ class ReportController extends \BaseController {
             $report['total_card']        = $this->payRepo->getTotalByMethod($pays, 'Monedero');
             $report['total_transfers']   = $this->payRepo->getTotalByMethod($pays, 'Transferencia');
             $report['total_expenses']    = $this->payRepo->getTotalInRange($data['date_init'], $data['date_end'], '-');
-            $report['total_box']         = $report['total_cash'] + $report['total_expenses'];
+            $report['total_box']         = $report['caja_anterior'] + $report['total_cash'] + $report['total_expenses'];
         }
 
-        return View::make('report.money', compact('date_init', 'date_end', 'report', 'pays'));
+        $total_calculate = 0;
+        $total_denomination = [];
+        if (isset($data['calculate'])) {
+            $denominations = Input::only('quantity_1000', 'quantity_500', 'quantity_200', 'quantity_100', 'quantity_50', 'quantity_20', 'quantity_10', 'quantity_5', 'quantity_2', 'quantity_1', 'quantity_05');
+
+            foreach ($denominations as $key => $value) {
+                if ($key == 'quantity_05') {
+                    $denomination = 0.5;
+                } else {
+                    $denomination = (int)substr($key, 9);
+                }
+                $total = $denomination * $value;
+                $total_denomination[$key] = $total;
+
+                $total_calculate += $total;
+            }
+        }
+
+        return View::make('report.money', compact('date_init', 'date_end', 'total_calculate', 'total_denomination', 'report', 'pays'));
     }
 
 }

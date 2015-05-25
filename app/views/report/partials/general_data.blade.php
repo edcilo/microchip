@@ -17,10 +17,36 @@
     </li>
     <li class="col col100">
         <div class="flo col50 left">
+            <strong>Gastos:</strong>
+        </div>
+        <div class="flo col50 right text-right">
+            $ {{ number_format($report['total_expenses'], 2, '.', ',') }}
+        </div>
+    </li>
+    <il><hr/></il>
+    <li class="col col100">
+        <div class="flo col50 left">
+            <strong>Total en caja:</strong>
+        </div>
+        <div class="flo col50 right text-right">
+            $ {{ number_format($report['total_box'], 2, '.', ',') }}
+        </div>
+    </li>
+    <il><hr/></il>
+    <li class="col col100">
+        <div class="flo col50 left">
             <strong>Cobro con tarjeta de crédito/debito:</strong>
         </div>
         <div class="flo col50 right text-right">
             $ {{ number_format($report['total_credit_card'], 2, '.', ',') }}
+        </div>
+    </li>
+    <li class="col col100">
+        <div class="flo col50 left">
+            <strong>Cobro con tranferencias:</strong>
+        </div>
+        <div class="flo col50 right text-right">
+            $ {{ number_format($report['total_transfers'], 2, '.', ',') }}
         </div>
     </li>
     <li class="col col100">
@@ -45,31 +71,6 @@
         </div>
         <div class="flo col50 right text-right">
             $ {{ number_format($report['total_card'], 2, '.', ',') }}
-        </div>
-    </li>
-    <li class="col col100">
-        <div class="flo col50 left">
-            <strong>Cobro con tranferencias:</strong>
-        </div>
-        <div class="flo col50 right text-right">
-            $ {{ number_format($report['total_transfers'], 2, '.', ',') }}
-        </div>
-    </li>
-    <li class="col col100">
-        <div class="flo col50 left">
-            <strong>Gastos:</strong>
-        </div>
-        <div class="flo col50 right text-right">
-            $ {{ number_format($report['total_expenses'], 2, '.', ',') }}
-        </div>
-    </li>
-    <il><hr/></il>
-    <li class="col col100">
-        <div class="flo col50 left">
-            <strong>Total en caja:</strong>
-        </div>
-        <div class="flo col50 right text-right">
-            $ {{ number_format($report['total_box'], 2, '.', ',') }}
         </div>
     </li>
 </ul>

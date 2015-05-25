@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="flo col50 right">
-                    {{--@include('report.partials.calculator', ['total'=>$report['total']])--}}
+                    @include('report.partials.calculator', ['total'=>$report['total_box']])
                 </div>
 
             </div>
@@ -37,17 +37,17 @@
 
         @include('report.partials.list_cash')
 
+        @include('report.partials.list_expenses')
+
         @include('report.partials.list_credit_card')
+
+        @include('report.partials.list_transfers')
 
         @include('report.partials.lists_cheques')
 
         @include('report.partials.list_coupons')
 
         @include('report.partials.list_card')
-
-        @include('report.partials.list_transfers')
-
-        @include('report.partials.list_expenses')
 
     @endif
 

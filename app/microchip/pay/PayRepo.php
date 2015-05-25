@@ -70,7 +70,7 @@ class PayRepo extends BaseRepo
             ->where(function ($query) use ($date_end)
             {
                 if (!is_null($date_end)) {
-                    $query->where('date', '<', $date_end);
+                    $query->where('date', '<=', $date_end);
                 }
             })
             ->get();

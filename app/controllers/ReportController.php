@@ -19,10 +19,10 @@ class ReportController extends \BaseController {
 
 	public function money()
     {
-        $data = Input::all();
-        $date_init = date('Y-m-d');
-        $date_end  = null;
-        $report = [];
+        $data       = Input::all();
+        $date_init  = date('Y-m-d');
+        $date_end   = null;
+        $report     = [];
 
         if (isset($data['date_init'])) {
             $date_init = $data['date_init'];

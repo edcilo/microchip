@@ -28,7 +28,9 @@
                             {{ $pay->user->profile->name }}
                         </td>
                         <td>
-                            {{ $pay->userReceiving->profile->name }}
+                            @if($pay->userReceiving)
+                                {{ $pay->userReceiving->profile->name }}
+                            @endif
                         </td>
                         <td class="text-center">
                             @if($pay->change_check)

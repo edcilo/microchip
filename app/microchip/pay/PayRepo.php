@@ -2,6 +2,7 @@
 
 namespace microchip\pay;
 
+use Carbon\Carbon;
 use microchip\base\BaseRepo;
 
 class PayRepo extends BaseRepo
@@ -56,7 +57,7 @@ class PayRepo extends BaseRepo
         $total = 0;
 
         foreach ($pays as $pay) {
-            if ($pay->method == $method) {
+            if ($pay->method == $method AND $pay->amount > 0) {
                 $total += $pay->amount - $pay->change;
             }
         }
@@ -88,7 +89,7 @@ class PayRepo extends BaseRepo
             ->where(function ($query) use ($date_end)
             {
                 if (!is_null($date_end)) {
-                    $query->where('date', '<', $date_end);
+                    $query->where('date', '<=', $date_end);
                 }
             })
             ->get();
@@ -122,7 +123,7 @@ class PayRepo extends BaseRepo
             ->where(function ($query) use ($date_end)
             {
                 if (!is_null($date_end)) {
-                    $query->where('date', '<', $date_end);
+                    $query->where('date', '<=', $date_end);
                 }
             })
             ->get();

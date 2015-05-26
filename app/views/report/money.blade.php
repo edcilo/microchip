@@ -20,6 +20,8 @@
         @if(!empty($report))
             <div class="col col100">
 
+                @include('report.partials.message')
+
                 <div class="flo col50 left">
                     @include('report.partials.general_data')
                 </div>

@@ -8,8 +8,15 @@
 <table class="table">
     <thead>
     <tr>
+        <th colspan="2"></th>
+        <th colspan="2">En caja</th>
+        <th colspan="2">Retirar</th>
+    </tr>
+    <tr>
         <th></th>
         <th>Denominación</th>
+        <th>Cantidad</th>
+        <th>Suma</th>
         <th>Cantidad</th>
         <th>Suma</th>
     </tr>
@@ -29,23 +36,41 @@
                     $0.00
                 @endif
             </td>
+            <td class="text-right">
+                {{ Form::text('quantity_r_'.$key, Input::get('quantity_r_'.$key), ['class'=>'text-right xs-input', 'data-numeric'=>'numeric']) }}
+            </td>
+            <td class="text-right">
+                @if (isset($total_denomination['quantity_r_' . $key]))
+                    {{ number_format($total_denomination['quantity_r_' . $key], 2, '.', ',') }}
+                @else
+                    0.00
+                @endif
+            </td>
         </tr>
     @endforeach
     </tbody>
     <tfoot>
     <tr>
         <td colspan="2"></td>
-        <td class="text-right">Total en efectivo: $</td>
+        <td class="text-right">Efectivo: $</td>
         <td class="text-right">{{ number_format($total_calculate, 2, '.', ',') }}</td>
+        <td class="text-right">Retiro: $</td>
+        <td class="text-right">{{ number_format($total_calculate_r, 2, '.', ',') }}</td>
     </tr>
     </tfoot>
 </table>
 
-<div class="text-center">
-    <button type="submit" class="btn-blue">
-        <i class="fa fa-calculator"></i>
-        Calcular efectivo
-    </button>
+<div class="col col100">
+    <div class="flo col50 left">
+        {{ Form::checkbox('save', 1, 1, ['id'=>'save']) }}
+        {{ Form::label('save', 'Guardar retiro') }}
+    </div>
+    <div class="flo col50 right text-center">
+        <button type="submit" class="btn-blue">
+            <i class="fa fa-calculator"></i>
+            Calcular efectivo
+        </button>
+    </div>
 </div>
 
 {{ Form::close() }}

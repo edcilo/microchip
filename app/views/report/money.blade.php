@@ -24,6 +24,10 @@
 
                 <div class="flo col50 left">
                     @include('report.partials.general_data')
+
+                    <hr/>
+
+                    @include('report.partials.form_create')
                 </div>
 
                 <div class="flo col50 right">

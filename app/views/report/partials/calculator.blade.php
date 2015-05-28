@@ -1,7 +1,7 @@
-{{ Form::open(['route'=>'report.money', 'method'=>'get', 'class'=>'form validate']) }}
+{{ Form::open(['method'=>'get', 'class'=>'form validate']) }}
 
-{{ Form::hidden('date_init', Input::get('date_init')) }}
-{{ Form::hidden('date_end', Input::get('date_end')) }}
+{{ Form::hidden('date_init', $d['date_init']) }}
+{{ Form::hidden('date_end', $d['date_end']) }}
 {{ Form::hidden('total', $total) }}
 {{ Form::hidden('calculate', true) }}
 
@@ -27,7 +27,7 @@
             <td>$</td>
             <td class="text-right">{{ $value }}</td>
             <td class="text-center">
-                {{ Form::text('quantity_'.$key, Input::get('quantity_'.$key), [($key == 1000) ? 'autofocus' : '', 'class'=>'text-right xs-input', 'data-numeric'=>'numeric']) }}
+                {{ Form::text('quantity_'.$key, isset($d['quantity_'.$key]) ? $d['quantity_'.$key] : 0, [($key == 1000) ? 'autofocus' : '', 'class'=>'text-right xs-input', 'data-integer'=>'integer', 'autocomplete'=>'off']) }}
             </td>
             <td class="text-right">
                 @if (isset($total_denomination['quantity_' . $key]))
@@ -37,7 +37,7 @@
                 @endif
             </td>
             <td class="text-right">
-                {{ Form::text('quantity_r_'.$key, Input::get('quantity_r_'.$key), ['class'=>'text-right xs-input', 'data-numeric'=>'numeric']) }}
+                {{ Form::text('quantity_r_'.$key, isset($d['quantity_r_'.$key]) ? $d['quantity_r_'.$key] : 0, ['class'=>'text-right xs-input', 'data-integer'=>'integer', 'autocomplete'=>'off']) }}
             </td>
             <td class="text-right">
                 @if (isset($total_denomination['quantity_r_' . $key]))
@@ -60,17 +60,11 @@
     </tfoot>
 </table>
 
-<div class="col col100">
-    <div class="flo col50 left">
-        {{ Form::checkbox('save', 1, 1, ['id'=>'save']) }}
-        {{ Form::label('save', 'Guardar retiro') }}
-    </div>
-    <div class="flo col50 right text-center">
-        <button type="submit" class="btn-blue">
-            <i class="fa fa-calculator"></i>
-            Calcular efectivo
-        </button>
-    </div>
+<div class="text-center">
+    <button type="submit" class="btn-blue">
+        <i class="fa fa-calculator"></i>
+        Calcular efectivo
+    </button>
 </div>
 
 {{ Form::close() }}

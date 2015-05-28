@@ -144,4 +144,17 @@ class PayRepo extends BaseRepo
 
         return $total;
     }
+
+    public function getReportByUser($date_init, $date_end = null)
+    {
+        return Pay::where('date', '>=', $date_init)
+            ->where(function ($query) use ($date_end)
+            {
+                if (!is_null($date_end)) {
+                    $query->where('date', '<=', $date_end);
+                }
+            })
+            ->groupBy('user_id')
+            ->get();
+    }
 }

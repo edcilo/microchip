@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="flo col50 right">
-                    @include('report.partials.calculator', ['total'=>$report['total_box']])
+                    @include('report.partials.calculator', ['total'=>$report['total_box'], 'd'=>Input::all()])
                 </div>
 
             </div>

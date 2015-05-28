@@ -42,4 +42,18 @@ class UserRepo extends BaseRepo
 
         return false;
     }
+
+    public function getPaysByRange($date_init, $date_end = null)
+    {
+        return User::with(['pays' => function ($query) use ($date_init, $date_end) {
+            $query->with('sale')
+                ->where('date', '>=', $date_init)
+                ->where(function ($query) use ($date_end)
+                {
+                    if (!is_null($date_end)) {
+                        $query->where('date', '<=', $date_end);
+                    }
+                });
+        }])->get();
+    }
 }

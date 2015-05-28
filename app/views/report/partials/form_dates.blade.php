@@ -1,4 +1,4 @@
-{{ Form::open(['route'=>'report.money', 'method'=>'get', 'class'=>'form validate']) }}
+{{ Form::open(['method'=>'get', 'class'=>'form validate']) }}
 
 <div class="row">
     {{ Form::label('date_init', 'Fecha inicial:') }}

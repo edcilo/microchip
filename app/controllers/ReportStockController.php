@@ -1,14 +1,20 @@
 <?php
 
 use microchip\product\ProductRepo;
+use microchip\inventoryMovement\InventoryMovementRepo;
 
 class ReportStockController extends \BaseController {
 
     protected $productRepo;
+    protected $movementRepo;
 
-    public function __construct(ProductRepo $productRepo)
+    public function __construct(
+        ProductRepo           $productRepo,
+        InventoryMovementRepo $movementRepo
+    )
     {
-        $this->productRepo = $productRepo;
+        $this->productRepo  = $productRepo;
+        $this->movementRepo = $movementRepo;
     }
 
 	/**
@@ -20,6 +26,11 @@ class ReportStockController extends \BaseController {
 	public function index()
 	{
         $products = $this->productRepo->getStockMin();
+        $days     = Input::get('days');
+
+        if (is_null($days)) {
+            $days = 30;
+        }
 
         //return Response::json($products);
         foreach ($products as $product) {
@@ -40,9 +51,10 @@ class ReportStockController extends \BaseController {
             }
 
             $product->quantity_to_purchase = $product->stock_max - $product->total_stock;
+            $product->quantity_sold        = $this->movementRepo->getSold($days, $product->id);
         }
 
-		return View::make('reportStock.index', compact('products'));
+		return View::make('reportStock.index', compact('products', 'days'));
 	}
 
     public function validate($data)

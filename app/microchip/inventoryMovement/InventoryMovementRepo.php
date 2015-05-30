@@ -2,6 +2,7 @@
 
 namespace microchip\inventoryMovement;
 
+use Carbon\Carbon;
 use microchip\base\BaseRepo;
 
 class InventoryMovementRepo extends BaseRepo
@@ -28,5 +29,15 @@ class InventoryMovementRepo extends BaseRepo
     {
         return InventoryMovement::where('product_id', $id)
             ->sum('in_stock');
+    }
+
+    public function getSold($days, $product_id)
+    {
+        $today = Carbon::today()->subDays($days)->format('Y-m-d');
+
+        return InventoryMovement::where('product_id', $product_id)
+            ->where('status', 'out')
+            ->where('created_at', '>', $today)
+            ->sum('quantity');
     }
 }

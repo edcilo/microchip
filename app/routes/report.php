@@ -29,3 +29,35 @@ Route::get('report/corte/{report}', [
     'as'    => 'report.money.show',
     'uses'  => 'ReportController@show'
 ]);
+
+
+
+Route::get('report/utilidades', [
+    'as'   => 'report.utility',
+    'uses'  => 'ReportUtilityController@index'
+]);
+
+Route::get('report/utilidades/create', [
+    'as'   => 'report.utility.create',
+    'uses' => 'ReportUtilityController@create',
+]);
+
+Route::post('report/utilidades', [
+    'as'    => 'report.utility.store',
+    'uses'  => 'ReportUtilityController@store'
+]);
+
+Route::get('report/utilidades/{report}', [
+    'as'    => 'report.utility.show',
+    'uses'  => 'ReportUtilityController@show'
+]);
+
+Route::get('report/utilidades/{report}/edit', [
+    'as'    => 'report.utility.edit',
+    'uses'  => 'ReportUtilityController@edit'
+]);
+
+Route::put('report/utilidades/{report}', [
+    'as'    => 'report.utility.update',
+    'uses'  => 'ReportUtilityController@update'
+]);

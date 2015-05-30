@@ -85,6 +85,7 @@ class ReportController extends \BaseController {
 
     public function moneyStore()
     {
+        // TODO registrar la salida de caja
         $corte      = $this->corteRepo->newCorte();
         $manager    = new ReportCorteRegManager($corte, Input::all());
         $manager->save();
@@ -100,14 +101,32 @@ class ReportController extends \BaseController {
 
     public function show($id)
     {
-        $report = $this->corteRepo->find($id);
-        $this->notFoundUnless($report);
+        $report_money = $this->corteRepo->find($id);
+        $this->notFoundUnless($report_money);
 
         if (Request::ajax()) {
-            return Response::json($report);
+            return Response::json($report_money);
         }
 
-        return View::make('report.show', compact('report'));
+        $data = $report_money->toArray();
+
+        $result = $this->getData($data['date_init'], $data['date_end']);
+        $report = $result[0];
+        $pays   = $result[1];
+
+        $users = $this->userRepo->getPaysByRange($data['date_init'], $data['date_end']);
+
+        $denominations = ['quantity_1000'=>$data['quantity_1000'], 'quantity_500'=>$data['quantity_500'], 'quantity_200'=>$data['quantity_200'], 'quantity_100'=>$data['quantity_100'], 'quantity_50'=>$data['quantity_50'], 'quantity_20'=>$data['quantity_20'], 'quantity_10'=>$data['quantity_10'], 'quantity_5'=>$data['quantity_5'], 'quantity_2'=>$data['quantity_2'], 'quantity_1'=>$data['quantity_1'], 'quantity_05'=>$data['quantity_05']];
+        $result = $this->getDenominations($denominations, 'quantity_05', 9);
+        $total_denomination = $result[0];
+        $total_calculate    = $result[1];
+
+        $denominations_r = ['quantity_r_1000'=>$data['quantity_r_1000'], 'quantity_r_500'=>$data['quantity_r_500'], 'quantity_r_200'=>$data['quantity_r_200'], 'quantity_r_100'=>$data['quantity_r_100'], 'quantity_r_50'=>$data['quantity_r_50'], 'quantity_r_20'=>$data['quantity_r_20'], 'quantity_r_10'=>$data['quantity_r_10'], 'quantity_r_5'=>$data['quantity_r_5'], 'quantity_r_2'=>$data['quantity_r_2'], 'quantity_r_1'=>$data['quantity_r_1'], 'quantity_r_05'=>$data['quantity_r_05']];
+        $result = $this->getDenominations($denominations_r, 'quantity_r_05', 11);
+        $total_denomination += $result[0];
+        $total_calculate_r = $result[1];
+
+        return View::make('report.show', compact('total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays', 'users', 'report_money'));
     }
 
     public function edit($id)

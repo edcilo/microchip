@@ -285,6 +285,12 @@
                         Corte de caja
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('report.utility') }}">
+                        <i class="fa fa-area-chart"></i>
+                        Reporte de utilidades
+                    </a>
+                </li>
             </ul>
 
         @if( p(1) OR p(3) )

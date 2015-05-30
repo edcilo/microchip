@@ -2,6 +2,7 @@
 
 namespace microchip\sale;
 
+use Carbon\Carbon;
 use microchip\base\BaseRepo;
 
 class SaleRepo extends BaseRepo
@@ -125,5 +126,20 @@ class SaleRepo extends BaseRepo
             ->where('repayment', 0);
 
         return ($paginate) ? $q->paginate() : $q->get();
+    }
+
+    public function getInRange($date_init, $date_end=null)
+    {
+        return Sale::where('classification', 'Venta')
+            ->where('status', 'Pagado')
+            ->where('updated_at', '>=', $date_init)
+            ->where(function ($query) use ($date_end)
+            {
+                if (!empty($date_end)) {
+                    $date_end = Carbon::createFromFormat('Y-m-d', $date_end)->addDay();
+                    $query->where('updated_at', '<', $date_end);
+                }
+            })
+            ->get();
     }
 }

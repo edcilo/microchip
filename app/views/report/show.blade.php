@@ -19,38 +19,43 @@
     <div class="col col100 block description-product">
 
         <div class="header">
-            <h1>Reporte no. {{ $report->id }}</h1>
+            <h1>Reporte no. {{ $report_money->id }}</h1>
 
-            @include('report.partials.btn_edit')
+            @include('report.partials.btn_edit', ['report' => $report_money])
         </div>
 
-        {{--
         <div class="col col100">
-            <figure class="flo col20 left">
-                <img src="{{ asset($category->image) }}" alt="{{ $category->slug }}"/>
-            </figure>
 
-            <div class="flo col80 center">
-                <ul class="list-description">
-                    <li>
-                        <strong>Nombre de categoría: </strong>
-                        <ul>
-                            <li>{{ $category->name }}</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Descripción: </strong>
-                        <ul>
-                            <li>{{ $category->description }}</li>
-                        </ul>
-                    </li>
-                </ul>
+            @include('report.partials.message')
+
+            <div class="flo col50 left">
+                @include('report.partials.general_data')
             </div>
-        </div>
 
-        @include('category.partials.form_destroy')
-        --}}
+            <div class="flo col50 right">
+                @include('report.partials.calculator_show', ['total'=>$report['total_box'], 'd'=>$report_money->toArray()])
+            </div>
+
+        </div>
 
     </div>
+
+    @include('report.partials.list_cash')
+
+    @include('report.partials.list_expenses')
+
+    @include('report.partials.list_credit_card')
+
+    @include('report.partials.list_transfers')
+
+    @include('report.partials.lists_cheques')
+
+    @include('report.partials.list_coupons')
+
+    @include('report.partials.list_card')
+
+    <hr/>
+
+    @include('report.partials.users')
 
 @stop

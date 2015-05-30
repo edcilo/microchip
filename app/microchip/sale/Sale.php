@@ -79,6 +79,17 @@ class Sale extends BaseEntity
         return number_format($total, 2, '.', $f);
     }
 
+    public function getTotalPurchase($f = '')
+    {
+        $total = 0;
+
+        foreach ($this->movements as $movement) {
+            $total += $movement->purchase_price;
+        }
+
+        return number_format($total, 2, '.', $f);
+    }
+
     public function getTotalOrder($f = '')
     {
         $total = $this->getTotalAttribute();
@@ -172,6 +183,11 @@ class Sale extends BaseEntity
     public function getTotalPriceFAttribute()
     {
         return $this->getTotalPrice(',');
+    }
+
+    public function getTotalPurchaseFAttribute()
+    {
+        return $this->getTotalPurchase(',');
     }
 
     public function getPvDiFAttribute()

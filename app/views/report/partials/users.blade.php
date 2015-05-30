@@ -5,7 +5,7 @@
         <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
     </div>
 
-    <div class="table edc-hide-show-element">
+    <div class="table edc-hide-show-element hide">
 
         @foreach($users as $user)
             @if($user->pays->count())

@@ -1,6 +1,6 @@
 @extends('layouts/layout_sist')
 
-@section ('title') / Cortes de caja @stop
+@section ('title') / Reporte de utilidades @stop
 
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
@@ -10,11 +10,11 @@
 
     <div class="col col100">
         <div class="flo col40">
-            <h2><i class="fa fa-book"></i> Cortes de caja</h2>
+            <h2><i class="fa fa-area-chart"></i> Reporte de utilidades</h2>
         </div>
 
         <div class="flo col60 text-right">
-            @include('report.partials.btn_create')
+            @include('reportUtility.partials.btn_create')
         </div>
     </div>
 
@@ -22,11 +22,11 @@
 
         @if ( count( $reports ) > 0 )
 
-            @include('report.partials.list_paginate')
+            @include('reportUtility.partials.list_paginate')
 
         @else
 
-            <p class="title-clear">No hay cortes de caja registrados.</p>
+            <p class="title-clear">No hay reportes de utilidades registrados.</p>
 
         @endif
 

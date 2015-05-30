@@ -64,4 +64,19 @@ class ProductRepo extends BaseRepo
 
         return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
+
+    public function getStockMin($paginate=true)
+    {
+        $query = Product::select('products.*', 'product_descriptions.stock_min', 'product_descriptions.stock_max', \DB::raw('ifnull(sum(inventory_movements.in_stock),0) as total_stock'))
+            ->leftJoin('inventory_movements', 'products.id', '=', 'inventory_movements.product_id')
+            ->leftJoin('product_descriptions', 'products.id', '=', 'product_descriptions.product_id')
+            ->with(['movements' => function ($query) {
+                $query->with('purchases')->orderBy('id', 'DESC');
+            }])
+            ->where('type', 'Producto')
+            ->groupBy('products.id')
+            ->havingRaw('stock_min > total_stock');
+
+        return ($paginate) ? $query->paginate() : $query->get();
+    }
 }

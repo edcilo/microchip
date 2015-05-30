@@ -291,6 +291,12 @@
                         Reporte de utilidades
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('report.stock') }}">
+                        <i class="fa fa-archive"></i>
+                        Reporte de inventario
+                    </a>
+                </li>
             </ul>
 
         @if( p(1) OR p(3) )

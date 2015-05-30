@@ -61,3 +61,10 @@ Route::put('report/utilidades/{report}', [
     'as'    => 'report.utility.update',
     'uses'  => 'ReportUtilityController@update'
 ]);
+
+
+
+Route::get('report/stock', [
+    'as'    => 'report.stock',
+    'uses'  => 'ReportStockController@index',
+]);

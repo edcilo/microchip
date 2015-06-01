@@ -88,7 +88,6 @@
 
     @include('service.partials.warranty_control')
 
-    // TODO revisar esto, marca error
     @include('service.partials.warranty_coupons')
 
     <div class="block description-product">

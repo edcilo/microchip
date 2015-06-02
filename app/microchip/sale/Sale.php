@@ -68,6 +68,19 @@ class Sale extends BaseEntity
         return number_format($total, 2, '.', $f);
     }
 
+    public function getTotalServicesAttribute()
+    {
+        $total = 0;
+
+        foreach ($this->movements as $movement) {
+            if ($movement->product->type == 'Servicio') {
+                $total += $movement->selling_price;
+            }
+        }
+
+        return number_format($total, 2, '.', ',');
+    }
+
     public function getTotalPrice($f = '')
     {
         $total = 0;

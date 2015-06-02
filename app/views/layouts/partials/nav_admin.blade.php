@@ -292,6 +292,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('report.service.index') }}">
+                        <i class="fa fa-wrench"></i>
+                        Reporte de servicios
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('report.stock') }}">
                         <i class="fa fa-archive"></i>
                         Reporte de inventario

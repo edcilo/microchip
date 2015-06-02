@@ -35,7 +35,7 @@
                 </td>
 
                 <td class="text-right">
-                    @if ( $movement->product->p_description->have_series )
+                    @if ($movement->product->p_description->have_series )
                         @include('purchase.partials.btn_series')
                     @endif
 

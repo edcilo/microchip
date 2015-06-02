@@ -30,10 +30,12 @@ class ProductDescriptionController extends \BaseController
      */
     public function create($slug, $id)
     {
+        $type = 'Producto';
+
         $category_list    = ['' => 'Selecciona...'] + $this->categoryRepo->lists('name', 'id');
         $mark_list        = ['' => 'Selecciona...'] + $this->markRepo->lists('name', 'id');
 
-        return View::make('productDescription/create', compact('id', 'category_list', 'mark_list'));
+        return View::make('productDescription/create', compact('id', 'category_list', 'mark_list', 'type'));
     }
 
     /**

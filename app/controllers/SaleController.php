@@ -66,13 +66,13 @@ class SaleController extends \BaseController
         $global = $this->configRepo->first();
         $sale   = $this->saleRepo->newSale();
 
-        $sale->iva                = $global->iva;
+        $sale->iva              = $global->iva;
         $sale->dollar           = $global->dollar;
-        $sale->type                = 'Ticket';
-        $sale->classification    = 'Venta';
-        $sale->status            = 'Pendiente';
-        $sale->user_id            = Auth::user()->id;
-        $sale->customer_id        = 1;
+        $sale->type             = 'Ticket';
+        $sale->classification   = 'Venta';
+        $sale->status           = 'Pendiente';
+        $sale->user_id          = Auth::user()->id;
+        $sale->customer_id      = 1;
         $sale->save();
 
         return Redirect::route('sale.edit', [$sale->id]);

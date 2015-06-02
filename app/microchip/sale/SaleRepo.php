@@ -142,4 +142,19 @@ class SaleRepo extends BaseRepo
             })
             ->get();
     }
+
+    public function getServicesInRange($date_init, $date_end=null)
+    {
+        return Sale::where('classification', 'Venta')
+            ->where('service', 1)
+            ->where('updated_at', '>=', $date_init)
+            ->where(function ($query) use ($date_end)
+            {
+                if (!empty($date_end)) {
+                    $date_end = Carbon::createFromFormat('Y-m-d', $date_end)->addDay();
+                    $query->where('updated_at', '<', $date_end);
+                }
+            })
+            ->get();
+    }
 }

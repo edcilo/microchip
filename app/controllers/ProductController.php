@@ -97,6 +97,7 @@ class ProductController extends \BaseController
      */
     public function store()
     {
+        // todo registrar automaticamente la descripcion del producto;
         $product    = $this->productRepo->newProduct();
         $manager    = new ProductRegManager($product, Input::all());
         $manager->save();

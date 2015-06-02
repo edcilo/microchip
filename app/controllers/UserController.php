@@ -122,7 +122,9 @@ class UserController extends \BaseController
 
         $sales = $this->saleRepo->getByUser($id);
 
-        return View::make('user/show', compact('user', 'sales'));
+        $data_chart = json_encode($this->userRepo->getDataChart($id, 6));
+
+        return View::make('user/show', compact('user', 'sales', 'data_chart'));
     }
 
     /**

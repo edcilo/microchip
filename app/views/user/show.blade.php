@@ -3,7 +3,16 @@
 @section ('title') / {{ $user->username }} @stop
 
 @section('scripts')
-{{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/vendor/chart.js/Chart.min.js') }}
+
+    <script>
+        var data = {{ $data_chart }};
+        // Get context with jQuery - using jQuery's .get() method.
+        var ctx = $("#ChartUser").get(0).getContext("2d");
+        // This will get the first returned node in the jQuery collection.
+        var LineChart = new Chart(ctx).Line(data);
+    </script>
 @stop
 
 @section ('content')
@@ -49,6 +58,8 @@
         </div>
 
     </div>
+
+    @include('user.partials.chart')
 
     @include('user.partials.list_permissions')
 

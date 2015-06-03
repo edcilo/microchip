@@ -828,6 +828,76 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         /*
+         * Reportes
+         */
+        // corte de caja
+        //124
+        Permission::create([
+            'name'          => 'Reporte|Corte de caja|Ver',
+            'description'   => 'Ver los datos de los cortes de caja',
+        ]);
+
+        //125
+        Permission::create([
+            'name'          => 'Reporte|Corte de caja|Registrar',
+            'description'   => 'Registrar nuevos cortes de caja',
+        ]);
+
+        //126
+        Permission::create([
+            'name'          => 'Reporte|Corte de caja|Modificar',
+            'description'   => 'Modificar los datos de los cortes de caja',
+        ]);
+
+
+        // reporte de utilidades
+        //127
+        Permission::create([
+            'name'          => 'Reporte|Utilidades|Ver',
+            'description'   => 'Ver los datos de los reportes de utilidades',
+        ]);
+
+        //128
+        Permission::create([
+            'name'          => 'Reporte|Utilidades|Registrar',
+            'description'   => 'Registrar nuevos reportes de utilidades',
+        ]);
+
+        //129
+        Permission::create([
+            'name'          => 'Reporte|Utilidades|Modificar',
+            'description'   => 'Modificar los datos de los reportes de utilidades',
+        ]);
+
+
+        // reporte de servicios
+        //130
+        Permission::create([
+            'name'          => 'Reporte|Servicios|Ver',
+            'description'   => 'Ver los datos de los reportes de servicios',
+        ]);
+
+        //131
+        Permission::create([
+            'name'          => 'Reporte|Servicios|Registrar',
+            'description'   => 'Registrar nuevos reportes de servicios',
+        ]);
+
+        //132
+        Permission::create([
+            'name'          => 'Reporte|Servicios|Modificar',
+            'description'   => 'Modificar los datos de los reportes de servicios',
+        ]);
+
+
+        // reporte de inventario
+        //133
+        Permission::create([
+            'name'          => 'Reporte|Inventario|Ver',
+            'description'   => 'Ver los datos de los reportes de inventario',
+        ]);
+
+        /*
         Permission::create([
             'name'          => '',
             'description'   => '',

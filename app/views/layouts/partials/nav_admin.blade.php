@@ -272,6 +272,7 @@
             </ul>
         @endif
 
+        @if(p(124) OR p(127) OR p(130) OR p(133))
             <li>
                 <strong>
                     <i class="fa fa-caret-down button"></i>
@@ -279,31 +280,40 @@
                 </strong>
             </li>
             <ul>
-                <li>
-                    <a href="{{ route('report.money') }}">
-                        <i class="fa fa-book"></i>
-                        Corte de caja
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('report.utility') }}">
-                        <i class="fa fa-area-chart"></i>
-                        Reporte de utilidades
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('report.service.index') }}">
-                        <i class="fa fa-wrench"></i>
-                        Reporte de servicios
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('report.stock') }}">
-                        <i class="fa fa-archive"></i>
-                        Reporte de inventario
-                    </a>
-                </li>
+                @if(p(124))
+                    <li>
+                        <a href="{{ route('report.money') }}">
+                            <i class="fa fa-book"></i>
+                            Corte de caja
+                        </a>
+                    </li>
+                @endif
+                @if(p(127))
+                    <li>
+                        <a href="{{ route('report.utility') }}">
+                            <i class="fa fa-area-chart"></i>
+                            Reporte de utilidades
+                        </a>
+                    </li>
+                @endif
+                @if(p(130))
+                    <li>
+                        <a href="{{ route('report.service.index') }}">
+                            <i class="fa fa-wrench"></i>
+                            Reporte de servicios
+                        </a>
+                    </li>
+                @endif
+                @if(p(133))
+                    <li>
+                        <a href="{{ route('report.stock') }}">
+                            <i class="fa fa-archive"></i>
+                            Reporte de inventario
+                        </a>
+                    </li>
+                @endif
             </ul>
+        @endif
 
         @if( p(1) OR p(3) )
             <li>

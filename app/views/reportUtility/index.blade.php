@@ -4,6 +4,16 @@
 
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/vendor/chart.js/Chart.min.js') }}
+
+    <script>
+        var data = {{ $data_chart }};
+        var options = {
+            animationSteps: 40
+        };
+        var ctx = $("#ChartUser").get(0).getContext("2d");
+        var LineChart = new Chart(ctx).Line(data, options);
+    </script>
 @stop
 
 @section ('content')
@@ -17,6 +27,8 @@
             @include('reportUtility.partials.btn_create')
         </div>
     </div>
+
+    @include('reportUtility.partials.chart')
 
     <div class="col col100">
 

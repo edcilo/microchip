@@ -157,4 +157,71 @@ class SaleRepo extends BaseRepo
             })
             ->get();
     }
+
+    public function getDataChart($n_month)
+    {
+        $months         = [];
+        $data_sale      = [];
+        $data_purchase  = [];
+        $data_utility   = [];
+        $today          = Carbon::today();
+
+        for ($i = $n_month; $i >= 0; $i--) {
+            $thisMonth = Carbon::createFromFormat('Y-m-d', $today->format('Y-m-') . '01');
+            $month = $thisMonth->subMonths($i);
+            $months[] = trans('lists.months.'.$month->format('F'));
+
+            $sales = Sale::where('status', 'Pagado')
+                ->where('created_at', '>=', $month->format('Y-m-d'))
+                ->where('created_at', '<', $month->addMonth()->format('Y-m-d'))
+                ->get();
+
+            $total_purchase = 0;
+            $total_sale = 0;
+            foreach ($sales as $sale) {
+                $total_purchase += $sale->getTotalPurchase();
+                $total_sale     += $sale->getTotalAttribute();
+            }
+
+            $data_sale[]        = $total_sale;
+            $data_purchase[]    = $total_purchase;
+            $data_utility[]     = $total_sale - $total_purchase;
+        }
+
+        return [
+            'labels' => $months,
+            'datasets' => [
+                [
+                    'label' => 'Total de ventas',
+                    'fillColor' => "rgba(184,225,174,.4)",
+                    'strokeColor' => "rgb(83,169,63)",
+                    'pointColor' => "rgba(184,225,174,1)",
+                    'pointStrokeColor' => "#fff",
+                    'pointHighlightFill' => "rgb(83,169,63)",
+                    'pointHighlightStroke' => "rgba(184,225,174,1)",
+                    'data' => $data_sale,
+                ],
+                [
+                    'label' => 'Total de compras',
+                    'fillColor' => "rgba(215,15,11,.4)",
+                    'strokeColor' => "rgb(215,15,11)",
+                    'pointColor' => "rgba(215,15,11, .4)",
+                    'pointStrokeColor' => "#fff",
+                    'pointHighlightFill' => "rgb(215,15,11)",
+                    'pointHighlightStroke' => "rgba(215,15,11, .4)",
+                    'data' => $data_purchase,
+                ],
+                [
+                    'label' => 'Total de utilidades',
+                    'fillColor' => "rgba(48,150,218,.4)",
+                    'strokeColor' => "rgb(48,150,218)",
+                    'pointColor' => "rgba(48,150,218,.4)",
+                    'pointStrokeColor' => "#fff",
+                    'pointHighlightFill' => "rgb(48,150,218)",
+                    'pointHighlightStroke' => "rgba(48,150,218,.4)",
+                    'data' => $data_utility,
+                ]
+            ]
+        ];
+    }
 }

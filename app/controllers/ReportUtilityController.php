@@ -32,7 +32,9 @@ class ReportUtilityController extends \BaseController {
 
         $reports = $this->utilityRepo->getAll('paginate', 'id', 'DESC');
 
-		return View::make('reportUtility.index', compact('reports'));
+        $data_chart = json_encode($this->saleRepo->getDataChart(6));
+
+		return View::make('reportUtility.index', compact('reports', 'data_chart'));
 	}
 
 	/**

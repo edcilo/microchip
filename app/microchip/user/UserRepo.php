@@ -87,7 +87,7 @@ class UserRepo extends BaseRepo
             'datasets' => [
                 [
                     'label' => 'Ventas',
-                    'fillColor' => "rgba(184,225,174,.4as )",
+                    'fillColor' => "rgba(184,225,174,.4)",
                     'strokeColor' => "rgb(83,169,63)",
                     'pointColor' => "rgba(184,225,174,1)",
                     'pointStrokeColor' => "#fff",

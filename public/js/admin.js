@@ -199,6 +199,8 @@ var element_delete = function (button) {
                             name = result.data.folio;
                         if( typeof(name) == "undefined" )
                             name = result.data.description;
+                        if( typeof(name) == "undefined" )
+                            name = result.data.concept;
 
 
                         show_message(name + ' se elimino correctamente.');

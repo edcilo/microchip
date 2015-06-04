@@ -201,4 +201,9 @@ Route::group(['before' => 'auth'], function () {
      */
     require __DIR__.'/routes/report.php';
 
+    /*
+     * Rutas relacionadas con los conceptos de gastos
+     */
+    require __DIR__.'/routes/paymentConcept.php';
+
 });

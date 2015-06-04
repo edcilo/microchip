@@ -897,6 +897,34 @@ class PermissionsTableSeeder extends Seeder
             'description'   => 'Ver los datos de los reportes de inventario',
         ]);
 
+
+        /*
+         * conceptos de gastos
+         */
+        //134
+        Permission::create([
+            'name'          => 'Conceptos de gastos|Ver',
+            'description'   => 'Ver los detalles de los conceptos de gatos',
+        ]);
+
+        //135
+        Permission::create([
+            'name'          => 'Conceptos de gastos|Registrar',
+            'description'   => 'Agregar nuevos conceptos de gastos',
+        ]);
+
+        //136
+        Permission::create([
+            'name'          => 'Conceptos de gastos|Modificar',
+            'description'   => 'Modificar los datos de los conceptos de gastos',
+        ]);
+
+        //137
+        Permission::create([
+            'name'          => 'Conceptos de gastos|Eliminar',
+            'description'   => 'Eliminar el registro de los conceptos de gastos',
+        ]);
+
         /*
         Permission::create([
             'name'          => '',

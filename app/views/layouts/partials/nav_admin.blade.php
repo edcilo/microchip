@@ -65,6 +65,14 @@
                         </a>
                     </li>
                 @endif
+                @if( p(134) )
+                    <li>
+                        <a href="{{ route('concept.index') }}">
+                            <i class="fa fa-list-ul"></i>
+                            Conceptos de gastos
+                        </a>
+                    </li>
+                @endif
                 @if( p(115) )
                     <li>
                         <a href="{{ route('coupon.index') }}">

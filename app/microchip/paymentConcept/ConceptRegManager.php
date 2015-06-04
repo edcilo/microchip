@@ -11,7 +11,7 @@ class ConceptRegManager extends BaseManager
         return [
             'concept'   => 'required',
             'spending'  => 'boolean',
-            'document'  => 'in:,Venta,Pedido,Servicio',
+            //'document'  => 'in:,Venta,Pedido,Servicio',
         ];
     }
 

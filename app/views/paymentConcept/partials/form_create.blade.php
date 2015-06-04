@@ -19,7 +19,7 @@
         </div>
 
     </div>
-
+{{--
     <div class="flo col50">
 
         <div class="row">
@@ -31,6 +31,6 @@
         </div>
 
     </div>
-
+--}}
 
 </div>

@@ -3,7 +3,7 @@
     <tr>
         <th>Concepto</th>
         <th>Gasto</th>
-        <th>Relacionado con</th>
+        {{--<th>Relacionado con</th>--}}
         <th>
             <i class="fa fa-gears"></i> Opciones
         </th>
@@ -20,7 +20,7 @@
                     <i class="fa fa-times"></i>
                 @endif
             </td>
-            <td>{{ $concept->document }}</td>
+            {{--<td>{{ $concept->document }}</td>--}}
             <td class="text-center">
                 <nobr>
                     @include('paymentConcept.partials.btn_edit')

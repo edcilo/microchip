@@ -9,6 +9,6 @@ class PaymentConcept extends BaseEntity {
 	protected $fillable = [
         'concept',
         'spending',
-        'document',
+        //'document',
     ];
 }

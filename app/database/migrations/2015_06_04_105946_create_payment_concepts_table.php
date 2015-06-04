@@ -17,7 +17,7 @@ class CreatePaymentConceptsTable extends Migration {
 			$table->increments('id');
             $table->string('concept');
             $table->boolean('spending');
-            $table->enum('document', ['Venta', 'Pedido', 'Servicio']);
+            //$table->enum('document', ['Venta', 'Pedido', 'Servicio']);
 			$table->timestamps();
 		});
 	}

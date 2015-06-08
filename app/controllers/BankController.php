@@ -79,18 +79,20 @@ class BankController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('bank.show', [$bank->slug, $bank->id]);
+        return Redirect::route('bank.show', [1, $bank->slug, $bank->id]);
     }
 
     /**
      * Display the specified resource.
      * GET /bank/{id}.
      *
-     * @param int $id
+     * @param int    $list
+     * @param string $slug
+     * @param int    $id
      *
      * @return Response
      */
-    public function show($slug, $id, $list)
+    public function show($list, $slug, $id)
     {
         $bank = $this->bankRepo->find($id);
         $this->notFoundUnless($bank);
@@ -103,7 +105,7 @@ class BankController extends \BaseController
         $status_list    = $this->status_list;
         $data_strip        = ['status' => '', 'provider_id' => '', 'date_start' => '', 'date_end' => ''];
 
-        return View::make('bank/show', compact('bank', 'cheques', 'list', 'status_list', 'data_strip'));
+        return View::make('bank.show', compact('bank', 'cheques', 'list', 'status_list', 'data_strip'));
     }
 
     /**
@@ -123,7 +125,7 @@ class BankController extends \BaseController
             return View::make('bank/edit', compact('bank'));
         }
 
-        return Redirect::route('bank.show', [$bank->slug, $bank->id, 1]);
+        return Redirect::route('bank.show', [1, $bank->slug, $bank->id]);
     }
 
     /**
@@ -148,7 +150,7 @@ class BankController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('bank.show', [$bank->slug, $bank->id]);
+        return Redirect::route('bank.show', [1, $bank->slug, $bank->id]);
     }
 
     /**

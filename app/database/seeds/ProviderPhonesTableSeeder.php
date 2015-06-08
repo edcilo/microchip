@@ -10,10 +10,10 @@ class ProviderPhonesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 6) as $index) {
+        foreach (range(1, 300) as $index) {
             ProviderPhone::create([
-                'phone'            => $faker->phoneNumber,
-                'provider_id'    => $faker->numberBetween(1, 2),
+                'phone'          => $faker->phoneNumber,
+                'provider_id'    => $faker->numberBetween(1, 152),
             ]);
         }
     }

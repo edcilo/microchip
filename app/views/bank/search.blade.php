@@ -28,11 +28,11 @@
 
         @include('bank.partials.list_paginate_complete')
 
-        @include('bank.partials.form_trash')
+        @include('bank.partials.form_trash_float')
 
-        @include('bank.partials.form_active')
+        @include('bank.partials.form_active_float')
 
-        @include('bank.partials.form_destroy')
+        @include('bank.partials.form_destroy_float')
 
     @else
 

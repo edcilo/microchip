@@ -45,5 +45,27 @@ class ProvidersTableSeeder extends Seeder
             'active'            => 1,
             'slug'                => \Str::slug('Mercado Libre'),
         ]);
+
+        for ($i = 0; $i < 150; $i++) {
+            $name = $faker->name;
+
+            Provider::create([
+                'name'              => $name,
+                'rfc'               => '',
+                'email'             => $faker->email,
+                'number'            => $faker->phoneNumber,
+                'classification'    => $faker->randomElement(['hardware', 'software', 'web']),
+                'state'             => $faker->state,
+                'city'              => $faker->city,
+                'postcode'          => $faker->postcode,
+                'address'           => $faker->address,
+                'address_warranty'  => $faker->randomElement(['', $faker->address]),
+                'days_credit'       => 0,
+                'credit_limit'      => 0,
+                'observations'      => $faker->text(),
+                'active'            => $faker->randomElement([1,0,1,1]),
+                'slug'              => \Str::slug($name),
+            ]);
+        }
     }
 }

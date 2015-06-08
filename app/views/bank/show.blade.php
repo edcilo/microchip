@@ -32,8 +32,21 @@
 
         @include('bank.partials.data')
 
-    </div>
+        <hr/>
 
+        <div class="text-right">
+            @include('bank.partials.form_trash')
+
+            <div class="flo col50 text-center">
+                @include('bank.partials.form_activate')
+            </div>
+
+            <div class="flo col50 text-center">
+                @include('bank.partials.form_destroy')
+            </div>
+        </div>
+
+    </div>
 
     @include('cheque.index')
 

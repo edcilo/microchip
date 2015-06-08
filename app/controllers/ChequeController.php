@@ -75,7 +75,7 @@ class ChequeController extends \BaseController
                 return Response::json($response);
             }
 
-            return Redirect::route('bank.show', [$cheque->bank->slug, $cheque->bank->id, 1]);
+            return Redirect::route('bank.show', [1, $cheque->bank->slug, $cheque->bank->id]);
         }
 
         if (Request::ajax()) {
@@ -202,7 +202,7 @@ class ChequeController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('bank.show', [$cheque->bank->slug, $cheque->bank->id, 1]);
+        return Redirect::route('bank.show', [1, $cheque->bank->slug, $cheque->bank->id]);
     }
 
     public function restore($id)
@@ -249,7 +249,7 @@ class ChequeController extends \BaseController
 
         $status_list = ['0' => 'Seleccione...', 'Disponible' => 'Disponible', 'Pagado' => 'Pagado', 'Post-fechado' => 'Post-fechado', 'Cancelado' => 'Cancelado', 'Elaborado' => 'Elaborado' ,'Parcial' => 'Parcial'];
 
-        return View::make('bank/show', compact('bank', 'cheques', 'provider_list', 'status_list', 'data_strip', 'list'));
+        return View::make('bank.show', compact('bank', 'cheques', 'provider_list', 'status_list', 'data_strip', 'list'));
     }
 
     public function generateBankCount($id)

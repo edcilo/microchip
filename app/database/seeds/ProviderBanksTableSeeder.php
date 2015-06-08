@@ -10,13 +10,13 @@ class ProviderBanksTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 4) as $index) {
+        foreach (range(1, 300) as $index) {
             ProviderBank::create([
-                'bank'            => $faker->name,
+                'bank'           => $faker->name,
                 'account'        => $faker->numberBetween(100000, 999999),
-                'plaza'            => $faker->numberBetween(100000, 999999),
-                'clabe'            => $faker->numberBetween(100000, 999999),
-                'provider_id'    => $faker->numberBetween(1, 2),
+                'plaza'          => $faker->numberBetween(100000, 999999),
+                'clabe'          => $faker->numberBetween(100000, 999999),
+                'provider_id'    => $faker->numberBetween(1, 152),
             ]);
         }
     }

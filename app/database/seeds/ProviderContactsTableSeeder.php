@@ -10,14 +10,14 @@ class ProviderContactsTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 6) as $index) {
+        foreach (range(1, 300) as $index) {
             ProviderContact::create([
-                'name'            => $faker->name,
-                'last_name'        => $faker->lastName,
+                'name'           => $faker->name,
+                'last_name'      => $faker->lastName,
                 'job'            => $faker->word,
-                'phone'            => $faker->phoneNumber,
-                'email'            => $faker->email,
-                'provider_id'    => $faker->numberBetween(1, 2),
+                'phone'          => $faker->phoneNumber,
+                'email'          => $faker->email,
+                'provider_id'    => $faker->numberBetween(1, 152),
             ]);
         }
     }

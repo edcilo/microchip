@@ -1,11 +1,12 @@
-@if( p(8) )
+@if( p(8) AND $bank->active )
 
-    <div class="confirm-dialog hide" title="Eliminar banco" id="dialogTrash" data-width="400">
-        <div class="mesasge text-center">
-            <h3>¿Estas seguro de querer enviar a la papelera al banco <span class="data_name"></span>?</h3>
-        </div>
-    </div>
+    {{ Form::open(['route' => ['bank.soft.delete', $bank->id], 'method' => 'get', 'role' => 'form', 'id' => 'form-recycle']) }}
 
-    {{ Form::open(['route' => ['bank.soft.delete', 'PRODUCT_ID'], 'method' => 'get', 'role' => 'form', 'id' => 'form-recycle']) }}{{ Form::close() }}
+    <button type="submit" class="btn-red">
+        <i class="fa fa-trash"></i>
+        Enviar a la papelera
+    </button>
+
+    {{ Form::close() }}
 
 @endif

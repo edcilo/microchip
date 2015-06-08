@@ -81,7 +81,7 @@ Route::group(
             'uses' => 'BankController@search',
         ]);
 
-        Route::get('{slug}/{id}/{cheques}', [
+        Route::get('{cheques}/{slug}/{id}', [
             'as'   => 'bank.show',
             'uses' => 'BankController@show',
         ]);

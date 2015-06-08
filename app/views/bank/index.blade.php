@@ -28,7 +28,7 @@
 
             @include('bank.partials.list_paginate')
 
-            @include('bank.partials.form_trash')
+            @include('bank.partials.form_trash_float')
 
         @else
 

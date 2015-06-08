@@ -167,4 +167,19 @@ class PermissionController extends \BaseController
 
         return true;
     }
+
+    public function search()
+    {
+        $terms = \Input::get('terms');
+
+        if (Request::ajax()) {
+            $results = $this->permissionRepo->search($terms, 'ajax');
+
+            return Response::json($results);
+        } else {
+            $results = $this->permissionRepo->search($terms);
+
+            return View::make('permission/search', compact('results', 'terms'));
+        }
+    }
 }

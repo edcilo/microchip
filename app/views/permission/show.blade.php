@@ -11,11 +11,11 @@
     <div class="col col100">
         <div class="flo col30">&nbsp;</div>
 
-        <div class="flo col30 text-right">
+        <div class="flo col40 text-right">
             @include('permission.partials.btn_index')
         </div>
 
-        <div class="flo col40 text-right">
+        <div class="flo col30 text-right">
             @include('permission.partials.form_search')
         </div>
     </div>

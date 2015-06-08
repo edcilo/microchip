@@ -9,11 +9,11 @@
 @section ('content')
 
     <div class="col col100">
-        <div class="flo col50">
+        <div class="flo col70">
             <h2><i class="fa fa-key"></i> Permisos</h2>
         </div>
 
-        <div class="flo col50 text-right">
+        <div class="flo col30 text-right">
             @include('permission.partials.form_search')
         </div>
     </div>

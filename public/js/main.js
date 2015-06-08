@@ -64,6 +64,7 @@ var search = function (element_form, element_input, element_contResults) {
             $.get(form.attr('action'), form.serialize(), function(result) {
                 var cont = "",
                     text = "",
+                    slug = null,
                     i    = null;
 
                 if (result.length > 0)
@@ -78,8 +79,16 @@ var search = function (element_form, element_input, element_contResults) {
                         text += ( result[i].type        ) ? result[i].type              : '';
                         text += ( result[i].folio       ) ? ': ' + result[i].folio      : '';
 
+                        slug = result[i].slug;
+                        if (typeof(slug) == "undefined") {
+                            slug = '';
+                        } else {
+                            slug += '/';
+                        }
+                        console.log(slug);
+
                         cont += '<div> ' +
-                                    '<a href="' + url + '/' + result[i].slug + '/' + result[i].id + '">' +
+                                    '<a href="' + url + '/' + slug + result[i].id + '">' +
                                         text +
                                     '</a>' +
                                 '</div>';

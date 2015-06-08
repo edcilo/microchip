@@ -49,6 +49,11 @@ Route::group(
 
         });
 
+        Route::get('search', [
+            'as'   => 'permission.search',
+            'uses' => 'PermissionController@search',
+        ]);
+
         Route::get('{id}', [
             'as'    => 'permission.show',
             'uses'  => 'PermissionController@show',

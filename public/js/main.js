@@ -72,7 +72,6 @@ var search = function (element_form, element_input, element_contResults) {
                     for( i = 0; i < result.length; i++ ){
 
                         text = ( result[i].barcode     ) ? result[i].barcode            : '';
-                        text += ( result[i].username    ) ? result[i].username          : '';
                         text += ( result[i].name        ) ? result[i].name              : '';
                         text += ( result[i].f_last_name ) ? result[i].f_last_name       : '';
                         text += ( result[i].card_id     ) ? ' - ' + result[i].card_id   : '';
@@ -85,7 +84,6 @@ var search = function (element_form, element_input, element_contResults) {
                         } else {
                             slug += '/';
                         }
-                        console.log(slug);
 
                         cont += '<div> ' +
                                     '<a href="' + url + '/' + slug + result[i].id + '">' +

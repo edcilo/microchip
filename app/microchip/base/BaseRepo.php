@@ -68,9 +68,11 @@ abstract class BaseRepo
      *
      * @return array
      */
-    public function lists($column, $key = null)
+    public function lists($column, $key = null, $order_column = 'id', $order='asc')
     {
-        return (is_null($key)) ? $this->model->lists($column) : $this->model->lists($column, $key);
+        $q = $this->model->orderBy($order_column, $order);
+
+        return (is_null($key)) ? $q->lists($column) : $q->lists($column, $key);
     }
 
     /**

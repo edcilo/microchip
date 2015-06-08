@@ -28,8 +28,8 @@ class DepartmentsTableSeeder extends Seeder
             'slug'          => \Str::slug('Almacen'),
         ]);
 
-        for ($i = 0; $i < 150; $i++) {
-            $name = $faker->name;
+        for ($i = 0; $i < 30; $i++) {
+            $name = $faker->sentence($faker->randomElement([1, 2, 3, 4]));
 
             Department::create([
                 'name'          => $name,

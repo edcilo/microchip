@@ -44,7 +44,7 @@
 
         <div class="row">
             {{ Form::label('birthday', 'Fecha de nacimiento:', ['class'=>'label50']) }}
-            {{ Form::text('birthday', null, ['placeholder'=>'YYYY-MM-DD', 'title'=>'Este campo es obligatorio y debe seguir el siguiente formato de fecha "yyyy-mm-dd"', 'data-required'=>'required', 'data-date'=>'date']) }}
+            {{ Form::input('date', 'birthday', null, ['placeholder'=>'YYYY-MM-DD', 'title'=>'Este campo es obligatorio y debe seguir el siguiente formato de fecha "yyyy-mm-dd"', 'data-required'=>'required', 'data-date'=>'date']) }}
             <div class="message-error">
                 {{ $errors->first('birthday', '<span>:message</span>') }}
             </div>
@@ -221,7 +221,7 @@
         <div class="flo col50">
             <div class="row">
                 {{ Form::label('hired', 'Fecha de contrato (YYYY-MM-DD):', ['class'=>'label50']) }}
-                {{ Form::text('hired', date('Y-m-d'), ['title'=>'Este campo es obligatorio y debe seguir el siguiente formato de fecha "yyyy-mm-dd"', 'data-required'=>'required', 'data-date'=>'date']) }}
+                {{ Form::input('date', 'hired', date('Y-m-d'), ['title'=>'Este campo es obligatorio y debe seguir el siguiente formato de fecha "yyyy-mm-dd"', 'data-required'=>'required', 'data-date'=>'date']) }}
                 <div class="message-error">
                     {{ $errors->first('hired', '<span>:message</span>') }}
                 </div>

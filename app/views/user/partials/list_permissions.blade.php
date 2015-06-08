@@ -15,22 +15,28 @@
 
             </div>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($user->permissions as $permission)
+            @if($permissions->count())
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td>{{ $permission->name }}</td>
-                        <td>{{ $permission->description }}</td>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($user->permissions as $permission)
+                        <tr>
+                            <td>{{ $permission->name }}</td>
+                            <td>{{ $permission->description }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @else
+
+                <p class="title-clear">Este usuario no tiene ningún permiso.</p>
+
+            @endif
 
         </div>
 

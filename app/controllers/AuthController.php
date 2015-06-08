@@ -18,7 +18,7 @@ class AuthController extends \BaseController
 
         $user = $this->userRepo->getUserByPassword($data['password']);
 
-        if ($user) {
+        if ($user AND $user->active) {
             Auth::login($user);
 
             return Redirect::route('home.sale');

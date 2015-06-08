@@ -67,7 +67,8 @@ class UserController extends \BaseController
      */
     public function create()
     {
-        $department_list    = $this->departmentRepo->lists('name', 'id');
+        $department_list[''] = 'Selecciona...';
+        $department_list     += $this->departmentRepo->lists('name', 'id', 'name');
 
         return View::make('user/create', compact('department_list'));
     }
@@ -80,16 +81,16 @@ class UserController extends \BaseController
      */
     public function store()
     {
-        $validate = $this->userRepo->checkPassword(Input::get('password'));
-        if ($validate) {
+        $error = $this->userRepo->checkPassword(Input::get('password'));
+        if ($error) {
             return Redirect::back()->withInput()->with('bad_password', 'La contraseña ya existe en la base de datos.');
         }
 
-        $user        = $this->userRepo->newUser();
+        $user       = $this->userRepo->newUser();
         $manager    = new UserRegManager($user, Input::all());
         $manager->save();
 
-        $data        = Input::all() + ['user_id' => $user->id] + ['slug' => $user->slug];
+        $data       = Input::all() + ['user_id' => $user->id] + ['slug' => $user->slug];
         $profile    = $this->profileRepo->newProfile();
         $manager    = new ProfileRegManager($profile, $data);
         $manager->save();
@@ -121,7 +122,6 @@ class UserController extends \BaseController
         }
 
         $sales = $this->saleRepo->getByUser($id);
-
         $data_chart = json_encode($this->userRepo->getDataChart($id, 6));
 
         return View::make('user/show', compact('user', 'sales', 'data_chart'));
@@ -164,6 +164,11 @@ class UserController extends \BaseController
      */
     public function update($id)
     {
+        $error = $this->userRepo->checkPassword(Input::get('password'));
+        if ($error) {
+            return Redirect::back()->withInput()->with('bad_password', 'La contraseña ya existe en la base de datos.');
+        }
+
         $user = $this->userRepo->find($id);
         $this->notFoundUnless($user);
 

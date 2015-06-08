@@ -33,5 +33,17 @@ class UsersTableSeeder extends Seeder
             'active'        => 1,
             'department_id'    => 3,
         ]);
+
+        for ($i = 0; $i < 147; $i++) {
+            $username = $faker->userName;
+
+            User::create([
+                'username'        => $username,
+                'password'        => \Hash::make($faker->word),
+                'slug'            => \Str::slug($username),
+                'active'          => $faker->randomElement([1, 0, 1]),
+                'department_id'   => $faker->numberBetween(1, 30),
+            ]);
+        }
     }
 }

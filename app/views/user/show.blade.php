@@ -61,6 +61,6 @@
 
     @include('user.partials.chart')
 
-    @include('user.partials.list_permissions')
+    @include('user.partials.list_permissions', ['permissions' => $user->permissions()->paginate()])
 
 @stop

@@ -2,7 +2,6 @@
     <thead>
     <tr>
         <th><i class="fa fa-camera"></i></th>
-        <th>Nombre de usuario</th>
         <th>Nombre completo</th>
         <th>Departamento</th>
         <th>Salario</th>
@@ -19,12 +18,17 @@
             <td>
                 <img src="{{ asset($user->profile->photo) }}" alt="{{ $user->username }}"/>
             </td>
-            <td>{{ $user->username }}</td>
             <td>{{ $user->profile->name }} {{ $user->profile->f_last_name }} {{ $user->profile->s_last_name }}</td>
             <td>{{ $user->department->name }}</td>
-            <td class="text-right">$ {{ $user->profile->salary_f }}</td>
-            <td class="text-right">$ {{ $user->commission_t_f }}</td>
-            <td class="text-right">$ {{ $user->salary_t_f }}</td>
+            <td class="text-right">
+                <nobr>$ {{ $user->profile->salary_f }}</nobr>
+            </td>
+            <td class="text-right">
+                <nobr>$ {{ $user->commission_t_f }}</nobr>
+            </td>
+            <td class="text-right">
+                <nobr>$ {{ $user->salary_t_f }}</nobr>
+            </td>
             <td class="text-center">
                 <nobr>
                     @include('user.partials.btn_pay')

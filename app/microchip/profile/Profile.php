@@ -2,6 +2,7 @@
 
 namespace microchip\profile;
 
+use Carbon\Carbon;
 use microchip\base\BaseEntity;
 
 class Profile extends BaseEntity
@@ -74,7 +75,9 @@ class Profile extends BaseEntity
 
     public function getHiredFAttribute()
     {
-        return date('d-m-Y', time($this->hired));
+        $date = Carbon::createFromFormat('Y-m-d', $this->hired);
+
+        return $date->format('d-m-Y');
     }
 
     public function getSalaryFAttribute()
@@ -99,7 +102,9 @@ class Profile extends BaseEntity
 
     public function getBirthdayFAttribute()
     {
-        return date('d-m-Y', time($this->birthday));
+        $date = Carbon::createFromFormat('Y-m-d', $this->birthday);
+
+        return $date->format('d-m-Y');
     }
 
     public function user()

@@ -52,6 +52,10 @@
                 <td class="text-right">$ {{ $sale->total_f }}</td>
             </tr>
             <tr>
+                <td>Gastos</td>
+                <td class="text-right">$ {{ $sale->expenses_total }}</td>
+            </tr>
+            <tr>
                 <td>Utilidad del documento</td>
                 <td class="text-right">$ {{ number_format($sale->utility, 2, '.', ',') }}</td>
             </tr>

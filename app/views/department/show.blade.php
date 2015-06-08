@@ -63,7 +63,7 @@
 
     <h3 class="subtitle">Personal de {{ $department->name }}</h3>
 
-    @include('department.partials.list_paginate_users')
+    @include('department.partials.list_paginate_users', ['users'=>$department->users()->paginate()])
 
 </div>
 

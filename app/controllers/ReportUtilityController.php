@@ -199,29 +199,10 @@ class ReportUtilityController extends \BaseController {
 
         foreach($sales as $sale)
         {
-            $sale->utility = 0;
-            $sale->u_percentage = 0;
-
-            foreach($sale->movements as $movement) {
-                $movement->utility = $movement->selling_price - $movement->purchase_price;
-
-                if ($movement->purchase_price == 0) {
-                    $movement->u_percentage = 100.00;
-                }  else {
-                    $movement->u_percentage = ($movement->selling_price / $movement->purchase_price - 1) * 100;
-                }
-
-                $sale->utility += $movement->utility;
-                $sale->u_percentage += $movement->u_percentage;
-
-                $sale_global['total_purchase']     += $movement->purchase_price;
-                $sale_global['total_sale']         += $movement->selling_price;
-                $sale_global['total_utility']      += $movement->utility;
-                $sale_global['total_u_percentage'] += $movement->u_percentage;
-
-                $movement->u_percentage = number_format($movement->u_percentage, 2, '.', ',');
-            }
-            $sale->u_percentage /= $sale->movements->count();
+            $sale_global['total_purchase']     += $sale->getTotalPurchase();
+            $sale_global['total_sale']         += $sale->total;
+            $sale_global['total_utility']      += $sale->utility;
+            $sale_global['total_u_percentage'] += $sale->u_percentage;
         }
         if ($sales->count()) {
             $sale_global['total_u_percentage'] /= $sales->count();

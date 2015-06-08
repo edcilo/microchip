@@ -17,15 +17,25 @@ class DepartmentsTableSeeder extends Seeder
         ]);
 
         Department::create([
-            'name'            => 'Ventas',
-            'description'    => 'Empleado de ventas de mostrador.',
-            'slug'            => \Str::slug('Ventas'),
+            'name'          => 'Ventas',
+            'description'   => 'Empleado de ventas de mostrador.',
+            'slug'          => \Str::slug('Ventas'),
         ]);
 
         Department::create([
-            'name'            => 'Almacen',
-            'description'    => 'Empleado de control de almacen e inventario.',
-            'slug'            => \Str::slug('Almacen'),
+            'name'          => 'Almacen',
+            'description'   => 'Empleado de control de almacen e inventario.',
+            'slug'          => \Str::slug('Almacen'),
         ]);
+
+        for ($i = 0; $i < 150; $i++) {
+            $name = $faker->name;
+
+            Department::create([
+                'name'          => $name,
+                'description'   => $faker->text(),
+                'slug'          => \Str::slug($name),
+            ]);
+        }
     }
 }

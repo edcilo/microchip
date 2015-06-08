@@ -15,6 +15,7 @@ use microchip\pay\PayUpdOutManager;
 use microchip\pay\PayRegisterOutSaleManager;
 use microchip\pay\PayChangeRegisterManager;
 use microchip\helpers\NumberToLetter;
+use microchip\paymentConcept\PaymentConceptRepo;
 
 class PayController extends \BaseController
 {
@@ -24,6 +25,7 @@ class PayController extends \BaseController
     protected $couponRepo;
     protected $configRepo;
     protected $customerRepo;
+    protected $conceptRepo;
 
     public function __construct(
         PayRepo             $payRepo,
@@ -31,7 +33,8 @@ class PayController extends \BaseController
         CompanyRepo         $companyRepo,
         CouponRepo          $couponRepo,
         ConfigurationRepo   $configurationRepo,
-        CustomerRepo        $customerRepo
+        CustomerRepo        $customerRepo,
+        PaymentConceptRepo  $conceptRepo
     ) {
         $this->payRepo      = $payRepo;
         $this->saleRepo     = $saleRepo;
@@ -39,6 +42,7 @@ class PayController extends \BaseController
         $this->couponRepo   = $couponRepo;
         $this->configRepo   = $configurationRepo;
         $this->customerRepo = $customerRepo;
+        $this->conceptRepo  = $conceptRepo;
     }
 
     /**
@@ -339,7 +343,9 @@ class PayController extends \BaseController
 
     public function out()
     {
-        return View::make('pay.create_out');
+        $concepts = $this->conceptRepo->lists('concept', 'id');
+
+        return View::make('pay.create_out', compact('concepts'));
     }
 
     public function storeOut()
@@ -361,9 +367,11 @@ class PayController extends \BaseController
         $pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
 
+        $concepts = $this->conceptRepo->lists('concept', 'id');
+
         $pay->amount *= -1;
 
-        return View::make('pay.edit_out', compact('pay'));
+        return View::make('pay.edit_out', compact('pay', 'concepts'));
     }
 
     public function updateOut($id)
@@ -445,9 +453,11 @@ class PayController extends \BaseController
         $pay = $this->payRepo->find($id);
         $this->notFoundUnless($pay);
 
+        $concepts = $this->conceptRepo->lists('concept', 'id');
+
         $pay->amount *= -1;
 
-        return View::make('pay.change', compact('pay'));
+        return View::make('pay.change', compact('pay', 'concepts'));
     }
 
     public function changeIn($id)

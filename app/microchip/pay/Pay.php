@@ -11,6 +11,7 @@ class Pay extends BaseEntity
         'amount',
         'change',
         'pending',
+        'concept_id',
         'description',
         'method',
         'reference',
@@ -52,5 +53,10 @@ class Pay extends BaseEntity
     public function coupon()
     {
         return $this->belongsTo('microchip\coupon\Coupon');
+    }
+
+    public function concept()
+    {
+        return $this->belongsTo('microchip\paymentConcept\PaymentConcept', 'concept_id');
     }
 }

@@ -11,7 +11,8 @@ class PayRegisterOutManager extends BaseManager
         return [
             'amount'            => 'required|numeric',
             'change_check'      => 'boolean',
-            'description'       => 'required|max:255',
+            'concept_id'        => 'required|exists:payment_concepts,id',
+            'description'       => 'max:255',
             'date'              => 'required|date',
             'user_id'           => 'required|exists:users,id',
             'user_receiving_id' => 'required|exists:users,id',

@@ -15,7 +15,11 @@
 </div>
 
 <div class="row text-center">
-    {{ Form::submit('Registrar') }}
+    <button type="submit" class="btn-green">
+        <i class="fa fa-save"></i>
+        Guardar
+    </button>
+
     {{ Form::reset('Limpiar formulario') }}
 </div>
 

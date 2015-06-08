@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             @foreach($pays as $pay)
-                @if($pay->sale AND $pay->method == 'Efectivo')
+                @if($pay->sale AND $pay->method == 'Efectivo' AND $pay->amount > 0)
                     <tr>
                         <td>
                             <a href="

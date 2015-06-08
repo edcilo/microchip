@@ -14,7 +14,7 @@
     @foreach($pending as $pay)
         <tr>
             <td class="text-right">{{ -1 * $pay->amount }}</td>
-            <td>{{ $pay->description }}</td>
+            <td>@if($pay->concept) {{ $pay->concept->concept }}; @endif {{ $pay->description }}</td>
             <td>{{ $pay->user->profile->full_name }}</td>
             <td>{{ $pay->user_receiving->profile->full_name }}</td>
             <td class="text-center">

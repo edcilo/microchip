@@ -68,6 +68,24 @@ class Sale extends BaseEntity
         return number_format($total, 2, '.', $f);
     }
 
+    public function getUtilityAttribute()
+    {
+        $utility = $this->getTotalAttribute() - $this->getTotalPurchase() + $this->getExpensesTotalAttribute();
+
+        return $utility;
+    }
+
+    public function getUPercentageAttribute()
+    {
+        if ($this->getTotalPurchase() != 0) {
+            $percentage = ($this->getPaymentTotalAttribute()/$this->getTotalPurchase() - 1) * 100;
+        } else {
+            $percentage = 100;
+        }
+
+        return $percentage;
+    }
+
     public function getTotalServicesAttribute()
     {
         $total = 0;
@@ -126,6 +144,19 @@ class Sale extends BaseEntity
     public function getPaymentTotalAttribute($f = '')
     {
         $total = $this->payments->sum('amount') - $this->payments->sum('change');
+
+        return number_format($total, 2, '.', $f);
+    }
+
+    public function getExpensesTotalAttribute($f = '')
+    {
+        $total = 0;
+
+        foreach ($this->payments as $payment) {
+            if ($payment->amount < 0) {
+                $total += $payment->amount;
+            }
+        }
 
         return number_format($total, 2, '.', $f);
     }

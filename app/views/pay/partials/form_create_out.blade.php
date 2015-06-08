@@ -17,7 +17,15 @@
     </div>
 
     <div class="row">
-        <strong>{{ Form::label('description', 'Concepto: ', ['class'=>'label50']) }}</strong>
+        <strong>{{ Form::label('concept_id', 'Concepto: ', ['class'=>'label50']) }}</strong>
+        {{ Form::select('concept_id', $concepts, null, ['rows'=>'2', 'title'=>'Este campo es obligatorio.']) }}
+        <div class="message-error">
+            {{ $errors->first('concept_id', '<span>:message</span>') }}
+        </div>
+    </div>
+
+    <div class="row">
+        <strong>{{ Form::label('description', 'Observaciones: ', ['class'=>'label50']) }}</strong>
         {{ Form::textarea('description', null, ['rows'=>'2', 'title'=>'Este campo es obligatorio.']) }}
         <div class="message-error">
             {{ $errors->first('description', '<span>:message</span>') }}

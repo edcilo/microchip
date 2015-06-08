@@ -16,6 +16,7 @@ class CreatePaysTable extends Migration
             $table->decimal('amount');
             $table->decimal('change');
             $table->boolean('pending');
+            $table->unsignedInteger('concept_id');
             $table->string('description');
 
             $table->enum('method', ['Efectivo', 'Tarjeta de crédito/débito', 'Cheque', 'Transferencia', 'Vale', 'Monedero']);

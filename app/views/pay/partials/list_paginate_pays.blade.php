@@ -27,7 +27,7 @@
             <td>{{ $pay->method }}</td>
             <td>{{ $pay->reference }}</td>
             <td>{{ $pay->entity }}</td>
-            <td>{{ $pay->description }}</td>
+            <td>@if($pay->concept) {{ $pay->concept->concept }}; @endif {{ $pay->description }}</td>
             <td class="text-center">{{ $pay->date_f }}</td>
             <td class="text-center">
 

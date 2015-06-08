@@ -103,7 +103,7 @@ class BankController extends \BaseController
 
         $cheques        = ($list) ? $this->chequeRepo->getByBank($bank->id, 'folio', 'asc') : $this->chequeRepo->getByBank($bank->id, 'folio', 'asc', 0);
         $status_list    = $this->status_list;
-        $data_strip        = ['status' => '', 'provider_id' => '', 'date_start' => '', 'date_end' => ''];
+        $data_strip     = ['status' => '', 'provider_id' => '', 'date_start' => '', 'date_end' => ''];
 
         return View::make('bank.show', compact('bank', 'cheques', 'list', 'status_list', 'data_strip'));
     }

@@ -67,12 +67,12 @@ class InventoryMovementController extends \BaseController
             $movements    = [];
 
             while ($quantity > 0) {
-                $first                    = $this->movementRepo->firstIn($data['product_id']);
-                $data['purchase_price']    = $first->purchase_price;
+                $first                   = $this->movementRepo->firstIn($data['product_id']);
+                $data['purchase_price']  = $first->purchase_price;
                 $data['quantity']        = ($quantity > $first->in_stock) ? $first->in_stock : $quantity;
 
                 $movement                = $this->movementRepo->newMovement();
-                $manager                = new InventoryMovementRegManager($movement, $data);
+                $manager                 = new InventoryMovementRegManager($movement, $data);
                 $manager->save();
 
                 array_push($movements, $movement);

@@ -10,10 +10,10 @@
     </div>
 
     <div class="row flo col33 center">
-        {{ Form::label('product_id', 'Producto: ', ['class'=>'label50']) }} <br/>
-        {{ Form::text('product_id', null, ['class'=>'bg-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::label('barcode', 'Producto: ', ['class'=>'label50']) }} <br/>
+        {{ Form::text('barcode', null, ['class'=>'bg-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
         <div class="message-error">
-            {{ $errors->first('product_id', '<span>:message</span>') }}
+            {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>
     </div>
 

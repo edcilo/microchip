@@ -15,7 +15,7 @@ class SeriesTableSeeder extends Seeder
                 'ns'                    => 'LAP.N5110.1.'.$i,
                 'status'                => 'Disponible',
                 'product_id'            => 1,
-                'inventory_movement_id'    => 4,
+                'inventory_movement_id' => 4,
             ]);
         }
 
@@ -24,7 +24,7 @@ class SeriesTableSeeder extends Seeder
                 'ns'                    => 'JOY.MM.80.'.$i,
                 'status'                => 'Disponible',
                 'product_id'            => 2,
-                'inventory_movement_id'    => 1,
+                'inventory_movement_id' => 1,
             ]);
         }
 
@@ -33,7 +33,7 @@ class SeriesTableSeeder extends Seeder
                 'ns'                    => 'MOU.317.'.$i,
                 'status'                => 'Disponible',
                 'product_id'            => 4,
-                'inventory_movement_id'    => 6,
+                'inventory_movement_id' => 6,
             ]);
         }
     }

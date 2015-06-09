@@ -3,6 +3,7 @@
 namespace microchip\inventoryMovement;
 
 use microchip\base\BaseManager;
+use microchip\product\ProductRepo;
 
 class InventoryMovementRegManager extends BaseManager
 {
@@ -12,7 +13,7 @@ class InventoryMovementRegManager extends BaseManager
         $total          = $movementRepo->totalStock(\Input::get('product_id'));
 
         $rules = [
-            'product_id'     => 'required|exists:products,id',
+            'barcode'        => 'required|exists:products,barcode',
             'quantity'       => 'required|integer',
             'status'         => 'required|in:in,out',
             'purchase_price' => 'numeric|required_if:status,in',
@@ -30,6 +31,10 @@ class InventoryMovementRegManager extends BaseManager
     public function prepareData($data)
     {
         $this->stripTags($data);
+
+        $product_repo       = new ProductRepo();
+        $product            = $product_repo->getByBarcode($data['barcode']);
+        $data['product_id'] = $product->id;
 
         if ($data['status'] == 'out') {
             $data['in_stock']       = 0;

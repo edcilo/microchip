@@ -30,7 +30,7 @@ class BanksTableSeeder extends Seeder
             'slug'                 => \Str::slug('Scotiabank'),
         ]);
 
-        for ($i = 0; $i < 150; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $name = $faker->word;
 
             Bank::create([

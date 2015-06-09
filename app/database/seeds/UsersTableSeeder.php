@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
             'department_id'    => 3,
         ]);
 
-        for ($i = 0; $i < 147; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $username = $faker->userName;
 
             User::create([

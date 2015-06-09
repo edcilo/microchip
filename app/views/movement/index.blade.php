@@ -2,7 +2,9 @@
 
 @section ('title') / Movimientos de inventario @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/admin.js') }}
+@stop
 
 @section ('content')
 
@@ -13,6 +15,8 @@
 
         <div class="flo col50 text-right">
             @include('movement.partials.btn_create')
+
+            @include('movement.partials.form_create_float')
         </div>
     </div>
 
@@ -22,6 +26,7 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th>Fecha</th>
                     <th>Acción</th>
                     <th>Cantidad</th>
@@ -38,6 +43,7 @@
                 <tbody>
                 @foreach ($movements as $movement)
                     <tr class="{{ $movement->class_row_series }}">
+                        <td>{{ $movement->id }}</td>
                         <td class="text-center">{{ $movement->created_at->format('h:i:s A / d-m-Y') }}</td>
                         <td class="text-center">
                             @if ( $movement->status == 'in' )
@@ -65,9 +71,9 @@
                                 @endif
                             @endif
 
-                                @if( !count($movement->sales) AND !count($movement->purchases) )
-                                    @include('movement.partials.form_destroy')
-                                @endif
+                            @if( !count($movement->sales) AND !count($movement->purchases) )
+                                @include('movement.partials.btn_destroy')
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -75,6 +81,8 @@
             </table>
 
             {{ $movements->links() }}
+
+            @include('movement.partials.form_destroy_float')
 
         @else
             <p class="title-clear">No hay movimientos registrados.</p>

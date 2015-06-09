@@ -339,9 +339,11 @@ class InventoryMovementController extends \BaseController
 
         $this->movementRepo->destroy($id);
 
-        return (Request::ajax()) ?
-            Response::json($this->msg200 + ['data' => $movement]) :
-            Redirect::back();
+        if (Request::ajax()) {
+            return Response::json($this->msg200 + ['data' => $movement, 'message' => 'Movimiento No. ' . $movement->id]);
+        } else {
+            return Redirect::back();
+        }
     }
 
     public function destroySimple($id)
@@ -364,7 +366,11 @@ class InventoryMovementController extends \BaseController
 
         $movement->delete();
 
-        return Redirect::route('movement.index')->with('message', 'El movimiento se elimino correctamente.');
+        if (Request::ajax()) {
+            return Response::json($this->msg200 + ['data' => $movement, 'message' => 'Movimiento No. ' . $movement->id]);
+        } else {
+            return Redirect::route('movement.index')->with('message', 'El movimiento se elimino correctamente.');
+        }
     }
 
     public function newMovementIn($movement)

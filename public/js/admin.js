@@ -192,6 +192,8 @@ var element_delete = function (button) {
                         var name = result.data.name;
 
                         if ( typeof(name) == "undefined" )
+                            name = result.message;
+                        if ( typeof(name) == "undefined" )
                             name = result.data.barcode;
                         if ( typeof(name) == "undefined" )
                             name = result.data.username;

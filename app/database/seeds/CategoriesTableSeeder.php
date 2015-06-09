@@ -45,7 +45,7 @@ class CategoriesTableSeeder extends Seeder
             'slug'            => \Str::slug('Mouses'),
         ]);
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $name = $faker->word;
 
             Category::create([

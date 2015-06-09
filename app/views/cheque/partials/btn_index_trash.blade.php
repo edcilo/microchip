@@ -1,4 +1,4 @@
-<a class="btn-red" href="{{ route('bank.show', [$bank->slug, $bank->id, 0]) }}">
+<a class="btn-red" href="{{ route('bank.show', [0, $bank->slug, $bank->id]) }}">
     <i class="fa fa-trash"></i>
     Ver papelera de cheques
 </a>

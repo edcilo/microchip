@@ -1,6 +1,6 @@
 @if( p(8) AND $bank->active )
 
-    {{ Form::open(['route' => ['bank.soft.delete', $bank->id], 'method' => 'get', 'role' => 'form', 'id' => 'form-recycle']) }}
+    {{ Form::open(['route' => ['bank.soft.delete', $bank->id], 'method' => 'get', 'role' => 'form']) }}
 
     <button type="submit" class="btn-red">
         <i class="fa fa-trash"></i>

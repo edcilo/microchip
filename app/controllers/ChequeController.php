@@ -15,12 +15,12 @@ class ChequeController extends \BaseController
     protected $status_list = ['Pagado' => 'Pagado','Post-fechado' => 'Post-fechado','Cancelado' => 'Cancelado','Elaborado' => 'Elaborado'];
 
     public function __construct(
-        ChequeRepo        $chequeRepo,
+        ChequeRepo      $chequeRepo,
         BankRepo        $bankRepo,
         BankCountRepo   $bankCountRepo
     ) {
-        $this->chequeRepo    = $chequeRepo;
-        $this->bankRepo        = $bankRepo;
+        $this->chequeRepo   = $chequeRepo;
+        $this->bankRepo     = $bankRepo;
         $this->countRepo    = $bankCountRepo;
     }
 
@@ -121,7 +121,7 @@ class ChequeController extends \BaseController
 
         $status_list = $this->status_list;
 
-        return View::make('cheque/edit', compact('cheque', 'status_list'));
+        return View::make('cheque.edit', compact('cheque', 'status_list'));
     }
 
     /**

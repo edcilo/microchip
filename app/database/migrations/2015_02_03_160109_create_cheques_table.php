@@ -15,7 +15,7 @@ class CreateChequesTable extends Migration
 
             $table->string('folio');
 
-            $table->date('payment_date');
+            $table->date('payment_date')->nullable();
             $table->decimal('amount', '15', '2');
             $table->string('receiver', 120);
 

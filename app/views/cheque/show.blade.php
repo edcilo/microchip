@@ -12,7 +12,7 @@
     <div class="flo col30">&nbsp;</div>
 
     <div class="flo col40 text-right">
-        <a class="btn-blue" href="{{ route('bank.show', [$cheque->bank->slug, $cheque->bank->id, 1]) }}">
+        <a class="btn-blue" href="{{ route('bank.show', [1, $cheque->bank->slug, $cheque->bank->id]) }}">
             <i class="fa fa-list"></i> Volver a {{ $cheque->bank->name }}
         </a>
     </div>

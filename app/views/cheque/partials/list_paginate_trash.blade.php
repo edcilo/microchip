@@ -13,9 +13,15 @@
     @foreach($cheques as $cheque)
         <tr>
             <td>{{ $cheque->folio }}</td>
-            <td>{{ $cheque->status }}</td>
-            <td>{{ $cheque->payment_date }}</td>
-            <td class="text-right">$ {{ $cheque->amount }}</td>
+            <td>
+                <nobr>{{ $cheque->status }}</nobr>
+            </td>
+            <td class="text-center">
+                <nobr>{{ $cheque->payment_date_f }}</nobr>
+            </td>
+            <td class="text-right">
+                <nobr>$ {{ $cheque->amount }}</nobr>
+            </td>
             <td>{{ $cheque->concept }}</td>
             <td class="text-center">
                 <nobr>

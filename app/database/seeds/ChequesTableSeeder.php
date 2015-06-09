@@ -15,9 +15,9 @@ class ChequesTableSeeder extends Seeder
 
             Cheque::create([
                 'folio'         => '000000'.$index,
-                'payment_date'  => ($status != 'Disponible') ? $faker->dateTimeThisYear : '',
+                'payment_date'  => ($status != 'Disponible') ? $faker->dateTimeThisYear : null,
                 'amount'        => ($status != 'Disponible') ? $faker->numberBetween(100, 10000) : 0,
-                'receiver'      => '',
+                'receiver'      => ($status != 'Disponible') ? $faker->name : '',
                 'concept'       => ($status != 'Disponible') ? $faker->text() : '',
                 'status'        => $status,
                 'active'        => $faker->randomElement([1,0,1,1]),

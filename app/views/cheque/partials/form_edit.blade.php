@@ -24,7 +24,7 @@
 
     <div class="flo col33 row left">
         {{ Form::label('payment_date', 'Fecha de pago: ') }} <br/>
-        {{ Form::text('payment_date', ( $cheque->payment_date == 0 ) ? date('Y-m-d') : $cheque->payment_date, ['class'=>'text-right', 'title'=>'Este campo es obligatorio y debe almacenar una fecha con el formato "AAAA-MM-DD".', 'data-required'=>'required', 'data-date'=>'date']) }}
+        {{ Form::input('date', 'payment_date', ( $cheque->payment_date == 0 ) ? date('Y-m-d') : $cheque->payment_date, ['class'=>'text-right', 'title'=>'Este campo es obligatorio y debe almacenar una fecha con el formato "AAAA-MM-DD".', 'data-required'=>'required', 'data-date'=>'date']) }}
         <div class="message-error">
             {{ $errors->first('payment_date', '<span>:message</span>') }}
         </div>

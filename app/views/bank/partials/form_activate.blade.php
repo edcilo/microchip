@@ -1,6 +1,6 @@
 @if(p(9) AND !$bank->active)
 
-    {{ Form::open(['route' => ['bank.restore', $bank->id], 'method' => 'get', 'role' => 'form', 'id' => 'form-active']) }}
+    {{ Form::open(['route' => ['bank.restore', $bank->id], 'method' => 'get', 'role' => 'form']) }}
 
         <button type="submit" class="btn-green">
             <i class="fa fa-arrow-up"></i>

@@ -1,5 +1,7 @@
-<div class="description-product" title="Registrar cheques" id="dialogRegister" data-width="800">
+@if( p(12) )
+    <div class="description-product" title="Registrar cheques" id="dialogRegister" data-width="800">
 
-    @include('cheque.partials.form_create')
+        @include('cheque.partials.form_create')
 
-</div>
+    </div>
+@endif

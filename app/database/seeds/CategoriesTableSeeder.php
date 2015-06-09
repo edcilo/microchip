@@ -44,5 +44,16 @@ class CategoriesTableSeeder extends Seeder
             'description'    => $faker->text(),
             'slug'            => \Str::slug('Mouses'),
         ]);
+
+        for ($i = 0; $i < 500; $i++) {
+            $name = $faker->word;
+
+            Category::create([
+                'name'           => $name,
+                'image'          => 'images/category/default.png',
+                'description'    => $faker->text(),
+                'slug'           => \Str::slug($name),
+            ]);
+        }
     }
 }

@@ -44,5 +44,16 @@ class MarksTableSeeder extends Seeder
             'description'    => $faker->text(),
             'slug'            => \Str::slug('HP'),
         ]);
+
+        for ($i = 0; $i < 500; $i++) {
+            $name = $faker->word;
+
+            Mark::create([
+                'name'           => $name,
+                'image'          => 'images/mark/default.png',
+                'description'    => $faker->text(),
+                'slug'           => \Str::slug($name),
+            ]);
+        }
     }
 }

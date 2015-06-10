@@ -63,6 +63,7 @@ class SaleController extends \BaseController
      */
     public function create()
     {
+        // todo validar que el producto no este en papelera
         $global = $this->configRepo->first();
         $sale   = $this->saleRepo->newSale();
 

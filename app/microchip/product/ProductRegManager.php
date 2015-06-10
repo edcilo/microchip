@@ -8,7 +8,7 @@ class ProductRegManager extends BaseManager
 {
     public function getRules()
     {
-        return [
+        $rules = [
             'barcode'       => 'required|unique:products',
             'type'          => 'in:Producto,Servicio',
             's_description' => 'required|max:120',
@@ -26,6 +26,26 @@ class ProductRegManager extends BaseManager
             'web'           => 'boolean',
             'active'        => 'boolean',
         ];
+
+        if ($this->data['type'] == 'Producto') {
+            $rules += [
+                'model'             => 'required|max:120',
+                'have_series'       => 'boolean',
+                'purchase_price'    => 'required|numeric',
+                'data_sheet'        => 'mimes:jpg,png,gif,pdf',
+                'box'               => 'boolean',
+                'pieces'            => 'integer',
+                'stock_min'         => 'integer',
+                'stock_max'         => 'integer',
+                'provider'          => 'max:120',
+                'provider_barcode'  => 'max:120',
+                'provider_warranty' => 'integer',
+                'category_id'       => 'required|exists:categories,id',
+                'mark_id'           => 'required|exists:marks,id',
+            ];
+        }
+
+        return $rules;
     }
 
     public function prepareData($data)

@@ -16,6 +16,11 @@ class ProductRepo extends BaseRepo
         return $product = new Product();
     }
 
+    public function find($id)
+    {
+        return Product::where('id', $id)->with('pDescription')->first();
+    }
+
     public function getType($type, $active = 1,  $like = 'all', $column = 'id', $order = 'ASC')
     {
         $q = Product::where('type', $type)

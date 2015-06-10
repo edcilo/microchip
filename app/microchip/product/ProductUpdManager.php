@@ -8,7 +8,7 @@ class ProductUpdManager extends BaseManager
 {
     public function getRules()
     {
-        return [
+        $rules = [
             'barcode'       => 'required|unique:products,barcode,'.$this->entity->id,
             'type'          => 'in:Producto,Servicio',
             's_description' => 'required|max:120',
@@ -26,6 +26,26 @@ class ProductUpdManager extends BaseManager
             'web'           => 'boolean',
             'active'        => 'boolean',
         ];
+
+        if ($this->entity->type == 'Producto') {
+            $rules += [
+                'model'             => 'required|max:120',
+                'have_series'       => 'boolean',
+                'purchase_price'    => 'required|numeric',
+                'data_sheet'        => 'mimes:jpeg,png,gif,pdf',
+                'box'               => 'boolean',
+                'pieces'            => 'integer',
+                'stock_min'         => 'integer',
+                'stock_max'         => 'integer',
+                'provider'          => 'max:120',
+                'provider_barcode'  => 'max:120',
+                'provider_warranty' => 'integer',
+                'category_id'       => 'required|exists:categories,id',
+                'mark_id'           => 'required|exists:marks,id',
+            ];
+        }
+
+        return $rules;
     }
 
     public function prepareData($data)
@@ -36,6 +56,7 @@ class ProductUpdManager extends BaseManager
         $data['barcode']    = str_replace(['-', ' '], '.', $data['barcode']);
         $data['active']     = 1;
         $data['slug']       = \Str::slug($data['barcode']);
+        $data['type']       = $this->entity->type;
 
         $path           = 'images/product';
         if ($this->entity->image != 'images/product/default.png') {

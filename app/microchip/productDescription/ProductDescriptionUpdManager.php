@@ -12,7 +12,7 @@ class ProductDescriptionUpdManager extends BaseManager
             'model'             => 'required|max:120',
             'have_series'       => 'boolean',
             'purchase_price'    => 'required|numeric',
-            'data_sheet'        => 'mimes:jpg,png,gif,pdf',
+            'data_sheet'        => 'mimes:jpeg,png,gif,pdf',
             'box'               => 'boolean',
             'pieces'            => 'integer',
             'stock_min'         => 'integer',
@@ -22,7 +22,6 @@ class ProductDescriptionUpdManager extends BaseManager
             'provider_warranty' => 'integer',
             'category_id'       => 'required|exists:categories,id',
             'mark_id'           => 'required|exists:marks,id',
-            'product_id'        => 'required|exists:products,id',
         ];
     }
 

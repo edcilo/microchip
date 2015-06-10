@@ -45,7 +45,7 @@ class MarksTableSeeder extends Seeder
             'slug'            => \Str::slug('HP'),
         ]);
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $name = $faker->word;
 
             Mark::create([

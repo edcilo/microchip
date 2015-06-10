@@ -11,8 +11,8 @@ class ProductDescriptionRepo extends BaseRepo
         return new ProductDescription();
     }
 
-    public function newDescription()
+    public function newDescription(array $data = array())
     {
-        return $description = new ProductDescription();
+        return $description = new ProductDescription($data);
     }
 }

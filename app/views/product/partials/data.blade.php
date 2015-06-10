@@ -109,11 +109,6 @@
                     </li>
                 @endif
             </ul>
-            @if ( is_object( $product->p_description ) )
-                <div class="col col100">
-                    <a href="{{ route('product.description.edit', [$product->slug, $product->p_description->id]) }}">Modificar datos</a>
-                </div>
-            @endif
         </div>
     </div>
 

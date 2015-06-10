@@ -20,7 +20,7 @@
                 <td>$ {{ $product->p_description->purchase_price }}</td>
                 <td>{{ $product->utility_1 }} %</td>
             @endif
-            <td>$ {{ $product->price_1 }}</td>
+            <td>@if ($product->offer == 1) (precio de oferta) @endif $ {{ $product->price_1 }}</td>
             <td>16 %</td>
             <td>$ {{ $product->price_iva_1 }}</td>
         </tr>
@@ -29,7 +29,7 @@
                 <td></td>
                 <td>{{ $product->utility_2 }} %</td>
             @endif
-            <td>$ {{ $product->price_2 }}</td>
+            <td>@if ($product->offer == 2) (precio de oferta) @endif $ {{ $product->price_2 }}</td>
             <td></td>
             <td>$ {{ $product->price_iva_2 }}</td>
         </tr>
@@ -38,7 +38,7 @@
                 <td></td>
                 <td>{{ $product->utility_3 }} %</td>
             @endif
-            <td>$ {{ $product->price_3 }}</td>
+            <td>@if ($product->offer == 3) (precio de oferta) @endif $ {{ $product->price_3 }}</td>
             <td></td>
             <td>$ {{ $product->price_iva_3 }}</td>
         </tr>
@@ -47,7 +47,7 @@
                 <td></td>
                 <td>{{ $product->utility_4 }} %</td>
             @endif
-            <td>$ {{ $product->price_4 }}</td>
+            <td>@if ($product->offer == 4) (precio de oferta) @endif $ {{ $product->price_4 }}</td>
             <td></td>
             <td>$ {{ $product->price_iva_4 }}</td>
         </tr>
@@ -56,7 +56,7 @@
                 <td></td>
                 <td>{{ $product->utility_5 }} %</td>
             @endif
-            <td>$ {{ $product->price_5 }}</td>
+            <td>@if ($product->offer == 5) (precio de oferta) @endif $ {{ $product->price_5 }}</td>
             <td></td>
             <td>$ {{ $product->price_iva_5 }}</td>
         </tr>

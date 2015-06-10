@@ -5,21 +5,35 @@ use microchip\series\SeriesRepo;
 use microchip\product\ProductFormat;
 use microchip\product\ProductRegManager;
 use microchip\product\ProductUpdManager;
+use microchip\productDescription\ProductDescriptionRepo;
+use microchip\category\CategoryRepo;
+use microchip\mark\MarkRepo;
+use microchip\productDescription\ProductDescriptionRegManager;
+use microchip\productDescription\ProductDescriptionUpdManager;
 
 class ProductController extends \BaseController
 {
     protected $productRepo;
     protected $seriesRepo;
     protected $productFormat;
+    protected $descriptionRepo;
+    protected $categoryRepo;
+    protected $markRepo;
 
     public function __construct(
-        ProductRepo        $productRepo,
-        SeriesRepo        $seriesRepo,
-        ProductFormat    $productFormat
+        ProductRepo             $productRepo,
+        SeriesRepo              $seriesRepo,
+        ProductFormat           $productFormat,
+        ProductDescriptionRepo  $descriptionRepo,
+        CategoryRepo            $categoryRepo,
+        MarkRepo                $markRepo
     ) {
-        $this->productRepo        = $productRepo;
-        $this->seriesRepo        = $seriesRepo;
+        $this->productRepo      = $productRepo;
+        $this->seriesRepo       = $seriesRepo;
         $this->productFormat    = $productFormat;
+        $this->descriptionRepo  = $descriptionRepo;
+        $this->categoryRepo     = $categoryRepo;
+        $this->markRepo         = $markRepo;
     }
 
     /**
@@ -82,11 +96,14 @@ class ProductController extends \BaseController
             $s_type = 'Servicio';
         } elseif ($type == 'product') {
             $s_type = 'Producto';
+
+            $category_list    = ['' => 'Selecciona...'] + $this->categoryRepo->lists('name', 'id', 'name');
+            $mark_list        = ['' => 'Selecciona...'] + $this->markRepo->lists('name', 'id', 'name');
         } else {
             App::abort(404);
         }
 
-        return View::make('product/create', compact('type', 's_type'));
+        return View::make('product/create', compact('type', 's_type', 'category_list', 'mark_list'));
     }
 
     /**
@@ -97,10 +114,18 @@ class ProductController extends \BaseController
      */
     public function store()
     {
-        // todo registrar automaticamente la descripcion del producto;
+        $data = Input::all();
+
         $product    = $this->productRepo->newProduct();
-        $manager    = new ProductRegManager($product, Input::all());
+        $manager    = new ProductRegManager($product, $data);
         $manager->save();
+
+        if ($product->type == 'Producto') {
+            $data['product_id'] = $product->id;
+            $description = $this->descriptionRepo->newDescription();
+            $manager     = new ProductDescriptionRegManager($description, $data);
+            $manager->save();
+        }
 
         if (Request::ajax()) {
             $response = $this->msg200 + ['data' => $product];
@@ -108,11 +133,7 @@ class ProductController extends \BaseController
             return Response::json($response);
         }
 
-        if ($product->type == 'Producto') {
-            return Redirect::route('product.description.create', [$product->slug, $product->id]);
-        } else {
-            return Redirect::route('product.show', [$product->slug, $product->id]);
-        }
+        return Redirect::route('product.show', [$product->slug, $product->id]);
     }
 
     /**
@@ -157,9 +178,19 @@ class ProductController extends \BaseController
         $product->r_type = ($product->type == 'Servicio') ? 'service' : 'product';
         $s_type = $product->type;
         $tipo = $product->type;
-        $type = ($tipo == 'Producto') ? 'product' : 'service';
 
-        return View::make('product/edit', compact('type', 'tipo', 'product', 's_type'));
+        if ($tipo == 'Producto') {
+            $type = 'product';
+
+            $category_list    = ['' => 'Selecciona...'] + $this->categoryRepo->lists('name', 'id', 'name');
+            $mark_list        = ['' => 'Selecciona...'] + $this->markRepo->lists('name', 'id', 'name');
+        } else {
+            $type = 'service';
+        }
+        //$type = ($tipo == 'Producto') ? 'product' : 'service';
+
+
+        return View::make('product/edit', compact('type', 'tipo', 'product', 's_type', 'category_list', 'mark_list'));
     }
 
     /**
@@ -172,11 +203,18 @@ class ProductController extends \BaseController
      */
     public function update($id)
     {
+        $data = Input::all();
+
         $product = $this->productRepo->find($id);
         $this->notFoundUnless($product);
 
-        $manager = new ProductUpdManager($product, Input::all());
+        $manager = new ProductUpdManager($product, $data);
         $manager->save();
+
+        if ($product->type == 'Producto') {
+            $manager = new ProductDescriptionUpdManager($product->pDescription, $data);
+            $manager->save();
+        }
 
         if (Request::ajax()) {
             $response = $this->msg200 + ['data' => $product];

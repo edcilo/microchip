@@ -61,6 +61,16 @@
 
 </div>
 
+@if ($s_type == 'Producto')
+
+    <hr/>
+
+    @include('productDescription.partials.formCreate', ['desc' => (isset($product)) ? $product->pDescription : null])
+
+    <hr/>
+
+@endif
+
 <div class="col col100">
 
     <div class="flo col70 row left">
@@ -170,7 +180,7 @@
 
 
 <div class="row text-center">
-    {{ Form::submit('Registrar') }}
+    {{ Form::submit('Guardar') }}
     {{ Form::reset('Limpiar formulario') }}
 </div>
 

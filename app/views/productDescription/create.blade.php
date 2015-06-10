@@ -25,7 +25,15 @@
             <h2 class="header">Datos del producto</h2>
 
             {{ Form::open(['route'=>'product.description.store', 'method'=>'post', 'files'=>'true', 'class'=>'form validate', 'novalidate']) }}
+
             @include('productDescription/partials/formCreate')
+
+            <div class="col col100 row text-center">
+                <button type="submit" class="btn-green">
+                    <i class="fa fa-save"></i> Guardar
+                </button>
+            </div>
+            {{ Form::close() }}
 
         </div>
 

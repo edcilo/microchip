@@ -81,5 +81,24 @@ class ProductDescriptionsTableSeeder extends Seeder
             'mark_id'            => '3',
             'product_id'        => '4',
         ]);
+
+        for ($i = 8; $i < 108; $i++) {
+            ProductDescription::create([
+                'model'             => $faker->creditCardNumber(),
+                'have_series'       => $faker->randomElement([1,0]),
+                'purchase_price'    => $faker->numberBetween(30,500),
+                'data_sheet'        => '',
+                'box'               => '0',
+                'pieces'            => '0',
+                'stock_min'         => $faker->numberBetween(0,5),
+                'stock_max'         => $faker->numberBetween(6,20),
+                'provider'          => '',
+                'provider_barcode'  => $faker->creditCardNumber(),
+                'provider_warranty' => $faker->numberBetween(30, 365),
+                'category_id'       => $faker->numberBetween(1, 15),
+                'mark_id'           => $faker->numberBetween(1, 25),
+                'product_id'        => $i,
+            ]);
+        }
     }
 }

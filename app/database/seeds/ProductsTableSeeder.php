@@ -149,5 +149,29 @@ class ProductsTableSeeder extends Seeder
             'active'        => 1,
             'slug'            => \Str::slug('SER.FORMATEO.RESP'),
         ]);
+
+        for ($i = 0; $i < 100; $i++) {
+            $barcode = $faker->creditCardNumber();
+
+            Product::create([
+                'barcode'        => $barcode,
+                'type'           => $faker->randomElement(['Producto', 'Producto', 'Servicio']),
+                's_description'  => $faker->paragraph(),
+                'description'    => $faker->text(),
+                'image'          => 'images/product/default.png',
+                'price_1'        => $faker->numberBetween(401, 1000),
+                'price_2'        => $faker->numberBetween(251, 400),
+                'price_3'        => $faker->numberBetween(151, 250),
+                'price_4'        => $faker->numberBetween(101, 150),
+                'price_5'        => $faker->numberBetween(50, 100),
+                'offer'          => $faker->numberBetween(0, 5),
+                'points'         => $faker->randomElement([0.2,0.3,0.5,0.7,1,2,3]),
+                'r_points'       => $faker->randomElement([0.1,0.2,0.4,0.6,0.8,1.5,2.2]),
+                'warranty'       => $faker->randomElement([30,60,365]),
+                'web'            => $faker->randomElement([1,0,1]),
+                'active'         => $faker->randomElement([1,1,0,1]),
+                'slug'           => \Str::slug($barcode),
+            ]);
+        }
     }
 }

@@ -1,5 +1,4 @@
 {{ Form::open(['route'=>'purchasePayment.store', 'method'=>'post', 'class'=>'form validate', 'id'=>'formPaymentRegister']) }}
-{{ dd($errors) }}
 {{ Form::hidden('purchase_id', $purchase->id) }}
 
 <div class="col col100">

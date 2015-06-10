@@ -41,8 +41,7 @@
                     <a class="btn-blue" href="{{ route('series.show', [$series->ns, $series->id]) }}">
                         <i class="fa fa-eye"></i>
                     </a>
-
-                    {{--@if( $series->status == 'Disponible' AND $series->movement->purchases[0]->progress_4 ) --}}
+                    
                     @if( $series->status == 'Disponible' )
                         {{ Form::open(['route'=>['series.destroy', $series->id], 'method'=>'delete', 'class'=>'form validate inline']) }}
                         <button type="submit" class="btn-red">

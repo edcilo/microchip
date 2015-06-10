@@ -100,11 +100,13 @@ return array(
     */
 
     'attributes' => array(
+        'barcode'        => 'Código de barras',
         'date_init'      => 'Fecha inicial',
         'date_end'       => 'Fecha final',
         'description'    => 'Descripción',
         'folio_c'        => 'Folio',
         'name'           => 'Nombre',
+        'ns'             => 'Número de serie',
         'value'          => 'Valor',
         'observations_c' => 'Observaciones de la note de crédito'
     ),

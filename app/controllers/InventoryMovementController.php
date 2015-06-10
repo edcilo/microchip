@@ -105,8 +105,10 @@ class InventoryMovementController extends \BaseController
      */
     public function purchaseStore()
     {
-        $movement    = $this->movementRepo->newMovement();
-        $manager    = new InventoryMovementPRegManager($movement, Input::all());
+        $data       = Input::all();
+
+        $movement   = $this->movementRepo->newMovement();
+        $manager    = new InventoryMovementPRegManager($movement, $data);
         $manager->save();
 
         $movement->purchases()->attach(Input::get('purchase_id'));

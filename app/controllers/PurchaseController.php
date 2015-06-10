@@ -74,7 +74,7 @@ class PurchaseController extends \BaseController
      */
     public function create()
     {
-        $provider_list    = [0 => 'Selecciona...'] + $this->providerRepo->lists('name', 'id');
+        $provider_list    = [0 => 'Selecciona...'] + $this->providerRepo->lists('name', 'id', 'name');
         $iva            = $this->configurationRepo->first()->iva;
 
         return View::make('purchase/create', compact('provider_list', 'iva'));

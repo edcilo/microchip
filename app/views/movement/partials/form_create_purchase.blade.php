@@ -5,10 +5,10 @@
 <div class="col col100">
 
     <div class="flo col25 left row">
-        {{ Form::label('product_id', 'Producto: ', ['class'=>'label50']) }} <br/>
-        {{ Form::text('product_id', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::label('barcode', 'Producto: ', ['class'=>'label50']) }} <br/>
+        {{ Form::text('barcode', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
         <div class="message-error">
-            {{ $errors->first('product_id', '<span>:message</span>') }}
+            {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>
     </div>
 

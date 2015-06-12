@@ -60,7 +60,7 @@ class PurchasePaymentController extends \BaseController
 
         $data += [
             'status' => 'Pagado',
-            'value'  => $purchase->rest
+            'value'  => $purchase->getRestAttribute()
         ];
 
         if ($data['type'] == 'Nota de crédito') {

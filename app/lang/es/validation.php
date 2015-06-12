@@ -101,6 +101,7 @@ return array(
 
     'attributes' => array(
         'barcode'        => 'Código de barras',
+        'customer_id'    => 'Cliente',
         'date_init'      => 'Fecha inicial',
         'date_end'       => 'Fecha final',
         'description'    => 'Descripción',

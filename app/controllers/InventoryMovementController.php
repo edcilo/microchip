@@ -148,9 +148,9 @@ class InventoryMovementController extends \BaseController
         if ($validator->fails()) {
             if (Request::ajax()) {
                 return Response::json($this->msg304 + ['data' =>  $validator->messages()]);
-            } else {
-                return Redirect::back()->withInput()->withErrors($validator->messages());
             }
+
+            return Redirect::back()->withInput()->withErrors($validator->messages());
         }
 
         $sale       = $this->saleRepo->find($data['sale_id']);

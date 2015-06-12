@@ -100,11 +100,13 @@ class PendingMovementsController extends \BaseController
 
     public function orderStore()
     {
+        $data = Input::all();
+
         $validator  = Validator::make(
-            Input::all(),
+            $data,
             [
-                'product_id'    => 'required|exists:products,id',
-                'sale_id'       => 'required|exists:sales,id',
+                'barcode'    => 'required|exists:products,barcode',
+                'sale_id'    => 'required|exists:sales,id',
             ]
         );
 
@@ -116,14 +118,16 @@ class PendingMovementsController extends \BaseController
             return Redirect::back()->withInput()->withErrors($validator->messages());
         }
 
-        $sale       = $this->saleRepo->find(Input::get('sale_id'));
+        $sale       = $this->saleRepo->find($data['sale_id']);
 
-        $product    = $this->productRepo->find(Input::get('product_id'));
+        $product    = $this->productRepo->getByBarcode($data['barcode']);
+        $total      = $this->movementRepo->totalStock($product->id);
         $iva        = $sale->iva;
-        $max        = ($product->type == 'product') ? '|max:'.$this->movementRepo->totalStock(Input::get('product_id')) : '';
+
+        $max        = ($product->type == 'Producto') ? '|max:'. $total : '';
 
         $validator = Validator::make(
-            Input::all(),
+            $data,
             [
                 'selling_price' => 'required|numeric|min:'.(number_format($product->price_5 * (($iva / 100) + 1), 2, '.', '')),
                 'quantity'      => 'required|integer|min:1'.$max,

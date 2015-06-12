@@ -19,15 +19,13 @@
 
             @if($sale->classification == 'Servicio')
                 @if($sale->data->status == 'Proceso')
-                    <a class="btn-blue" href="{{ route('service.show', [$sale->folio, $sale->id]) }}">
+                    <a class="btn-blue" href="{{ route('service.show', $sale->id) }}">
                         <i class="fa fa-eye"></i> Volver al servicio
                     </a>
                 @else
-
-                    <a class="btn-blue" href="{{ route('sale.edit', [$sale->id]) }}">
-                        <i class="fa fa-eye"></i> Volver a la venta
+                    <a class="btn-blue" href="{{ route('service.edit', $sale->id) }}">
+                        <i class="fa fa-eye"></i> Volver al servicio
                     </a>
-
                 @endif
             @else
 

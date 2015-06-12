@@ -32,7 +32,7 @@ Route::group(
 
         Route::get('print/{comment_id}', [
             'as'   => 'comment.print',
-            'uses' => 'commentController@commentPrint',
+            'uses' => 'CommentController@commentPrint',
         ]);
     }
 );

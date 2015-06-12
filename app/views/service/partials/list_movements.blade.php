@@ -13,20 +13,18 @@
     </thead>
     <tbody>
     @foreach($sale->pas as $pa)
-        @if($pa->productPrice)
-            <tr>
-                <td>{{ $pa->barcode }}</td>
-                <td>{{ $pa->s_description }}</td>
-                <td class="text-right">{{ $pa->quantity }}</td>
-                <td class="text-right">$ {{ $pa->selling_price_f }}</td>
-                <td class="text-right">$ {{ $pa->total_f }}</td>
-                @if( !$sale->movements_end )
-                    <td class="text-right">
-                        @include('movement.partials.form_destroy_service')
-                    </td>
-                @endif
-            </tr>
-        @endif
+        <tr>
+            <td>{{ $pa->barcode }}</td>
+            <td>{{ $pa->s_description }}</td>
+            <td class="text-right">{{ $pa->quantity }}</td>
+            <td class="text-right">$ {{ $pa->selling_price_f }}</td>
+            <td class="text-right">$ {{ $pa->total_f }}</td>
+            @if( !$sale->movements_end )
+                <td class="text-right">
+                    @include('movement.partials.form_destroy_service')
+                </td>
+            @endif
+        </tr>
     @endforeach()
     </tbody>
     <tfoot>

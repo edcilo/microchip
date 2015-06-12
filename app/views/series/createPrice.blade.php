@@ -17,11 +17,11 @@
 
         <div class="flo col30 text-right">
             @if( $price->order->classification == 'Servicio' )
-                <a class="btn-blue" href="{{ route('service.show', [$price->order->folio, $price->order->id]) }}">
+                <a class="btn-blue" href="{{ route('service.show', $price->order->id) }}">
                     <i class="fa fa-eye"></i> Volver al servicio
                 </a>
             @else
-                <a class="btn-blue" href="{{ route('price.show', [$price->order->folio, $price->order->id]) }}">
+                <a class="btn-blue" href="{{ route('price.show', $price->order->id) }}">
                     <i class="fa fa-eye"></i> Volver a la cotización
                 </a>
             @endif

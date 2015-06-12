@@ -6,6 +6,7 @@ use microchip\series\SeriesRepo;
 use microchip\user\UserRepo;
 use microchip\orderProduct\OrderProductRegManager;
 use microchip\orderProduct\OrderProductPerUpdManager;
+use microchip\product\ProductRepo;
 
 class OrderProductController extends \BaseController
 {
@@ -13,17 +14,20 @@ class OrderProductController extends \BaseController
     protected $pendingMovementRepo;
     protected $seriesRepo;
     protected $userRepo;
+    protected $productRepo;
 
     public function __construct(
         OrderProductRepo    $orderProductRepo,
         PendingMovementRepo $pendingMovementRepo,
         SeriesRepo          $seriesRepo,
-        UserRepo            $userRepo
+        UserRepo            $userRepo,
+        ProductRepo         $productRepo
     ) {
         $this->orderProductRepo     = $orderProductRepo;
         $this->pendingMovementRepo  = $pendingMovementRepo;
         $this->seriesRepo           = $seriesRepo;
         $this->userRepo             = $userRepo;
+        $this->productRepo          = $productRepo;
     }
 
     /**
@@ -61,7 +65,18 @@ class OrderProductController extends \BaseController
         $this->notFoundUnless($pa);
 
         if ($pa->status != 'Surtido' and $pa->sale->status != 'Cancelado') {
-            $data           = Input::all() + ['selling_price' => $pa->selling_price, 'pa_quantity' => $pa->orders_rest, 'pending_movement_id' => $pa->id, 'sale_id' => $pa->sale_id];
+            $data = Input::all() + ['selling_price' => $pa->selling_price, 'pa_quantity' => $pa->orders_rest, 'pending_movement_id' => $pa->id, 'sale_id' => $pa->sale_id];
+
+            $validator = Validator::make($data, [
+                'barcode' => 'required|exists:products,barcode'
+            ]);
+
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+
+            $product = $this->productRepo->getByBarcode($data['barcode']);
+            $data['product_id'] = $product->id;
 
             $c = 0;
             foreach ($pa->orders as $order) {

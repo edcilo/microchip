@@ -41,7 +41,7 @@
 
         <div class="subtitle">Producto recibido</div>
 
-        @include('service.partials.data_internal')
+        {{--@include('service.partials.data_internal')--}}
 
     </div>
 

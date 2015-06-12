@@ -8,10 +8,10 @@
 <div class="row col col100 text-center">
 
     <div class="flo col33 left">
-        {{ Form::label('product_id', 'Código de barras:') }}
-        {{ Form::text('product_id', null, ['class'=>'', 'autofocus', 'data-required'=>'required']) }}
+        {{ Form::label('barcode', 'Código de barras:') }}
+        {{ Form::text('barcode', null, ['class'=>'', 'autofocus', 'data-required'=>'required']) }}
         <div class="message-error">
-            {{ $errors->first('product_id', '<span>:message</span>') }}
+            {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>
     </div>
 

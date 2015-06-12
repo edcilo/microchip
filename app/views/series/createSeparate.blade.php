@@ -17,11 +17,11 @@
 
         <div class="flo col30 text-right">
             @if( $order->order->classification == 'Servicio' )
-                <a class="btn-blue" href="{{ route('service.show', [$order->order->folio, $order->order->id]) }}">
+                <a class="btn-blue" href="{{ route('service.show', $order->order->id) }}">
                     <i class="fa fa-eye"></i> Volver al servicio
                 </a>
             @else
-                <a class="btn-blue" href="{{ route('order.show', [$order->order->folio, $order->order->id]) }}">
+                <a class="btn-blue" href="{{ route('order.show', $order->order->id) }}">
                     <i class="fa fa-eye"></i> Volver al pedido
                 </a>
             @endif

@@ -84,14 +84,17 @@ class PendingMovementsController extends \BaseController
         }
 
         if ($pa->sale->classification == 'Pedido') {
-            return Redirect::route('order.edit', [Input::get('sale_id')]);
+            return Redirect::route('order.edit', Input::get('sale_id'));
         } elseif ($pa->sale->classification == 'Cotización') {
-            return Redirect::route('price.edit', [$pa->sale->id]);
+            return Redirect::route('price.edit', $pa->sale->id);
         } elseif ($pa->sale->classification == 'Servicio') {
-            if ($pa->sale->data->status == 'Pendiente') {
-                return Redirect::route('service.edit', [$pa->sale->id]);
+            $pa->productOrder = 0;
+            $pa->save();
+
+            if ($pa->sale->status == 'Pendiente') {
+                return Redirect::route('service.edit', $pa->sale->id);
             } else {
-                return Redirect::route('service.show', [$pa->sale->folio, $pa->sale->id]);
+                return Redirect::route('service.show', $pa->sale->id);
             }
         } else {
             return Redirect::back();

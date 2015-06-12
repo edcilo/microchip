@@ -135,35 +135,40 @@ class InventoryMovementController extends \BaseController
      */
     public function saleStore()
     {
+        $data = Input::all();
+
         $validator = Validator::make(
-            Input::all(), [
-                'sale_id'        => 'required|exists:sales,id',
-                'product_id'    => 'required|exists:products,id',
+            $data,
+            [
+                'sale_id'    => 'required|exists:sales,id',
+                'barcode'    => 'required|exists:products,barcode',
             ]
         );
 
         if ($validator->fails()) {
-            return (Request::ajax()) ?
-                Response::json($this->msg304 + ['data' =>  $validator->messages()]) :
-                Redirect::back()->withInput()->withErrors($validator->messages());
+            if (Request::ajax()) {
+                return Response::json($this->msg304 + ['data' =>  $validator->messages()]);
+            } else {
+                return Redirect::back()->withInput()->withErrors($validator->messages());
+            }
         }
 
-        $sale       = $this->saleRepo->find(Input::get('sale_id'));
+        $sale       = $this->saleRepo->find($data['sale_id']);
         if ($sale->movements_end) {
             return Redirect::back()->with('msg', 'No es posible agregar mas productos.');
         }
 
-        $total      = $this->movementRepo->totalStock(Input::get('product_id'));
-        $product    = $this->productRepo->find(Input::get('product_id'));
-        $iva        = $this->saleRepo->find(Input::get('sale_id'))->iva;
+        $product    = $this->productRepo->getByBarcode($data['barcode']);
+        $total      = $this->movementRepo->totalStock($product->id);
+        $iva        = $sale->iva;
 
-        $min_max    = ($product->type == 'Producto') ? "|min:1|max:$total" : '';
+        $min_max    = ($product->type == 'Producto') ? '|max:' . $total : '';
 
         $validator = Validator::make(
-            Input::all(),
+            $data,
             [
                 'selling_price' => 'required|numeric|min:'.(number_format($product->price_5 * (($iva / 100) + 1), 2, '.', '')),
-                'quantity'      => 'required|integer'.$min_max,
+                'quantity'      => 'required|integer|min:1'.$min_max,
             ]
         );
 
@@ -175,28 +180,28 @@ class InventoryMovementController extends \BaseController
             return Redirect::back()->withInput()->withErrors($validator->messages());
         }
 
-        $data                    = Input::all();
+        $data['product_id']     = $product->id;
         $data['iva']            = $iva;
         $data['total_in_stock'] = $total;
 
         $quantity    = $data['quantity'];
-        $movements    = [];
+        $movements   = [];
 
         while ($quantity > 0) {
             if ($product->type == 'Producto') {
-                $first                    = $this->movementRepo->firstIn($data['product_id']);
-                $data['purchase_price']    = $first->purchase_price;
+                $first                  = $this->movementRepo->firstIn($product->id);
+                $data['purchase_price'] = $first->purchase_price;
                 $data['movement_in_id'] = $first->id;
 
-                $data['quantity']        = ($quantity > $first->in_stock) ? $first->in_stock : $quantity;
+                $data['quantity']       = ($quantity > $first->in_stock) ? $first->in_stock : $quantity;
                 $in_id                  = $first->id;
             } else {
                 $data['purchase_price'] = 0;
                 $in_id                  = 0;
             }
 
-            $movement                = $this->movementRepo->newMovement();
-            $manager                = new InventoryMovementSRegManager($movement, $data);
+            $movement   = $this->movementRepo->newMovement();
+            $manager    = new InventoryMovementSRegManager($movement, $data);
             $manager->save();
 
             array_push($movements, $movement);
@@ -216,9 +221,11 @@ class InventoryMovementController extends \BaseController
             $quantity -= $movement->quantity;
         }
 
-        return (Request::ajax()) ?
-                Response::json($this->msg200 + ['data' => $movements]) :
-                Redirect::back();
+        if (Request::ajax()) {
+            return Response::json($this->msg200 + ['data' => $movements]);
+        }
+
+        return Redirect::back();
     }
 
     public function prov_2_movement($id)

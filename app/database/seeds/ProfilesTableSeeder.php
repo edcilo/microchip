@@ -20,7 +20,7 @@ class ProfilesTableSeeder extends Seeder
 
         $faker = Faker::create();
 
-        foreach (range(2, 50) as $index) {
+        foreach (range(2, 53) as $index) {
             Profile::create([
                 'name'               => $faker->name,
                 'f_last_name'        => $faker->lastName,

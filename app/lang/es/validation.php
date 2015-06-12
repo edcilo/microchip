@@ -107,6 +107,8 @@ return array(
         'folio_c'        => 'Folio',
         'name'           => 'Nombre',
         'ns'             => 'Número de serie',
+        'quantity'       => 'Cantidad',
+        'selling_price'  => 'Precio de venta',
         'value'          => 'Valor',
         'observations_c' => 'Observaciones de la note de crédito'
     ),

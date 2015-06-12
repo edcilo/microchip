@@ -3,10 +3,10 @@
 <div class="col col100">
 
     <div class="flo col30 left">
-        <label for="product_id"><i class="fa fa-barcode"></i></label>
-        {{ Form::text('product_id', null, ['data-required'=>'required', 'class'=>'bg-input', 'autocomplete'=>'off', 'autofocus', 'placeholder'=>'Código de barras del producto.']) }}
+        <label for="barcode"><i class="fa fa-barcode"></i></label>
+        {{ Form::text('barcode', null, ['autofocus', 'class'=>'bg-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'placeholder'=>'Código de barras del producto.', 'data-required'=>'required']) }}
         <div class="message-error">
-            {{ $errors->first('product_id', '<span>:message</span>') }}
+            {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>
     </div>
 

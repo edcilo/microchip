@@ -7,7 +7,11 @@
             </li>
             <li>
                 <strong>Razón Social:</strong>
-                {{ $sale->customer->name }}</li>
+                <a href="{{ route('customer.show', [$sale->customer->slug, $sale->customer->id]) }}">
+                    {{ $sale->customer->prefix }}
+                    {{ $sale->customer->name }}
+                </a>
+            </li>
             <li>
                 <strong>RFC:</strong>
                 {{ $sale->customer->rfc }}

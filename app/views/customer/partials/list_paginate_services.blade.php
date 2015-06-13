@@ -1,8 +1,8 @@
-@if($sales->getTotal())
+@if($services->getTotal())
     <div class="col col100 block description-product edc-hide-show">
 
         <div class="subtitle">
-            {{ $sales->getTotal() }} Venta(s)
+            {{ $services->getTotal() }} Servicio(s)
             <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
         </div>
 
@@ -22,22 +22,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($sales as $sale)
+                @foreach($services as $service)
                     <tr>
-                        <td>{{ $sale->type }}</td>
-                        <td>{{ $sale->classification }}</td>
-                        <td>{{ $sale->folio }}</td>
-                        <td>{{ $sale->status }}</td>
-                        <td class="text-center">{{ $sale->created_at->format('h:m a / d-m-Y') }}</td>
+                        <td>{{ $service->type }}</td>
+                        <td>{{ $service->classification }}</td>
+                        <td>{{ $service->folio }}</td>
+                        <td>{{ $service->status }}</td>
+                        <td class="text-center">{{ $service->created_at->format('h:m a / d-m-Y') }}</td>
                         <td class="text-center">
-                            @include('sale.partials.btn_show')
+                            @include('service.partials.btn_show')
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
 
-            {{ $sales->links(); }}
+            {{ $services->links(); }}
 
         </div>
 

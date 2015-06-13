@@ -63,6 +63,12 @@
 
     @include('customer.partials.data_referred')
 
+    @include('customer.partials.list_paginate_services')
+
+    @include('customer.partials.list_paginate_orders')
+
+    @include('customer.partials.list_paginate_prices')
+
     @include('customer.partials.list_paginate_sales')
 
     @include('customer.partials.form_create_card')

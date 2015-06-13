@@ -105,9 +105,12 @@ class CustomerController extends \BaseController
             return Response::json($customer);
         }
 
-        $sales = $customer->sales()->paginate();
+        $sales = $customer->sales()->where('classification', 'Venta')->paginate();
+        $orders = $customer->sales()->where('classification', 'Pedido')->paginate();
+        $services = $customer->sales()->where('classification', 'Servicio')->paginate();
+        $prices = $customer->sales()->where('classification', 'Cotización')->paginate();
 
-        return View::make('customer/show', compact('customer', 'sales'));
+        return View::make('customer/show', compact('customer', 'sales', 'orders', 'services', 'prices'));
     }
 
     /**

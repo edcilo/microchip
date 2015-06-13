@@ -1,8 +1,8 @@
-@if($sales->getTotal())
+@if($orders->getTotal())
     <div class="col col100 block description-product edc-hide-show">
 
         <div class="subtitle">
-            {{ $sales->getTotal() }} Venta(s)
+            {{ $orders->getTotal() }} Pedido(s)
             <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
         </div>
 
@@ -22,22 +22,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($sales as $sale)
+                @foreach($orders as $order)
                     <tr>
-                        <td>{{ $sale->type }}</td>
-                        <td>{{ $sale->classification }}</td>
-                        <td>{{ $sale->folio }}</td>
-                        <td>{{ $sale->status }}</td>
-                        <td class="text-center">{{ $sale->created_at->format('h:m a / d-m-Y') }}</td>
+                        <td>{{ $order->type }}</td>
+                        <td>{{ $order->classification }}</td>
+                        <td>{{ $order->folio }}</td>
+                        <td>{{ $order->status }}</td>
+                        <td class="text-center">{{ $order->created_at->format('h:m a / d-m-Y') }}</td>
                         <td class="text-center">
-                            @include('sale.partials.btn_show')
+                            @include('order.partials.btn_show')
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
 
-            {{ $sales->links(); }}
+            {{ $orders->links(); }}
 
         </div>
 

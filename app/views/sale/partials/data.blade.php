@@ -52,3 +52,10 @@
         </ul>
     </div>
 </div>
+
+@if($sale->description != '')
+    <hr/>
+
+    <strong>Observaciones:</strong>
+    {{ $sale->description }}
+@endif

@@ -18,7 +18,7 @@
         <ul>
             <li>
                 <strong>Fecha y hora de entrega:</strong>
-                {{ $sale->delivery_date }}; {{ $sale->delivery_time }}
+                {{ $sale->delivery_date_f }}; {{ $sale->delivery_time }}
             </li>
             @if( $sale->description )
                 <li>

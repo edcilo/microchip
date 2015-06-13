@@ -66,11 +66,14 @@
 </div>
 
 <div class="col col100 text-right">
-    <div class="row">
-        {{ Form::label('warranty_id', 'Folio de venta (Garantía):') }}
-        {{ Form::text('warranty_id'); }}
-        <div class="message-error">
-            {{ $errors->first('warranty_id', '<span>:message</span>') }}
+    <div class="flo col50 left">&nbsp;</div>
+    <div class="flo col50 right">
+        <div class="row">
+            {{ Form::label('folio_sale', 'Folio de venta (Garantía):') }}
+            {{ Form::text('folio_sale'); }}
+            <div class="message-error">
+                {{ $errors->first('folio_sale', '<span>:message</span>') }}
+            </div>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace microchip\sale;
 
+use Carbon\Carbon;
 use microchip\base\BaseEntity;
 
 class Sale extends BaseEntity
@@ -310,6 +311,13 @@ class Sale extends BaseEntity
         }
 
         return $color;
+    }
+
+    public function getDeliveryDateFAttribute()
+    {
+        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $this->delivery_date);
+
+        return $date->format('d-m-Y');
     }
 
     public function data()

@@ -28,33 +28,39 @@
 
             <div class="flo col33 right"></div>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Cantidad</th>
-                    <th>Producto</th>
-                    <th>Descripción</th>
-                    <th>Garantía valida hasta</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($sale->data->warranty->movements as $movement)
-                    <tr class="{{ $movement->class_row }}">
-                        <td class="text-right">{{ $movement->quantity }}</td>
-                        <td>{{ $movement->product->barcode}}</td>
-                        <td>{{ $movement->product->s_description }}</td>
-                        <td class="text-center">{{ date('d-m-Y h:i:s a', time($movement->date_warranty)) }}</td>
+            @if($sale->data->warranty->movements->count())
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Cantidad</th>
+                        <th>Producto</th>
+                        <th>Descripción</th>
+                        <th>Garantía valida hasta</th>
                     </tr>
-                    @foreach( $movement->seriesOut as $series )
-                        <tr>
-                            <td></td>
-                            <td><strong>S/N</strong> {{ $series->ns }}</td>
-                            <td colspan="3"></td>
+                    </thead>
+                    <tbody>
+                    @foreach($sale->data->warranty->movements as $movement)
+                        <tr class="{{ $movement->class_row }}">
+                            <td class="text-right">{{ $movement->quantity }}</td>
+                            <td>{{ $movement->product->barcode}}</td>
+                            <td>{{ $movement->product->s_description }}</td>
+                            <td class="text-center">{{ date('d-m-Y h:i:s a', time($movement->date_warranty)) }}</td>
                         </tr>
+                        @foreach( $movement->seriesOut as $series )
+                            <tr>
+                                <td></td>
+                                <td><strong>S/N</strong> {{ $series->ns }}</td>
+                                <td colspan="3"></td>
+                            </tr>
+                        @endforeach
                     @endforeach
-                @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            @else
+                <div class="col col100">
+                    <p class="title-clear">Esta venta no tiene productos registrados.</p>
+                </div>
+            @endif
 
         </div>
 

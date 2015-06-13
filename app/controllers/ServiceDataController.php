@@ -49,6 +49,13 @@ class ServiceDataController extends \BaseController
     {
         $data = Input::all() + ['sale_id' => $sale_id];
 
+        $sale = $this->saleRepo->getDocument('Venta', $data['folio_sale']);
+        if (is_null($sale)) {
+            return Redirect::back()->withInput()->withErrors(['folio_sale' => 'El folio del documento no existe']);
+        }
+
+        $data['warranty_id'] = $sale->id;
+
         $serviceData = $this->serviceData->newServiceData();
         $manager = new ServiceDataRegManager($serviceData, $data);
         $manager->save();

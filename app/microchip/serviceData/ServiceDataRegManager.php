@@ -19,7 +19,7 @@ class ServiceDataRegManager extends BaseManager
             'sale_id'       => 'required|exists:sales,id',
         ];
 
-        if (trim($this->data['warranty_id']) != 0) {
+        if (!empty($this->data['warranty_id'])) {
             $rules['warranty_id'] = 'exists:sales,id';
         }
 

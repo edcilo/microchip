@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             'active'        => 1,
             'department_id' => 1,
         ]);
-
+/*
         User::create([
             'username'        => 'edcilo_a',
             'password'        => \Hash::make('qwerty'),
@@ -45,5 +45,6 @@ class UsersTableSeeder extends Seeder
                 'department_id'   => $faker->numberBetween(1, 30),
             ]);
         }
+*/
     }
 }

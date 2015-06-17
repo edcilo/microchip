@@ -21,7 +21,7 @@ class DepartmentsTableSeeder extends Seeder
             'description'   => 'Empleado de ventas de mostrador.',
             'slug'          => \Str::slug('Ventas'),
         ]);
-
+/*
         Department::create([
             'name'          => 'Almacen',
             'description'   => 'Empleado de control de almacen e inventario.',
@@ -37,5 +37,6 @@ class DepartmentsTableSeeder extends Seeder
                 'slug'          => \Str::slug($name),
             ]);
         }
+*/
     }
 }

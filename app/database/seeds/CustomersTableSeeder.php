@@ -11,31 +11,31 @@ class CustomersTableSeeder extends Seeder
         $faker = Faker::create();
 
         Customer::create([
-            'prefix'            => '',
-            'name'                => 'Mostrador',
-            'country'            => 'México',
-            'state'                => 'Chiapas',
-            'city'                => 'Tuxtla Gutierrez',
-            'postcode'            => '29025',
-            'colony'            => 'Centro',
-            'address'            => '',
-            'birthday'            => '',
-            'phone'                => '',
-            'cellphone'            => '',
-            'email'                => '',
-            'rfc'                => '',
-            'credit_limit'        => 0,
-            'credit_days'        => 0,
-            'classification'    => 'Cliente',
-            'legal_concept'        => 'Ninguno',
-            'card_id'            => '',
-            'points'            => 0,
-            'expiration'        => 0,
-            'card_active'        => '',
-            'slug'                => \Str::slug('Mostrador'),
-            'active'            => 1,
+            'prefix'          => '',
+            'name'            => 'Mostrador',
+            'country'         => 'México',
+            'state'           => 'Chiapas',
+            'city'            => 'Tuxtla Gutierrez',
+            'postcode'        => '29025',
+            'colony'          => 'Centro',
+            'address'         => '',
+            'birthday'        => '',
+            'phone'           => '',
+            'cellphone'       => '',
+            'email'           => '',
+            'rfc'             => '',
+            'credit_limit'    => 0,
+            'credit_days'     => 0,
+            'classification'  => 'Cliente',
+            'legal_concept'   => 'Ninguno',
+            'card_id'         => '',
+            'points'          => 0,
+            'expiration'      => 0,
+            'card_active'     => '',
+            'slug'            => \Str::slug('Mostrador'),
+            'active'          => 1,
         ]);
-
+/*
         foreach (range(2, 10) as $index) {
             $name = $faker->name;
             Customer::create([
@@ -65,5 +65,6 @@ class CustomersTableSeeder extends Seeder
                 'active'            => 1,
             ]);
         }
+*/
     }
 }

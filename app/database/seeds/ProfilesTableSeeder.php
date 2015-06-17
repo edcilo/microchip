@@ -17,7 +17,7 @@ class ProfilesTableSeeder extends Seeder
             'marital_status'    => 'Soltero',
             'hired'             => date('Y-m-d'),
         ]);
-
+/*
         $faker = Faker::create();
 
         foreach (range(2, 53) as $index) {
@@ -56,5 +56,6 @@ class ProfilesTableSeeder extends Seeder
                 'user_id'            => $index,
             ]);
         }
+*/
     }
 }

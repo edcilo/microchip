@@ -4,7 +4,7 @@
 
     <div class="flo col25 row left">
         {{ Form::label('barcode', 'Código de barras: ') }}
-        {{ Form::text('barcode', null, ['class'=>'xb-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::text('barcode', null, ['class'=>'xb-input text-uppercase', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
         <div class="message-error">
             {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>

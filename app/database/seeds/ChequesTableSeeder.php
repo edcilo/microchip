@@ -10,7 +10,7 @@ class ChequesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1, 100) as $index) {
+        foreach (range(1, 50) as $index) {
             $status = $faker->randomElement(['Disponible', 'Pagado', 'Cancelado', 'Post-fechado','Elaborado', 'Parcial']);
 
             Cheque::create([

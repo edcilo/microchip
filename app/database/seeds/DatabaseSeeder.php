@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call('UsersTableSeeder');
         $this->call('ProfilesTableSeeder');
         $this->call('PermissionUserTableSeeder');
-/*
+
         $this->call('BanksTableSeeder');
         $this->call('ChequesTableSeeder');
 
@@ -35,9 +35,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call('PurchasesTableSeeder');
         $this->call('PurchasePaymentsTableSeeder');
-*/
-        $this->call('CustomersTableSeeder');
 
-        //$this->call('SalesTableSeeder');
+        $this->call('CustomersTableSeeder');
     }
 }

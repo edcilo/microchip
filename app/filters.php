@@ -91,7 +91,11 @@ function p($id)
 Route::filter('pr', function ($route, $request) {
     $flag = 0;
 
-    foreach (func_get_args() as $id) {
+    $data = func_get_args();
+    unset($data[0]);
+    unset($data[1]);
+
+    foreach ($data as $id) {
         if (p($id)) {
             $flag++;
         }

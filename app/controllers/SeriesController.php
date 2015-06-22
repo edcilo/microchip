@@ -7,6 +7,7 @@ use microchip\purchase\PurchaseRepo;
 use microchip\sale\SaleRepo;
 use microchip\orderProduct\OrderProductRepo;
 use microchip\series\SeriesRegManager;
+use microchip\configuration\ConfigurationRepo;
 
 class SeriesController extends \BaseController
 {
@@ -16,21 +17,24 @@ class SeriesController extends \BaseController
     protected $purchaseRepo;
     protected $saleRepo;
     protected $orderProductRepo;
+    protected $confRepo;
 
     public function __construct(
-        SeriesRepo                $seriesRepo,
-        ProductRepo                $productRepo,
-        InventoryMovementRepo    $inventoryMovementRepo,
+        SeriesRepo              $seriesRepo,
+        ProductRepo             $productRepo,
+        InventoryMovementRepo   $inventoryMovementRepo,
         PurchaseRepo            $purchaseRepo,
         SaleRepo                $saleRepo,
-        OrderProductRepo        $orderProductRepo
+        OrderProductRepo        $orderProductRepo,
+        ConfigurationRepo       $configurationRepo
     ) {
-        $this->seriesRepo        = $seriesRepo;
-        $this->productRepo        = $productRepo;
-        $this->movementRepo        = $inventoryMovementRepo;
-        $this->purchaseRepo        = $purchaseRepo;
-        $this->saleRepo            = $saleRepo;
+        $this->seriesRepo       = $seriesRepo;
+        $this->productRepo      = $productRepo;
+        $this->movementRepo     = $inventoryMovementRepo;
+        $this->purchaseRepo     = $purchaseRepo;
+        $this->saleRepo         = $saleRepo;
         $this->orderProductRepo = $orderProductRepo;
+        $this->confRepo         = $configurationRepo;
     }
 
     /**
@@ -401,4 +405,83 @@ class SeriesController extends \BaseController
 
         $document->save();
     }
+
+    public function printSeries($id)
+    {
+        $series = $this->seriesRepo->find($id);
+        $this->notFoundUnless($series);
+
+        $configuration = $this->confRepo->find(1);
+
+        $pdf = PDF::loadView('series.layout_print', compact('series', 'configuration'))->setPaper([
+            0, 0,
+            $configuration->with_real_paper_barcode,
+            $configuration->height_real_paper_barcode
+        ]);
+
+        return $pdf->stream();
+    }
+
+    public function purchasePrint($movement_id)
+    {
+        $movement    = $this->movementRepo->find($movement_id);
+        $this->notFoundUnless($movement);
+
+        $series = $movement->series;
+        $configuration = $this->confRepo->find(1);
+
+        $pdf = PDF::loadView('series.layout_print', compact('series', 'configuration'))->setPaper([
+            0, 0,
+            $configuration->with_real_paper_barcode,
+            $configuration->height_real_paper_barcode
+        ]);
+
+        return $pdf->stream();
+    }
+    /*
+     * public function createPurchase($movement_id, $product_id)
+    {
+        $movement    = $this->movementRepo->find($movement_id);
+        $product    = $this->productRepo->find($product_id);
+        $purchase    = $movement->purchases->first();
+
+        return View::make('series/createPurchase', compact('movement', 'product', 'purchase'));
+    }
+
+    @foreach($movement->series as $series)
+            <tr>
+                <td>{{ $series->ns }}</td>
+                <td>{{ $series->status }}</td>
+                <td>
+                    <a href="{{ route('product.show', [$series->product->barcode, $series->product->id]) }}">
+                        {{ $series->product->barcode }}
+                    </a>
+                </td>
+                <td>
+                    @if ( count($series->movement->purchases) > 0 )
+                        <a href="{{ route('purchase.show', [$series->movement->purchases[0]->folio, $series->movement->purchases[0]->id]) }}">
+                            {{ $series->movement->purchases[0]->folio }}
+                        </a>
+                    @else
+                        Agregado directamente al inventario.
+                    @endif
+                </td>
+                <td class="">
+                    <a class="btn-blue" href="{{ route('series.show', [$series->ns, $series->id]) }}">
+                        <i class="fa fa-eye"></i>
+                    </a>
+
+                    @include('series.partials.btn_print')
+
+                    @if( $series->status == 'Disponible' )
+                        {{ Form::open(['route'=>['series.destroy', $series->id], 'method'=>'delete', 'class'=>'form validate inline']) }}
+                        <button type="submit" class="btn-red">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        {{ Form::close() }}
+                    @endif
+                </td>
+            </tr>
+        @endforeach
+     */
 }

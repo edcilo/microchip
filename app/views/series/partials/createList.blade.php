@@ -42,6 +42,8 @@
                         <i class="fa fa-eye"></i>
                     </a>
 
+                    @include('series.partials.btn_print')
+
                     @if( $series->status == 'Disponible' )
                         {{ Form::open(['route'=>['series.destroy', $series->id], 'method'=>'delete', 'class'=>'form validate inline']) }}
                         <button type="submit" class="btn-red">

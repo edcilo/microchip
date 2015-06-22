@@ -18,6 +18,15 @@ class CreateConfigurationsTable extends Migration
             $table->unsignedInteger('coupon_effective_days');
             $table->text('coupon_terms_use');
 
+            $table->decimal('width_paper_barcode');
+            $table->decimal('height_paper_barcode');
+            $table->decimal('width_bar_document_barcode');
+            $table->decimal('height_document_barcode');
+            $table->decimal('width_bar_product_barcode');
+            $table->decimal('height_product_barcode');
+            $table->decimal('width_bar_series_barcode');
+            $table->decimal('height_series_barcode');
+
             $table->timestamps();
         });
     }

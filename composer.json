@@ -12,7 +12,7 @@
 		"laravel/framework": "4.2.*",
         "barryvdh/laravel-dompdf": "0.4.*",
         "nesbot/carbon": "~1.14",
-        "dinesh/barcode": "4.0.*@dev"
+        "dinesh/barcode": "4.0.x-dev"
 	},
 	"autoload": {
 		"psr-4" : {

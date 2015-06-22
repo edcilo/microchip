@@ -29,6 +29,11 @@ Route::group(
 
         });
 
+        Route::get('purchase/print/series/{movement_id}', [
+            'as'   => 'series.purchase.print',
+            'uses' => 'SeriesController@purchasePrint'
+        ]);
+
         Route::get('create/sale/{movement_id}', [
             'as'   => 'series.create.sale',
             'uses' => 'SeriesController@createSale',
@@ -62,6 +67,11 @@ Route::group(
         Route::post('separate', [
             'as'   => 'series.separated.store',
             'uses' => 'SeriesController@storeSeparate',
+        ]);
+
+        Route::get('{id}/print', [
+            'as'   => 'series.print',
+            'uses' => 'SeriesController@printSeries'
         ]);
 
         Route::get('{slug}/{id}', [

@@ -31,6 +31,31 @@ class Product extends BaseEntity
         return $this->movements->sum('in_stock');
     }
 
+    public function getUtility1Attribute()
+    {
+        return $this->getUtility($this->price_1);
+    }
+
+    public function getUtility2Attribute()
+    {
+        return $this->getUtility($this->price_2);
+    }
+
+    public function getUtility3Attribute()
+    {
+        return $this->getUtility($this->price_3);
+    }
+
+    public function getUtility4Attribute()
+    {
+        return $this->getUtility($this->price_4);
+    }
+
+    public function getUtility5Attribute()
+    {
+        return $this->getUtility($this->price_5);
+    }
+
     public function getCurrentPriceAttribute($f = ',')
     {
         $price = $this->price1;
@@ -41,6 +66,17 @@ class Product extends BaseEntity
         }
 
         return number_format($price, 2, '.', $f);
+    }
+
+    public function getUtility($price)
+    {
+        if (! is_null($this->pDescription)) {
+            $utility = ($price / $this->pDescription->purchase_price - 1) * 100;
+        } else {
+            $utility = 100;
+        }
+
+        return number_format($utility, 2);
     }
 
     public function pDescription()

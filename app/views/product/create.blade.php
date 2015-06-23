@@ -2,7 +2,9 @@
 
 @section ('title') / Registrar {{ $s_type }} @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/products.js') }}
+@stop
 
 @section ('content')
 

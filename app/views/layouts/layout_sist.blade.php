@@ -54,7 +54,7 @@
 
 
     {{-- scripts globales --}}
-    <script src="{{ asset('js/main.js') }}"></script>
+    {{ HTML::script('js/main.js') }}
 
     {{-- scripts personalizados por paginas --}}
     @yield('scripts')

@@ -67,82 +67,120 @@
 
     @include('productDescription.partials.formCreate', ['desc' => (isset($product)) ? $product->pDescription : null])
 
-    <hr/>
-
 @endif
 
 <div class="col col100">
 
     <div class="flo col70 row left">
 
-        <div class="flo col50 row left">&nbsp;</div>
+        <div class="flo col40 row left">
 
-        <div class="flo col50 row right">
+            <div class="col col100 row">
+                {{ Form::label('utility_1', 'Utilidad 1: ') }}
+                {{ Form::text('utility_1', isset($product) ? $product->utility_1 : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                %
+            </div>
 
-            <div class="flo col100">
-                <div class="flo col50 row left">
+            <div class="col col100 row">
+                {{ Form::label('utility_2', 'Utilidad 2: ') }}
+                {{ Form::text('utility_2', isset($product) ? $product->utility_2 : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                %
+            </div>
+
+            <div class="col col100 row">
+                {{ Form::label('utility_3', 'Utilidad 3: ') }}
+                {{ Form::text('utility_3', isset($product) ? $product->utility_3 : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                %
+            </div>
+
+            <div class="col col100 row">
+                {{ Form::label('utility_4', 'Utilidad 4: ') }}
+                {{ Form::text('utility_4', isset($product) ? $product->utility_4 : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                %
+            </div>
+
+            <div class="col col100 row">
+                {{ Form::label('utility_5', 'Utilidad 5: ') }}
+                {{ Form::text('utility_5', isset($product) ? $product->utility_5 : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                %
+            </div>
+
+        </div>
+
+        <div class="flo col60 row right">
+
+            <div class="col col100 row">
+                <div class="flo col40 left">
                     {{ Form::label('price_1', 'Precio 1: ') }}
-                    {{ Form::text('price_1', null, ['class'=>'sm-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                    $ {{ Form::text('price_1', null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
                     <div class="message-error">
                         {{ $errors->first('price_1', '<span>:message</span>') }}
                     </div>
                 </div>
 
-                <div class="flo col50 row right">Precio de oferta</div>
+                <div class="flo col60 right">
+                    <div class="flo col50 left">
+                        Precio de oferta
+                    </div>
+
+                    <button type="button" class="btn-yellow" id="uncheck_offer" title="click aqui para desmarcar precio de oferta">
+                        <i class="fa fa-ban"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="flo col100">
-                <div class="flo col50 row left">
+            <div class="col col100 row">
+                <div class="flo col40 left">
                     {{ Form::label('price_2', 'Precio 2: ') }}
-                    {{ Form::text('price_2', null, ['class'=>'sm-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                    $ {{ Form::text('price_2', null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
                     <div class="message-error">
                         {{ $errors->first('price_2', '<span>:message</span>') }}
                     </div>
                 </div>
 
-                <div class="flo col50 row right">
+                <div class="flo col60 right">
                     {{ Form::radio('offer', 2, false) }}
                 </div>
             </div>
 
-            <div class="flo col100">
-                <div class="flo col50 row left">
+            <div class="col col100 row">
+                <div class="flo col40 left">
                     {{ Form::label('price_3', 'Precio 3: ') }}
-                    {{ Form::text('price_3', null, ['class'=>'sm-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                    $ {{ Form::text('price_3', null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
                     <div class="message-error">
                         {{ $errors->first('price_3', '<span>:message</span>') }}
                     </div>
                 </div>
 
-                <div class="flo col50 row right">
+                <div class="flo col60 right">
                     {{ Form::radio('offer', 3, false) }}
                 </div>
             </div>
 
-            <div class="flo col100">
-                <div class="flo col50 row left">
+            <div class="col col100 row">
+                <div class="flo col40 left">
                     {{ Form::label('price_4', 'Precio 4: ') }}
-                    {{ Form::text('price_4', null, ['class'=>'sm-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                    $ {{ Form::text('price_4', null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
                     <div class="message-error">
                         {{ $errors->first('price_4', '<span>:message</span>') }}
                     </div>
                 </div>
 
-                <div class="flo col50 row right">
+                <div class="flo col60 right">
                     {{ Form::radio('offer', 4, false) }}
                 </div>
             </div>
 
-            <div class="flo col100">
-                <div class="flo col50 row left">
+            <div class="col col100 row">
+                <div class="flo col40 left">
                     {{ Form::label('price_5', 'Precio 5: ') }}
-                    {{ Form::text('price_5', null, ['class'=>'sm-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
+                    $ {{ Form::text('price_5', null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-required'=>'required']) }}
                     <div class="message-error">
                         {{ $errors->first('price_5', '<span>:message</span>') }}
                     </div>
                 </div>
 
-                <div class="flo col50 row right">
+                <div class="flo col60 right">
                     {{ Form::radio('offer', 5, false) }}
                 </div>
             </div>
@@ -153,7 +191,7 @@
 
     <div class="flo col30 row right">
 
-        <div class="row">
+        <div class="col col100 row">
             @if ( isset($product) )
                 <figure class="flo col25 left">
                     <img src="{{ asset($product->image) }}" alt="{{ $product->barcode }}">

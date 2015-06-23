@@ -58,6 +58,10 @@ class ProductUpdManager extends BaseManager
         $data['slug']       = \Str::slug($data['barcode']);
         $data['type']       = $this->entity->type;
 
+        if (empty($data['offer'])) {
+            $data['offer'] = 0;
+        }
+
         $path           = 'images/product';
         if ($this->entity->image != 'images/product/default.png') {
             $path_image     = $this->saveFile(\Input::file('image'), $path, false, $data['slug'], false, true, $this->entity->image);

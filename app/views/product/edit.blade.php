@@ -2,7 +2,9 @@
 
 @section ('title') / Editar {{ $product->type }} @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/products.js') }}
+@stop
 
 @section ('content')
 
@@ -39,3 +41,4 @@
 </div>
 
 @stop
+

@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="flo col15 row center">
+    <div class="flo col10 row center">
         {{ Form::label('stock_min', 'Stock minimo: ') }} <br/>
         {{ Form::text('stock_min', !is_null($desc) ? $desc->stock_min : null, ['class'=>'text-right sm-input', 'data-integer-unsigned'=>'integer', 'title'=>'Este campo debe tener un valor entero sin signo.']) }}
         <div class="message-error">
@@ -61,14 +61,14 @@
         </div>
     </div>
 
-    <div class="flo col15 row center">
+    <div class="flo col10 row center">
         {{ Form::label('stock_max', 'Stock maximo: ') }} <br/>
         {{ Form::text('stock_max', !is_null($desc) ? $desc->stock_max : null, ['class'=>'text-right sm-input', 'data-integer-unsigned'=>'integer', 'title'=>'Este campo debe tener un valor entero sin signo.']) }}
         <div class="message-error">
             {{ $errors->first('stock_max', '<span>:message</span>') }}
         </div>
     </div>
-
+{{--
     <div class="flo col30 row center text-center">
         {{ Form::label('box', '¿El producto se compra por caja?') }} <br/>
         <div class="flo col50">
@@ -89,18 +89,9 @@
             {{ $errors->first('pieces', '<span>:message</span>') }}
         </div>
     </div>
-</div>
+    --}}
 
-<div class="col col100">
-    <div class="flo col25 row left">
-        {{ Form::label('purchase_price', 'Precio de compra ($): ') }} <br/>
-        {{ Form::text('purchase_price', !is_null($desc) ? $desc->purchase_price : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
-        <div class="message-error">
-            {{ $errors->first('purchase_price', '<span>:message</span>') }}
-        </div>
-    </div>
-
-    <div class="flo col25 row center">
+    <div class="flo col20 row center">
         {{ Form::label('provider', 'Proveedor: ') }}
         {{ Form::text('provider', !is_null($desc) ? $desc->provider : null, ['class'=>'xb-input']) }}
         <div class="message-error">
@@ -108,19 +99,53 @@
         </div>
     </div>
 
-    <div class="flo col25 row center">
-        {{ Form::label('provider_barcode', 'Codigo de barras del proveedor: ') }} <br/>
+    <div class="flo col20 row center">
+        {{ Form::label('provider_barcode', 'Código de barras de proveedor:') }} <br/>
         {{ Form::text('provider_barcode', !is_null($desc) ? $desc->provider_barcode : null, ['class'=>'xb-input']) }}
         <div class="message-error">
             {{ $errors->first('provider_barcode', '<span>:message</span>') }}
         </div>
     </div>
 
-    <div class="flo col25 row right">
-        {{ Form::label('provider_warranty', 'Garantía con el proveedor: ') }} <br/>
+    <div class="flo col20 row right">
+        {{ Form::label('provider_warranty', 'Garantía con el proveedor:') }} <br/>
         {{ Form::text('provider_warranty', !is_null($desc) ? $desc->provider_warranty : null, ['placeholder'=>'Número de días', 'class'=>'text-right', 'title'=>'Este campo debe contener un número entero positivo.', 'data-integer-unsigned'=>'integer']) }}
         <div class="message-error">
             {{ $errors->first('provider_warranty', '<span>:message</span>') }}
         </div>
     </div>
+</div>
+
+<div class="subtitle col col100">
+
+    <div class="flo col25 left">
+        {{ Form::label('purchase_price', 'Precio de compra ($):') }}
+        {{ Form::text('purchase_price', isset($desc) ? $desc->purchase_price : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
+        <div class="message-error">
+            {{ $errors->first('purchase_price', '<span>:message</span>') }}
+        </div>
+    </div>
+
+    <div class="flo col30 center">
+        {{ Form::label('utility', 'Porcentaje de utilidad:') }}
+        {{ Form::text('utility', isset($product) ? $product->utility_1 : 100, ['class'=>'sm-input text-right', 'title'=>'Este campo solo acepta valores numericos', 'data-numeric'=>'numeric']) }}
+        %
+    </div>
+
+    <div class="flo col25 center">
+        {{ Form::label('desc', 'Reduccion del:') }}
+        {{ Form::text('desc', isset($product) ? $product->utility_1 - $product->utility_2 : 10, ['class'=>'sm-input text-right', 'title'=>'Este campo solo acepta valores numericos', 'data-numeric'=>'numeric']) }}
+        %
+    </div>
+
+    <div class="flo col20 right">
+        <button type="button" id="generate_prices" class="btn-green">
+            Generar precios
+        </button>
+
+        <button type="button" id="round_prices" class="btn-green" title="Redondear precios">
+            <i class="fa fa-circle-thin"></i>
+        </button>
+    </div>
+
 </div>

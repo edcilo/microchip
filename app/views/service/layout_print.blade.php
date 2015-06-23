@@ -130,7 +130,7 @@
 
 
 <div class="barcode">
-    {{ DNS1D::getBarcodeHTML($service->folio, "C128", 1, 20) }}
+    {{ DNS1D::getBarcodeHTML($service->folio, "C128", $configuration->width_real_bar_document_barcode, $configuration->height_real_document_barcode) }}
 </div>
 
 <br/>

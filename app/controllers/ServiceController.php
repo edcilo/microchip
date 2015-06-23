@@ -153,7 +153,9 @@ class ServiceController extends \BaseController
 
         $company = $this->companyRepo->find(1);
 
-        $pdf = PDF::loadView('service/layout_print', compact('service', 'company'))->setPaper('letter');
+        $configuration = $this->configRepo->find(1);
+
+        $pdf = PDF::loadView('service/layout_print', compact('service', 'company', 'configuration'))->setPaper('letter');
 
         return $pdf->stream();
     }

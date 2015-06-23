@@ -2,6 +2,7 @@
 
 use microchip\product\ProductRepo;
 use microchip\series\SeriesRepo;
+use microchip\configuration\ConfigurationRepo;
 use microchip\product\ProductFormat;
 use microchip\product\ProductRegManager;
 use microchip\product\ProductUpdManager;
@@ -15,6 +16,7 @@ class ProductController extends \BaseController
 {
     protected $productRepo;
     protected $seriesRepo;
+    protected $configRepo;
     protected $productFormat;
     protected $descriptionRepo;
     protected $categoryRepo;
@@ -26,7 +28,8 @@ class ProductController extends \BaseController
         ProductFormat           $productFormat,
         ProductDescriptionRepo  $descriptionRepo,
         CategoryRepo            $categoryRepo,
-        MarkRepo                $markRepo
+        MarkRepo                $markRepo,
+        ConfigurationRepo       $configurationRepo
     ) {
         $this->productRepo      = $productRepo;
         $this->seriesRepo       = $seriesRepo;
@@ -34,6 +37,7 @@ class ProductController extends \BaseController
         $this->descriptionRepo  = $descriptionRepo;
         $this->categoryRepo     = $categoryRepo;
         $this->markRepo         = $markRepo;
+        $this->configRepo       = $configurationRepo;
     }
 
     /**
@@ -319,5 +323,21 @@ class ProductController extends \BaseController
         }
 
         return Redirect::back()->with('message', "El $product->type $product->barcode se recupero de la papelera correctamente.");
+    }
+
+    public function printBarcode($product_id)
+    {
+        $product = $this->productRepo->find($product_id);
+        $this->notFoundUnless($product);
+
+        $configuration = $this->configRepo->find(1);
+
+        $pdf = PDF::loadView('product.layout_print_barcode', compact('product', 'configuration'))->setPaper([
+            0, 0,
+            $configuration->with_real_paper_barcode,
+            $configuration->height_real_paper_barcode
+        ]);
+
+        return $pdf->stream();
     }
 }

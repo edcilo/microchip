@@ -31,6 +31,9 @@
                         <a class="btn-blue" href="{{ route('series.show', [$item->ns, $item->id]) }}">
                             <i class="fa fa-eye"></i>
                         </a>
+
+                        @include('series.partials.btn_print', ['series' => $item])
+
                     </nobr>
                 </td>
             </tr>

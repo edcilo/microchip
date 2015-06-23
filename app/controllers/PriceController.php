@@ -163,8 +163,9 @@ class PriceController extends \BaseController
         $this->notFoundUnless($price);
 
         $company    = $this->companyRepo->find(1);
+        $configuration = $this->configRepo->find(1);
 
-        $pdf = PDF::loadView('price/layoutPrint', compact('price', 'company'))->setPaper('letter');
+        $pdf = PDF::loadView('price/layoutPrint', compact('price', 'company', 'configuration'))->setPaper('letter');
 
         return $pdf->stream();
     }

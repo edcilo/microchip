@@ -81,6 +81,11 @@ Route::group(
             'uses' => 'ProductController@trash',
         ]);
 
+        Route::get('print/{product_id}', [
+            'as'   => 'product.print.barcode',
+            'uses' => 'ProductController@printBarcode'
+        ]);
+
         Route::get('{slug}/{id}', [
             'as'   => 'product.show',
             'uses' => 'ProductController@show',

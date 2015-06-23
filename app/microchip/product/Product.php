@@ -31,6 +31,18 @@ class Product extends BaseEntity
         return $this->movements->sum('in_stock');
     }
 
+    public function getCurrentPriceAttribute($f = ',')
+    {
+        $price = $this->price1;
+
+        if ($this->offer != 0) {
+            $price = 'price_' . $this->offer;
+            $price = $this->$price;
+        }
+
+        return number_format($price, 2, '.', $f);
+    }
+
     public function pDescription()
     {
         return $this->hasOne('microchip\productDescription\ProductDescription', 'product_id', 'id');

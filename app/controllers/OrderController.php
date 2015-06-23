@@ -178,7 +178,9 @@ class OrderController extends \BaseController
         $this->formatData->formatData($order);
         $company    = $this->companyRepo->find(1);
 
-        $pdf = PDF::loadView('order/layout_print', compact('order', 'company'))->setPaper('letter');
+        $configuration = $this->configRepo->find(1);
+
+        $pdf = PDF::loadView('order/layout_print', compact('order', 'company', 'configuration'))->setPaper('letter');
 
         return $pdf->stream();
     }

@@ -245,10 +245,12 @@ class SaleController extends \BaseController
 
         $this->getNewPrice($sale);
 
+        $configuration = $this->configRepo->find(1);
+
         $no2letter          = new NumberToLetter();
         $sale->total_text   = strtoupper($no2letter->ValorEnLetras($sale->getTotalAttribute(), 'pesos'));
 
-        $pdf = PDF::loadView('sale/layout_print', compact('sale', 'company', 'percentage'))->setPaper('letter');
+        $pdf = PDF::loadView('sale/layout_print', compact('sale', 'company', 'percentage', 'configuration'))->setPaper('letter');
 
         return $pdf->stream();
     }

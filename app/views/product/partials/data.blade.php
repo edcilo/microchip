@@ -112,9 +112,15 @@
         </div>
     </div>
 
-    <div class="flo col100 row">
+    <div class="col col100 row">
         <strong>Descripción larga:</strong>
         {{ $product->description }}
+    </div>
+
+    <hr/>
+
+    <div class="text-right">
+        @include('product.partials.btn_print')
     </div>
 
 </div>

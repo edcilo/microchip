@@ -35,8 +35,24 @@
     .barcode > div {
         margin: auto;
     }
+    .barcode_description {
+        font-family: arial, sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .barcode_price {
+        font-family: arial, sans-serif;
+        font-size: 26px;
+        font-weight: bold;
+    }
     .border{
         border: 1px solid #000;
+    }
+    .p {
+        display: block;
+        height: 6px;
+        margin: 0;
+        width: 100%;
     }
     .line_sign{
         background: #000000;

@@ -67,6 +67,10 @@
 
     @include('productDescription.partials.formCreate', ['desc' => (isset($product)) ? $product->pDescription : null])
 
+@else
+
+    @include('product.partials.service_price_bar')
+
 @endif
 
 <div class="col col100">

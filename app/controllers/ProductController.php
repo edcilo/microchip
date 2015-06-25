@@ -270,10 +270,10 @@ class ProductController extends \BaseController
         $terms = \Input::get('terms');
 
         if (Request::ajax()) {
-            return $this->productRepo->search($terms, $type, 'ajax');
+            return $this->productRepo->search($terms, $tipo, 'ajax');
         }
 
-        $results = $this->productRepo->search($terms, $type);
+        $results = $this->productRepo->search($terms, $tipo);
 
         foreach ($results as $product) {
             $product->s_description = substr($product->s_description, 0, 117).'...';

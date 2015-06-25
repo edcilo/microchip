@@ -59,13 +59,15 @@ class ProductRepo extends BaseRepo
 
     public function search($terms, $type = 'all', $request = '', $take = 10)
     {
-        $q = Product::with('pDescription')
-            ->where('barcode', 'like', "%$terms%")
-            ->orwhere('s_description', 'like', "%$terms%");
+        $q = Product::with('pDescription');
 
         if ($type != 'all') {
             $q->where('type', $type);
         }
+
+        $q->where(function($q) use ($terms) {
+            $q->where('barcode', 'like', "%$terms%")->orwhere('s_description', 'like', "%$terms%");
+        });
 
         return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }

@@ -1,4 +1,4 @@
-$( function () {
+$(function () {
     for (var i=1; i<6; i++) {
         getUtility('#utility_' + i, '#price_' + i, '#purchase_price')
         getPrice('#price_' + i, '#utility_' + i, '#purchase_price');
@@ -7,12 +7,12 @@ $( function () {
     generatePrices('#generate_prices');
     uncheckOffers('#uncheck_offer', 'offer');
     roundPrices('#round_prices');
-} );
+});
 
 var generatePrices = function (button_id) {
     var b = $(button_id);
 
-    b.on('click', function () {
+    b.click(function () {
         var i_b = parseFloat($('#purchase_price').val()),
             i_u = parseFloat($('#utility').val()),
             i_d = parseFloat($('#desc').val());
@@ -44,7 +44,7 @@ var getPrice = function (inp_price, inp_utility, inp_base) {
         i_u = $(inp_utility),
         i_b = $(inp_base);
 
-    i_u.on('keyup', function () {
+    i_u.keyup(function () {
         var value = parseFloat($(this).val()),
             base = parseFloat(i_b.val()),
             price;
@@ -64,7 +64,7 @@ var getUtility = function (inp_utility, inp_price, inp_base) {
         i_p = $(inp_price),
         i_b = $(inp_base);
 
-    i_p.on('keyup', function () {
+    i_p.keyup(function () {
         var value = parseFloat($(this).val()),
             base = parseFloat(i_b.val()),
             utility;
@@ -83,7 +83,7 @@ var uncheckOffers = function (btn_id, name_radio) {
     var b = $(btn_id),
         r = $('[name=' + name_radio + ']');
 
-    b.on('click', function () {
+    b.click(function () {
         r.prop('checked', false);
     });
 };
@@ -91,7 +91,7 @@ var uncheckOffers = function (btn_id, name_radio) {
 var roundPrices = function (btn_id) {
     var b = $(btn_id);
 
-    b.on('click', function () {
+    b.click(function () {
         for (var i = 1; i < 6; i++) {
             var i_u = $('#utility_' + i),
                 i_p = $('#price_' + i),

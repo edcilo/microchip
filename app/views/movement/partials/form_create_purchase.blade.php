@@ -6,7 +6,10 @@
 
     <div class="flo col25 left row">
         {{ Form::label('barcode', 'Código de producto:') }} <br/>
-        {{ Form::text('barcode', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'class'=>'text-uppercase', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::text('barcode', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'class'=>'text-uppercase stopEnter', 'autocomplete'=>'off', 'data-required'=>'required', 'data-url'=>route('product.search', 'product')]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="product_search_and_add"></div>
+        </div>
         <div class="message-error">
             {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>

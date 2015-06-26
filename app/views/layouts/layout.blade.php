@@ -23,7 +23,7 @@
 
     <div class="load_edc hide"><div class="cle_bleu_load_10"></div></div>
 
-    <section class="cont1366">
+    <section class="cont1440">
         <div class="col col100 cont_principal" id="col-der">
 
             @yield('content')

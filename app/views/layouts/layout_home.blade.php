@@ -19,7 +19,7 @@
 @include('layouts/partials/header_index')
 
 
-<section class="cont1366">
+<section class="cont1440">
     <div class="col col100 cont_principal" id="col-der">
 
         <div class="flo col25 left">&nbsp;</div>

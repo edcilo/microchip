@@ -27,7 +27,7 @@
 @endif
 
 
-<section class="cont1366">
+<section class="cont1440">
     <div class="col col100">
         <div class="flo col80 cont_principal" id="col-der">
 

@@ -58,7 +58,7 @@ class Product extends BaseEntity
 
     public function getCurrentPriceAttribute($f = ',')
     {
-        $price = $this->price1;
+        $price = $this->price_1;
 
         if ($this->offer != 0) {
             $price = 'price_' . $this->offer;

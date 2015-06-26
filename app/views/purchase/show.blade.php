@@ -5,6 +5,7 @@
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
     {{ HTML::script('js/search_product.js') }}
+    {{ HTML::script('js/add_series.js') }}
 @stop
 
 @section ('content')
@@ -46,6 +47,8 @@
         @if( count($purchase->movements) )
 
             @include('purchase.partials.list_products')
+
+            @include('purchase.partials.series_float')
 
         @else
 

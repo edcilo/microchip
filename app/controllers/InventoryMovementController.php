@@ -396,6 +396,13 @@ class InventoryMovementController extends \BaseController
         }
     }
 
+    public function getSeries($movement_id)
+    {
+        $series = $this->movementRepo->getSeries($movement_id);
+
+        return Response::json($series);
+    }
+
     public function getPriceOffer($product)
     {
         $offer = $product->offer;

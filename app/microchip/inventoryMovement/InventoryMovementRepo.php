@@ -31,6 +31,13 @@ class InventoryMovementRepo extends BaseRepo
             ->sum('in_stock');
     }
 
+    public function getSeries($id)
+    {
+        $movement = InventoryMovement::where('id', $id)->first();
+
+        return $movement->series;
+    }
+
     public function getSold($days, $product_id)
     {
         $today = Carbon::today()->subDays($days)->format('Y-m-d');

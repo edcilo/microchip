@@ -84,5 +84,10 @@ Route::group(
 
         });
 
+        Route::get('{id}/get/series', [
+            'as'   => 'movement.get.series',
+            'uses' => 'InventoryMovementController@getSeries'
+        ]);
+
     }
 );

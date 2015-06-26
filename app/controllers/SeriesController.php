@@ -167,7 +167,7 @@ class SeriesController extends \BaseController
         foreach (Input::get('ns') as $ns) {
             $data        = Input::only('product_id', 'inventory_movement_id', 'purchase_id');
             $data       += [
-                'ns'        =>    $ns,
+                'ns'        => $ns,
                 'status'    => 'Disponible',
             ];
 
@@ -182,8 +182,8 @@ class SeriesController extends \BaseController
             );
 
             if (!$validator->fails()) {
-                $series        = $this->seriesRepo->newSeries();
-                $manager    = new SeriesRegManager($series, $data);
+                $series  = $this->seriesRepo->newSeries();
+                $manager = new SeriesRegManager($series, $data);
                 $manager->save();
 
                 array_push($collection, $series);
@@ -193,6 +193,10 @@ class SeriesController extends \BaseController
         $this->seriesEnd($data['purchase_id'], 'purchase');
 
         if (count($validator->messages()) > 0) {
+            if (Request::ajax()) {
+                return $this->msg304 + $validator->getMessageBag()->toArray();
+            }
+
             return Redirect::back()->withErrors($validator);
         }
 

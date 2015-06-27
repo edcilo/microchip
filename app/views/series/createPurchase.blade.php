@@ -27,9 +27,11 @@
             <div class="header">
                 <h2>Registrar numeros de serie de {{ $product->barcode }}</h2>
 
-                <a href="{{ route('series.purchase.print', $movement->id) }}" class="btn-blue" title="Imprimir todo" target="_blank">
-                    <i class="fa fa-print"></i>
-                </a>
+                @if (count($movement->series))
+                    <a href="{{ route('series.purchase.print', $movement->id) }}" class="btn-blue" title="Imprimir todo" target="_blank">
+                        <i class="fa fa-print"></i>
+                    </a>
+                @endif
             </div>
 
             @if ( count($movement->series) != $movement->quantity )

@@ -26,18 +26,27 @@ var add_form = function (content, quantity, product_id, movement_id, purchase_id
 var add_list = function (content, series) {
     'use strict';
 
-    var list = '<strong>Números de serie en esta compra:</strong>';
-    list += '<ul id="list_series_stored">';
+    var url_print = content.data('print'),
+        list = '<strong>Números de serie en esta compra:</strong>';
+    list += '<table class="table" id="list_series_stored">';
     if (series.length == 0) {
-        list += '<li class="message_hide_init">No hay ningún número de serie registrado</li>';
+        list += '<tr class="message_hide_init">';
+        list += '<th>No hay ningún número de serie registrado</th>';
+        list += '</tr>';
     }
     for (var i = 0; i < series.length; i++) {
-        list += '<li>';
+        url_print = url_print.replace('SERIES_ID', series[i].id);
+
+        list += '<tr>';
+        list += '<td>';
         list +=  series[i].ns + ' [' + series[i].status + ']';
-        //list += '<a href="http://microchip.loc/series/39/print" target="_blank" class="btn-blue" title="Imprimir código de barras"> <i class="fa fa-print"></i></a>';
-        list += '</li>';
+        list += '</td>';
+        list += '<td class="text-right">';
+        list += '<a href="'+url_print+'" class="btn-blue" target="_blank" title="Imprimir código de barras"><i class="fa fa-print"></i></a> ';
+        list += '</td>';
+        list += '</tr>';
     }
-    list += '</ul>';
+    list += '</table>';
 
     content.prepend(list);
 };
@@ -89,11 +98,11 @@ var get_series = function (content, movement_id, quantity, product_id, button) {
             add_form(c, quantity, product_id, movement_id, purchase_id);
         }
 
-        store_series('.form_store_series', url_store, '#series_form_errors', '#list_series_stored', total, button);
+        store_series('.form_store_series', url_store, '#series_form_errors', '#list_series_stored', total, button, c.data('print'));
     }, 'json');
 };
 
-var store_series = function (form, url, content_errors, list, total, button) {
+var store_series = function (form, url, content_errors, list, total, button, url_print) {
     'use strict';
 
     var c = $(form),
@@ -115,13 +124,23 @@ var store_series = function (form, url, content_errors, list, total, button) {
                 var data = json['data'];
 
                 $('.message_hide_init').remove();
-                list.append('<li>'+data[0].ns+' ['+data[0].status+']</li>');
+
+                url_print = url_print.replace('SERIES_ID', data[0].id);
+                var row = '<tr>';
+                row += '<td>';
+                row +=  data[0].ns + ' [' + data[0].status + ']';
+                row += '</td>';
+                row += '<td class="text-right">';
+                row += '<a href="'+url_print+'" class="btn-blue" target="_blank" title="Imprimir código de barras"><i class="fa fa-print"></i></a> ';
+                row += '</td>';
+                row += '</tr>';
+                list.append(row);
 
                 setTimeout (function () {
                     f.remove();
                 }, 100);
 
-                var stored = list.children('li').size();
+                var stored = list.find('tr').size();
                 if (total == stored) {
                     $('.message_hide').remove();
                     button.parents('tr').removeClass('red')

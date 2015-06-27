@@ -434,6 +434,18 @@ class SeriesController extends \BaseController
         $series = $movement->series;
         $configuration = $this->confRepo->find(1);
 
+        if (count($series) == 0) {
+            if (Request::ajax()) {
+                return Response::json($this->msg304);
+            }
+
+            return Redirect::back();
+        }
+
+        if (count($series) == 1) {
+            $series = $series[0];
+        }
+
         $pdf = PDF::loadView('series.layout_print', compact('series', 'configuration'))->setPaper([
             0, 0,
             $configuration->with_real_paper_barcode,

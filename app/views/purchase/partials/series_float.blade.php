@@ -2,6 +2,6 @@
 
     <div class="message-error" id="series_form_errors"></div>
 
-    <div class="series_added" data-url="{{ route('movement.get.series', 'MOVEMENT_ID') }}" data-purchase="{{ $purchase->id }}" data-form="{{ route('series.purchase.store') }}"></div>
+    <div class="series_added" data-print="{{ route('series.print', 'SERIES_ID') }}" data-url="{{ route('movement.get.series', 'MOVEMENT_ID') }}" data-purchase="{{ $purchase->id }}" data-form="{{ route('series.purchase.store') }}"></div>
 
 </div>

@@ -37,6 +37,8 @@
                 <td class="text-right">
                     @if ($movement->product->p_description->have_series )
                         @include('purchase.partials.btn_series')
+
+                        {{--@include('purchase.partials.btn_show_series')--}}
                     @endif
 
                     @if( $purchase->status == 'En proceso...' )

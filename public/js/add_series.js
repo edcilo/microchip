@@ -1,5 +1,6 @@
 $(function () {
-    show_dialog_series('.add-series', '#series_alert');
+    //show_dialog_series('.add-series', '#series_alert');
+    generate_series('#generator_button_series', '.input_series');
 });
 
 var add_form = function (content, quantity, product_id, movement_id, purchase_id) {
@@ -27,7 +28,17 @@ var add_list = function (content, series) {
     'use strict';
 
     var url_print = content.data('print'),
-        list = '<strong>Números de serie en esta compra:</strong>';
+        url_print_all = content.data('printall'),
+        list = '<div class="col col100">';
+
+    if (series.length > 0) url_print_all = url_print_all.replace('MOVEMENT_ID', series[0].inventory_movement_id);
+    list += '<div class="flo col80"><strong>Números de serie en esta compra:</strong></div>';
+    list += '<div class="flo col20 text-right"><a class="btn-blue ';
+    if (series.length == 0) {
+        list += 'hide';
+    }
+    list += '" href="'+url_print_all+'" target="_blank" title="Imprimir todos los números de serie de esta compra"><i class="fa fa-print"></i></a></div>';
+    list += '</div>';
     list += '<table class="table" id="list_series_stored">';
     if (series.length == 0) {
         list += '<tr class="message_hide_init">';
@@ -42,13 +53,49 @@ var add_list = function (content, series) {
         list +=  series[i].ns + ' [' + series[i].status + ']';
         list += '</td>';
         list += '<td class="text-right">';
-        list += '<a href="'+url_print+'" class="btn-blue" target="_blank" title="Imprimir código de barras"><i class="fa fa-print"></i></a> ';
+        list += '<a href="'+url_print+'" class="btn-blue" target="_blank" title="Imprimir número de serie '+series[i].ns+'"><i class="fa fa-print"></i></a> ';
+        list += get_form(content.data('destroy'), series[0].id);
         list += '</td>';
         list += '</tr>';
     }
     list += '</table>';
 
     content.prepend(list);
+};
+
+var generate_series = function (button_id, inputs) {
+    'use strict';
+
+    var b = $(button_id),
+        i = $(inputs),
+        folio = b.data('folio'),
+        model = replace_specials(b.data('model'));
+
+    b.click(function (e) {
+        e.preventDefault();
+
+        var folio = $(this).data('folio'),
+            q = i.size().toString().length;
+
+        i.each(function (index) {
+            var ns = folio + '.' + model + '.' + pad(index + 1, q);
+            $(this).val(ns);
+        });
+
+    });
+};
+
+var get_form = function (url, series_id) {
+    'use strict';
+
+    var form = '<form class="inline" action="';
+    form += url.replace('SERIES_ID', series_id);
+    form += '" method="post">';
+    form += '<input name="_method" type="hidden" value="DELETE">';
+    form += '<button type="submit" class="btn-red"><i class="fa fa-times"></i></button>';
+    form += '</form>';
+
+    return form;
 };
 
 var show_dialog_series = function (button, dialog) {

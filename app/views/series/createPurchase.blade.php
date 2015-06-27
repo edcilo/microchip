@@ -2,7 +2,9 @@
 
 @section ('title') / Registrar numeros de serie para {{ $product->barcode }} @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/add_series.js') }}
+@stop
 
 @section ('content')
 
@@ -35,6 +37,13 @@
             </div>
 
             @if ( count($movement->series) != $movement->quantity )
+
+                <div class="text-right">
+                    <button type="button" class="btn-green" id="generator_button_series" data-folio="{{ $movement->purchases[0]->folio }}" data-model="{{ $movement->product->p_description->model }}">
+                        <i class="fa fa-plus"></i>
+                        Generar números de serie.
+                    </button>
+                </div>
 
                 @include('series/partials/formPurchaseCreate')
 

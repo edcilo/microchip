@@ -158,3 +158,27 @@ var hideControls = function (element) {
         element.slideUp('fast');
     });
 };
+
+var pad = function (str, max) {
+    'use strict';
+
+    str = str.toString();
+    return str.length < max ? pad("0" + str, max) : str;
+};
+
+var replace_specials = function (str) {
+    'use strict';
+
+    var characters = [
+        'á', 'é', 'í', 'ó', 'ú',
+        'ñ', '{', '}', '[', ']',
+        '^', '~', '\\', '/', ';',
+        ':', '-'
+    ];
+
+    for (var i=0; i<characters.length; i++) {
+        str = str.replace(characters[i], '');
+    }
+
+    return str;
+};

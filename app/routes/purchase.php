@@ -38,14 +38,14 @@ Route::group(
                 'uses' => 'PurchaseController@stopRegisterMovements',
             ]);
 
+            Route::post('save/{id}', [
+                'as'   => 'purchase.save',
+                'uses' => 'PurchaseController@save',
+            ]);
+
             Route::post('', [
                 'as'   => 'purchase.store',
                 'uses' => 'PurchaseController@store',
-            ]);
-
-            Route::put('save/{id}', [
-                'as'   => 'purchase.save',
-                'uses' => 'PurchaseController@save',
             ]);
 
         });

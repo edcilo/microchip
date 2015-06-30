@@ -9,7 +9,7 @@ class PurchaseUplUpdManager extends BaseManager
     public function getRules()
     {
         return [
-            'bill_scan'      => 'required|mimes:pdf,zip,rar',
+            'bill_scan' => 'required|mimes:pdf,zip,rar',
         ];
     }
 

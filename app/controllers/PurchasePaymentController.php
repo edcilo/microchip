@@ -93,7 +93,6 @@ class PurchasePaymentController extends \BaseController
             $data['type'] = $data['type_other'];
         }
 
-// validar valor del cheque y reducir el total o prohibir el pago con ese cheque
         $payment = $this->paymentRepo->newPayment();
         $manager = new PurchasePaymentRegManager($payment, $data);
         $manager->save();

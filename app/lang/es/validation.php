@@ -101,6 +101,7 @@ return array(
 
     'attributes' => array(
         'barcode'        => 'Código de barras',
+        'bill_scan'      => 'Factura escaneada',
         'cheque_id'      => 'Cheque',
         'coupon_purchase_id' => 'Nota de crédito',
         'customer_id'    => 'Cliente',

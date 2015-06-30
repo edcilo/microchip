@@ -152,8 +152,10 @@ class PurchaseController extends \BaseController
 
     public function save($id)
     {
-        $purchase    = $this->purchaseRepo->find($id);
-        $manager    = new PurchaseUplUpdManager($purchase, Input::all());
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        $manager  = new PurchaseUplUpdManager($purchase, Input::all());
         $manager->save();
 
         if (Request::ajax()) {

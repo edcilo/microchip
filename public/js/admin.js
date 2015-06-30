@@ -8,6 +8,8 @@ $(function () {
     element_delete('.btn-delete');
     product_cancel('.btn-cancel');
 
+    form_confirm('.form_confirm');
+
     keyGen('.key-gen', '#password', 20);
 
 });
@@ -36,6 +38,37 @@ var keyGen = function (e_button, e_content, length_pass) {
             content.val(pass);
         }
     );
+};
+
+var form_confirm = function (button) {
+    'use strict';
+
+    var b = $(button),
+        d = $('#formConfirm');
+
+    b.click(function (e) {
+        e.preventDefault();
+
+        var f = $(this).parents('form');
+
+        d.dialog({
+            autoOpen: false,
+            modal: true,
+            width: d.data('width'),
+            buttons: {
+                "Cancelar": function() {
+                    $( this ).dialog( "close" );
+                },
+                "Aceptar": function() {
+                    $( this ).dialog( "close" );
+
+                    f.submit();
+                }
+            }
+        });
+
+        d.dialog('open');
+    });
 };
 
 var product_recycle = function (button) {

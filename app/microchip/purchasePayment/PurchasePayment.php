@@ -2,6 +2,7 @@
 
 namespace microchip\purchasePayment;
 
+use Carbon\Carbon;
 use microchip\base\BaseEntity;
 
 class PurchasePayment extends BaseEntity
@@ -15,7 +16,14 @@ class PurchasePayment extends BaseEntity
         'type',
         'payment_date',
         'status',
+        'description',
     ];
+
+    public function getPaymentDateFAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $this->payment_date);
+        return $date->format('d-m-Y');
+    }
 
     public function bill()
     {

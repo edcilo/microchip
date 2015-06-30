@@ -101,17 +101,22 @@ return array(
 
     'attributes' => array(
         'barcode'        => 'Código de barras',
+        'cheque_id'      => 'Cheque',
+        'coupon_purchase_id' => 'Nota de crédito',
         'customer_id'    => 'Cliente',
         'date_init'      => 'Fecha inicial',
         'date_end'       => 'Fecha final',
         'description'    => 'Descripción',
+        'folio'          => 'Folio',
         'folio_c'        => 'Folio',
         'name'           => 'Nombre',
         'ns'             => 'Número de serie',
+        'observations_c' => 'Observaciones de la note de crédito',
         'quantity'       => 'Cantidad',
         'selling_price'  => 'Precio de venta',
+        'type'           => 'Tipo de pago',
+        'type_other'     => 'Especificar',
         'value'          => 'Valor',
-        'observations_c' => 'Observaciones de la note de crédito'
     ),
 
 );

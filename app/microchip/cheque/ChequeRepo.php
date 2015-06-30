@@ -42,6 +42,17 @@ class ChequeRepo extends BaseRepo
         return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
 
+    public function getChequesList($bank_id)
+    {
+        return Cheque::where('bank_id', $bank_id)
+            ->where(function ($q) {
+                $q->where('status', 'Pagado')
+                    ->orwhere('status', 'Post-fechado');
+            })
+            ->orderBy('folio', 'asc')
+            ->get();
+    }
+
     public function filter($conditions, $order = 'ASC')
     {
         return Cheque::where(

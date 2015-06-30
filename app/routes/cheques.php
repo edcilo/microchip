@@ -1,5 +1,10 @@
 <?php
 
+Route::get('api/cheques/list/{bank_id}', [
+    'as'   => 'api.cheque.list',
+    'uses' => 'ChequeController@getCheques',
+]);
+
 Route::group(
     [
         'prefix' => 'cheque/',

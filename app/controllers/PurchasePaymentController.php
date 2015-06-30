@@ -4,43 +4,25 @@ use microchip\purchasePayment\PurchasePaymentRepo;
 use microchip\purchase\PurchaseRepo;
 use microchip\purchasePayment\PurchasePaymentRegManager;
 use microchip\couponPurchase\CouponPurchaseRepo;
+use microchip\cheque\ChequeRepo;
 
 class PurchasePaymentController extends \BaseController
 {
     protected $paymentRepo;
     protected $purchaseRepo;
     protected $couponRepo;
+    protected $chequeRepo;
 
     public function __construct(
         PurchasePaymentRepo $purchasePaymentRepo,
         PurchaseRepo        $purchaseRepo,
-        CouponPurchaseRepo  $couponPurchaseRepo
+        CouponPurchaseRepo  $couponPurchaseRepo,
+        ChequeRepo          $chequeRepo
     ) {
         $this->paymentRepo   = $purchasePaymentRepo;
         $this->purchaseRepo  = $purchaseRepo;
         $this->couponRepo    = $couponPurchaseRepo;
-    }
-
-    /**
-     * Display a listing of the resource.
-     * GET /purchasepayment.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * GET /purchasepayment/create.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
+        $this->chequeRepo    = $chequeRepo;
     }
 
     /**
@@ -53,9 +35,23 @@ class PurchasePaymentController extends \BaseController
     {
         $data     = \Input::all();
         $purchase = $this->purchaseRepo->find($data['purchase_id']);
+        $this->notFoundUnless($purchase);
 
         if ($purchase->status == 'Pagado') {
             return Redirect::back()->with('message', "La venta $purchase->folio ya esta pagada.");
+        }
+
+        $validator = Validator::make($data, [
+            'type'               => 'required|in:Efectivo,Cheque,Transferencia,Nota de crédito,Otro',
+            'cheque_id'          => 'required_if:type,Cheque|integer',
+            'method'             => 'required|in:Contado,Crédito',
+            'payment_date'       => 'required|date',
+            'folio'              => 'required_if:type,Nota de crédito',
+            'description'        => 'required_if:type,Transferencia',
+            'type_other'         => 'required_if:type,Otro',
+        ]);
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
         }
 
         $data += [
@@ -64,14 +60,15 @@ class PurchasePaymentController extends \BaseController
         ];
 
         if ($data['type'] == 'Nota de crédito') {
-            $coupon = $this->couponRepo->getByFolio($data['folio']);
             $validator = Validator::make($data, ['folio' => 'required|exists:coupon_purchases,folio']);
             if ($validator->fails()) {
-                return Redirect::back()->withInput()->withErrors($validator);
+                return Redirect::back()->withErrors($validator);
             }
 
+            $coupon = $this->couponRepo->getByFolio($data['folio']);
+
             if (!$coupon->available) {
-                return Redirect::back()->withInput()->withErrors(['folio' => 'La nota de crédito ya fue utilizada.']);
+                return Redirect::back()->withErrors(['folio' => 'La nota de crédito ya fue utilizada.']);
             }
 
             $data['coupon_purchase_id'] = $coupon->id;
@@ -80,11 +77,28 @@ class PurchasePaymentController extends \BaseController
             $coupon->save();
         }
 
+        if ($data['type'] == 'Cheque') {
+            $validator = Validator::make($data, ['cheque_id' => 'required|exists:cheques,id']);
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator);
+            }
+
+            $cheque = $this->chequeRepo->find($data['cheque_id']);
+            if ($purchase->getRestAttribute() != $cheque->amount) {
+                return Redirect::back()->withErrors(['cheque_id' => 'El monto del cheque no es igual al valor total restante de la compra.']);
+            }
+        }
+
+        if ($data['type'] == 'Otro') {
+            $data['type'] = $data['type_other'];
+        }
+
+// validar valor del cheque y reducir el total o prohibir el pago con ese cheque
         $payment = $this->paymentRepo->newPayment();
         $manager = new PurchasePaymentRegManager($payment, $data);
         $manager->save();
 
-        $purchase = $this->purchaseRepo->find($payment->purchase_id);
+        $purchase = $this->purchaseRepo->find($data['purchase_id']);
         if ($purchase->rest <= 0 ) {
             $purchase->status     = 'Pagado';
             $purchase->progress_1 = 1;
@@ -92,57 +106,5 @@ class PurchasePaymentController extends \BaseController
         }
 
         return Redirect::route('purchase.show', [$purchase->folio, $purchase->id]);
-    }
-
-    /**
-     * Display the specified resource.
-     * GET /purchasepayment/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * GET /purchasepayment/{id}/edit.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * PUT /purchasepayment/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * DELETE /purchasepayment/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

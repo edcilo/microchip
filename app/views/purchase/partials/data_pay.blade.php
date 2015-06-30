@@ -27,8 +27,11 @@
                         {{ $payment->coupon->folio }}
                     </a>
                 @endif
+                @if (!empty($payment->description))
+                    : {{ $payment->description }}
+                @endif
             </td>
-            <td>{{ $payment->payment_date }}</td>
+            <td class="text-center">{{ $payment->payment_date_f }}</td>
         </tr>
     @endforeach
     </tbody>

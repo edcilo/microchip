@@ -25,6 +25,7 @@ class CreatePurchasePaymentsTable extends Migration
             $table->string('type');
             $table->date('payment_date');
             $table->enum('status', ['Pagado', 'Pendiente']);
+            $table->string('description');
 
             $table->timestamps();
         });

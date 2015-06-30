@@ -278,4 +278,19 @@ class ChequeController extends \BaseController
 
         return Redirect::back()->with('success', 'El movimiento se creo correctamente.');
     }
+
+    public function getCheques($bank_id)
+    {
+        $cheques = $this->chequeRepo->getChequesList($bank_id);
+        $list = [];
+
+        foreach ($cheques as $cheque) {
+            if(is_null($cheque->payment))
+            {
+                $list[] = $cheque;
+            }
+        }
+
+        return Response::json($list);
+    }
 }

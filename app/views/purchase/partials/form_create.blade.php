@@ -24,6 +24,9 @@
         </div>
     </div>
 
+</div>
+
+<div class="col col100">
     <div class="row flo col33 left">
         {{ Form::label('reception_date', 'Fecha de recepción: ') }} <br/>
         {{ Form::text('reception_date', date('Y-m-d'), ['placeholder'=>'AAAA-MM-DD', 'title'=>'Este campo es obligatorio y debe ser una fecha con el formato "AAAA-MM-DD".', 'data-required'=>'required', 'data-date'=>'date', 'autocomplete'=>'off']) }}
@@ -39,7 +42,6 @@
             {{ $errors->first('iva', '<span>:message</span>') }}
         </div>
     </div>
-
 </div>
 
 <hr/>

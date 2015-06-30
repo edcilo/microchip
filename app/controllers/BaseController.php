@@ -238,4 +238,35 @@ class BaseController extends Controller
 
         $sale->push();
     }
+
+    /*
+     * verifica que los numeros de serie de un documento esten dados de alta completamente
+     */
+    public function seriesEnd($document_id, $type)
+    {
+        $result   = 1;
+        $document = ($type == 'sale') ? $this->saleRepo->find($document_id) : $this->purchaseRepo->find($document_id);
+
+        foreach ($document->movements as $movement) {
+            if ($movement->product->type == 'Producto' AND $movement->product->p_description->have_series) {
+                if ($type == 'sale') {
+                    if ($movement->quantity != count($movement->seriesOut)) {
+                        $result = 0;
+                    }
+                } else {
+                    if ($movement->quantity != count($movement->series)) {
+                        $result = 0;
+                    }
+                }
+            }
+        }
+
+        if ($type == 'sale') {
+            $document->series_end    = $result;
+        } else {
+            $document->progress_3    = $result;
+        }
+
+        $document->save();
+    }
 }

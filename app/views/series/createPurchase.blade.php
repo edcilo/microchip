@@ -38,11 +38,16 @@
 
             @if ( count($movement->series) != $movement->quantity )
 
-                <div class="text-right">
-                    <button type="button" class="btn-green" id="generator_button_series" data-folio="{{ $movement->purchases[0]->folio }}" data-model="{{ $movement->product->p_description->model }}">
-                        <i class="fa fa-plus"></i>
-                        Generar números de serie.
-                    </button>
+                <div class="col col100">
+                    <div class="flo col80 left">
+                        Formato de números de serie generados: <strong>[folio de compra].[número de proveedor].[modelo del producto].[consecutivo]</strong>
+                    </div>
+                    <div class="flo col20 text-right">
+                        <button type="button" class="btn-green" id="generator_button_series" data-folio="{{ $movement->purchases[0]->folio }}" data-provider="{{ $movement->purchases[0]->provider_id }}" data-model="{{ $movement->product->p_description->model }}">
+                            <i class="fa fa-plus"></i>
+                            Generar números de serie.
+                        </button>
+                    </div>
                 </div>
 
                 @include('series/partials/formPurchaseCreate')

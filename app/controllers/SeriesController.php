@@ -38,17 +38,6 @@ class SeriesController extends \BaseController
     }
 
     /**
-     * Display a listing of the resource.
-     * GET /series.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      * GET /series/create/{movement_id}/{product_id}.
      *
@@ -162,24 +151,27 @@ class SeriesController extends \BaseController
 
     public function storePurchase()
     {
-        $collection    = [];
+        $collection  = [];
+        $purchase_id = Input::get('purchase_id');
+        $validator = null;
+
+        if (is_null(Input::get('ns'))) {
+            return Redirect::back()->withInput()->withErrors(['ns' => 'El campo Número de serie es obligatorio.']);
+        }
 
         foreach (Input::get('ns') as $ns) {
-            $data        = Input::only('product_id', 'inventory_movement_id', 'purchase_id');
-            $data       += [
+            $data = Input::only('product_id', 'inventory_movement_id', 'purchase_id');
+            $data += [
                 'ns'        => $ns,
                 'status'    => 'Disponible',
             ];
 
-            $validator = Validator::make(
-                $data,
-                [
-                    'ns'                    => 'required|unique:series,ns',
-                    'product_id'            => 'required|exists:products,id',
-                    'inventory_movement_id' => 'required|exists:inventory_movements,id',
-                    'purchase_id'           => 'required|exists:purchases,id',
-                ]
-            );
+            $validator = Validator::make($data, [
+                'ns'                    => 'required|unique:series,ns',
+                'product_id'            => 'required|exists:products,id',
+                'inventory_movement_id' => 'required|exists:inventory_movements,id',
+                'purchase_id'           => 'required|exists:purchases,id',
+            ]);
 
             if (!$validator->fails()) {
                 $series  = $this->seriesRepo->newSeries();
@@ -190,7 +182,7 @@ class SeriesController extends \BaseController
             }
         }
 
-        $this->seriesEnd($data['purchase_id'], 'purchase');
+        $this->seriesEnd($purchase_id, 'purchase');
 
         if (count($validator->messages()) > 0) {
             if (Request::ajax()) {
@@ -325,32 +317,6 @@ class SeriesController extends \BaseController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * GET /series/{id}/edit.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * PUT /series/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function update($id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      * DELETE /series/{id}.
      *
@@ -366,8 +332,9 @@ class SeriesController extends \BaseController
 
         if ($series->status == 'Disponible') {
             $this->seriesRepo->destroy($id);
+            $this->seriesEnd($series->movement->purchases[0]->id, 'purchase');
         } else {
-            $msg    = "No es posible eliminar el número de serie $series->ns.";
+            $msg = "No es posible eliminar el número de serie $series->ns.";
         }
 
         if (Request::ajax()) {
@@ -377,37 +344,6 @@ class SeriesController extends \BaseController
         }
 
         return Redirect::back()->with('message', $msg);
-    }
-
-    public function seriesEnd($document_id, $type)
-    {
-        $result = 1;
-
-        $document    = ($type == 'sale') ? $this->saleRepo->find($document_id) : $this->purchaseRepo->find($document_id);
-
-        foreach ($document->movements as $movement) {
-            if ($movement->product->type == 'Product') {
-                if ($movement->product->p_description->have_series) {
-                    if ($type == 'sale') {
-                        if ($movement->quantity != count($movement->seriesOut)) {
-                            $result = 0;
-                        }
-                    } else {
-                        if ($movement->quantity != count($movement->series)) {
-                            $result = 0;
-                        }
-                    }
-                }
-            }
-        }
-
-        if ($type == 'sale') {
-            $document->series_end    = $result;
-        } else {
-            $document->progress_3    = $result;
-        }
-
-        $document->save();
     }
 
     public function printSeries($id)

@@ -8,14 +8,14 @@ var add_form = function (content, quantity, product_id, movement_id, purchase_id
     for (var i=0; i<quantity; i++) {
         inputs += '<form class="form validate form_store_series">';
         inputs +=   '<div class="row col col100 text-center">';
-        inputs +=       '<div class="flo col80">'
+        inputs +=       '<div class="flo col80">';
         inputs +=           '<input name="product_id" type="hidden" value="'+product_id+'">';
         inputs +=           '<input name="inventory_movement_id" type="hidden" value="'+movement_id+'">';
         inputs +=           '<input name="purchase_id" type="hidden" value="'+purchase_id+'">';
         inputs +=           '<input autofocus="autofocus" type="text" name="ns[]" class="xb-input text-uppercase" placeholder="Número de serie" autocomplete="off" title="Este campo es obligatorio." data-required="required" data-error="0">';
         inputs +=       '</div>';
-        inputs +=       '<div class="flo col20">'
-        inputs +=           '<button type="submit" class="btn-green" title="Agregar número de serie"><i class="fa fa-plus"></i></button>'
+        inputs +=       '<div class="flo col20">';
+        inputs +=           '<button type="submit" class="btn-green" title="Agregar número de serie"><i class="fa fa-plus"></i></button>';
         inputs +=       '</div>';
         inputs +=   '</div>';
         inputs += '</form>';
@@ -69,6 +69,7 @@ var generate_series = function (button_id, inputs) {
     var b = $(button_id),
         i = $(inputs),
         folio = b.data('folio'),
+        provider = b.data('provider'),
         model = replace_specials(b.data('model'));
 
     b.click(function (e) {
@@ -78,7 +79,7 @@ var generate_series = function (button_id, inputs) {
             q = i.size().toString().length;
 
         i.each(function (index) {
-            var ns = folio + '.' + model + '.' + pad(index + 1, q);
+            var ns = folio + '.' + provider + '.' + model + '.' + pad(index + 1, q);
             $(this).val(ns);
         });
 

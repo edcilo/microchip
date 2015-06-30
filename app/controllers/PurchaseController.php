@@ -90,7 +90,12 @@ class PurchaseController extends \BaseController
     {
         $data = Input::all() + ['user_id' => Auth::user()->id];
 
-        $purchase    = $this->purchaseRepo->newPurchase();
+        $valid = $this->purchaseRepo->validateFolio($data['provider_id'], $data['folio']);
+        if (!$valid) {
+            return Redirect::back()->withInput()->withErrors(['folio' => 'El folio ya existe']);
+        }
+
+        $purchase   = $this->purchaseRepo->newPurchase();
         $manager    = new PurchaseRegManager($purchase, $data);
         $manager->save();
 

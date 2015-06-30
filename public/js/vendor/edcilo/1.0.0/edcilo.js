@@ -173,7 +173,7 @@ var replace_specials = function (str) {
         'á', 'é', 'í', 'ó', 'ú',
         'ñ', '{', '}', '[', ']',
         '^', '~', '\\', '/', ';',
-        ':', '-'
+        ':', '-', '_'
     ];
 
     for (var i=0; i<characters.length; i++) {

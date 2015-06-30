@@ -5,6 +5,7 @@ use microchip\pendingMovement\PendingMovementRepo;
 use microchip\series\SeriesRepo;
 use microchip\product\ProductRepo;
 use microchip\sale\SaleRepo;
+use microchip\purchase\PurchaseRepo;
 use microchip\inventoryMovement\InventoryMovementRegManager;
 use microchip\inventoryMovement\InventoryMovementPRegManager;
 use microchip\inventoryMovement\InventoryMovementSRegManager;
@@ -16,19 +17,22 @@ class InventoryMovementController extends \BaseController
     protected $seriesRepo;
     protected $productRepo;
     protected $saleRepo;
+    protected $purchaseRepo;
 
     public function __construct(
-        InventoryMovementRepo    $inventoryMovementRepo,
-        SeriesRepo                $seriesRepo,
+        InventoryMovementRepo   $inventoryMovementRepo,
+        SeriesRepo              $seriesRepo,
         PendingMovementRepo     $pendingMovementRepo,
         ProductRepo             $productRepo,
-        SaleRepo                $saleRepo
+        SaleRepo                $saleRepo,
+        PurchaseRepo            $purchaseRepo
     ) {
-        $this->movementRepo    = $inventoryMovementRepo;
-        $this->seriesRepo    = $seriesRepo;
+        $this->movementRepo = $inventoryMovementRepo;
+        $this->seriesRepo   = $seriesRepo;
         $this->pendingRepo  = $pendingMovementRepo;
         $this->productRepo  = $productRepo;
         $this->saleRepo     = $saleRepo;
+        $this->purchaseRepo = $purchaseRepo;
     }
 
     /**
@@ -105,10 +109,10 @@ class InventoryMovementController extends \BaseController
      */
     public function purchaseStore()
     {
-        $data       = Input::all();
+        $data = Input::all();
 
-        $movement   = $this->movementRepo->newMovement();
-        $manager    = new InventoryMovementPRegManager($movement, $data);
+        $movement = $this->movementRepo->newMovement();
+        $manager  = new InventoryMovementPRegManager($movement, $data);
         $manager->save();
 
         $movement->purchases()->attach(Input::get('purchase_id'));
@@ -347,6 +351,9 @@ class InventoryMovementController extends \BaseController
         }
 
         $this->movementRepo->destroy($id);
+        if (count($movement->purchases) > 0) {
+            $this->seriesEnd($movement->purchases[0]->id, $movement->product->type);
+        }
 
         if (Request::ajax()) {
             return Response::json($this->msg200 + ['data' => $movement, 'message' => 'Movimiento No. ' . $movement->id]);

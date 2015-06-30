@@ -40,4 +40,13 @@ class PurchaseRepo extends BaseRepo
 
         return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
+
+    public function validateFolio($provider_id, $folio)
+    {
+        $q = Purchase::where('provider_id', $provider_id)
+            ->where('folio', $folio)
+            ->count();
+
+        return !$q;
+    }
 }

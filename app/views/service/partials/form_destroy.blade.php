@@ -7,7 +7,7 @@
     </button>
     {{ Form::close() }}
 
-    <div class="confirm-dialog hide" title="Eliminar categoría" id="formConfirm" data-width="400">
+    <div class="confirm-dialog hide" title="Eliminar servicio" id="formConfirm" data-width="400">
         <div class="mesasge text-center">
             <p>¿Estas seguro de querer salir del servicio actual?</p>
         </div>

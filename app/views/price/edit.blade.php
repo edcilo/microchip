@@ -2,22 +2,30 @@
 
 @section ('title') / Cotización @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/search_product.js') }}
+    {{ HTML::script('js/sale.js') }}
+@stop
 
 @section ('content')
 
-    <div class="col col100 block description-product left">
+    <div class="col col100 left">
 
         @include('price.partials.data_sale')
 
-        @if( !$sale->movements_end )
-            <div class="subtitle">
+        <div class="subtitle_mark">
+            @if( !$sale->movements_end )
 
                 {{ Form::open(['route'=>'pas.order.store', 'method'=>'post', 'class'=>'form validate']) }}
                 @include('movement.partials.form_create_sale')
 
-            </div>
-        @endif
+            @else
+
+                <strong>Lista de productos</strong>
+
+            @endif
+        </div>
 
         @if ( count($sale->movements) OR count($sale->pas) )
 
@@ -45,9 +53,9 @@
     </div>
 
     @if ( $sale->movements_end )
-        <div class="col col100 block description-product">
+        <div class="col col100 left">
 
-            <div class="subtitle">
+            <div class="subtitle_mark">
                 <strong>Cliente</strong>
             </div>
 

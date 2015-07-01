@@ -9,7 +9,7 @@
     </div>
 
     <div class="row flo col20">
-        I.V.A.: <strong>{{ $sale->iva }}</strong>
+        I.V.A.: <strong id="value_iva">{{ $sale->iva }}</strong>
     </div>
 
     <div class="row flo col20 text-right">

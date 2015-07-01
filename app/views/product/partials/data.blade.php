@@ -79,7 +79,7 @@
                     </li>
                     <li>
                         <strong>Cuenta con número de serie:</strong>
-                        {{ $product->p_description->have_serie }}
+                        {{ $product->p_description->have_series }}
                     </li>
                 @endif
                 <li>

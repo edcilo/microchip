@@ -16,7 +16,7 @@ class ProductFormat
         if (is_object($product->p_description)) {
             $this->getUtilities($product);
 
-            $product->p_description->have_serie = $this->checkOrFail($product->p_description->have_serie);
+            $product->p_description->have_series = $this->checkOrFail($product->p_description->have_series);
         }
     }
 

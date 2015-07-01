@@ -10,9 +10,9 @@ class BankUpdManager extends BaseManager
     {
         return [
             'name'               => 'required|max:255',
-            'number_account'     => 'required|numeric|digits:11|unique:banks,number_account,'.$this->entity->id,
+            'number_account'     => 'required|numeric|unique:banks,number_account,'.$this->entity->id,
             'branch'             => 'required|max:255',
-            'clabe'              => 'required|numeric|digits:18|unique:banks,clabe,'.$this->entity->id,
+            'clabe'              => 'required|numeric|unique:banks,clabe,'.$this->entity->id,
             'executive_name'     => 'max:255',
             'active'             => 'in:0,1',
             'phone'              => 'numeric|min:6',

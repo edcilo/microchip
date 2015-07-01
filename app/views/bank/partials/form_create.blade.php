@@ -21,7 +21,7 @@
 
         <div class="row">
             {{ Form::label('number_account', 'Número de cuenta: ', ['class'=>'label50']) }}
-            {{ Form::text('number_account', null, ['title'=>'Este campo es obligatorio y debe ser de tipo entero con un tamaño de 11 digitos.', 'data-required'=>'required', 'data-integer'=>'integer', 'data-equals'=>'11']) }}
+            {{ Form::text('number_account', null, ['title'=>'Este campo es obligatorio y debe ser de tipo entero', 'data-required'=>'required', 'data-integer'=>'integer']) }}
             <div class="message-error">
                 {{ $errors->first('number_account', '<span>:message</span>') }}
             </div>
@@ -29,7 +29,7 @@
 
         <div class="row">
             {{ Form::label('clabe', 'CLABE: ', ['class'=>'label50']) }}
-            {{ Form::text('clabe', null, ['title'=>'Este campo es obligatorio y debe ser de tipo entero con un tamaño de 18 digitos.', 'data-required'=>'required', 'data-integer'=>'integer', 'data-equals'=>'18']) }}
+            {{ Form::text('clabe', null, ['title'=>'Este campo es obligatorio y debe ser de tipo entero', 'data-required'=>'required', 'data-integer'=>'integer']) }}
             <div class="message-error">
                 {{ $errors->first('clabe', '<span>:message</span>') }}
             </div>

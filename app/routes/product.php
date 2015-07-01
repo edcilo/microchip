@@ -1,5 +1,9 @@
 <?php
 
+Route::get('api/product/prices/{barcode}', [
+    'as' => 'api.product.prices',
+    'uses' => 'ProductController@getProduct',
+]);
 
 /*
  * Routes

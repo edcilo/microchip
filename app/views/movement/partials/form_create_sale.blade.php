@@ -4,7 +4,10 @@
 
     <div class="flo col30 left">
         <label for="barcode"><i class="fa fa-barcode"></i></label>
-        {{ Form::text('barcode', null, ['autofocus', 'class'=>'bg-input text-uppercase', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::text('barcode', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'id'=>'barcode', 'class'=>'bg-input text-uppercase stopEnter nextInput', 'autocomplete'=>'off', 'data-required'=>'required', 'data-url'=>route('product.search', 'product')]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="product_search_and_add"></div>
+        </div>
         <div class="message-error">
             {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>
@@ -19,10 +22,12 @@
     </div>
 
     <div class="flo col20 center">
-        {{ Form::label('selling_price', 'Precio:') }}
-        {{ Form::text('selling_price', null, ['autocomplete'=>'off', 'data-required'=>'required', 'data-numeric'=>'numeric', 'class'=>'text-right sm-input']) }}
-        <div class="message-error">
-            {{ $errors->first('selling_price', '<span>:message</span>') }}
+        <div class="hide product_price">
+            {{ Form::label('selling_price', 'Precio:') }}
+            {{ Form::text('selling_price', null, ['autocomplete'=>'off', 'data-required'=>'required', 'data-numeric'=>'numeric', 'class'=>'text-right sm-input', 'data-url'=>route('api.product.prices', 'PRODUCT_BARCODE')]) }}
+            <div class="message-error">
+                {{ $errors->first('selling_price', '<span>:message</span>') }}
+            </div>
         </div>
     </div>
 

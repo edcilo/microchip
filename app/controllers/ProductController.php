@@ -340,4 +340,17 @@ class ProductController extends \BaseController
 
         return $pdf->stream();
     }
+
+    public function getProduct($barcode)
+    {
+        $data = $this->msg404;
+
+        $product = $this->productRepo->getByBarcode($barcode, ['pDescription']);
+
+        if (!is_null($product)) {
+            $data = $this->msg200 + $product->toArray();
+        }
+
+        return Response::json($data);
+    }
 }

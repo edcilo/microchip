@@ -2,6 +2,7 @@ $( function () {
     height('#col-izq');
     height('#col-der');
     stopEnter();
+    enter2tap();
 
     $( "#tooltip" ).tooltip();
 
@@ -33,6 +34,40 @@ var stopEnter = function ()
     e_i.keypress(function (e) {
         if (e.keyCode == 13) {
             return false;
+        }
+    });
+};
+
+var element2string = function (e) {
+    return $('<div />').append( e.clone() ).remove().html();
+};
+
+var enter2tap = function () {
+    'use strict';
+
+    var i = $('.nextInput');
+
+    i.keypress(function (e) {
+        var t=(document.all) ? e.keyCode : e.which;
+
+        if (t==13) {
+            var frm = $(this).parents('form'),
+                es = frm.find('input'),
+                inp = element2string($(this)),
+                n = 0;
+
+            es.each(function (index) {
+                var inp2 = element2string($(this));
+
+                if (inp2 == inp) {
+                    n = index + 1;
+
+                    return false;
+                }
+            });
+
+
+            es[n].focus();
         }
     });
 };

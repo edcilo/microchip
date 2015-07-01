@@ -28,7 +28,7 @@
                 </td>
                 <td class="text-center">
                     <nobr>
-                        <a class="btn-blue" href="{{ route('series.show', [$item->ns, $item->id]) }}">
+                        <a class="btn-blue" title="Ver detalles" href="{{ route('series.show', [$item->ns, $item->id]) }}">
                             <i class="fa fa-eye"></i>
                         </a>
 

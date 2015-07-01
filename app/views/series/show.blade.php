@@ -39,11 +39,11 @@
                     @if ( $series->status == 'Vendido' )
                         <li>
                             <strong>Fecha de venta:</strong>
-                            {{ $series }}
+                            {{ $series->movementOut->created_at->format('d-m-Y h:i:s a') }}
                         </li>
                         <li>
                             <strong>Precio de venta</strong>
-                            {{ $series }}
+                            $ {{ $series->movementOut->selling_price }}
                         </li>
                     @endif
                     @if ( $series->status == 'Garantía' )

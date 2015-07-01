@@ -1,6 +1,6 @@
 <div class="col col100">
 
-    <div class="row flo col20 left">
+    <div class="row flo col15 left">
         {{ Form::label('classification', 'Clasificación:') }} <br/>
         {{ Form::select('classification', $classification_list, null, ['class'=>'xb-input', 'autofocus', 'title'=>'Selecciona un opción valida de la lista', 'data-required'=>'required']) }}
         <div class="message-error">
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="row flo col30 center">
+    <div class="row flo col40 center">
         {{ Form::label('name', 'Nombre:') }} <br/>
         {{ Form::text('name', null, ['class'=>'xb-input', 'title'=>'Este campo es obligatorio', 'data-required'=>'required', 'autocomplete'=>'off']) }}
         <div class="message-error">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="row flo col20 center">
+    <div class="row flo col15 center">
         {{ Form::label('legal_concept', 'Concepto legal:') }} <br/>
         {{ Form::select('legal_concept', $concept_list, null, ['class'=>'xb-input', 'title'=>'Selecciona un opción valida de la lista', 'data-required'=>'required']) }}
         <div class="message-error">

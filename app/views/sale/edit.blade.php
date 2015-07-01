@@ -14,14 +14,18 @@
 
         @include('sale.partials.data_sale')
 
-        @if( !$sale->movements_end )
-            <div class="subtitle_mark">
+        <div class="subtitle_mark">
+            @if( !$sale->movements_end )
 
                 {{ Form::open(['route'=>'movement.sale.store', 'method'=>'post', 'class'=>'form validate']) }}
                 @include('movement.partials.form_create_sale')
 
-            </div>
-        @endif
+            @else
+
+                <strong>Lista de productos</strong>
+
+            @endif
+        </div>
 
         @if ( count($sale->movements) OR count($sale->pas) )
 
@@ -50,9 +54,9 @@
     </div>
 
     @if ( $sale->movements_end )
-        <div class="col col100 block description-product">
+        <div class="col col100">
 
-            <div class="subtitle">
+            <div class="subtitle_mark">
                 <strong>Cliente</strong>
             </div>
 

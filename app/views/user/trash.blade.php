@@ -30,7 +30,7 @@
 
         @include('user.partials.form_active')
 
-        @include('user.partials.form_destroy')
+        @include('user.partials.form_destroy_float')
 
     @else
 

@@ -43,6 +43,8 @@
             <hr/>
 
             @include('user.partials.btn_trash_full')
+
+            @include('user.partials.form_destroy')
         </div>
 
     </div>

@@ -2,6 +2,10 @@
 
 @section('title') / {{ $provider->name }} @stop
 
+@section('scripts')
+    {{ HTML::script('js/admin.js') }}
+@stop
+
 @section('content')
 
     <div class="col col100">
@@ -248,9 +252,24 @@
 
         <div class="col col100 text-right">
             <hr/>
-            <a href="{{ route('provider.soft.delete', [$provider->id]) }}" class="btn-red">
-                <i class="fa fa-trash"></i> Enviar a la papelera.
-            </a>
+
+            @if ($provider->active)
+                <a href="{{ route('provider.soft.delete', $provider->id) }}" class="btn-red">
+                    <i class="fa fa-trash"></i> Enviar a la papelera.
+                </a>
+            @else
+                {{ Form::open(['route' => ['provider.destroy', $provider->id], 'method' => 'delete', 'role' => 'form']) }}
+                    <button class="btn-red form_confirm">
+                        <i class="fa fa-times"></i> Eliminar proveedor
+                    </button>
+                {{ Form::close() }}
+
+                <div class="confirm-dialog hide" title="Eliminar marca" id="formConfirm" data-width="400">
+                    <div class="mesasge text-center">
+                        <p>¿Estas seguro de querer eliminar al proveedor <strong>{{ $provider->name }}</strong>?</p>
+                    </div>
+                </div>
+            @endif
         </div>
 
     </div>

@@ -2,7 +2,9 @@
 
 @section ('title') / {{ $product->barcode }} @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/admin.js') }}
+@stop
 
 @section ('content')
 

@@ -32,7 +32,7 @@
 
         @include('user.partials.form_active')
 
-        @include('user.partials.form_destroy')
+        @include('user.partials.form_destroy_float')
 
     @else
     <p class="title-clear">No se obtuvierón resultados.</p>

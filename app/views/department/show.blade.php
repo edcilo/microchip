@@ -3,7 +3,7 @@
 @section ('title') / {{ $department->name }} @stop
 
 @section('scripts')
-{{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/admin.js') }}
 @stop
 
 @section ('content')
@@ -50,10 +50,16 @@
         <hr/>
 
         {{ Form::open(['route'=>['department.destroy', $department->id], 'method'=>'delete', 'class'=>'form']) }}
-            <div class="row text-right">
+            <div class="row text-right form_confirm">
                 <button class="btn-red"><i class="fa fa-times"></i> Eliminar</button>
             </div>
         {{ Form::close() }}
+
+        <div class="confirm-dialog hide" title="Eliminar departamento" id="formConfirm" data-width="400">
+            <div class="mesasge text-center">
+                <p>¿Estas seguro de querer eliminar al departamento <strong>{{ $department->name }}</strong>?</p>
+            </div>
+        </div>
     @endif
 
 

@@ -1,4 +1,4 @@
-@if( p(28) )
+@if( p(28) AND $user->active )
 
     <a href="{{ route('user.soft.delete', [$user->id]) }}" class="btn-red">
         <i class="fa fa-trash"></i> Enviar a la papelera.

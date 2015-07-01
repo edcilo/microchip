@@ -1,11 +1,18 @@
-@if( p(30) )
+@if( p(30) AND !$user->active)
 
-    <div class="confirm-dialog hide" title="Eliminar proveedor" id="dialogConfirm" data-width="500">
-        <div class="message text-center">
-            <h4>¿Esta seguro de querer eliminar al empleado <span class="data_name"></span> de forma definitiva?</h4>
+    {{ Form::open(['route' => ['user.destroy', $user->id], 'method' => 'delete', 'role' => 'form']) }}
+
+    <button class="btn-red form_confirm">
+        <i class="fa fa-times"></i> Eliminar empleado
+    </button>
+
+    {{ Form::close() }}
+
+
+    <div class="confirm-dialog hide" title="Eliminar empleado" id="formConfirm" data-width="400">
+        <div class="mesasge text-center">
+            <p>¿Estas seguro de querer eliminar al empleado <strong>{{ $user->username }}</strong>?</p>
         </div>
     </div>
 
-    {{ Form::open(['route' => ['user.destroy', 'PRODUCT_ID'], 'method' => 'delete', 'role' => 'form', 'id' => 'form-delete']) }}{{ Form::close() }}
-
-    @endif
+@endif

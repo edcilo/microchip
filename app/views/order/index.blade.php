@@ -9,11 +9,15 @@
 @section ('content')
 
     <div class="col col100">
-        <div class="flo col50">
+        <div class="flo col30">
             <h2>Pedidos</h2>
         </div>
 
-        <div class="flo col50 text-right">
+        <div class="flo col40 text-right">
+            @include('order.partials.btn_create')
+        </div>
+
+        <div class="flo col30 text-right">
             @include('order/partials/form_search')
         </div>
     </div>

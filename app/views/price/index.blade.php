@@ -9,11 +9,15 @@
 @section ('content')
 
     <div class="col col100">
-        <div class="flo col66">
+        <div class="flo col30">
             <h2>Cotizaciones</h2>
         </div>
 
-        <div class="flo col33 text-right">
+        <div class="flo col40 text-right">
+            @include('price.partials.btn_create')
+        </div>
+
+        <div class="flo col30 text-right">
             @include('price/partials/form_search')
         </div>
     </div>

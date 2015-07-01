@@ -48,7 +48,7 @@
 
 <div class="col col100">
     <div class="flo col50 row left text-center">
-        {{ Form::submit('Guardar') }}
+        {{ Form::submit('Continuar') }}
     </div>
 
     <div class="flo col50 row right text-center">

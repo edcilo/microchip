@@ -1,10 +1,16 @@
 @if( p(96) )
 
     {{ Form::open(['route'=>['service.destroy', $sale->id], 'method'=>'delete']) }}
-    <button class="btn-red" type="submit" title="Eliminar venta">
+    <button class="btn-red form_confirm" type="submit" title="Eliminar venta">
         <i class="fa fa-times"></i>
-        Eliminar partida
+        Eliminar servicio
     </button>
     {{ Form::close() }}
+
+    <div class="confirm-dialog hide" title="Eliminar categoría" id="formConfirm" data-width="400">
+        <div class="mesasge text-center">
+            <p>¿Estas seguro de querer salir del servicio actual?</p>
+        </div>
+    </div>
 
 @endif

@@ -2,11 +2,15 @@
 
 @section ('title') / Servicio @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/search_product.js') }}
+    {{ HTML::script('js/sale.js') }}
+@stop
 
 @section ('content')
 
-    <div class="col col100 block description-product left">
+    <div class="col col100 left">
 
         <div class="col col100">
             <div class="row flo col20">
@@ -18,7 +22,7 @@
             </div>
 
             <div class="row flo col20">
-                I.V.A.: <strong>{{ $sale->iva }}</strong>
+                I.V.A.: <strong id="value_iva">{{ $sale->iva }}</strong>
             </div>
 
             <div class="row flo col20 text-right">
@@ -41,16 +45,16 @@
 
     @if( $sale->data )
 
-        <div class="col col100 block description-product">
+        <div class="col col100 left">
 
-            @if( !$sale->movements_end )
-                <div class="subtitle">
-
+            <div class="subtitle_mark">
+                @if( !$sale->movements_end )
                     {{ Form::open(['route'=>'pas.order.store', 'method'=>'post', 'class'=>'form validate']) }}
                     @include('movement.partials.form_create_sale')
-
-                </div>
-            @endif
+                @else
+                    <strong>Lista de productos</strong>
+                @endif
+            </div>
 
             @include('service.partials.list_movements')
 
@@ -72,9 +76,11 @@
 
         @if( $sale->movements_end )
 
-            <div class="block description-product">
+            <div class="col col100 left">
 
-                <div class="subtitle">Cliente</div>
+                <div class="subtitle_mark">
+                    <strong>Cliente</strong>
+                </div>
 
                 @include('service.partials.form_update_customer')
 

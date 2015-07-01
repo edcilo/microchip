@@ -54,7 +54,7 @@
     </div>
 
     @if ( $sale->movements_end )
-        <div class="col col100">
+        <div class="col col100 left">
 
             <div class="subtitle_mark">
                 <strong>Cliente</strong>

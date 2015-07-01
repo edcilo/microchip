@@ -4,7 +4,7 @@
 
     <div class="row">
         {{ Form::label('name', 'Nombre: ', ['class'=>'label50']) }}
-        {{ Form::text('name', null, ['title'=>'Este campo es obligatorio.', 'class'=>'bg-input', 'data-required'=>'required', 'data-error'=>'0']) }}
+        {{ Form::text('name', null, ['title'=>'Este campo es obligatorio.', 'class'=>'xb-input', 'data-required'=>'required', 'data-error'=>'0']) }}
         <div class="message-error">
             {{ $errors->first('name', '<span>:message</span>') }}
         </div>

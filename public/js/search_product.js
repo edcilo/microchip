@@ -11,7 +11,9 @@ var add_barcode = function () {
     a.click(function (e) {
         e.preventDefault();
 
-        i.val(a.data('barcode')).focus();
+        var l = $(this);
+
+        i.val(l.data('barcode')).focus();
     });
 };
 

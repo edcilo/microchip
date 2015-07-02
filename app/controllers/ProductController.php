@@ -158,12 +158,25 @@ class ProductController extends \BaseController
         }
 
         $series = $this->seriesRepo->getSeriesByProduct($product->id);
+        $config = $this->configRepo->find(1);
 
-        $this->productFormat->formatData($product);
+        $this->productFormat->formatData($product, $config->iva);
         $tipo = $product->type;
         $type = ($tipo == 'Producto') ? 'product' : 'service';
 
-        return View::make('product/show', compact('type', 'tipo', 'product', 'series'));
+        return View::make('product/show', compact('type', 'tipo', 'product', 'series', 'config'));
+    }
+
+    public function showMin($id)
+    {
+        $product = $this->productRepo->find($id);
+        $this->notFoundUnless($product);
+
+        $config = $this->configRepo->find(1);
+
+        $product->price_1 = number_format($product->price_1 * ($config->iva / 100 + 1), 2, '.', ',');
+
+        return View::make('product.showMin', compact('product', 'series', 'config'));
     }
 
     /**
@@ -348,6 +361,10 @@ class ProductController extends \BaseController
         $product = $this->productRepo->getByBarcode($barcode, ['pDescription']);
 
         if (!is_null($product)) {
+            $product->stock = $product->stock;
+            $product->p_description->category = $product->p_description->category;
+            $product->p_description->mark = $product->p_description->mark;
+
             $data = $this->msg200 + $product->toArray();
         }
 

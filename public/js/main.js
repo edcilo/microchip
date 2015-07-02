@@ -3,6 +3,7 @@ $( function () {
     height('#col-der');
     stopEnter();
     enter2tap();
+    openNewWindow();
 
     $( "#tooltip" ).tooltip();
 
@@ -26,6 +27,18 @@ $( function () {
 
     validateForm('.validate');
 } );
+
+var openNewWindow = function (){
+    'use strict';
+
+    var link = $('.open_new_window');
+
+    link.click(function(e) {
+        e.preventDefault();
+
+        window.open($(this).attr('href'), '_blank', ['height=420', 'width=800']);
+    });
+}
 
 var stopEnter = function ()
 {

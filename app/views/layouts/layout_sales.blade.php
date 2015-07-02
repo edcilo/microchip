@@ -35,7 +35,7 @@
 
         </div>
 
-        <div class="flo col20" >
+        <div class="flo col20" id="col-izq">
 
             @yield('options')
 

@@ -4,8 +4,12 @@ namespace microchip\product;
 
 class ProductFormat
 {
-    public function formatData(&$product)
+    protected $iva;
+
+    public function formatData(&$product, $iva)
     {
+        $this->iva = $iva;
+
         $this->getPriceWithIva($product);
 
         $product->r_type    = ($product->type == 'Servicio') ? 'service' : 'product';
@@ -31,7 +35,7 @@ class ProductFormat
 
     public function getIva($price)
     {
-        return number_format($price * ((16 / 100) + 1), 2);
+        return number_format($price * (($this->iva / 100) + 1), 2);
     }
 
     public function getUtilities($product)

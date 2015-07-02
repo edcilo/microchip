@@ -69,7 +69,7 @@
 
 @section ('options')
 
-    <div class="col col100 right">
+    <div class="col col100 center">
 
         @include('layouts/partials/options')
 

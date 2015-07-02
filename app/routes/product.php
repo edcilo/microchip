@@ -90,6 +90,11 @@ Route::group(
             'uses' => 'ProductController@printBarcode'
         ]);
 
+        Route::get('details/{id}', [
+            'as'   => 'product.show.min',
+            'uses' => 'ProductController@showMin'
+        ]);
+
         Route::get('{slug}/{id}', [
             'as'   => 'product.show',
             'uses' => 'ProductController@show',

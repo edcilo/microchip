@@ -21,7 +21,7 @@
                 <td>{{ $product->utility_1 }} %</td>
             @endif
             <td>@if ($product->offer == 1) (precio de oferta) @endif $ {{ $product->price_1 }}</td>
-            <td>16 %</td>
+            <td>{{ $config->iva }} %</td>
             <td>$ {{ $product->price_iva_1 }}</td>
         </tr>
         <tr>

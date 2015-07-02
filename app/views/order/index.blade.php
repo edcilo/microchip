@@ -28,7 +28,7 @@
 
             @include('order.partials.list_paginate')
 
-            @include('sale.partials.form_destroy_float')
+            @include('order.partials.form_destroy_float')
 
         @else
 

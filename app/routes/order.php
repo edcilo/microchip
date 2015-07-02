@@ -38,7 +38,6 @@ Route::group(
 
         });
 
-        /*
         Route::group(['before' => 'pr:87'], function () {
 
             Route::delete('{id}', [
@@ -47,7 +46,6 @@ Route::group(
             ]);
 
         });
-        */
 
         // cancelar
         Route::group(['before' => 'pr:89'], function () {

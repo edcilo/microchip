@@ -51,7 +51,7 @@ Route::group(
 
         });
 
-        Route::group(['before' => 'pr:81,87'], function () {
+        Route::group(['before' => 'pr:81'], function () {
 
             Route::delete('{id}', [
                 'as'   => 'sale.destroy',

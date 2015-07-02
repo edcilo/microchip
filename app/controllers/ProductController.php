@@ -287,10 +287,11 @@ class ProductController extends \BaseController
         }
 
         $results = $this->productRepo->search($terms, $tipo);
+        $config = $this->configRepo->find(1);
 
         foreach ($results as $product) {
             $product->s_description = substr($product->s_description, 0, 117).'...';
-            $this->productFormat->formatData($product);
+            $this->productFormat->formatData($product, $config->iva);
         }
 
         return View::make('product/search', compact('type', 'tipo', 'results', 'terms'));

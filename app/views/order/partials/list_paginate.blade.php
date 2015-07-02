@@ -25,6 +25,8 @@
             <td class="text-center">
                 <nobr>
                     @include('order.partials.btn_show')
+
+                    @include('sale.partials.btn_destroy', ['sale' => $order])
                 </nobr>
             </td>
         </tr>

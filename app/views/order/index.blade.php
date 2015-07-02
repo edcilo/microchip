@@ -28,6 +28,8 @@
 
             @include('order.partials.list_paginate')
 
+            @include('sale.partials.form_destroy_float')
+
         @else
 
             <p class="title-clear">No hay pedidos registradas.</p>

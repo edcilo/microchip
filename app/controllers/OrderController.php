@@ -122,9 +122,11 @@ class OrderController extends \BaseController
         $sale = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
+        /*
         if ($sale->status != 'Pendiente') {
             return Redirect::route('home.sale');
         }
+        */
 
         return View::make('order/edit', compact('sale'));
     }

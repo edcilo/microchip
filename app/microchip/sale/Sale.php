@@ -137,7 +137,7 @@ class Sale extends BaseEntity
 
     public function getRestAttribute($f = '')
     {
-        $rest = $this->getTotalOrder() - $this->advance;
+        $rest = $this->getTotalOrder() - $this->getPaymentTotalAttribute();
 
         return number_format($rest, 2, '.', $f);
     }

@@ -33,11 +33,18 @@
 
         @include('order.partials.data')
 
-        <div class="text-right">
+        <div class="col col100">
 
-            @include('order.partials.form_sale')
+            <div class="flo col50 left">
+                @include('order.partials.form_cancel')
+                &nbsp;
+            </div>
 
-            @include('order.partials.form_cancel')
+            <div class="flo col50 right text-right">
+                @include('order.partials.form_sale')
+
+                @include('order.partials.btn_edit')
+            </div>
 
         </div>
 

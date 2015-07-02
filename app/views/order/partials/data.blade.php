@@ -49,10 +49,12 @@
                 <strong>Fecha de entrega:</strong>
                 {{ $order->delivery_date }}
             </li>
-            <li>
-                <strong>Dirección de envio:</strong>
-                {{ $order->shipping_address }}
-            </li>
+            @if (!empty($order->shipping_address))
+                <li>
+                    <strong>Dirección de envio:</strong>
+                    {{ $order->shipping_address }}
+                </li>
+            @endif
         </ul>
     </div>
 </div>

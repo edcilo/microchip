@@ -46,7 +46,7 @@
             <td class="text-right">
                 @include('order.partials.btn_series')
 
-                @include('order.partials.btn_supply')
+                @include('order.partials.btn_supply', ['pa' => $movement->pa])
             </td>
         </tr>
     @endforeach
@@ -59,7 +59,7 @@
     </tr>
     <tr>
         <td colspan="3"></td>
-        <td><strong>Anticipo:</strong></td>
+        <td><strong>Anticipo sugerido:</strong></td>
         <td>$ {{ $order->advance_f }}</td>
     </tr>
     <tr>

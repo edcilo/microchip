@@ -143,10 +143,6 @@
             <div class="col col100 block description-product">
                 <h3 class="header">Sustituido por:</h3>
 
-                @if ( Session::get('message') )
-                    <aside class="msg_dialog">{{ Session::get('message') }}</aside>
-                @endif
-
                 @include('pa.partials.data_supply')
 
                 @include('pa.partials.form_cancel')

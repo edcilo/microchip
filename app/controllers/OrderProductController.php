@@ -185,6 +185,9 @@ class OrderProductController extends \BaseController
         $data = Input::all();
         if ($order->product->type == 'Producto') {
             if ($order->product->p_description->have_series) {
+                if (!isset($data['ns'])) {
+                    $data['ns'] = [];
+                }
                 $quantity = count($data['ns']);
 
                 foreach ($data['ns'] as $ns) {

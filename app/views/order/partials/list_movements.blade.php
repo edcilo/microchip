@@ -24,7 +24,9 @@
                 <td class="text-right">$ {{ $movement->selling_price_f }}</td>
                 <td class="text-right">$ {{ $movement->total_f }}</td>
                 <td class="text-right">
-                    @include('movement.partials.form_destroy_order')
+                    @if( !$sale->movements_end )
+                        @include('movement.partials.form_destroy_order')
+                    @endif
                 </td>
             </tr>
         @endif

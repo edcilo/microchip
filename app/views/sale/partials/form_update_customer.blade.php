@@ -11,8 +11,12 @@
     </div>
 
     <div class="row flo col25 center">
-        {{ Form::label('customer_id', 'Cliente: ') }} <br/>
-        {{ Form::text('customer_id', null, ['data-required'=>'required', 'title'=>'Este campo es obligatorio.']) }}
+        {{ Form::label('customer_id', 'Cliente: ') }}
+        <strong id="customer_name_selected">{{ $sale->customer->name }}</strong> <br/>
+        {{ Form::text('customer_id', null, ['class'=>'text-right', 'autocomplete'=>'off', 'data-required'=>'required', 'title'=>'Este campo es obligatorio.', 'data-url'=>route('customer.search')]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="customer_search_and_add"></div>
+        </div>
         <div class="message-error">
             {{ $errors->first('customer_id', '<span>:message</span>') }}
         </div>

@@ -50,10 +50,14 @@
 
             <div class="subtitle_mark">
                 @if( !$sale->movements_end )
+
                     {{ Form::open(['route'=>'pas.order.store', 'method'=>'post', 'class'=>'form validate']) }}
                     @include('movement.partials.form_create_sale')
+
                 @else
+
                     <strong>Lista de productos</strong>
+
                 @endif
             </div>
 

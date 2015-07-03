@@ -384,6 +384,10 @@ class ProductController extends \BaseController
                 $type = null;
             }
 
+            if ($active=='null') {
+                $active = null;
+            }
+
             $product = $this->productRepo->searchFast($terms, $type, $active);
 
             if (!is_null($product) AND count($product) > 0) {

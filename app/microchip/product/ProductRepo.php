@@ -65,7 +65,7 @@ class ProductRepo extends BaseRepo
             $q->where('type', $type);
         }
 
-        if (!is_bool($active)) {
+        if (!is_null($active)) {
             $q->where('active', $active);
         }
 

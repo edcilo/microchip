@@ -124,16 +124,13 @@ class PendingMovementsController extends \BaseController
         $sale       = $this->saleRepo->find($data['sale_id']);
 
         $product    = $this->productRepo->getByBarcode($data['barcode']);
-        $total      = $this->movementRepo->totalStock($product->id);
         $iva        = $sale->iva;
-
-        $max        = ($product->type == 'Producto') ? '|max:'. $total : '';
 
         $validator = Validator::make(
             $data,
             [
                 'selling_price' => 'required|numeric|min:'.(number_format($product->price_5 * (($iva / 100) + 1), 2, '.', '')),
-                'quantity'      => 'required|integer|min:1'.$max,
+                'quantity'      => 'required|integer',
             ]
         );
 

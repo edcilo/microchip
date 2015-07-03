@@ -363,10 +363,32 @@ class ProductController extends \BaseController
 
         if (!is_null($product)) {
             $product->stock = $product->stock;
-            $product->p_description->category = $product->p_description->category;
-            $product->p_description->mark = $product->p_description->mark;
+            if ($product->type == 'Producto') {
+                $product->p_description->category = $product->p_description->category;
+                $product->p_description->mark = $product->p_description->mark;
+            }
 
             $data = $this->msg200 + $product->toArray();
+        }
+
+        return Response::json($data);
+    }
+
+    public function getSearch($type, $active)
+    {
+        $data = $this->msg404;
+        $terms = trim(Input::get('terms'));
+
+        if (!empty($terms)) {
+            if ($type != 'Producto' AND $type != 'Servicio') {
+                $type = null;
+            }
+
+            $product = $this->productRepo->searchFast($terms, $type, $active);
+
+            if (!is_null($product) AND count($product) > 0) {
+                $data = $product;
+            }
         }
 
         return Response::json($data);

@@ -64,13 +64,20 @@ var showDataProduct = function (content, data)
 		download = content.find('.link_download').data('url'),
 		list_prices = [data.price_1, data.price_2, data.price_3, data.price_4, data.price_5];
 
-	download = download + '/' + data.p_description.data_sheet;
+	if (data.type == 'Producto') {
+		download = download + '/' + data.p_description.data_sheet;
+	}
+
 	link = link.replace('PRODUCT_ID', data.id);
 
-	list += '<li><strong>Modelo:</strong> '+data.p_description.model+'</li>';
-	list += '<li><strong>Marca:</strong> '+data.p_description.mark.name+'</li>';
+	if (data.type == 'Producto') {
+		list += '<li><strong>Modelo:</strong> '+data.p_description.model+'</li>';
+		list += '<li><strong>Marca:</strong> '+data.p_description.mark.name+'</li>';
+	}
 	list += '<li><strong>Garantía:</strong> '+data.warranty/30+' meses</li>';
-	list += '<li><strong>Existencias:</strong> '+data.stock+'</li>';
+	if (data.type == 'Producto') {
+		list += '<li><strong>Existencias:</strong> '+data.stock+'</li>';
+	}
 	list += '<li><strong>Descripción:</strong> '+data.description+'</li>';
 
 	for (var i = 0; i < list_prices.length; i++) {

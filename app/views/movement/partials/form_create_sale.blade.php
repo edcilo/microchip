@@ -4,7 +4,7 @@
 
     <div class="flo col30 left">
         <label for="barcode"><i class="fa fa-barcode"></i></label>
-        {{ Form::text('barcode', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'id'=>'barcode', 'class'=>'bg-input text-uppercase stopEnter nextInput', 'autocomplete'=>'off', 'data-required'=>'required', 'data-url'=>route('product.search', 'product')]) }}
+        {{ Form::text('barcode', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'id'=>'barcode', 'class'=>'bg-input text-uppercase stopEnter nextInput', 'autocomplete'=>'off', 'data-required'=>'required', 'data-url'=>route('api.product.search', ['null', 1])]) }}
         <div class="cont-form-search">
             <div class="resultSearch globe-center hide" id="product_search_and_add"></div>
         </div>

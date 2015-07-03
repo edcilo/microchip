@@ -1,10 +1,5 @@
 <?php
 
-Route::get('api/product/prices/{barcode}', [
-    'as' => 'api.product.prices',
-    'uses' => 'ProductController@getProduct',
-]);
-
 /*
  * Routes
  */
@@ -107,3 +102,13 @@ Route::group(
 
     }
 );
+
+Route::get('api/product/prices/{barcode}', [
+    'as' => 'api.product.prices',
+    'uses' => 'ProductController@getProduct',
+]);
+
+Route::get('api/product/search/{type}/{active}', [
+    'as' => 'api.product.search',
+    'uses' => 'ProductController@getSearch',
+]);

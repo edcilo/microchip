@@ -57,6 +57,21 @@ class ProductRepo extends BaseRepo
         return Product::with($with)->where('barcode', $barcode)->first();
     }
 
+    public function searchFast($terms, $type=null, $active=null, $quantity = 10)
+    {
+        $q = Product::with('pDescription');
+
+        if (!is_null($type)) {
+            $q->where('type', $type);
+        }
+
+        if (!is_bool($active)) {
+            $q->where('active', $active);
+        }
+
+        return $q->where('barcode', 'like', "%$terms%")->take($quantity)->get();
+    }
+
     public function search($terms, $type = 'all', $request = '', $take = 10)
     {
         $q = Product::with('pDescription');

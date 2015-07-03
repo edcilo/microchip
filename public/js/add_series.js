@@ -70,7 +70,7 @@ var generate_series = function (button_id, inputs) {
         i = $(inputs),
         folio = b.data('folio'),
         provider = b.data('provider'),
-        model = replace_specials(b.data('model'));
+        model = b.data('model');
 
     b.click(function (e) {
         e.preventDefault();

@@ -13,16 +13,6 @@
             ({{ $sale->status }})
         </div>
 
-        <div class="col col100">
-            <div class="flo col50">
-                @include('sale.partials.btn_end')
-            </div>
-
-            <div class="flo col50 text-right">
-                @include('service.partials.btn_print')
-            </div>
-        </div>
-
         @include('service.partials.header')
 
         @include('service.partials.data')
@@ -31,6 +21,16 @@
             @include('service.partials.list_movements')
         </div>
 
+    </div>
+
+    <div class="col col100">
+        <div class="flo col50">
+            @include('sale.partials.btn_end')
+        </div>
+
+        <div class="flo col50 text-right">
+            @include('service.partials.btn_print')
+        </div>
     </div>
 
 @stop

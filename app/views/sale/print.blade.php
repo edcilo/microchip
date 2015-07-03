@@ -13,20 +13,20 @@
             ({{ $sale->status }})
         </div>
 
-        <div class="col col100">
-            <div class="flo col50">
-                @include('sale.partials.btn_end')
-            </div>
-
-            <div class="flo col50 text-right">
-                @include('sale.partials.btn_print')
-            </div>
-        </div>
-
         @include('sale.partials.data')
 
         @include('sale.partials.list_products')
 
+    </div>
+
+    <div class="col col100">
+        <div class="flo col50">
+            @include('sale.partials.btn_end')
+        </div>
+
+        <div class="flo col50 text-right">
+            @include('sale.partials.btn_print')
+        </div>
     </div>
 
     @include('sale.partials.form_adjust_price')

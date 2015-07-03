@@ -56,6 +56,14 @@ class CustomerController extends \BaseController
         return View::make('customer.create', compact('classification_list', 'concept_list'));
     }
 
+    public function createMin()
+    {
+        $classification_list    = $this->classification_list;
+        $concept_list            = $this->concept_list;
+
+        return View::make('customer.create_min', compact('classification_list', 'concept_list'));
+    }
+
     /**
      * Store a newly created resource in storage.
      * POST /customer.
@@ -85,6 +93,10 @@ class CustomerController extends \BaseController
             return Response::json($response);
         }
 
+        if (Input::get('close')) {
+            return Redirect::route('customer.confirm', $customer->id);
+        }
+
         return Redirect::route('customer.show', [$customer->slug, $customer->id]);
     }
 
@@ -111,6 +123,14 @@ class CustomerController extends \BaseController
         $prices = $customer->sales()->where('classification', 'Cotización')->orderBy('folio', 'desc')->paginate();
 
         return View::make('customer/show', compact('customer', 'sales', 'orders', 'services', 'prices'));
+    }
+
+    public function confirm($id)
+    {
+        $customer = $this->customerRepo->find($id);
+        $this->notFoundUnless($customer);
+
+        return View::make('customer.confirm', compact('customer'));
     }
 
     /**

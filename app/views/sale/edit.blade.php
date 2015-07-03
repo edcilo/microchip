@@ -64,6 +64,13 @@
             @include('sale.partials.form_update_customer')
 
         </div>
+
+        <hr/>
+
+        <a href="{{ route('customer.create.min') }}" class="btn-green open_new_window" target="_blank">
+            <i class="fa fa-plus"></i>
+            Registrar cliente
+        </a>
     @endif
 
 @stop

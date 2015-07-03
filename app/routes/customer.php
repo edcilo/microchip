@@ -22,6 +22,11 @@ Route::group(
                 'uses' => 'CustomerController@create',
             ]);
 
+            Route::get('create/window', [
+                'as'   => 'customer.create.min',
+                'uses' => 'CustomerController@createMin'
+            ]);
+
             Route::post('', [
                 'as'   => 'customer.store',
                 'uses' => 'CustomerController@store',
@@ -101,4 +106,9 @@ Route::group(
 Route::get('api/customer/{id}', [
     'as' => 'api.customer.get',
     'uses' => 'CustomerController@getCustomer',
+]);
+
+Route::get('response/customer/confirm/{id}', [
+    'as'   => 'customer.confirm',
+    'uses' => 'CustomerController@confirm'
 ]);

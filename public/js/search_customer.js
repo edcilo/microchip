@@ -31,7 +31,7 @@ var search_customer = function (input_text, content_results) {
 
         if ($(this).val() != '' && e.keyCode != 9) {
             $.get($(this).data('url'), 'terms='+$(this).val(), function(result) {
-                show_list(result, e_r)
+                show_list_customers(result, e_r)
             }, 'json');
         } else {
             e_r.hide().html('');
@@ -40,7 +40,7 @@ var search_customer = function (input_text, content_results) {
     });
 };
 
-var show_list = function (data, content) {
+var show_list_customers = function (data, content) {
     'use strict';
 
     var result = '';

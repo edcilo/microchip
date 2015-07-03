@@ -5,10 +5,14 @@
     <div class="col col100">
         <div class="row flo col20 left">
             {{ Form::label('customer_id', 'Cliente: ') }} <br/>
-            {{ Form::text('customer_id', null, ['data-required'=>'required', 'autofocus', 'title'=>'Este campo es obligatorio.']) }}
+            {{ Form::text('customer_id', null, ['autocomplete'=>'off', 'autofocus', 'data-required'=>'required', 'title'=>'Este campo es obligatorio.', 'data-url'=>route('customer.search')]) }}
+            <div class="cont-form-search">
+                <div class="resultSearch globe-center hide" id="customer_search_and_add"></div>
+            </div>
             <div class="message-error">
                 {{ $errors->first('customer_id', '<span>:message</span>') }}
             </div>
+            <strong id="customer_name_selected">{{ $sale->customer->name }}</strong>
         </div>
 
         <div class="row flo col20 center">

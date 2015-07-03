@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * Routes
  */
@@ -98,3 +97,8 @@ Route::group(
 
     }
 );
+
+Route::get('api/customer/{id}', [
+    'as' => 'api.customer.get',
+    'uses' => 'CustomerController@getCustomer',
+]);

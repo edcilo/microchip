@@ -1,5 +1,7 @@
 $(function () {
 	search_customer('#customer_id', '#customer_search_and_add');
+
+	get_customer('#customer_id');
 });
 
 var add_customer = function () {
@@ -55,4 +57,55 @@ var show_list_customers = function (data, content) {
 
     content.html(result).show();
     add_customer();
+};
+
+var get_customer = function (input) {
+	'use strict';
+
+	var i = $(input);
+
+	i.focusout(function () {
+		var val = parseInt($(this).val()),
+			url = $(this).data('customer');
+
+		if (!isNaN(val)) {
+			url = url.replace('CUSTOMER_ID', val);
+
+			$.get(url, '', function (data) {
+				show_data_customer('#customer_show_details', data);
+			}, 'json');
+		}
+	});
+};
+
+var show_data_customer = function (content, data) {
+	var c = $(content),
+		list = '',
+		card = '',
+		address = '';
+
+	address = (data.address !='') ? data.address + ', ' : '';
+	address += (data.colony !='') ? 'col. ' + data.colony + ', ' : '';
+	address += (data.postcode !='') ? 'c.p. ' + data.postcode + ', ' : '';
+	address += (data.city !='') ? data.city + ', ' : '';
+	address += (data.state !='') ? data.state + '; ' : '';
+	address += (data.country !='') ? data.country : '';
+
+	list += '<li><strong>Clasificación:</strong> '+data.classification+'</li>';
+	list += '<li><strong>R.F.C.:</strong>'+data.rfc+'</li>';
+	list += '<li><strong>Teléfono:</strong> '+data.phone+'</li>';
+	list += '<li><strong>Celular:</strong> '+data.cellphone+'</li>';
+	list += '<li><strong>Correo electrónico:</strong> '+data.email+'</li>';
+	list += '<li><strong>Dirección:</strong> '+address+'</li>';
+	list += '<li><strong>Envios:</strong> '+data.shipping_address+'</li>';
+
+	card += '<li><strong>Numero:</strong> '+data.card_id+'</li>';
+	card += '<li><strong>Vence el:</strong> '+data.expiration_date+'</li>';
+	card += '<li><strong>Ahorro:</strong> $ '+data.points+'</li>';
+
+	c.find('.name').text(data.prefix+' '+data.name);
+	c.find('.list-description').html(list);
+	c.find('.list-card').html(card);
+
+	c.show();
 };

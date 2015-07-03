@@ -281,4 +281,17 @@ class CustomerController extends \BaseController
             return View::make('customer/search', compact('results', 'terms'));
         }
     }
+
+    public function getCustomer($id) {
+        $data = $this->msg404;
+
+        $customer = $this->customerRepo->find($id);
+
+        if (!is_null($customer)) {
+            $customer->expiration_date = $customer->expiration_date;
+            $data = $this->msg200 + $customer->toArray();
+        }
+
+        return Response::json($data);
+    }
 }

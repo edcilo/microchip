@@ -92,6 +92,45 @@ function stopRKey(evt) {
 }
 //document.onkeypress = stopRKey;
 
+/**
+ * Convierte un elemento input text a select
+ *
+ * @param {string} input_text el nombre del id del elemento input text sin (#)
+ * @param {array} options Arreglo de valores para las opciones del elemento select
+ */
+var text2select = function (input_text, options) {
+    'use strict';
+
+    var t_js = document.getElementById(input_text),
+        t = $('#' + input_text),
+        s = '';
+
+    if (t.attr('type') == 'text') {
+        var nodes=[],
+            values=[],
+            att,
+            atts = t_js.attributes;
+
+        s = '<select ';
+        for (var i = 0; i < atts.length; i++){
+            att = atts[i];
+            s += att.nodeName + '="' + att.nodeValue + '" ' ;
+        }
+        s += '></select>';
+
+        s = $(s);
+
+        for (var i = 0; i < options.length; i++) {
+            var option = document.createElement('option');
+            option.value = options[i];
+            $(option).text(options[i]);
+            s.append($(option));
+        }
+
+        t.replaceWith(s);
+    }
+};
+
 var height = function (element) {
     var element  = $(element),
         e_header = $('header').height(),

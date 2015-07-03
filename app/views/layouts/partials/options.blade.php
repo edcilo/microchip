@@ -35,3 +35,16 @@
     <ul class="list-prices"></ul>
 
 </div>
+
+<div class="col col100 description-product hide" id="customer_show_details">
+    <div class="subtitle_mark">
+        <strong class="name"></strong>
+    </div>
+
+    <ul class="list-description"></ul>
+
+    <hr/>
+
+    <strong>Monedero electronico</strong>
+    <ul class="list-card"></ul>
+</div>

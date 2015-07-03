@@ -90,7 +90,11 @@ var showDataProduct = function (content, data)
 
 	content.find('.barcode').text(data.barcode);
 	content.find('img').attr('src', content.find('img').data('url') + '/' + data.image);
-	content.find('.link_download').attr('href', download);
+	if (data.type == 'Producto') {
+		content.find('.link_download').attr('href', download);
+	} else {
+		content.find('.link_download').hide();
+	}
 	content.find('.link_product').attr('href', link);
 	content.find('.list-description').html(list);
 	content.find('.list-prices').html(prices);

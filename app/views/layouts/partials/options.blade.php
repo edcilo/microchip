@@ -17,6 +17,7 @@
             <a href="#" data-url="{{ url() }}" class="btn-green link_download" download title="Descargar ficha técnica">
                 <i class="fa fa-download"></i>
             </a>
+            &nbsp;
         </div>
         <div class="flo col50 right text-right">
             <a href="#" data-url="{{ route('product.show.min', 'PRODUCT_ID') }}" class="btn-blue open_new_window link_product" target="_blank">

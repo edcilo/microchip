@@ -65,7 +65,7 @@ var enter2tap = function () {
 
         if (t==13) {
             var frm = $(this).parents('form'),
-                es = frm.find('input'),
+                es = frm.find(':input'),
                 inp = element2string($(this)),
                 n = 0;
 

@@ -5,7 +5,7 @@
     <div class="col col100">
         <div class="row flo col20 left">
             {{ Form::label('customer_id', 'Cliente: ') }} <br/>
-            {{ Form::text('customer_id', null, ['autocomplete'=>'off', 'autofocus', 'data-required'=>'required', 'title'=>'Este campo es obligatorio.', 'data-url'=>route('customer.search')]) }}
+            {{ Form::text('customer_id', null, ['class'=>'stopEnter nextInput', 'autocomplete'=>'off', 'autofocus', 'data-required'=>'required', 'title'=>'Este campo es obligatorio.', 'data-url'=>route('customer.search')]) }}
             <div class="cont-form-search">
                 <div class="resultSearch globe-center hide" id="customer_search_and_add"></div>
             </div>

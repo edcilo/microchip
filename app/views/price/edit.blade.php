@@ -63,6 +63,15 @@
             @include('price.partials.form_update_customer')
 
         </div>
+
+        @if (p(64))
+            <hr/>
+
+            <a href="{{ route('customer.create.min') }}" class="btn-green open_new_window" target="_blank">
+                <i class="fa fa-plus"></i>
+                Registrar cliente
+            </a>
+        @endif
     @endif
 
 @stop

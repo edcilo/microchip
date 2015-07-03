@@ -44,7 +44,7 @@
     </div>
 
     <div class="flo col15 row center">
-        {{ Form::label('selling_price', 'Precio unitario: ') }} <br/>
+        {{ Form::label('selling_price', 'Precio de compra: ') }} <br/>
         {{ Form::text('selling_price', null, ['class'=>'text-right xb-input', 'placeholder'=>'0.00', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
             {{ $errors->first('selling_price', '<span>:message</span>') }}

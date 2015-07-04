@@ -3,7 +3,7 @@
 @section ('title') / Ventas @stop
 
 @section('scripts')
-    {{-- HTML::script('js/admin.js') --}}
+    {{ HTML::script('js/pas.js') }}
 @stop
 
 @section ('content')

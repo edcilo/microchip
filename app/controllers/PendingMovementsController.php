@@ -62,7 +62,9 @@ class PendingMovementsController extends \BaseController
         $sale   = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
-        return View::make('pa/create', compact('sale'));
+        $config = $this->configRepo->find(1);
+
+        return View::make('pa/create', compact('sale', 'config'));
     }
 
     /**

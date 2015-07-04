@@ -1,5 +1,7 @@
 <div class="col col100">
     {{ Form::hidden('sale_id', $sale->id) }}
+    {{ Form::hidden('iva', $config->iva, ['id'=>'iva']) }}
+    {{ Form::hidden('dollar', $config->dollar, ['id'=>'dollar']) }}
 
     <div class="flo col15 row left">
         {{ Form::label('barcode', 'Codigo de barras: ') }} <br/>
@@ -9,20 +11,21 @@
         </div>
     </div>
 
-    <div class="flo col20 row center">
-        {{ Form::label('s_description', 'Descripción corta: ') }} <br/>
-        {{ Form::text('s_description', null, ['class'=>'xb-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+    <div class="flo col30 row center">
+        {{ Form::label('s_description', 'Descripciones: ') }} <br/>
+        {{ Form::text('s_description', null, ['class'=>'xb-input', 'placeholder'=>'Descripción corta', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
         <div class="message-error">
             {{ $errors->first('s_description', '<span>:message</span>') }}
         </div>
-    </div>
 
-    <div class="flo col30 row center">
-        {{ Form::label('l_description', 'Descripción larga: ') }} <br/>
-        {{ Form::textarea('l_description', null, ['class'=>'xb-input', 'rows'=>'2', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::textarea('l_description', null, ['class'=>'xb-input', 'placeholder'=>'Descripción larga', 'rows'=>'4', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
         <div class="message-error">
             {{ $errors->first('l_description', '<span>:message</span>') }}
         </div>
+    </div>
+
+    <div class="flo col20 row center">
+        <label for="">Enlaces:</label>
 
         {{ Form::text('provider_link', null, ['class'=>'xb-input', 'placeholder'=>'Enlace del proveedor', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
         <div class="message-error">
@@ -50,22 +53,22 @@
             {{ $errors->first('selling_price', '<span>:message</span>') }}
         </div>
 
-        {{ Form::select('w_iva', ['Con Iva', 'Sin Iva'], null, ['class'=>'xb-input', 'title'=>'¿El precio unitario tiene IVA incluido?']) }}
+        {{ Form::select('w_iva', ['Con Iva', 'Sin Iva'], null, ['class'=>'xb-input', 'id'=>'pa_iva', 'title'=>'¿El precio unitario tiene IVA incluido?']) }}
         <div class="message-error">
             {{ $errors->first('w_iva', '<span>:message</span>') }}
         </div>
 
-        {{ Form::select('dollar', ['M.N.', 'Dollar'], null, ['class'=>'xb-input', 'title'=>'Tipo de moneda.']) }}
+        {{ Form::select('dollar', ['M.N.', 'Dollar'], null, ['class'=>'xb-input', 'id'=>'pa_dollar', 'title'=>'Tipo de moneda.']) }}
         <div class="message-error">
             {{ $errors->first('dollar', '<span>:message</span>') }}
         </div>
 
-        {{ Form::text('utility', null, ['class'=>'xb-input text-right', 'title'=>'Tipo de moneda.', 'placeholder'=>'Utilidad (%)', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
+        {{ Form::text('utility', null, ['class'=>'xb-input text-right', 'id'=>'pa_utility', 'title'=>'Utilidad (%)', 'placeholder'=>'Utilidad (%)', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
             {{ $errors->first('utility', '<span>:message</span>') }}
         </div>
 
-        {{ Form::text('shipping', null, ['class'=>'xb-input text-right', 'title'=>'Tipo de moneda.', 'placeholder'=>'Costo de envio ($)', 'data-numeric'=>'numeric']) }}
+        {{ Form::text('shipping', null, ['class'=>'xb-input text-right', 'id'=>'pa_shipping', 'title'=>'Costo de envio', 'placeholder'=>'Costo de envio ($)', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
             {{ $errors->first('shipping', '<span>:message</span>') }}
         </div>
@@ -73,7 +76,7 @@
 
     <div class="flo col10 row right">
         {{ Form::label('total', 'Total:') }}
-        {{ Form::text('total', '$ 0.00', ['class'=>'xb-input text-right', 'disabled', 'data-required'=>'required']) }}
+        {{ Form::text('total', '$ 0.00', ['class'=>'xb-input text-right', 'id'=>'pa_total', 'disabled', 'data-required'=>'required']) }}
     </div>
 
 </div>

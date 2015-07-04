@@ -107,7 +107,9 @@ class ProductController extends \BaseController
             App::abort(404);
         }
 
-        return View::make('product/create', compact('type', 's_type', 'category_list', 'mark_list'));
+        $iva = $this->configRepo->find(1)->iva;
+
+        return View::make('product/create', compact('type', 's_type', 'category_list', 'mark_list', 'iva'));
     }
 
     /**
@@ -204,10 +206,10 @@ class ProductController extends \BaseController
         } else {
             $type = 'service';
         }
-        //$type = ($tipo == 'Producto') ? 'product' : 'service';
 
+        $iva = $this->configRepo->find(1)->iva;
 
-        return View::make('product/edit', compact('type', 'tipo', 'product', 's_type', 'category_list', 'mark_list'));
+        return View::make('product/edit', compact('type', 'tipo', 'product', 's_type', 'category_list', 'mark_list', 'iva'));
     }
 
     /**

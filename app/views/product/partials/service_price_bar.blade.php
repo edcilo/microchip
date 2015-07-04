@@ -25,7 +25,7 @@
             Generar precios
         </button>
 
-        <button type="button" id="round_prices" class="btn-green" title="Redondear precios">
+        <button type="button" id="round_prices" class="btn-green" title="Redondear precios con I.V.A.">
             <i class="fa fa-circle-thin"></i>
         </button>
     </div>

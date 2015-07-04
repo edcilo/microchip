@@ -222,7 +222,7 @@ class ProviderController extends \BaseController
     public function search()
     {
         $terms = \Input::get('terms');
-        return Response::json($this->providerRepo->search($terms, 'ajax'));
+
         if (Request::ajax()) {
             return Response::json($this->providerRepo->search($terms, 'ajax'));
         } else {

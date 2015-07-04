@@ -31,6 +31,31 @@ class Product extends BaseEntity
         return $this->movements->sum('in_stock');
     }
 
+    public function getWithIva1Attribute($iva)
+    {
+        return $this->getPriceWithIva($this->price_1, $iva);
+    }
+
+    public function getWithIva2Attribute($iva)
+    {
+        return $this->getPriceWithIva($this->price_2, $iva);
+    }
+
+    public function getWithIva3Attribute($iva)
+    {
+        return $this->getPriceWithIva($this->price_3, $iva);
+    }
+
+    public function getWithIva4Attribute($iva)
+    {
+        return $this->getPriceWithIva($this->price_4, $iva);
+    }
+
+    public function getWithIva5Attribute($iva)
+    {
+        return $this->getPriceWithIva($this->price_5, $iva);
+    }
+
     public function getUtility1Attribute()
     {
         return $this->getUtility($this->price_1);
@@ -67,6 +92,12 @@ class Product extends BaseEntity
 
         return number_format($price, 2, '.', $f);
     }
+    public function getPriceWithIva($price, $iva)
+    {
+        $total = $price * ($iva / 100 + 1);
+
+        return number_format($total, 2);
+    }
 
     public function getUtility($price)
     {
@@ -78,6 +109,7 @@ class Product extends BaseEntity
 
         return number_format($utility, 2);
     }
+
 
     public function pDescription()
     {

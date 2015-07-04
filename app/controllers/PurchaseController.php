@@ -125,8 +125,8 @@ class PurchaseController extends \BaseController
             return Response::json($purchase);
         }
 
-        $bank_list        = ['' => 'Selecciona...'] + $this->bankRepo->lists('name', 'id');
-        $cheque_list    = ['' => 'Selecciona...'] + $this->chequeRepo->getListAvailable();
+        $bank_list   = ['' => 'Selecciona...'] + $this->bankRepo->lists_active('name', 'id', 'name');
+        $cheque_list = ['' => 'Selecciona...'] + $this->chequeRepo->getListAvailable();
 
         return View::make('purchase/show', compact('purchase', 'method_list', 'type_list', 'bank_list', 'cheque_list'));
     }

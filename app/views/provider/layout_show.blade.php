@@ -254,12 +254,20 @@
             <hr/>
 
             @if ($provider->active)
-                <a href="{{ route('provider.soft.delete', $provider->id) }}" class="btn-red">
-                    <i class="fa fa-trash"></i> Enviar a la papelera.
-                </a>
+                {{ Form::open(['route'=>['provider.soft.delete', $provider->id], 'method'=>'get']) }}
+                    <button type="submit" class="btn-red form_confirm">
+                        <i class="fa fa-trash"></i> Enviar a la papelera.
+                    </button>
+                {{ Form::close() }}
+
+                <div class="confirm-dialog hide" title="Eliminar marca" id="formConfirm" data-width="400">
+                    <div class="mesasge text-center">
+                        <p>¿Estas seguro de querer enviar a la papelera al proveedor <strong>{{ $provider->name }}</strong>?</p>
+                    </div>
+                </div>
             @else
                 {{ Form::open(['route' => ['provider.destroy', $provider->id], 'method' => 'delete', 'role' => 'form']) }}
-                    <button class="btn-red form_confirm">
+                    <button type="submit" class="btn-red form_confirm">
                         <i class="fa fa-times"></i> Eliminar proveedor
                     </button>
                 {{ Form::close() }}

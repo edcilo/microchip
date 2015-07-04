@@ -16,6 +16,14 @@ class BankRepo extends BaseRepo
         return $bank = new Bank();
     }
 
+    public function lists_active($column, $key = null, $order_column = 'id', $order='asc')
+    {
+        $q = Bank::where('active', 1)
+            ->orderBy($order_column, $order);
+
+        return (is_null($key)) ? $q->lists($column) : $q->lists($column, $key);
+    }
+
     public function search($terms, $response = '', $take = 10)
     {
         $q = Bank::where('name', 'LIKE', "%$terms%")

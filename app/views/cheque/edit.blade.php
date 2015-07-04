@@ -4,6 +4,7 @@
 
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/search_provider.js') }}
 @stop
 
 @section('content')

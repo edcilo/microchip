@@ -39,8 +39,11 @@
     </div>
 
     <div class="flo col33 row right">
-        {{ Form::label('receiver', 'Paguese este cheque a: ') }} <br/>
-        {{ Form::text('receiver', null, ['data-required'=>'required']) }}
+        {{ Form::label('provider', 'Paguese este cheque a: ') }} <br/>
+        {{ Form::text('receiver', null, ['class'=>'xb-input', 'autocomplete'=>'off', 'id'=>'provider', 'data-required'=>'required', 'data-url'=>route('provider.search')]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="provider_search_and_add"></div>
+        </div>
         <div class="message-error">
             {{ $errors->first('receiver', '<span>:message</span>') }}
         </div>

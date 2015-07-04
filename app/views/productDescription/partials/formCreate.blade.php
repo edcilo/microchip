@@ -69,7 +69,7 @@
 
     <div class="flo col20 row center">
         {{ Form::label('provider', 'Proveedor: ') }}
-        {{ Form::text('provider', !is_null($desc) ? $desc->provider : null, ['class'=>'xb-input', 'data-url'=>route('provider.search')]) }}
+        {{ Form::text('provider', !is_null($desc) ? $desc->provider : null, ['class'=>'xb-input', 'autocomplete'=>'off', 'data-url'=>route('provider.search')]) }}
         <div class="cont-form-search">
             <div class="resultSearch globe-center hide" id="provider_search_and_add"></div>
         </div>

@@ -5,7 +5,7 @@
         <tr>
             <th>Número de serie</th>
             <th>Estado</th>
-            <th>Factura</th>
+            <th>No. Compra</th>
             <th>
                 <i class="fa fa-gears"></i>
                 Opciones

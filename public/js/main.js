@@ -23,7 +23,7 @@ $( function () {
         suppressScrollX: true
     });
 
-    search('#form-search', '.search', '.resultSearch');
+    search('#form-search', '.search', '.search_general');
 
     validateForm('.validate');
 } );

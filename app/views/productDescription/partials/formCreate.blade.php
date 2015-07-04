@@ -1,6 +1,4 @@
 <div class="col col100">
-    {{-- Form::hidden('product_id', $id) --}}
-
     <div class="flo col20 row left">
         {{ Form::label('category_id', 'Categoría: ') }}
         {{ Form::select('category_id', $category_list, (!is_null($desc)) ? $desc->category_id : null, ['class'=>'xb-input', 'title'=>'Este campo es obligatorio.', 'data-required'=>'required']) }}
@@ -71,7 +69,10 @@
 
     <div class="flo col20 row center">
         {{ Form::label('provider', 'Proveedor: ') }}
-        {{ Form::text('provider', !is_null($desc) ? $desc->provider : null, ['class'=>'xb-input']) }}
+        {{ Form::text('provider', !is_null($desc) ? $desc->provider : null, ['class'=>'xb-input', 'data-url'=>route('provider.search')]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="provider_search_and_add"></div>
+        </div>
         <div class="message-error">
             {{ $errors->first('provider', '<span>:message</span>') }}
         </div>

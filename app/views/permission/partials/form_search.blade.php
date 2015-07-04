@@ -3,5 +3,5 @@
 <button class="btn-search" type="submit"><span>Buscar</span></button>
 {{ Form::close() }}
 <div class="cont-form-search">
-    <div class="resultSearch globe-center hide" data-url="{{ asset('permission') }}"></div>
+    <div class="search_general resultSearch globe-center hide" data-url="{{ asset('permission') }}"></div>
 </div>

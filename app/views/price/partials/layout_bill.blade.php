@@ -119,6 +119,6 @@
     {{ $price->user->profile->name }} {{ $price->user->profile->f_last_name }} {{ $price->user->profile->s_last_name }}
 </p>
 
-<div id="footer" class="text-center">
+<div class="text-center footer">
     <strong>Horarios: </strong> {{ $company->schedule }}
 </div>

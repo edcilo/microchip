@@ -160,6 +160,6 @@
 
 
 
-<div id="footer" class="text-center">
+<div class="footer text-center">
     <strong>Horarios: </strong> {{ $company->schedule }}
 </div>

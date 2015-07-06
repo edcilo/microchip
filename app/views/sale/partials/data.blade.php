@@ -53,9 +53,17 @@
     </div>
 </div>
 
-@if($sale->description != '')
+@if($sale->description != '' OR $sale->shipping_address != '')
     <hr/>
+@endif
 
+@if($sale->description != '')
     <strong>Observaciones:</strong>
     {{ $sale->description }}
+@endif
+
+@if($sale->shipping_address != '')
+    <br/>
+    <strong>Dirección de envio:</strong>
+    {{ $sale->shipping_address }}
 @endif

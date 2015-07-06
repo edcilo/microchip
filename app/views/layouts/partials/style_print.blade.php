@@ -60,7 +60,7 @@
         margin: 0 auto;
         width: 30%;
     }
-    #footer{
+    .footer{
         bottom: -20px;
         left: 0;
         position: fixed;

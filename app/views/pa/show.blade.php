@@ -2,7 +2,9 @@
 
 @section('title') / {{ $pa->barcode }} @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/search_product.js') }}
+@stop
 
 @section('content')
 

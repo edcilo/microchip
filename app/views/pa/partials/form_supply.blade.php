@@ -9,7 +9,10 @@
 
     <div class="flo col33 left">
         {{ Form::label('barcode', 'Código de barras:') }}
-        {{ Form::text('barcode', null, ['class'=>'', 'autofocus', 'data-required'=>'required']) }}
+        {{ Form::text('barcode', null, ['autofocus', 'title'=>'Este campo es obligatorio.', 'id'=>'barcode', 'class'=>'text-uppercase stopEnter nextInput', 'autocomplete'=>'off', 'data-required'=>'required', 'data-url'=>route('api.product.search', ['null', 1])]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="product_search_and_add"></div>
+        </div>
         <div class="message-error">
             {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>

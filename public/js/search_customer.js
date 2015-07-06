@@ -4,6 +4,19 @@ $(function () {
 	get_customer('#customer_id');
 });
 
+var add_address = function (link, content) {
+	'use strict';
+
+	var a = $(link),
+		t = $(content);
+
+	a.click(function (e) {
+		e.preventDefault();
+
+		t.val($(this).data('address'));
+	})
+}
+
 var add_customer = function () {
     'use strict';
 
@@ -50,7 +63,7 @@ var show_list_customers = function (data, content) {
     if (data.length > 0) {
         for (var i=0; i<data.length; i++) {
         	personal;
-        		console.log(data[i]);
+
         	if (data[i].cellphone != '') {
         		personal = '(célular: ' + data[i].cellphone + ')';
         	} else if (data[i].email != '') {
@@ -108,8 +121,8 @@ var show_data_customer = function (content, data) {
 	list += '<li><strong>Teléfono:</strong> '+data.phone+'</li>';
 	list += '<li><strong>Celular:</strong> '+data.cellphone+'</li>';
 	list += '<li><strong>Correo electrónico:</strong> '+data.email+'</li>';
-	list += '<li><strong>Dirección:</strong> '+address+'</li>';
-	list += '<li><strong>Envios:</strong> '+data.shipping_address+'</li>';
+	list += '<li><strong><a href="#" title="Usar como dirección de envio" class="add_address" data-address="'+address+'"><i class="fa fa-arrow-left"></i></a> Dirección:</strong> '+address+'</li>';
+	list += '<li><strong><a href="#" title="Usar como dirección de envio" class="add_address" data-address="'+data.shipping_address+'"><i class="fa fa-arrow-left"></i></a> Envios:</strong> '+data.shipping_address+'</li>';
 
 	card += '<li><strong>Numero:</strong> '+data.card_id+'</li>';
 	card += '<li><strong>Vence el:</strong> '+data.expiration_date+'</li>';
@@ -120,4 +133,5 @@ var show_data_customer = function (content, data) {
 	c.find('.list-card').html(card);
 
 	c.show();
+	add_address('.add_address', '#shipping_address');
 };

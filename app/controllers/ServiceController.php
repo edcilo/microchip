@@ -5,6 +5,7 @@ use microchip\configuration\ConfigurationRepo;
 use microchip\company\CompanyRepo;
 use microchip\orderProduct\OrderProductRepo;
 use microchip\sale\SaleServiceUpdManager;
+use microchip\customer\CustomerRepo;
 
 class ServiceController extends \BaseController
 {
@@ -12,17 +13,20 @@ class ServiceController extends \BaseController
     protected $configRepo;
     protected $companyRepo;
     protected $orderProductRepo;
+    protected $customerRepo;
 
     public function __construct(
         SaleRepo            $saleRepo,
         ConfigurationRepo   $configurationRepo,
         CompanyRepo         $companyRepo,
-        OrderProductRepo    $orderProductRepo
+        OrderProductRepo    $orderProductRepo,
+        CustomerRepo        $customerRepo
     ) {
         $this->saleRepo         = $saleRepo;
         $this->configRepo       = $configurationRepo;
         $this->companyRepo      = $companyRepo;
         $this->orderProductRepo = $orderProductRepo;
+        $this->customerRepo     = $customerRepo;
     }
 
     /**
@@ -125,6 +129,11 @@ class ServiceController extends \BaseController
         $folio = $this->saleRepo->getFolio('Servicio');
 
         $data = Input::all() + ['customer_order' => Input::get('customer_id'), 'folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
+
+        $customer = $this->customerRepo->find(Input::get('customer_id'));
+        if (!is_null($customer) AND !$customer->active) {
+            return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
+        }
 
         $manager = new SaleServiceUpdManager($service, $data);
         $manager->save();

@@ -5,6 +5,7 @@ use microchip\configuration\ConfigurationRepo;
 use microchip\company\CompanyRepo;
 use microchip\pendingMovement\PendingMovementRepo;
 use microchip\sale\SalePriceUpdManager;
+use microchip\customer\CustomerRepo;
 
 class PriceController extends \BaseController
 {
@@ -12,17 +13,20 @@ class PriceController extends \BaseController
     protected $configRepo;
     protected $companyRepo;
     protected $paRepo;
+    protected $customerRepo;
 
     public function __construct(
         SaleRepo            $saleRepo,
         ConfigurationRepo   $configurationRepo,
         CompanyRepo         $companyRepo,
-        PendingMovementRepo $pendingMovementRepo
+        PendingMovementRepo $pendingMovementRepo,
+        CustomerRepo        $customerRepo
     ) {
         $this->saleRepo     = $saleRepo;
         $this->configRepo   = $configurationRepo;
         $this->companyRepo  = $companyRepo;
         $this->paRepo       = $pendingMovementRepo;
+        $this->customerRepo = $customerRepo;
     }
 
     /**
@@ -124,6 +128,11 @@ class PriceController extends \BaseController
 
         $data = Input::all() + ['customer_order' => Input::get('customer_id'), 'folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
 
+        $customer = $this->customerRepo->find(Input::get('customer_id'));
+        if (!is_null($customer) AND !$customer->active) {
+            return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
+        }
+        
         $manager = new SalePriceUpdManager($price, $data);
         $manager->save();
 

@@ -181,7 +181,7 @@ var search = function (element_form, element_input, element_contResults) {
                         text += ( result[i].name        ) ? result[i].name              : '';
                         text += ( result[i].f_last_name ) ? result[i].f_last_name       : '';
                         text += ( result[i].card_id     ) ? ' - ' + result[i].card_id   : '';
-                        text += ( result[i].type        ) ? result[i].type              : '';
+                        text += ( result[i].type        ) ? ' - ' + result[i].s_description : '';
                         text += ( result[i].folio       ) ? ': ' + result[i].folio      : '';
 
                         slug = result[i].slug;

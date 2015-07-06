@@ -16,14 +16,22 @@ class CustomerRepo extends BaseRepo
         return $customer = new Customer();
     }
 
-    public function search($terms, $request = '', $take = 10)
+    public function search($terms, $request = '', $active=null, $take = 10)
     {
-        $q = Customer::where('name', 'like', "%$terms%")
-            ->orwhere('phone', 'like', "%$terms%")
-            ->orwhere('cellphone', 'like', "%$terms%")
-            ->orwhere('email', 'like', "%$terms%")
-            ->orwhere('rfc', 'like', "%$terms%")
-            ->orwhere('card_id', 'like', "%$terms%");
+        $q = Customer::orderBy('name');
+
+        if (!is_null($active)) {
+            $q->where('active', $active);
+        }
+
+        $q->where(function ($query) use ($terms) {
+            $query->where('name', 'like', "%$terms%")
+                ->orwhere('phone', 'like', "%$terms%")
+                ->orwhere('cellphone', 'like', "%$terms%")
+                ->orwhere('email', 'like', "%$terms%")
+                ->orwhere('rfc', 'like', "%$terms%")
+                ->orwhere('card_id', 'like', "%$terms%");
+        });
 
         return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }

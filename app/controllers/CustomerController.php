@@ -294,7 +294,7 @@ class CustomerController extends \BaseController
         $terms = \Input::get('terms');
 
         if (Request::ajax()) {
-            return $this->customerRepo->search($terms, 'ajax');
+            return $this->customerRepo->search($terms, 'ajax', Input::get('active'));
         } else {
             $results = $this->customerRepo->search($terms);
 

@@ -153,9 +153,9 @@ class SaleController extends \BaseController
             return Redirect::back()->with('message', $message);
         }
 
-        $valid = $this->validateCustomer(Input::get('customer_id'));
+        $valid = $this->validateCustomer(Input::get('customer_id'), Input::get('type'));
 
-        if ($valid[0] or Input::get('type') == 'Ticket') {
+        if ($valid[0]) {
             $folio = $this->saleRepo->getFolio('Venta');
 
             $data = Input::all() + ['folio' => str_pad($folio, 8, '0', STR_PAD_LEFT), 'sale' => 1];
@@ -167,7 +167,7 @@ class SaleController extends \BaseController
                 return Response::json($this->msg304 + ['data' => $valid['msg']]);
             }
 
-            return Redirect::back()->with('msg', $valid['msg']);
+            return Redirect::back()->withInput()->with('msg', $valid['msg']);
         }
 
         if (Request::ajax()) {
@@ -310,7 +310,7 @@ class SaleController extends \BaseController
         }
     }
 
-    public function validateCustomer($customer_id)
+    public function validateCustomer($customer_id, $type)
     {
         $customer = $this->customerRepo->find($customer_id);
         $result = [true];
@@ -318,24 +318,21 @@ class SaleController extends \BaseController
         if (is_null($customer)) {
             $result[0]        = false;
             $result['msg']    = 'El cliente no esta registrado.';
-        } else {
-            if ($customer->legal_concept != 'Ninguno') {
-                if ($customer->rfc == '') {
-                    $result[0]        = true;
-                    $result['msg']    = 'El cliente no cuenta con un R.F.C.';
-                }
-                if ($customer->active == 0) {
-                    $result[0]        = false;
-                    $result['msg']    = 'El cliente no esta activo.';
-                }
-                if ($customer->email == '') {
-                    $result[0]        = false;
-                    $result['msg']    = 'El cliente no tiene un correo electrónico';
-                }
-            } else {
-                $result[0]    = false;
+        } elseif (!$customer->active) {
+            $result[0]        = false;
+            $result['msg']    = 'El cliente no esta activo.';
+        } elseif ($type == 'Factura') { // corregir
+            if ($customer->rfc == '') {
+                $result[0]        = false;
                 $result['msg']    = 'El cliente no cuenta con un R.F.C.';
             }
+            if ($customer->email == '') {
+                $result[0]        = false;
+                $result['msg']    = 'El cliente no tiene un correo electrónico';
+            }
+        } else {
+            $result[0]     = true;
+            $result['msg'] = 'El cliente es valido';
         }
 
         return $result;

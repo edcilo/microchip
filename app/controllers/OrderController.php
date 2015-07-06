@@ -8,6 +8,7 @@ use microchip\orderProduct\OrderProductRepo;
 use microchip\company\CompanyRepo;
 use microchip\sale\SaleOrderUpdManager;
 use microchip\inventoryMovement\InventoryMovementSRegManager;
+use microchip\customer\CustomerRepo;
 
 class OrderController extends \BaseController
 {
@@ -22,18 +23,20 @@ class OrderController extends \BaseController
 
     public function __construct(
         SaleRepo                $saleRepo,
-        ConfigurationRepo        $configurationRepo,
-        SaleFormat                $saleFormat,
+        ConfigurationRepo       $configurationRepo,
+        SaleFormat              $saleFormat,
         CompanyRepo             $companyRepo,
         InventoryMovementRepo   $inventoryMovementRepo,
-        OrderProductRepo        $orderProductRepo
+        OrderProductRepo        $orderProductRepo,
+        CustomerRepo            $customerRepo
     ) {
-        $this->saleRepo            = $saleRepo;
-        $this->configRepo        = $configurationRepo;
-        $this->formatData        = $saleFormat;
+        $this->saleRepo         = $saleRepo;
+        $this->configRepo       = $configurationRepo;
+        $this->formatData       = $saleFormat;
         $this->companyRepo      = $companyRepo;
         $this->movementRepo     = $inventoryMovementRepo;
         $this->orderProductRepo = $orderProductRepo;
+        $this->customerRepo     = $customerRepo;
     }
 
     /**
@@ -147,6 +150,11 @@ class OrderController extends \BaseController
         $folio = $this->saleRepo->getFolio('Pedido');
 
         $data = Input::all() + ['customer_order' => Input::get('customer_id'), 'folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
+
+        $customer = $this->customerRepo->find(Input::get('customer_id'));
+        if (!is_null($customer) AND !$customer->active) {
+            return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
+        }
 
         $manager = new SaleOrderUpdManager($order, $data);
         $manager->save();

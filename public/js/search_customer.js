@@ -32,7 +32,7 @@ var search_customer = function (input_text, content_results) {
         hideControls(e_r);
 
         if ($(this).val() != '' && e.keyCode != 9) {
-            $.get($(this).data('url'), 'terms='+$(this).val(), function(result) {
+            $.get($(this).data('url'), 'active=1&terms='+$(this).val(), function(result) {
                 show_list_customers(result, e_r)
             }, 'json');
         } else {
@@ -45,11 +45,23 @@ var search_customer = function (input_text, content_results) {
 var show_list_customers = function (data, content) {
     'use strict';
 
-    var result = '';
+    var result = '', personal;
 
     if (data.length > 0) {
         for (var i=0; i<data.length; i++) {
-            result += '<div><a href="#" class="add_customer" data-id="'+data[i].id+'" data-name="'+data[i].prefix+' '+data[i].name+'">'+data[i].prefix+' '+data[i].name+'</a></div>';
+        	personal;
+        		console.log(data[i]);
+        	if (data[i].cellphone != '') {
+        		personal = '(célular: ' + data[i].cellphone + ')';
+        	} else if (data[i].email != '') {
+        		personal = '(email: ' + data[i].email + ')';
+        	} else if (data[i].rfc != '') {
+        		personal = '(RFC: ' + data[i].rfc + ')';
+        	} else {
+        		personal = '';
+        	}
+
+            result += '<div><a href="#" class="add_customer" data-id="'+data[i].id+'" data-name="'+data[i].prefix+' '+data[i].name+'">'+data[i].prefix+' '+data[i].name+' '+personal+'</a></div>';
         }
     } else {
         result = '<div class="text-center"><span>La consulta no devolvió resultados.</span></div>';

@@ -132,7 +132,7 @@ class PriceController extends \BaseController
         if (!is_null($customer) AND !$customer->active) {
             return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
         }
-        
+
         $manager = new SalePriceUpdManager($price, $data);
         $manager->save();
 
@@ -184,7 +184,10 @@ class PriceController extends \BaseController
         $price = $this->saleRepo->find($price_id);
         $this->notFoundUnless($price);
 
+        $folio = $this->saleRepo->getFolio('Cotización');
+
         $clone = $this->saleRepo->newSale();
+        $clone->folio           = str_pad($folio, 8, '0', STR_PAD_LEFT);
         $clone->iva             = $price->iva;
         $clone->dollar          = $price->dollar;
         $clone->classification  = $price->classification;
@@ -220,6 +223,10 @@ class PriceController extends \BaseController
             $pa_c->product_id       = $pa->product_id;
             $pa_c->sale_id          = $clone->id;
             $pa_c->save();
+        }
+
+        if ($clone->status != 'Pendiente') {
+            return Redirect::route('price.show', $clone->id);
         }
 
         return Redirect::route('price.edit', [$clone->id]);

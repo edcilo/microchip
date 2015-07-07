@@ -5,7 +5,6 @@
     {{ Form::open(['route'=>['order.product.destroy', $order->id], 'method'=>'delete', 'class'=>'form']) }}
 
 
-
         <div class="flo col75 left text-right">
             @if($order->product->type == 'Producto')
                 @if($order->product->p_description->have_series)
@@ -31,12 +30,18 @@
         </div>
 
         <div class="flo col25 right">
-            <button type="submit" class="btn-red">
+            <button type="submit" class="btn-red form_confirm" data-confirm="cancel_confirm">
                 <i class="fa fa-times"></i> Desapartar
             </button>
         </div>
 
 
     {{ Form::close() }}
+
+    <div class="confirm-dialog hide" title="Desapartar producto" id="cancel_confirm" data-width="400">
+        <div class="mesasge text-center">
+            <h3>¿Estas seguro de querer desapartar el producto {{ $order->product->barcode }}?</h3>
+        </div>
+    </div>
 
 @endif

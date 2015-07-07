@@ -4,6 +4,7 @@
 
 @section('scripts')
     {{ HTML::script('js/search_product.js') }}
+    {{ HTML::script('js/admin.js') }}
 @stop
 
 @section('content')
@@ -14,10 +15,12 @@
         </div>
 
         <div class="flo col40 text-right">
-            @include('pa.partials.btn_index')
+            @include('pa.partials.btn_document')
         </div>
 
         <div class="flo col30 text-right">
+            @include('pa.partials.btn_index')
+
             @include('pa/partials/form_search')
         </div>
     </div>
@@ -55,19 +58,7 @@
                 <div class="col col100 row">
                     <div class="flo col20 left">
                         <strong>Folio de documento:</strong> <br/>
-                        <a href="
-                        @if($pa->sale->classification == 'Venta')
-                            {{ route('sale.show', [$pa->sale->id]) }}
-                        @elseif($pa->sale->classification == 'Pedido')
-                            {{ route('order.show', [$pa->sale->id]) }}
-                        @elseif($pa->sale->classification == 'Cotización')
-                            {{ route('price.show', [$pa->sale->id]) }}
-                        @else
-                            {{ route('service.show', [$pa->sale->id]) }}
-                        @endif
-                            ">
-                            {{ $pa->sale->folio }}
-                        </a>
+                        {{ $pa->sale->folio }}
                     </div>
 
                     <div class="flo col20 center">

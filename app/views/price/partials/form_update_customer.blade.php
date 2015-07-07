@@ -23,7 +23,7 @@
 
     <div class="row flo col25 right">
         <br/>
-        <button type="submit" class="btn-green">
+        <button type="submit" class="btn-green form_confirm" data-confirm="save_continue_confirm">
             <i class="fa fa-save"></i>
             Guardar
         </button>
@@ -31,3 +31,9 @@
 </div>
 
 {{ Form::close() }}
+
+<div class="confirm-dialog hide" title="Terminar e imprimir" id="save_continue_confirm" data-width="400">
+    <div class="mesasge text-center">
+        <h3>¿Terminar cotización?</h3>
+    </div>
+</div>

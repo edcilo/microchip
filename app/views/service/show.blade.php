@@ -4,6 +4,8 @@
 
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/search_product.js') }}
+    {{ HTML::script('js/sale.js') }}
 @stop
 
 @section ('content')
@@ -52,7 +54,7 @@
                 <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
             </div>
 
-            <div class="edc-hide-show-element hide">
+            <div class="edc-hide-show-element">
 
                 @include('service.partials.form_delivery_date')
 
@@ -112,6 +114,8 @@
         </div>
 
         @include('sale.partials.list_pays')
+
+        @include('pay.partials.form_destroy_float')
 
     </div>
 

@@ -7,9 +7,15 @@
         {{ $errors->first('purchase_price', '<span>:message</span>') }}
         {{ $errors->first('selling_price', '<span>:message</span>') }}
     </div>
-    <button class="btn-green">
+    <button class="btn-green form_confirm" data-confirm="sale_confirm">
         Vender
     </button>
     {{ Form::close() }}
 
-    @endif
+    <div class="confirm-dialog hide" title="Vender servicio" id="sale_confirm" data-width="400">
+        <div class="mesasge text-center">
+            <h3>¿Estas seguro de querer vender el servicio {{ $sale->folio }}?</h3>
+        </div>
+    </div>
+
+@endif

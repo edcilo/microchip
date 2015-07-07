@@ -318,6 +318,22 @@ class PriceController extends \BaseController
         return Redirect::back();
     }
 
+    public function disorderOne($id)
+    {
+        $pa = $this->paRepo->find($id);
+        $this->notFoundUnless($pa);
+
+        $pa->quantity     = $pa->quantity_price;
+        $pa->productOrder = 0;
+        $pa->save();
+
+        if (Request::ajax()) {
+            return Response::json($this->msg200 + ['data' => $pa]);
+        }
+
+        return Redirect::back();
+    }
+
     public function search($type)
     {
         $terms = \Input::get('terms');

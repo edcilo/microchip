@@ -25,7 +25,7 @@
     </div>
 
     <div class="flo col33 right text-right">
-        <button type="submit" class="btn-green">
+        <button type="submit" class="btn-green form_confirm" data-confirm="delivery_confirm">
             <i class="fa fa-save"></i>
             Guardar
         </button>
@@ -33,4 +33,10 @@
 
     {{ Form::close() }}
 
-    @endif
+    <div class="confirm-dialog hide" title="Posponer fecha de entrega" id="delivery_confirm" data-width="400">
+        <div class="mesasge text-center">
+            <h3>¿Estas seguro de querer posponer la fecha de entraga del servicio {{ $sale->folio }}?</h3>
+        </div>
+    </div>
+
+@endif

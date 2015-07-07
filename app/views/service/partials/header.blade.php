@@ -30,6 +30,10 @@
                 {{ date( 'd/M/Y', time($sale->created_at)) }}
             </li>
             <li>
+                <strong>I.V.A.:</strong>
+                <span id="value_iva">{{ $sale->iva }}</span>
+            </li>
+            <li>
                 <strong>Vend.</strong>
                 {{ $sale->user->id }}
             </li>

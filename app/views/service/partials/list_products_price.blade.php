@@ -33,8 +33,8 @@
                 </div>
                 <div class="flo col20 text-center right">
                     @if( p(101) AND $sale->status != 'Cancelado' )
-                        <button type="submit" class="btn-green" title="Enviar a pedido">
-                            <i class="fa fa-check"></i>
+                        <button type="submit" class="btn-yellow" title="Enviar a pedido">
+                            <i class="fa fa-pencil"></i>
                         </button>
                     @endif
                 </div>

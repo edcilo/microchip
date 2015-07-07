@@ -77,6 +77,11 @@ Route::group(
                 'uses' => 'PriceController@toOrderOne',
             ]);
 
+            Route::delete('disorderOne/{id}', [
+                'as'   => 'price.disorder.one',
+                'uses' => 'PriceController@disorderOne',
+            ]);
+
         });
 
         Route::group(['before' => 'pr:101,110'], function () {

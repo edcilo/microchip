@@ -44,7 +44,7 @@
                 @if($movement->product->type != 'Servicio' AND p(103) )
                     @if(!$movement->admin_id)
                         <a href="{{ route('order.product.support', $movement->id) }}" class="btn-green" title="Subir a soporte">
-                            <i class="fa fa-check"></i>
+                            <i class="fa fa-arrow-up"></i>
                         </a>
                     @endif
                 @else
@@ -59,10 +59,16 @@
             <div class="flo col20 text-center right">
                 @if(!$movement->admin_id AND p(95))
                     {{ Form::open(['route'=>['pas.destroy', $movement->pending_movement_id], 'method'=>'delete', 'class'=>'form validate inline']) }}
-                    <button type="submit" class="btn-red">
+                    <button type="submit" class="btn-red form_confirm" data-confirm="disorder_movement_confirm_{{ $movement->id }}">
                         <i class="fa fa-times"></i>
                     </button>
                     {{ Form::close() }}
+
+                    <div class="confirm-dialog hide" title="Regresar producto a cotizado" id="disorder_movement_confirm_{{ $movement->id }}" data-width="400">
+                        <div class="mesasge text-center">
+                            <h3>¿Estas seguro de querer devolver el producto {{ $movement->product->barcode }} a cotizado?</h3>
+                        </div>
+                    </div>
                 @elseif( $movement->admin_id AND p(103) )
                     <a href="{{ route('order.product.support', $movement->id) }}" class="btn-red" title="Bajar de soporte">
                         <i class="fa fa-arrow-down"></i>

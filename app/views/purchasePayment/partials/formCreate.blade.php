@@ -73,8 +73,20 @@
 <div class="col col100 text-center">
     <hr/>
 
-    {{ Form::submit('Registrar pago') }}
+    <button type="submit" class="btn-green form_confirm" data-confirm="add_pay_confirm">
+        <i class="fa fa-save"></i>
+        Guardar pago
+    </button>
 </div>
 
 
 {{ Form::close() }}
+
+<div class="confirm-dialog hide" title="Registrar pago" id="add_pay_confirm" data-width="400">
+    <div class="mesasge text-center">
+        <p>
+            ¿Estas seguro de querer guardar el pago?
+            <strong>Una vez realizada esta acción ya no se podra deshacer.</strong>
+        </p>
+    </div>
+</div>

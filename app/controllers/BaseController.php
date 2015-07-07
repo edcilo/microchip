@@ -182,7 +182,7 @@ class BaseController extends Controller
     public function undoMovements($sale, $delete = true)
     {
         foreach ($sale->movements as $movement) {
-            $movement_in            = $this->movementRepo->find($movement->sales[0]->pivot->movement_in);
+            $movement_in = $this->movementRepo->find($movement->sales[0]->pivot->movement_in);
 
             if ($movement_in) {
                 $movement_in->in_stock    += $movement->quantity;
@@ -190,7 +190,7 @@ class BaseController extends Controller
                 $movement_in->save();
 
                 foreach ($movement->seriesOut as $series) {
-                    $series->status            = 'Disponible';
+                    $series->status          = 'Disponible';
                     $series->movement_out    = 0;
                     $series->save();
                 }

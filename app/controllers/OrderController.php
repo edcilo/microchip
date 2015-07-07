@@ -230,11 +230,16 @@ class OrderController extends \BaseController
             $pa->save();
         }
 
+        $this->undoMovements($order, false);
+
         foreach ($order->order_products as $product) {
+            foreach($product->series as $series) {
+                $series->status = 'Disponible';
+                $series->save();
+            }
+
             $this->orderProductRepo->destroy($product->id);
         }
-
-        $this->undoMovements($order, false);
 
         $this->restPoints($order);
 

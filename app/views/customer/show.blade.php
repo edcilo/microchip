@@ -41,9 +41,10 @@
             <div class="col col100">
                 <div class="flo col50 left">
                     @include('customer.partials.form_destroy')
+                    &nbsp;
                 </div>
 
-                <div class="flo col50 right">
+                <div class="flo col50 right text-right">
                     @include('customer.partials.form_trash')
 
                     @include('customer.partials.form_active')

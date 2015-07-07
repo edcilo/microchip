@@ -43,13 +43,13 @@ var keyGen = function (e_button, e_content, length_pass) {
 var form_confirm = function (button) {
     'use strict';
 
-    var b = $(button),
-        d = $('#formConfirm');
+    var b = $(button);
 
     b.click(function (e) {
         e.preventDefault();
 
-        var f = $(this).parents('form');
+        var f = $(this).parents('form'),
+            d = $('#' + $(this).data('confirm'));
 
         d.dialog({
             autoOpen: false,

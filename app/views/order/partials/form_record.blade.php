@@ -10,12 +10,18 @@
     </div>
 
     <div class="row text-right">
-        <button type="submit" class="btn-green">
+        <button type="submit" class="btn-green form_confirm" data-confirm="comment_confirm">
             <i class="fa fa-book"></i>
             Agregar a la bitácora.
         </button>
     </div>
 
     {{ Form::close() }}
+
+    <div class="confirm-dialog hide" title="Agregar a la bitácora" id="comment_confirm" data-width="400">
+        <div class="mesasge text-center">
+            <h3>¿Estas seguro de querer guardar el registro en la bitácora del pedido {{ $order->folio }}?</h3>
+        </div>
+    </div>
 
 @endif

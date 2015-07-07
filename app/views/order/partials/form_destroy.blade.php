@@ -1,14 +1,14 @@
 @if( p(87) )
 
     {{ Form::open(['route'=>['order.destroy', $sale->id], 'method'=>'delete']) }}
-    <button class="btn-red form_confirm" type="submit" title="Eliminar venta">
+    <button class="btn-red form_confirm" data-confirm="destroy_confirm" type="submit" title="Eliminar venta">
         <i class="fa fa-times"></i>
         Eliminar pedido
     </button>
     {{ Form::close() }}
 
 
-    <div class="confirm-dialog hide" title="Eliminar pedido" id="formConfirm" data-width="400">
+    <div class="confirm-dialog hide" title="Eliminar pedido" id="destroy_confirm" data-width="400">
         <div class="mesasge text-center">
             <p>¿Estas seguro de querer salir del pedido actual?</p>
         </div>

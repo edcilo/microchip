@@ -5,14 +5,14 @@
 
         {{ Form::open(['route'=>['product.destroy', $product->id], 'method'=>'delete', 'class'=>'form']) }}
         <div class="row text-center">
-            <button class="btn-red form_confirm">
+            <button class="btn-red form_confirm" data-confirm="destroy_confirm">
                 <i class="fa fa-times"></i> Eliminar {{ $product->type }}
             </button>
         </div>
         {{ Form::close() }}
 
 
-        <div class="confirm-dialog hide" title="Eliminar marca" id="formConfirm" data-width="400">
+        <div class="confirm-dialog hide" title="Eliminar producto" id="destroy_confirm" data-width="400">
             <div class="mesasge text-center">
                 <p>¿Estas seguro de querer eliminar el producto <strong>{{ $product->barcode }}</strong>?</p>
             </div>

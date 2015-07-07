@@ -242,10 +242,9 @@ class BaseController extends Controller
     /*
      * verifica que los numeros de serie de un documento esten dados de alta completamente
      */
-    public function seriesEnd($document_id, $type)
+    public function seriesEnd($document, $type)
     {
         $result   = 1;
-        $document = ($type == 'sale') ? $this->saleRepo->find($document_id) : $this->purchaseRepo->find($document_id);
 
         foreach ($document->movements as $movement) {
             if ($movement->product->type == 'Producto' AND $movement->product->p_description->have_series) {

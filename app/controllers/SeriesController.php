@@ -182,7 +182,8 @@ class SeriesController extends \BaseController
             }
         }
 
-        $this->seriesEnd($purchase_id, 'purchase');
+        $purchase = $this->purchaseRepo->find($purchase_id);
+        $this->seriesEnd($purchase, 'purchase');
 
         if (count($validator->messages()) > 0) {
             if (Request::ajax()) {
@@ -235,7 +236,7 @@ class SeriesController extends \BaseController
             }
         }
 
-        $this->seriesEnd($movement->sales[0]->id, 'sale');
+        $this->seriesEnd($movement->sales[0], 'sale');
 
         if (count($validator->messages()) > 0) {
             return Redirect::back()->withErrors($validator);
@@ -332,7 +333,7 @@ class SeriesController extends \BaseController
 
         if ($series->status == 'Disponible') {
             $this->seriesRepo->destroy($id);
-            $this->seriesEnd($series->movement->purchases[0]->id, 'purchase');
+            $this->seriesEnd($series->movement->purchases[0], 'purchase');
         } else {
             $msg = "No es posible eliminar el número de serie $series->ns.";
         }

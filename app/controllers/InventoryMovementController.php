@@ -351,8 +351,11 @@ class InventoryMovementController extends \BaseController
         }
 
         $this->movementRepo->destroy($id);
+
         if (count($movement->purchases) > 0) {
-            $this->seriesEnd($movement->purchases[0]->id, $movement->product->type);
+            $this->seriesEnd($movement->purchases[0], 'purchase');
+        } elseif (count($movement->sales) > 0) {
+            $this->seriesEnd($movement->sales[0], 'sale');
         }
 
         if (Request::ajax()) {
@@ -392,12 +395,11 @@ class InventoryMovementController extends \BaseController
     public function newMovementIn($movement)
     {
         $movement_in            = $this->movementRepo->find($movement->sales[0]->pivot->movement_in);
-        $movement_in->in_stock    += $movement->quantity;
-
+        $movement_in->in_stock  += $movement->quantity;
         $movement_in->save();
 
         foreach ($movement->seriesOut as $series) {
-            $series->status            = 'Disponible';
+            $series->status          = 'Disponible';
             $series->movement_out    = 0;
             $series->save();
         }

@@ -31,12 +31,18 @@
     </div>
 
     <div class="row flo col20 right text-right">
-        <button type="submit" class="btn-green">
+        <button type="submit" class="btn-green form_confirm" data-confirm="save_continue_confirm">
             <i class="fa fa-save"></i>
             Guardar y continuar
         </button>
     </div>
 
     {{ Form::close() }}
+
+    <div class="confirm-dialog hide" title="Terminar e imprimir" id="save_continue_confirm" data-width="400">
+        <div class="mesasge text-center">
+            <h3>¿Terminar venta?</h3>
+        </div>
+    </div>
 
 @endif

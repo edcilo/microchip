@@ -37,10 +37,15 @@
 
         @include('sale.partials.data')
 
-        <div class="text-right">
-            @include('sale.partials.btn_edit')
+        <div class="col col100">
+            <div class="flo col50">
+                @include('sale.partials.form_cancel')
+                &nbsp;
+            </div>
 
-            @include('sale.partials.form_cancel')
+            <div class="flo col50 text-right">
+                @include('sale.partials.btn_edit')
+            </div>
         </div>
 
     </div>

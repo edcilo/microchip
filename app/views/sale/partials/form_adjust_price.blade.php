@@ -26,7 +26,7 @@
 
             <div class="row flo col33 right text-right">
                 @if( p(80) AND $sale->status != 'Cancelado' )
-                    <button type="submit" class="btn-green">
+                    <button type="submit" class="btn-green form_confirm" data-confirm="adjust_confirm">
                         <i class="fa fa-save"></i>
                         Guardar ajuste
                     </button>
@@ -35,6 +35,12 @@
         </div>
 
         {{ Form::close() }}
+
+        <div class="confirm-dialog hide" title="Ajustar precio de venta" id="adjust_confirm" data-width="400">
+            <div class="mesasge text-center">
+                <h3>¿Estas seguro de querer ajustar el precio de la venta {{ $sale->folio }}?</h3>
+            </div>
+        </div>
 
         @if($sale->new_price != 0)
             <hr/>

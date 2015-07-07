@@ -61,7 +61,7 @@
 
     <div class="flo col50">
         @if( p(110) )
-            <button class="btn-green">
+            <button class="btn-green form_confirm" data-confirm="order_confirm">
                 <i class="fa fa-file-o"></i>
                 Crear orden de pedido
             </button>
@@ -78,4 +78,11 @@
 
 @if( p(110) )
     {{ Form::close() }}
+
+    <div class="confirm-dialog hide" title="Crear orden de pedido" id="order_confirm" data-width="400">
+        <div class="mesasge text-center">
+            <h3>¿Estas seguro de querer crear la orden de pedido de la cotización {{ $sale->folio }}?</h3>
+        </div>
+    </div>
+
 @endif

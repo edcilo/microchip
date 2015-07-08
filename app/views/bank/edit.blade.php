@@ -24,7 +24,11 @@
 
 <div class="col col100 block description-product">
 
-    <h2 class="header">Formulario de edición de {{ $bank->name }}</h2>
+    <div class="header">
+        <h2>{{ $bank->name }}</h2>
+
+        @include('bank.partials.btn_show')
+    </div>
 
     {{ Form::model($bank, ['route'=>['bank.update', $bank->id], 'method'=>'put', 'class'=>'form validate']) }}
     @include('bank.partials.form_create')

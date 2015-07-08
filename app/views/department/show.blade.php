@@ -50,12 +50,12 @@
         <hr/>
 
         {{ Form::open(['route'=>['department.destroy', $department->id], 'method'=>'delete', 'class'=>'form']) }}
-            <div class="row text-right form_confirm">
+            <div class="row text-right form_confirm" data-confirm="destroy_confirm">
                 <button class="btn-red"><i class="fa fa-times"></i> Eliminar</button>
             </div>
         {{ Form::close() }}
 
-        <div class="confirm-dialog hide" title="Eliminar departamento" id="formConfirm" data-width="400">
+        <div class="confirm-dialog hide" title="Eliminar departamento" id="destroy_confirm" data-width="400">
             <div class="mesasge text-center">
                 <p>¿Estas seguro de querer eliminar al departamento <strong>{{ $department->name }}</strong>?</p>
             </div>

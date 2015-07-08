@@ -49,7 +49,7 @@ class Bank extends BaseEntity
 
     public function getCommissionCreditFAttribute()
     {
-        return number_format($this->commission_debit, 2);
+        return number_format($this->commission_credit, 2);
     }
 
     public function getTotalAttribute()

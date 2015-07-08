@@ -46,8 +46,8 @@
                 <td class="text-right">{{ $product->stock_max }}</td>
                 <td class="text-right">{{ $product->quantity_to_purchase }}</td>
                 <td class="text-right">{{ $product->quantity_sold }}</td>
-                <td class="text-center">{{ $product->last_purchase->format('d-m-Y') }}</td>
-                <td class="text-center">{{ $product->last_sale->format('d-m-Y') }}</td>
+                <td class="text-center">{{ $product->last_purchase }}</td>
+                <td class="text-center">{{ $product->last_sale }}</td>
             </tr>
         @endforeach
         </tbody>

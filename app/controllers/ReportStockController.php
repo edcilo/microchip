@@ -25,6 +25,7 @@ class ReportStockController extends \BaseController {
 	 */
 	public function index()
 	{
+        // todo verificar esta seccion
         $products = $this->productRepo->getStockMin();
         $days     = Input::get('days');
 

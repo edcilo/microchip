@@ -175,7 +175,7 @@ class BankController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('bank.index');
+        return Redirect::back()->with('message', 'El banco ' . $bank->name . ' fue enviado a la papelera exitosamente');
     }
 
     public function restore($id)
@@ -192,7 +192,7 @@ class BankController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('bank.trash');
+        return Redirect::back()->with('message', 'El banco ' . $bank->name . ' se recupero de la papelera exitosamente');
     }
 
     /**

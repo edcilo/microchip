@@ -32,7 +32,7 @@
             {{ $errors->first('provider_link', '<span>:message</span>') }}
         </div>
 
-        {{ Form::text('image_link', null, ['class'=>'xb-input', 'placeholder'=>'Enlace de la imagen', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
+        {{ Form::text('image_link', (isset($pa) AND $pa->image_link != 'images/product/default.png') ? $pa->image_link : '', ['class'=>'xb-input', 'placeholder'=>'Enlace de la imagen', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('image_link', '<span>:message</span>') }}
         </div>

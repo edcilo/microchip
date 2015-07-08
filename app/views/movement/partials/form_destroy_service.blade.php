@@ -8,7 +8,7 @@
 
     <div class="confirm-dialog hide" title="Eliminar partida" id="delete_movement_confirm_{{ $pa->id }}" data-width="400">
         <div class="mesasge text-center">
-            <h3>¿Estas seguro de querer eliminar el producto {{ $pa->product->barcode }} de la lista de productos?</h3>
+            <h3>¿Estas seguro de querer eliminar el producto {{ $pa->barcode }} de la lista de productos?</h3>
         </div>
     </div>
 

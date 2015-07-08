@@ -193,7 +193,12 @@ class PendingMovementsController extends \BaseController
      */
     public function edit($id)
     {
-        //
+        $pa = $this->paRepo->find($id);
+        $this->notFoundUnless($pa);
+
+        $config = $this->configRepo->find(1);
+
+        return View::make('pa.edit', compact('pa', 'config'));
     }
 
     /**
@@ -206,7 +211,32 @@ class PendingMovementsController extends \BaseController
      */
     public function update($id)
     {
-        //
+        $pa      = $this->paRepo->find($id);
+        $manager = new PendingMovementRegManager($pa, Input::all());
+        $manager->save();
+
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $pa];
+
+            return Response::json($response);
+        }
+
+        if ($pa->sale->classification == 'Pedido') {
+            return Redirect::route('order.edit', $pa->sale->id);
+        } elseif ($pa->sale->classification == 'Cotización') {
+            return Redirect::route('price.edit', $pa->sale->id);
+        } elseif ($pa->sale->classification == 'Servicio') {
+            $pa->productOrder = 0;
+            $pa->save();
+
+            if ($pa->sale->status == 'Pendiente') {
+                return Redirect::route('service.edit', $pa->sale->id);
+            } else {
+                return Redirect::route('service.show', $pa->sale->id);
+            }
+        } else {
+            return Redirect::back();
+        }
     }
 
     /**

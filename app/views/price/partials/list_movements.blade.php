@@ -11,7 +11,7 @@
     </thead>
     <tbody>
     @foreach($sale->pas as $pa)
-        @if($pa->productPrice)
+
             <tr>
                 <td>{{ $pa->barcode }}</td>
                 <td>{{ $pa->s_description }}</td>
@@ -20,13 +20,16 @@
                 <td class="text-right">$ {{ $pa->total_f }}</td>
                 <td class="text-right">
                     @if( ! $sale->movements_end )
+                        @if(!is_object($pa->product))
+                            @include('pa.partials.btn_edit')
+                        @endif
 
                         @include('movement.partials.form_destroy_price')
 
                     @endif
                 </td>
             </tr>
-        @endif
+
     @endforeach()
     </tbody>
     <tfoot>

@@ -21,6 +21,10 @@
             <td class="text-right">$ {{ $pa->total_f }}</td>
             @if( !$sale->movements_end )
                 <td class="text-right">
+                    @if(!is_object($pa->product))
+                        @include('pa.partials.btn_edit')
+                    @endif
+
                     @include('movement.partials.form_destroy_service')
                 </td>
             @endif

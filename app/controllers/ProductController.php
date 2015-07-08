@@ -160,13 +160,14 @@ class ProductController extends \BaseController
         }
 
         $series = $this->seriesRepo->getSeriesByProduct($product->id);
+        $total_separated = $product->series()->where('status', 'Apartado')->count();
         $config = $this->configRepo->find(1);
 
         $this->productFormat->formatData($product, $config->iva);
         $tipo = $product->type;
         $type = ($tipo == 'Producto') ? 'product' : 'service';
 
-        return View::make('product/show', compact('type', 'tipo', 'product', 'series', 'config'));
+        return View::make('product/show', compact('type', 'tipo', 'product', 'total_separated', 'series', 'config'));
     }
 
     public function showMin($id)

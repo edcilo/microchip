@@ -66,6 +66,12 @@
                     <li>
                         <strong>Existencias:</strong>
                         {{ $product->stock }}
+                    </li>
+                    <li>
+                        @if($total_separated)
+                            <strong>Apartados:</strong>
+                            {{ $total_separated }}
+                        @endif
                         <ul>
                             <li>
                                 <strong>Minimo en stock</strong>

@@ -172,7 +172,7 @@ class ProviderController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('provider.index');
+        return Redirect::back();
     }
 
     public function restore($id)
@@ -189,7 +189,7 @@ class ProviderController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('provider.index');
+        return Redirect::back();
     }
 
     /**

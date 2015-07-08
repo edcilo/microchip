@@ -68,8 +68,16 @@
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 {{ Form::open(['route'=>['providerPhone.destroy', $phone->id], 'method'=>'delete', 'class'=>'inline']) }}
-                                                <button type="submit" class="btn-red"><i class="fa fa-times"></i></button>
+                                                <button type="submit" class="btn-red form_confirm" data-confirm="destroy_phone_confirm_{{ $phone->id }}">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
                                                 {{ Form::close() }}
+
+                                                <div class="confirm-dialog hide" title="Eliminar teléfono" id="destroy_phone_confirm_{{ $phone->id }}" data-width="400">
+                                                    <div class="mesasge text-center">
+                                                        <p>¿Estas seguro de querer eliminar el número de teléfono <strong>{{ $phone->phone }}</strong>?</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </li>
                                     @endforeach
@@ -184,10 +192,16 @@
                                     </a>
 
                                     {{ Form::open(['route'=>['providerBank.destroy', $bank->id], 'method'=>'delete', 'class'=>'inline']) }}
-                                    <button type="submit" class="btn-red" title="Eliminar contacto">
+                                    <button type="submit" class="btn-red form_confirm" data-confirm="destroy_bank_confirm_{{ $bank->id }}" title="Eliminar contacto">
                                         <i class="fa fa-times"></i>
                                     </button>
                                     {{ Form::close() }}
+
+                                    <div class="confirm-dialog hide" title="Eliminar información bancaria" id="destroy_bank_confirm_{{ $bank->id }}" data-width="400">
+                                        <div class="mesasge text-center">
+                                            <p>¿Estas seguro de querer eliminar la información del banco <strong>{{ $bank->bank }}</strong>?</p>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -237,10 +251,16 @@
                                     </a>
 
                                     {{ Form::open(['route'=>['providerContact.destroy', $contact->id], 'method'=>'delete', 'class'=>'inline']) }}
-                                    <button type="submit" class="btn-red" title="Eliminar contacto">
+                                    <button type="submit" class="btn-red form_confirm" data-confirm="destroy_contact_confirm_{{ $contact->id }}" title="Eliminar contacto">
                                         <i class="fa fa-times"></i>
                                     </button>
                                     {{ Form::close() }}
+
+                                    <div class="confirm-dialog hide" title="Eliminar contacto" id="destroy_contact_confirm_{{ $contact->id }}" data-width="400">
+                                        <div class="mesasge text-center">
+                                            <p>¿Estas seguro de querer eliminar al contacto <strong>{{ $contact->name }} {{ $contact->last_name }}</strong>?</p>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -250,34 +270,56 @@
             </fieldset>
         </div>
 
-        <div class="col col100 text-right">
+        <div class="col col100">
             <hr/>
 
-            @if ($provider->active)
-                {{ Form::open(['route'=>['provider.soft.delete', $provider->id], 'method'=>'get']) }}
-                    <button type="submit" class="btn-red form_confirm">
-                        <i class="fa fa-trash"></i> Enviar a la papelera.
-                    </button>
-                {{ Form::close() }}
-
-                <div class="confirm-dialog hide" title="Eliminar marca" id="formConfirm" data-width="400">
-                    <div class="mesasge text-center">
-                        <p>¿Estas seguro de querer enviar a la papelera al proveedor <strong>{{ $provider->name }}</strong>?</p>
-                    </div>
-                </div>
-            @else
-                {{ Form::open(['route' => ['provider.destroy', $provider->id], 'method' => 'delete', 'role' => 'form']) }}
-                    <button type="submit" class="btn-red form_confirm">
+            <div class="flo col50 left">
+                @if (!$provider->active)
+                    {{ Form::open(['route' => ['provider.destroy', $provider->id], 'method' => 'delete', 'role' => 'form']) }}
+                    <button type="submit" class="btn-red form_confirm" data-confirm="destroy_confirm">
                         <i class="fa fa-times"></i> Eliminar proveedor
                     </button>
-                {{ Form::close() }}
+                    {{ Form::close() }}
 
-                <div class="confirm-dialog hide" title="Eliminar marca" id="formConfirm" data-width="400">
-                    <div class="mesasge text-center">
-                        <p>¿Estas seguro de querer eliminar al proveedor <strong>{{ $provider->name }}</strong>?</p>
+                    <div class="confirm-dialog hide" title="Eliminar proveedor" id="destroy_confirm" data-width="400">
+                        <div class="mesasge text-center">
+                            <p>¿Estas seguro de querer eliminar al proveedor <strong>{{ $provider->name }}</strong>?</p>
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+                &nbsp;
+            </div>
+
+            <div class="flo col50 right text-right">
+                @if ($provider->active)
+                    {{ Form::open(['route'=>['provider.soft.delete', $provider->id], 'method'=>'get']) }}
+                    <button type="submit" class="btn-red form_confirm" data-confirm="trash_confirm">
+                        <i class="fa fa-trash"></i> Enviar a la papelera.
+                    </button>
+                    {{ Form::close() }}
+
+                    <div class="confirm-dialog hide" title="Enviar a papelera" id="trash_confirm" data-width="400">
+                        <div class="mesasge text-center">
+                            <p>¿Estas seguro de querer enviar a la papelera al proveedor <strong>{{ $provider->name }}</strong>?</p>
+                        </div>
+                    </div>
+                @else
+                    @if (p(39))
+                        {{ Form::open(['route' => ['provider.restore', $provider->id], 'method' => 'get']) }}
+                        <button type="submit" class="btn-green form_confirm" data-confirm="restore_confirm">
+                            <i class="fa fa-arrow-up"></i>
+                            Recuperar
+                        </button>
+                        {{ Form::close() }}
+
+                        <div class="confirm-dialog hide" title="Recuperar de papelera" id="restore_confirm" data-width="400">
+                            <div class="mesasge text-center">
+                                <p>¿Estas seguro de querer recuperar de la papelera al proveedor <strong>{{ $provider->name }}</strong>?</p>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            </div>
         </div>
 
     </div>

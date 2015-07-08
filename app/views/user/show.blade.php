@@ -39,12 +39,19 @@
 
         @include('user.partials.data')
 
-        <div class="col col100 text-right">
-            <hr/>
+        <hr>
 
-            @include('user.partials.btn_trash_full')
+        <div class="col col100">
 
-            @include('user.partials.form_destroy')
+            <div class="flo col50 left">
+                @include('user.partials.form_destroy')
+            </div>
+
+            <div class="flo col50 right text-right">
+                @include('user.partials.btn_trash_full')
+
+                @include('user.partials.form_restore')
+            </div>
         </div>
 
     </div>

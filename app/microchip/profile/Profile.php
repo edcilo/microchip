@@ -80,6 +80,13 @@ class Profile extends BaseEntity
         return $date->format('d-m-Y');
     }
 
+    public function getFiredFAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $this->fired);
+
+        return $date->format('d-m-Y');
+    }
+
     public function getSalaryFAttribute()
     {
         return number_format($this->salary, 2, '.', ',');

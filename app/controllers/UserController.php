@@ -214,6 +214,10 @@ class UserController extends \BaseController
         $user = $this->userRepo->find($id);
         $this->notFoundUnless($user);
 
+        if ($user->id == 1) {
+            return Redirect::back()->with('message', 'No es posible enviar a la papelera al usuario ' . $user->profile->full_name);
+        }
+
         $user->active = 0;
         $user->save();
         $user->profile->fired = date('Y-m-d');
@@ -225,7 +229,7 @@ class UserController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('user.index');
+        return Redirect::back()->with('message', 'El empleado ' . $user->profile->full_name . ' se envio a la papelera exitosamente.');
     }
 
     public function restore($id)
@@ -244,7 +248,7 @@ class UserController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('user.trash');
+        return Redirect::back()->with('message', 'El empleado ' . $user->profile->full_name . ' se recupero de la papelera exitosamente.');
     }
 
     /**
@@ -284,6 +288,8 @@ class UserController extends \BaseController
         if (Request::ajax()) {
             return Response::json($user);
         }
+
+        // todo preguntar si el pago se debe registrar como una salida de caja
 
         return Redirect::back();
     }

@@ -13,6 +13,18 @@
                 </div>
             </div>
         </li>
+        @if ( ! $user->active )
+            <li>
+                <div class="col col100">
+                    <div class="flo col50 left">
+                        <strong>Fecha de eliminación:</strong>
+                    </div>
+                    <div class="flo col50 right text-right">
+                        {{ $user->profile->fired_f }}
+                    </div>
+                </div>
+            </li>
+        @endif
         <li>
             <div class="col col100">
                 <div class="flo col50 left">
@@ -76,29 +88,10 @@
         </li>
     </ul>
 
-    <div class="col col100 row text-right">
-        <a class="btn-green" href="{{ route('user.pay', [$user->id]) }}">
-            <i class="fa fa-money"></i> Pagar
-        </a>
-    </div>
-
-    @if ( ! $user->active )
-
-        <ul class="list-description">
-            <li>
-                <strong>Fecha de despido:</strong>
-                <ul>
-                    <li>{{ $user->profile->fired }}</li>
-                </ul>
-            </li>
-            <li>
-                <strong>Motivo:</strong>
-                <ul>
-                    <li>{{ $user->profile->reason }}</li>
-                </ul>
-            </li>
-        </ul>
-
+    @if ($user->active)
+        <div class="col col100 row text-right">
+            @include('user.partials.form_pay')
+        </div>
     @endif
 
 </div>

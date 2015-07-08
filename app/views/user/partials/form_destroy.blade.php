@@ -15,4 +15,8 @@
         </div>
     </div>
 
+@else
+
+    &nbsp;
+
 @endif

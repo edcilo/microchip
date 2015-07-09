@@ -358,6 +358,22 @@ class ProductController extends \BaseController
         return $pdf->stream();
     }
 
+    public function printTag($product_id)
+    {
+        $product = $this->productRepo->find($product_id);
+        $this->notFoundUnless($product);
+
+        $configuration = $this->configRepo->find(1);
+
+        $pdf = PDF::loadView('product.layout_print_tag', compact('product', 'configuration'))->setPaper([
+            0, 0,
+            $configuration->with_real_paper_barcode,
+            $configuration->height_real_paper_barcode
+        ]);
+
+        return $pdf->stream();
+    }
+
     public function getProduct($barcode)
     {
         $data = $this->msg404;

@@ -39,6 +39,10 @@
                         @include('purchase.partials.btn_series')
 
                         {{--@include('purchase.partials.btn_show_series')--}}
+                    @else
+
+                        @include('product.partials.btn_print_tag')
+
                     @endif
 
                     @if( $purchase->status == 'En proceso...' )

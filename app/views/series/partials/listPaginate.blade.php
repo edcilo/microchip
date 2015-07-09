@@ -6,6 +6,7 @@
             <th>Número de serie</th>
             <th>Estado</th>
             <th>No. Compra</th>
+            <th>No. Venta</th>
             <th>
                 <i class="fa fa-gears"></i>
                 Opciones
@@ -24,6 +25,19 @@
                         </a>
                     @else
                         Agregado directamente al inventario.
+                    @endif
+                </td>
+                <td>
+                    @if(is_object($item->movementOut) AND count($item->movementOut->sales) > 0)
+                        <a href="{{ route('sale.show', [$item->movementOut->sales[0]->id]) }}">
+                            {{ $item->movementOut->sales[0]->folio }}
+                        </a>
+                        [Venta]
+                    @elseif(is_object($item->separated))
+                        <a href="{{ route('order.show', [$item->separated->order->id]) }}">
+                            {{ $item->separated->order->folio }}
+                        </a>
+                        [{{ $item->separated->order->classification }}]
                     @endif
                 </td>
                 <td class="text-center">

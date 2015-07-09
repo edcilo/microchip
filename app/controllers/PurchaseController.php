@@ -90,6 +90,15 @@ class PurchaseController extends \BaseController
     {
         $data = Input::all() + ['user_id' => Auth::user()->id];
 
+        $provider = $this->providerRepo->findByName($data['provider']);
+        if (is_null($provider)) {
+            return Redirect::back()
+                ->withInput()
+                ->withErrors(['provider' => 'El proveedor no existe']);
+        }
+
+        $data['provider_id'] = $provider->id;
+
         $valid = $this->purchaseRepo->validateFolio($data['provider_id'], $data['folio']);
         if (!$valid) {
             return Redirect::back()->withInput()->withErrors(['folio' => 'El folio ya existe']);

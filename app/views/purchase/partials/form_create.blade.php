@@ -1,10 +1,16 @@
 <div class="col col100">
 
     <div class="row flo col33 left">
-        {{ Form::label('provider_id', 'Proveedor: ') }} <br/>
+        {{ Form::label('provider', 'Proveedor: ') }} <br/>
+        {{--
         {{ Form::select('provider_id', $provider_list, null, ['title'=>'Seleccione un campo valido de la lista.', 'data-required'=>'required']) }}
+        --}}
+        {{ Form::text('provider', null, ['class'=>'xb-input', 'autocomplete'=>'off', 'data-url'=>route('provider.search')]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="provider_search_and_add"></div>
+        </div>
         <div class="message-error">
-            {{ $errors->first('provider_id', '<span>:message</span>') }}
+            {{ $errors->first('provider', '<span>:message</span>') }}
         </div>
     </div>
 

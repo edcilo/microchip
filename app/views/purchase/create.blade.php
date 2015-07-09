@@ -2,7 +2,9 @@
 
 @section ('title') / Registrar factura de compra @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/search_provider.js') }}
+@stop
 
 @section ('content')
 

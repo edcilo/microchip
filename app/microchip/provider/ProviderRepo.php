@@ -26,4 +26,9 @@ class ProviderRepo extends BaseRepo
 
         return ($request == 'ajax') ? $q->take($take)->get() : $q->paginate();
     }
+
+    public function findByName($name)
+    {
+        return Provider::where('name', $name)->first();
+    }
 }

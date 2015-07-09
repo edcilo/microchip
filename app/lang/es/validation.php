@@ -100,6 +100,7 @@ return array(
     */
 
     'attributes' => array(
+        'amount'         => 'Pago',
         'barcode'        => 'Código de barras',
         'bill_scan'      => 'Factura escaneada',
         'cheque_id'      => 'Cheque',
@@ -108,12 +109,14 @@ return array(
         'date_init'      => 'Fecha inicial',
         'date_end'       => 'Fecha final',
         'description'    => 'Descripción',
+        'entity'         => 'Entidad',
         'folio'          => 'Folio',
         'folio_c'        => 'Folio',
         'name'           => 'Nombre',
         'ns'             => 'Número de serie',
         'observations_c' => 'Observaciones de la note de crédito',
         'quantity'       => 'Cantidad',
+        'reference'      => 'Referencia',
         'selling_price'  => 'Precio de venta',
         'type'           => 'Tipo de pago',
         'type_other'     => 'Especificar',

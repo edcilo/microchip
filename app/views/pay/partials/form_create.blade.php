@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row amount">
         <strong>{{ Form::label('amount', 'Pago: ', ['class'=>'label50']) }}</strong>
         $ {{ Form::text('amount', null, ['class'=>'text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row folio hide">
         <strong>{{ Form::label('folio', 'Folio: ', ['class'=>'label50']) }}</strong>
         {{ Form::text('folio', null, ['class'=>'text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row reference hide">
         <strong>{{ Form::label('reference', 'No. Tarjeta/No. de cheque/folio/referencia: ', ['class'=>'label50']) }}</strong>
         {{ Form::text('reference', null, ['title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
         <div class="message-error">
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row entity hide">
         <strong>{{ Form::label('entity', 'IFE/Banco: ', ['class'=>'label50']) }}</strong>
         {{ Form::text('entity', null, ['title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
         <div class="message-error">

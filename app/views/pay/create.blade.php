@@ -2,7 +2,9 @@
 
 @section ('title') / Pagos @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/pay.js') }}
+@stop
 
 @section ('content')
 
@@ -14,7 +16,7 @@
             <h3><strong>Pago a {{ $sale->classification }} {{ $sale->folio }}</strong></h3>
         </div>
 
-        {{ Form::open(['route'=>['pay.store', $sale->id], 'method'=>'post', 'class'=>'form validate']) }}
+        {{ Form::open(['route'=>['pay.store', $sale->id], 'method'=>'post', 'class'=>'form validate', 'id'=>'form_pay']) }}
         @include('pay.partials.form_create')
 
     </div>

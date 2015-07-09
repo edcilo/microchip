@@ -41,7 +41,7 @@
                         {{--@include('purchase.partials.btn_show_series')--}}
                     @else
 
-                        @include('product.partials.btn_print_tag')
+                        @include('product.partials.btn_print_tag', ['product' => $movement->product])
 
                     @endif
 

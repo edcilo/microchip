@@ -127,6 +127,8 @@
 
     <div class="text-right">
         @include('product.partials.btn_print')
+
+        @include('product.partials.btn_print_tag')
     </div>
 
 </div>

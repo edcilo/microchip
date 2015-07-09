@@ -15,11 +15,7 @@
 
         <div class="flo col40 text-right">&nbsp;</div>
 
-        <div class="flo col30 text-right">
-            <a class="btn-blue" href="{{ route('sale.edit', [$sale->id]) }}">
-                <i class="fa fa-eye"></i> Volver a la venta
-            </a>
-        </div>
+        <div class="flo col30 text-right"></div>
     </div>
 
     <div class="col col100">
@@ -38,6 +34,12 @@
             @include('series/partials/createList')
 
 
+        </div>
+
+        <div class="text-center">
+            <a class="btn-blue" href="{{ route('sale.edit', [$sale->id]) }}">
+                <i class="fa fa-eye"></i> Volver a la venta
+            </a>
         </div>
 
     </div>

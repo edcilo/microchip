@@ -8,7 +8,7 @@
 @for($i = 1; $i <= $movement->quantity - count($movement->series); $i++  )
     <div class="row text-center">
         {{ Form::label("ns_$i", "Numero de serie ($i): ") }}
-        {{ Form::text('ns[]', null, ['id'=>'ns_'.$i, 'autofocus', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
+        {{ Form::text('ns[]', null, ['id'=>'ns_'.$i, 'autofocus', 'class'=>'stopEnter nextInput', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
     </div>
 @endfor
 

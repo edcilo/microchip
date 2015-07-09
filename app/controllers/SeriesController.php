@@ -57,10 +57,10 @@ class SeriesController extends \BaseController
 
     public function createSale($movement_id)
     {
-        $movement            = $this->movementRepo->find($movement_id);
-        $sale                = $movement->sales->first();
+        $movement         = $this->movementRepo->find($movement_id);
+        $sale             = $movement->sales->first();
 
-        $movement->series    = $movement->seriesOut;
+        $movement->series = $movement->seriesOut;
 
         return View::make('series/createSale', compact('movement', 'sale'));
     }
@@ -210,26 +210,23 @@ class SeriesController extends \BaseController
 
         $collection    = [];
         foreach ($data['ns'] as $ns) {
-            $data        = Input::only('inventory_movement_id');
-            $data       += [
-                'ns'        =>    $ns,
-            ];
+            $data  = Input::only('inventory_movement_id');
+            $data += ['ns' => $ns];
 
-            $validator = Validator::make(
-                $data,
-                [
-                    'ns'                    => 'required|exists:series,ns',
-                    'inventory_movement_id' => 'required|exists:inventory_movements,id',
-                ]
-            );
+            $validator = Validator::make($data, [
+                'ns'                    => 'required|exists:series,ns',
+                'inventory_movement_id' => 'required|exists:inventory_movements,id',
+            ]);
 
             if (!$validator->fails()) {
                 $series = $this->seriesRepo->findBySeries($data['ns'], 'Disponible', $movement->product->id);
 
-                if ($series) {
+                if (!is_null($series)) {
                     $series->status = 'Vendido';
                     $series->movement_out = $movement->id;
                     $series->save();
+                } else {
+                    return Redirect::back()->withErrors(['ns' => "El número de serie ".$data['ns']." no esta disponible"]);
                 }
 
                 array_push($collection, $series);

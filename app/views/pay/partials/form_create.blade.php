@@ -8,7 +8,8 @@
             $ {{ $sale->total_order_f }}
         @else
             @if( $sale->new_price > 0 )
-                $ {{ $sale->pv_di_f }} =
+                $ {{ $sale->pv_di_f }}
+                =
                 [$ {{ $sale->total_f }} + $ {{ $sale->difference_iva }}]
             @else
                 $ {{ $sale->total_f }}
@@ -23,7 +24,7 @@
 
     <div class="row">
         <strong class="label50">Saldo:</strong>
-        $ {{ $sale->user_rest_total_f }}
+        $ <span id="user_rest">{{ $sale->user_rest_total_f }}</span>
     </div>
 
     @if( $sale->classification != 'Venta' AND $sale->getPaymentTotalAttribute() == 0 )
@@ -47,6 +48,15 @@
         <div class="message-error">
             {{ $errors->first('amount', '<span>:message</span>') }}
         </div>
+    </div>
+
+    <div class="row hide" id="pay_change">
+        <strong>
+            <label for="" class="label50">Cambio:</label>
+        </strong>
+        <span>
+            $ <input type="text" class="value text-right" id="change" value="0.00" data-accept="false" disabled>
+        </span>
     </div>
 
     <div class="row folio hide">

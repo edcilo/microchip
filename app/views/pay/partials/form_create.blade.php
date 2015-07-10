@@ -83,27 +83,30 @@
 
     <hr/>
 
-    <div class="row col col100 text-center">
+    <div class="row col col100">
 
         <div class="flo col33">
-            <button type="submit" class="btn-green">
-                <i class="fa fa-money"></i>
-                Guardar pago
-            </button>
-        </div>
-
-        <div class="flo col33">
-            <a href="#" class="btn-blue">
-                <i class="fa fa-print"></i>
-                Imprimir
-            </a>
-        </div>
-
-        <div class="flo col33 text-right">
             <a href="{{ route('pay.pending') }}" class="btn-red">
                 <i class="fa fa-arrow-left"></i>
                 Terminar
             </a>
+        </div>
+
+        <div class="flo col33">
+            {{--
+            <a href="#" class="btn-blue">
+                <i class="fa fa-print"></i>
+                Imprimir
+            </a>
+            --}}
+            &nbsp;
+        </div>
+
+        <div class="flo col33 text-right">
+            <button type="submit" class="btn-green form_confirm" data-confirm="store_confirm">
+                <i class="fa fa-money"></i>
+                Guardar pago
+            </button>
         </div>
 
     </div>
@@ -113,3 +116,9 @@
 
 
 {{ Form::close() }}
+
+<div class="confirm-dialog hide" title="Guardar pago" id="store_confirm" data-width="400">
+    <div class="mesasge text-center">
+        <p>¿Guardar pago?</p>
+    </div>
+</div>

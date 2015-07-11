@@ -2,7 +2,9 @@
 
 @section ('title') / Pagos @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/admin.js') }}
+@stop
 
 @section ('content')
 
@@ -46,12 +48,18 @@
                 <div class="flo col33 left">
                     {{ Form::open(['route'=>['pay.repayment.store', $sale->id, 'coupon']]) }}
 
-                    <button type="submit" class="btn-blue">
+                    <button type="submit" class="btn-blue form_confirm" data-confirm="vale_confirm">
                         <i class="fa fa-ticket"></i>
                         Generar vale por $ {{ $sale->user_total_pay_f }}
                     </button>
 
                     {{ Form::close() }}
+
+                    <div class="confirm-dialog hide" title="Generar vale" id="vale_confirm" data-width="400">
+                        <div class="mesasge text-center">
+                            <p>¿Estas seguro de querer generar un vale para la venta <strong>{{ $sale->folio }}</strong>?</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="flo col33 center">
@@ -59,12 +67,22 @@
 
                         {{ Form::open(['route'=>['pay.repayment.store', $sale->id, 'card']]) }}
 
-                        <button type="submit" class="btn-blue">
+                        <button type="submit" class="btn-blue form_confirm" data-confirm="card_confirm">
                             <i class="fa fa-credit-card"></i>
                             Agregar rembolso al monedero del cliente
                         </button>
 
                         {{ Form::close() }}
+
+                        <div class="confirm-dialog hide" title="Monedero" id="card_confirm" data-width="400">
+                            <div class="mesasge text-center">
+                                <p>
+                                    ¿Estas seguro de querer agregar el rembolso al
+                                    monedero electronico del cliente
+                                    <strong><nobr>{{ $sale->customer->name }}</nobr></strong>?
+                                </p>
+                            </div>
+                        </div>
 
                     @else
                         &nbsp;
@@ -75,11 +93,20 @@
 
                     {{ Form::open(['route'=>['pay.repayment.store', $sale->id, 'repayment']]) }}
 
-                    <button type="submit" class="btn-red">
+                    <button type="submit" class="btn-red form_confirm" data-confirm="cash_confirm">
                         Devolver $ {{ $sale->user_total_pay_f }} en efectivo
                     </button>
 
                     {{ Form::close() }}
+
+                    <div class="confirm-dialog hide" title="Devolver efectivo" id="cash_confirm" data-width="400">
+                        <div class="mesasge text-center">
+                            <p>
+                                ¿Estas seguro de querer devolver <strong>${{ $sale->user_total_pay_f }}</strong>
+                                al cliente?
+                            </p>
+                        </div>
+                    </div>
 
                 </div>
 

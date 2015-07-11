@@ -36,7 +36,7 @@
 
     <div class="row">
         <strong>{{ Form::label('method', 'Método de pago:', ['class'=>'label50']) }}</strong>
-        {{ Form::select('method', trans('lists.payment_methods'), null, ['title'=>'Este campo es obligatorio', 'autofocus', 'data-required']) }}
+        {{ Form::select('method', trans('lists.payment_methods'), null, ['title'=>'Este campo es obligatorio', 'autofocus', 'data-required'=>'required', 'data-url_customer'=>route('customer.search')]) }}
         <div class="message-error">
             {{ $errors->first('method', '<span>:message</span>') }}
         </div>
@@ -69,7 +69,14 @@
 
     <div class="row reference hide">
         <strong>{{ Form::label('reference', 'No. Tarjeta/No. de cheque/folio/referencia: ', ['class'=>'label50']) }}</strong>
-        {{ Form::text('reference', null, ['title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
+        {{ Form::text('reference', null, ['class' => 'stopEnter', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off']) }}
+        <a href="#" class="btn-blue" id="btn_show_customer" data-url="{{ route('api.customer.card.get') }}"><i class="fa fa-eye"></i></a>
+        <div class="col col100">
+            <div class="flo col50">&nbsp;</div>
+            <div class="flo col50 cont-form-search">
+                <div class="resultSearch globe-center hide" id="customer_search_and_add"></div>
+            </div>
+        </div>
         <div class="message-error">
             {{ $errors->first('reference', '<span>:message</span>') }}
         </div>
@@ -95,24 +102,14 @@
 
     <div class="row col col100">
 
-        <div class="flo col33">
+        <div class="flo col50">
             <a href="{{ route('pay.pending') }}" class="btn-red">
                 <i class="fa fa-arrow-left"></i>
-                Terminar
+                Volver a la caja
             </a>
         </div>
 
-        <div class="flo col33">
-            {{--
-            <a href="#" class="btn-blue">
-                <i class="fa fa-print"></i>
-                Imprimir
-            </a>
-            --}}
-            &nbsp;
-        </div>
-
-        <div class="flo col33 text-right">
+        <div class="flo col50 text-right">
             <button type="submit" class="btn-green form_confirm" data-confirm="store_confirm">
                 <i class="fa fa-money"></i>
                 Guardar pago
@@ -129,6 +126,42 @@
 
 <div class="confirm-dialog hide" title="Guardar pago" id="store_confirm" data-width="400">
     <div class="mesasge text-center">
-        <p>¿Guardar pago?</p>
+        <p>
+            <strong>¿Guardar pago?</strong>
+        </p>
+
+        <table class="table">
+            <tbody class="text-left">
+            <tr>
+                <th>Método:</th>
+                <td class="text-right">
+                    <span id="c_m">Efectivo</span>
+                </td>
+            </tr>
+            <tr>
+                <th>Saldo:</th>
+                <td class="text-right">
+                    $
+                    <span id="c_s">0.00</span>
+                </td>
+            </tr>
+            <tr>
+                <th>Pago:</th>
+                <td class="text-right">
+                    $
+                    <span id="c_p">0.00</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span id="l_c" data-default="Cambio:">Cambio:</span>
+                </th>
+                <td class="text-right">
+                    $
+                    <span id="c_c">0.00</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

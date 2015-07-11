@@ -3,8 +3,8 @@
 @section ('title') / Pagos @stop
 
 @section('scripts')
-    {{ HTML::script('js/pay.js') }}
     {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/pay.js') }}
 @stop
 
 @section ('content')
@@ -28,9 +28,9 @@
 
     <div class="col col100 right">
 
-        @include('layouts/partials/options')
-
         @include('pay.partials.calculate')
+
+        @include('layouts/partials/options')
 
     </div>
 

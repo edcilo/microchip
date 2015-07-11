@@ -314,4 +314,19 @@ class CustomerController extends \BaseController
 
         return Response::json($data);
     }
+
+    public function getCustomerByCard()
+    {
+        $data = $this->msg404;
+        $card_id = Input::get('card_id');
+
+        $customer = $this->customerRepo->getByCard($card_id);
+
+        if (!is_null($customer)) {
+            $customer->expiration_date = $customer->expiration_date;
+            $data = $this->msg200 + $customer->toArray();
+        }
+
+        return Response::json($data);
+    }
 }

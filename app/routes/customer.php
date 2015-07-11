@@ -103,6 +103,11 @@ Route::group(
     }
 );
 
+Route::get('api/customer/card', [
+    'as' => 'api.customer.card.get',
+    'uses' => 'CustomerController@getCustomerByCard'
+]);
+
 Route::get('api/customer/{id}', [
     'as' => 'api.customer.get',
     'uses' => 'CustomerController@getCustomer',

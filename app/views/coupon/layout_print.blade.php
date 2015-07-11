@@ -117,6 +117,6 @@
 <br/>
 <br/>
 <br/>
-<div class="text-center">
+<div class="text-center footer">
     <strong>Horarios: </strong> {{ $company->schedule }}
 </div>

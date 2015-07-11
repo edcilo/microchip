@@ -198,7 +198,11 @@ class PayController extends \BaseController
             $sale->save();
         }
 
-        $message = ['success' => 'El pago se registro correctamente'];
+        if ($sale->status == 'Pagado') {
+            $message = ['message' => 'El pago se guardo correctamente'];
+        } else {
+            $message = ['message' => 'El abono se guardo correctamente, continuar registrando abonos.'];
+        }
 
         if (Request::ajax()) {
             return Response::json($this->msg200 + $message);

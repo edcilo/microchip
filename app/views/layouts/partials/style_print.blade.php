@@ -20,6 +20,10 @@
         height: auto;
         width: 180px;
     }
+    .table tr
+    {
+        border: 1px solid black;
+    }
     .text-left{
         text-align: left;
     }

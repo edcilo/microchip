@@ -91,6 +91,11 @@ Route::group(
             'uses' => 'OrderController@generatePrint',
         ]);
 
+        Route::get('print/generate/large/{id}', [
+            'as'   => 'order.print.generate_large',
+            'uses' => 'OrderController@generatePrintLarge'
+        ]);
+
         Route::get('print/{folio}/{id}', [
             'as'   => 'order.print',
             'uses' => 'OrderController@orderPrint',

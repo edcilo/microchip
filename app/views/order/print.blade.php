@@ -26,6 +26,8 @@
         </div>
 
         <div class="flo col50 text-right">
+            @include('order.partials.btn_print_large')
+
             @include('order.partials.btn_print')
         </div>
     </div>

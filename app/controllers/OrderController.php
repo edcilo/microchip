@@ -195,6 +195,21 @@ class OrderController extends \BaseController
         return $pdf->stream();
     }
 
+    public function generatePrintLarge($id)
+    {
+        $order    = $this->saleRepo->find($id);
+        $this->notFoundUnless($order);
+
+        $this->formatData->formatData($order);
+        $company    = $this->companyRepo->find(1);
+
+        $configuration = $this->configRepo->find(1);
+
+        $pdf = PDF::loadView('order/layout_print_large', compact('order', 'company', 'configuration'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
+
     public function search($type)
     {
         $terms = \Input::get('terms');

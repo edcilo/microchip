@@ -3,6 +3,7 @@ $(function () {
 
 	calculate_pay();
 	calculate_rest();
+	get_vale();
 	hide_show_controls();
 	reset_form();
 	search_card();
@@ -93,6 +94,7 @@ var get_data_confr = function () {
 		amount = parseFloat($('#amount').val()),
 		change = parseFloat($('#change').val()),
 		reference = parseFloat($('#reference').data('points')),
+		folio = parseFloat($('#folio').data('total')),
 		c_m = $('#c_m'),
 		c_s = $('#c_s'),
 		c_p = $('#c_p'),
@@ -110,6 +112,10 @@ var get_data_confr = function () {
 		}
 
 		amount = reference;
+	} else if (method == 'Vale') {
+		amount = folio;
+
+		l_c.parents('tr').hide();
 	} else if (method == 'Efectivo') {
 		l_c.text(l_default);
 	} else {
@@ -132,6 +138,21 @@ var get_data_confr = function () {
 	c_s.text(parseFloat(rest).toFixed(2));
 	c_p.text(parseFloat(amount).toFixed(2));
 	c_c.text(parseFloat(change).toFixed(2));
+};
+
+var get_vale = function () {
+	'use strict';
+
+	var method = $('#method'),
+		i_v = $('#folio');
+
+	method.change(function () {
+		if ($(this).val() == 'Vale') {
+			i_v.keyup(function () {
+				search_vale();
+			});
+		}
+	});
 };
 
 var hide_show_controls = function () {
@@ -252,7 +273,6 @@ var search_card = function () {
 
 	i_m.change(function () {
 		i_f.keyup(function (e) {
-
 			search(e, $(this));
 		});
 	});
@@ -303,6 +323,35 @@ var show_data_customer = function (content, data) {
 	c.find('.list-card').html(card);
 
 	c.show();
+};
+
+var show_data_vale = function (data) {
+	'use strict';
+
+	var c = $('#details_vale'),
+		f = $('#folio'),
+		ul = c.find('.list-description'),
+		list = '',
+		available = '';
+
+	if (data.code != 404) {
+		if (data.available) {
+			available = '<i class="fa fa-check"> Si';
+		} else {
+			available = '<i class="fa fa-times"> No';
+		}
+
+		list += '<li><strong>Folio:</strong> '+data.folio+'</li>';
+		list += '<li><strong>Valor:</strong> $ '+data.value+'</li>';
+		list += '<li><strong>Disponible:</strong> '+available+'</li>';
+
+		ul.html(list);
+		f.attr('data-total', data.value);
+
+		c.show();
+	} else {
+		c.hide();
+	}
 };
 
 var show_details = function () {
@@ -385,4 +434,14 @@ var show_totals = function () {
 	btn.click(function () {
 		get_data_confr();
 	});
+};
+
+var search_vale = function () {
+	'use strict';
+
+	var i_f = $('#folio');
+
+	$.get(i_f.data('url'), 'folio='+i_f.val(), function(result) {
+		show_data_vale(result);
+	}, 'json');
 };

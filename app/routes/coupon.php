@@ -46,3 +46,8 @@ Route::group(
         });
 
 });
+
+Route::get('api/coupon/get', [
+    'as' => 'api.coupon.search',
+    'uses' => 'CouponController@get',
+]);

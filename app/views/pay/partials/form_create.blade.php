@@ -61,7 +61,7 @@
 
     <div class="row folio hide">
         <strong>{{ Form::label('folio', 'Folio: ', ['class'=>'label50']) }}</strong>
-        {{ Form::text('folio', null, ['class'=>'text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric']) }}
+        {{ Form::text('folio', null, ['class'=>'text-right', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-numeric'=>'numeric', 'data-url'=>route('api.coupon.search')]) }}
         <div class="message-error">
             {{ $errors->first('folio', '<span>:message</span>') }}
         </div>

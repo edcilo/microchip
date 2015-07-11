@@ -30,6 +30,8 @@
 
         @include('pay.partials.calculate')
 
+        @include('pay.partials.vale')
+
         @include('layouts/partials/options')
 
     </div>

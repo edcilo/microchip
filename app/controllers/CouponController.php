@@ -183,4 +183,18 @@ class CouponController extends \BaseController
 
         return View::make('coupon/search', compact('results', 'terms'));
     }
+
+    public function get()
+    {
+        $data = $this->msg404;
+        $folio = Input::get('folio');
+
+        $coupon = $this->couponRepo->getByFolio($folio);
+
+        if (!is_null($coupon)) {
+            $data = $this->msg200 + $coupon->toArray();
+        }
+
+        return Response::json($data);
+    }
 }

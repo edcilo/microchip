@@ -16,6 +16,10 @@ class CouponRepo extends BaseRepo
         return $coupon = new Coupon();
     }
 
+    public function getByFolio($folio) {
+        return Coupon::where('folio', $folio)->first();
+    }
+
     public function search($terms, $request = '', $take = 10)
     {
         $q = Coupon::where('folio', 'like', "%$terms%");

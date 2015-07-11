@@ -10,6 +10,13 @@
 
     @include('layouts.partials.messages')
 
+    <div class="flo col50">
+        <a href="{{ route('pay.pending') }}" class="btn-red">
+            <i class="fa fa-arrow-left"></i>
+            Volver a la caja
+        </a>
+    </div>
+
     <div class="col col100 block description-product left">
 
         <div class="header">
@@ -63,7 +70,7 @@
                 </div>
 
                 <div class="flo col33 center">
-                    @if($sale->customer->id != 1)
+                    @if($sale->customer->id != 1 AND $sale->customer->card_id != '' AND $sale->customer->expiration_date != 'Vencido')
 
                         {{ Form::open(['route'=>['pay.repayment.store', $sale->id, 'card']]) }}
 
@@ -78,12 +85,15 @@
                             <div class="mesasge text-center">
                                 <p>
                                     ¿Estas seguro de querer agregar el rembolso al
-                                    monedero electronico del cliente
+                                    monedero electrónico del cliente
                                     <strong><nobr>{{ $sale->customer->name }}</nobr></strong>?
                                 </p>
                             </div>
                         </div>
-
+                    @elseif($sale->customer->expiration_date == 'Vencido')
+                        <span class="text-red">El monedero electrónico del cliente esta vencido</span>
+                    @elseif($sale->customer->card_id == '')
+                        <span class="text-red">El cliente no tiene monedero electrónico</span>
                     @else
                         &nbsp;
                     @endif

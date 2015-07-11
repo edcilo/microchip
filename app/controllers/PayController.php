@@ -137,6 +137,10 @@ class PayController extends \BaseController
                     return Redirect::back()->withINput()->withErrors(['folio' => "El vale $coupon->folio ya esta vencido."]);
                 }
 
+                if ($rest < $coupon->value) {
+                    return Redirect::back()->withINput()->withErrors(['folio' => "El valor del vale $coupon->folio es mayor al saldo de la compra."]);
+                }
+
                 $pay = $this->payRepo->newPay();
                 $pay->amount = $coupon->value;
                 $pay->change = 0;

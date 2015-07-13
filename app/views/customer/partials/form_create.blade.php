@@ -34,7 +34,7 @@
 
     <div class="row flo col20 right">
         {{ Form::label('rfc', 'R.F.C.:') }} <br/>
-        {{ Form::text('rfc', null, ['autocomplete'=>'off']) }}
+        {{ Form::text('rfc', null, ['class'=>'xb-input', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('rfc', '<span>:message</span>') }}
         </div>
@@ -47,7 +47,7 @@
 
     <div class="row flo col25 left">
         {{ Form::label('birthday', 'Fecha de nacimiento:') }} <br/>
-        {{ Form::input('date', 'birthday', null, ['title'=>'Este campo debe ser una fecha', 'data-date'=>'date', 'autocomplete'=>'off', 'placeholder'=>"Formato: " . date('Y-m-d')]) }}
+        {{ Form::input('date', 'birthday', null, ['class'=>'xb-input', 'title'=>'Este campo debe ser una fecha', 'data-date'=>'date', 'autocomplete'=>'off', 'placeholder'=>"Formato: " . date('Y-m-d')]) }}
         <div class="message-error">
             {{ $errors->first('birthday', '<span>:message</span>') }}
         </div>
@@ -55,7 +55,7 @@
 
     <div class="row flo col25 center">
         {{ Form::label('phone', 'Teléfono:') }} <br/>
-        {{ Form::text('phone', null, ['title'=>'Este campo debe ser numerico', 'data-integer-unsigned'=>'integer', 'autocomplete'=>'off']) }}
+        {{ Form::text('phone', null, ['class'=>'xb-input', 'title'=>'Este campo debe ser numerico', 'data-integer-unsigned'=>'integer', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('phone', '<span>:message</span>') }}
         </div>
@@ -63,7 +63,7 @@
 
     <div class="row flo col25 center">
         {{ Form::label('cellphone', 'Célular:') }} <br/>
-        {{ Form::text('cellphone', null, ['title'=>'Este campo debe ser numerico', 'data-integer-unsigned'=>'integer', 'autocomplete'=>'off']) }}
+        {{ Form::text('cellphone', null, ['class'=>'xb-input', 'title'=>'Este campo debe ser numerico', 'data-integer-unsigned'=>'integer', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('cellphone', '<span>:message</span>') }}
         </div>
@@ -84,7 +84,7 @@
 
     <div class="row flo col25 left">
         {{ Form::label('country', 'País:') }} <br/>
-        {{ Form::text('country', 'México', ['title'=>'', 'data-max'=>'255', 'autocomplete'=>'off']) }}
+        {{ Form::text('country', 'México', ['class'=>'xb-input', 'title'=>'', 'data-max'=>'255', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('country', '<span>:message</span>') }}
         </div>
@@ -92,7 +92,7 @@
 
     <div class="row flo col25 center">
         {{ Form::label('state', 'Estado:') }} <br/>
-        {{ Form::text('state', 'Chiapas', ['title'=>'', 'data-max'=>'255', 'autocomplete'=>'off']) }}
+        {{ Form::text('state', 'Chiapas', ['class'=>'xb-input', 'title'=>'', 'data-max'=>'255', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('state', '<span>:message</span>') }}
         </div>
@@ -100,7 +100,7 @@
 
     <div class="row flo col25 center">
         {{ Form::label('city', 'Ciudad:') }} <br/>
-        {{ Form::text('city', null, ['title'=>'', 'data-max'=>'255', 'autocomplete'=>'off']) }}
+        {{ Form::text('city', null, ['class'=>'xb-input', 'title'=>'', 'data-max'=>'255', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('city', '<span>:message</span>') }}
         </div>
@@ -145,7 +145,7 @@
 
     <div class="row flo col30 left">
         {{ Form::label('card_id', 'Número de monedero:') }}
-        {{ Form::text('card_id', null, ['autocomplete'=>'off', 'class'=>'xb-input']) }}
+        {{ Form::text('card_id', null, ['autocomplete'=>'off', 'class'=>'xb-input', 'title'=>'Agrega el numero del monedero elenctronico del cliente']) }}
         <div class="message-error">
             {{ $errors->first('card_id', '<span>:message</span>') }}
         </div>
@@ -177,13 +177,17 @@
 
 </div>
 
-@if (!isset($customer))
+
     <div class="col col100">
         <hr/>
 
         <div class="row flo col25">
 
-            <label for="customer">¿El usuario es referido?</label>
+            @if(isset($customer) AND is_object($customer->referrer))
+                <label for="customer">¿Modificar al recomendador?</label>
+            @else
+                <label for="customer">¿El usuario es referido?</label>
+            @endif
             <input type="checkbox" value="1" name="customer" id="customer_referred"/>
             {{ $errors->first('customer', '<span>:message</span>') }}
 
@@ -194,19 +198,15 @@
 
         <div class="row flo col33 center">
 
-            <!--
-            {{-- Form::hidden('customer_id', null, ['id'=>'customer_id']) --}}
-            <label for="customer-search">Recomendado por:</label> <br/>
-            <input type="text" name="customer-search" id="customer-search" data-url="{{-- route('customer.search') --}}" autocomplete="off"/>
+            {{ Form::label('customer_id', 'Recomendado por: ') }} <br/>
+            {{ Form::text('customer_id', (isset($customer) AND is_object($customer->referrer)) ? $customer->referrer->customer_id : null, ['class'=>'stopEnter nextInput', 'autocomplete'=>'off', 'data-url'=>route('customer.search')]) }}
             <div class="cont-form-search">
-                <div class="resultSearch globe-left hide" id="result-search"></div>
+                <div class="resultSearch globe-center hide" id="customer_search_and_add"></div>
             </div>
-            -->
-            {{ Form::label('customer_id', 'Recomendado por:') }} <br/>
-            {{ Form::text('customer_id', null) }}
             <div class="message-error">
                 {{ $errors->first('customer_id', '<span>:message</span>') }}
             </div>
+            <strong id="customer_name_selected">@if(isset($customer) AND is_object($customer->referrer)) {{ $customer->referrer->customer->name }} @endif</strong>
 
         </div>
 
@@ -229,7 +229,7 @@
         </div>
 
     </div>
-@endif
+
 
 <div class="col col100 text-center">
     <hr/>

@@ -2,7 +2,9 @@
 
 @section ('title') / Registrar clientes @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/search_customer.js') }}
+@stop
 
 @section ('content')
 

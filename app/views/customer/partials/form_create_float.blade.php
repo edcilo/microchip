@@ -1,6 +1,6 @@
 @if( p(64) )
 
-    <div title="Registrar cliente" id="dialogRegister" data-width="900">
+    <div title="Registrar cliente" id="dialogRegister" data-width="1200">
 
         {{ Form::open(['route'=>'customer.store', 'method'=>'post', 'role'=>'form', 'class'=>'form validate']) }}
         @include('customer.partials.form_create')

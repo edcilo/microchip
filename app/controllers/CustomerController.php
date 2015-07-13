@@ -76,14 +76,14 @@ class CustomerController extends \BaseController
 
         $data['customer'] = (isset($data['customer'])) ? 1 : 0;
 
-        $customer    = $this->customerRepo->newCustomer();
-        $manager    = new CustomerRegManager($customer, $data);
+        $customer = $this->customerRepo->newCustomer();
+        $manager  = new CustomerRegManager($customer, $data);
         $manager->save();
 
         if ($data['customer']) {
-            $data        = Input::only('customer_id', 'observations') + ['referred_id' => $customer->id, 'expiration' => Input::get('expiration_referrals')];
-            $referral    = $this->referralRepo->newReferred();
-            $manager    = new CustomerReferralRegManager($referral, $data);
+            $data     = Input::only('customer_id', 'observations') + ['referred_id' => $customer->id, 'expiration' => Input::get('expiration_referrals')];
+            $referral = $this->referralRepo->newReferred();
+            $manager  = new CustomerReferralRegManager($referral, $data);
             $manager->save();
         }
 
@@ -162,11 +162,25 @@ class CustomerController extends \BaseController
      */
     public function update($id)
     {
+        $data = Input::all();
+        $data['customer'] = (isset($data['customer'])) ? 1 : 0;
+
         $customer = $this->customerRepo->find($id);
         $this->notFoundUnless($customer);
 
-        $manager = new CustomerUpdManager($customer, Input::all());
+        $manager = new CustomerUpdManager($customer, $data);
         $manager->save();
+
+        if ($data['customer']) {
+            if (!is_null($customer->referrer)) {
+                $customer->referrer->delete();
+            }
+
+            $data     = Input::only('customer_id', 'observations') + ['referred_id' => $customer->id, 'expiration' => Input::get('expiration_referrals')];
+            $referral = $this->referralRepo->newReferred();
+            $manager  = new CustomerReferralRegManager($referral, $data);
+            $manager->save();
+        }
 
         if (Request::ajax()) {
             $response = $this->msg200 + ['data' => $customer];

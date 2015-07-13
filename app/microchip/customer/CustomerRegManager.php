@@ -22,7 +22,7 @@ class CustomerRegManager extends BaseManager
             'phone'            => 'max:120',
             'cellphone'        => 'max:120',
             'email'            => 'email|unique:customers,email',
-            'rfc'              => 'required_if:legal_concept,Persona Física,Persona Moral|size:13',
+            'rfc'              => 'required_if:legal_concept,Persona Física,Persona Moral',
             'credit_limit'     => 'numeric',
             'credit_days'      => 'integer',
             'card_id'          => 'max:255|unique:customers,card_id',

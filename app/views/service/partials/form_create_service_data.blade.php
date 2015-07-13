@@ -24,7 +24,7 @@
             <div class="message-error">
                 {{ $errors->first('series', '<span>:message</span>') }}
             </div>
-            
+
             {{ Form::label('model', 'Modelo:') }}
             {{ Form::text('model', null, ['class'=>'xb-input'])}}
             <div class="message-error">

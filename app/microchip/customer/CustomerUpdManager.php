@@ -22,7 +22,7 @@ class CustomerUpdManager extends BaseManager
             'phone'            => 'max:120',
             'cellphone'        => 'max:120',
             'email'            => 'email|unique:customers,email,'.$this->entity->id,
-            'rfc'              => 'size:13|unique:customers,rfc,'.$this->entity->id,
+            'rfc'              => 'required_if:legal_concept,Persona Física,Persona Moral|unique:customers,rfc,'.$this->entity->id,
             'credit_limit'     => 'numeric',
             'credit_days'      => 'integer',
             'card_id'          => 'max:255|unique:customers,card_id,'.$this->entity->id,

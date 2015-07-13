@@ -34,7 +34,7 @@
 
     <div class="row flo col20 right">
         {{ Form::label('rfc', 'R.F.C.:') }} <br/>
-        {{ Form::text('rfc', null, ['title'=>'Este campo debe contener 13 caracteres.', 'data-equals'=>'13', 'autocomplete'=>'off']) }}
+        {{ Form::text('rfc', null, ['autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('rfc', '<span>:message</span>') }}
         </div>

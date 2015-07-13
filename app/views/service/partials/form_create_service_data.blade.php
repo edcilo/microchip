@@ -19,16 +19,16 @@
 
         <div class="row flo col50 right">
 
-            {{ Form::label('model', 'Modelo:') }}
-            {{ Form::text('model', null, ['class'=>'xb-input'])}}
-            <div class="message-error">
-                {{ $errors->first('model', '<span>:message</span>') }}
-            </div>
-
             {{ Form::label('series', 'Número de serie:') }}
             {{ Form::text('series', null, ['class'=>'xb-input'])}}
             <div class="message-error">
                 {{ $errors->first('series', '<span>:message</span>') }}
+            </div>
+            
+            {{ Form::label('model', 'Modelo:') }}
+            {{ Form::text('model', null, ['class'=>'xb-input'])}}
+            <div class="message-error">
+                {{ $errors->first('model', '<span>:message</span>') }}
             </div>
 
         </div>

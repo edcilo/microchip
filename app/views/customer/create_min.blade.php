@@ -1,5 +1,10 @@
 @extends('layouts.layout_min')
 
+@section('scripts')
+    {{ HTML::script('js/search_customer.js') }}
+    {{ HTML::script('js/customer.js') }}
+@stop
+
 @section('content')
 
     <div class="col col100 block description-product">

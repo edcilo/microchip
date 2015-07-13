@@ -5,6 +5,7 @@
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
     {{ HTML::script('js/search_customer.js') }}
+    {{ HTML::script('js/customer.js') }}
 @stop
 
 @section ('content')

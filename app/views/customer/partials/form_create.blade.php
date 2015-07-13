@@ -188,13 +188,13 @@
             @else
                 <label for="customer">¿El usuario es referido?</label>
             @endif
-            <input type="checkbox" value="1" name="customer" id="customer_referred"/>
+            <input type="checkbox" value="1" name="customer" id="customer"/>
             {{ $errors->first('customer', '<span>:message</span>') }}
 
         </div>
     </div>
 
-    <div class="col col100">
+    <div class="col col100 hide" id="content_hidden">
 
         <div class="row flo col33 center">
 

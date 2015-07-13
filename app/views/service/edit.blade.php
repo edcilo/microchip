@@ -51,6 +51,7 @@
             <div class="subtitle_mark">
                 @if( !$sale->movements_end )
 
+                    <strong>Cotizar</strong>
                     {{ Form::open(['route'=>'pas.order.store', 'method'=>'post', 'class'=>'form validate']) }}
                     @include('movement.partials.form_create_sale')
 

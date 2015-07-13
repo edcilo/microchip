@@ -8,6 +8,7 @@ class Comment extends BaseEntity
 {
     protected $fillable = [
         'comment',
+        'suggestion',
         'print',
         'sale_id',
         'user_id',

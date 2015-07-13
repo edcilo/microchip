@@ -9,12 +9,21 @@
         </div>
     </div>
 
-    <div class="row text-right">
+    <div class="col col100 row">
 
-        <button type="submit" class="btn-green form_confirm" data-confirm="comment_confirm">
-            <i class="fa fa-book"></i>
-            Agregar a la bitácora.
-        </button>
+        <div class="flo col50 left">
+            <strong>
+                {{ Form::label('suggestion', '¿Marcar como sugerencia?') }}
+            </strong>
+            {{ Form::checkbox('suggestion', 1) }}
+        </div>
+
+        <div class="flo col50 right text-right">
+            <button type="submit" class="btn-green form_confirm" data-confirm="comment_confirm">
+                <i class="fa fa-book"></i>
+                Agregar a la bitácora.
+            </button>
+        </div>
 
     </div>
 

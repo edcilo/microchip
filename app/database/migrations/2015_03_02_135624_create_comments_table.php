@@ -15,6 +15,7 @@ class CreateCommentsTable extends Migration
 
             $table->text('comment');
             $table->boolean('print')->default(0);
+            $table->boolean('suggestion')->default(0);
 
             $table->unsignedInteger('sale_id');
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade')->onUpdate('cascade');

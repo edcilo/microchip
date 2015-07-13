@@ -8,10 +8,13 @@
 
                 <div class="flo col60 left">
                     <strong>{{ $comment->user->profile->full_name }}</strong>
+                    @if($comment->suggestion)
+                        (sugerencia)
+                    @endif
                 </div>
 
                 <div class="flo col40 right text-right">
-                    <span>{{ $comment->created_at->format('h:m:i a, d-m-Y') }}</span>
+                    <small>{{ $comment->created_at->format('h:m:i a, d-m-Y') }}</small>
                 </div>
 
             </div>

@@ -121,15 +121,39 @@
 
     @if( p(91) )
 
-        <div class="block description-product">
 
-            <p class="subtitle">Bitácora:</p>
 
-            @include('service.partials.form_record')
+        <div class="col col100">
 
-            @include('service.partials.list_records')
+            <div class="flo col70 left">
+
+                <div class="block description-product">
+
+                    <p class="subtitle">Bitácora:</p>
+
+                    @include('service.partials.form_record')
+
+                    @include('service.partials.list_records')
+
+                </div>
+
+            </div>
+
+            <div class="flo col30 right">
+
+                <div class="block description-product">
+
+                    <p class="subtitle">Sugerencias</p>
+
+                    @include('service.partials.list_suggestions')
+
+                </div>
+
+            </div>
 
         </div>
+
+
 
     @endif
 

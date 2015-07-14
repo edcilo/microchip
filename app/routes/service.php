@@ -98,6 +98,11 @@ Route::group(
 
         });
 
+        Route::get('print/generate/large/{id}', [
+            'as'   => 'service.print.generate_large',
+            'uses' => 'ServiceController@generatePrintLarge'
+        ]);
+
         Route::get('print/generate/{id}', [
             'as'   => 'service.print.generate',
             'uses' => 'ServiceController@generatePrint',

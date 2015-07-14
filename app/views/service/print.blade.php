@@ -29,6 +29,8 @@
         </div>
 
         <div class="flo col50 text-right">
+            @include('service.partials.btn_print_large')
+
             @include('service.partials.btn_print')
         </div>
     </div>

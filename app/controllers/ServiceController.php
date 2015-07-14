@@ -169,6 +169,20 @@ class ServiceController extends \BaseController
         return $pdf->stream();
     }
 
+    public function generatePrintLarge($id)
+    {
+        $service = $this->saleRepo->find($id);
+        $this->notFoundUnless($service);
+
+        $company = $this->companyRepo->find(1);
+
+        $configuration = $this->configRepo->find(1);
+
+        $pdf = PDF::loadView('service/layout_print_large', compact('service', 'company', 'configuration'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
+
     public function setAuthorization($id)
     {
         $service = $this->saleRepo->find($id);

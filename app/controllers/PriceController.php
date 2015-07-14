@@ -104,9 +104,12 @@ class PriceController extends \BaseController
         $sale = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
-        if ($sale->status != 'Pendiente') {
+        if ($sale->status == 'Cancelado') {
             return Redirect::route('home.sale');
         }
+
+        $sale->status = 'Pendiente';
+        $sale->save();
 
         return View::make('price/edit', compact('sale'));
     }

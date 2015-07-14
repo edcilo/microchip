@@ -27,6 +27,8 @@
         <div class="header">
             <h1>Folio: {{ $sale->folio }}</h1>
             <span>({{ $sale->status }})</span>
+
+            @include('price.partials.btn_edit')
         </div>
 
         @include('price.partials.header')

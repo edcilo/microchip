@@ -59,7 +59,7 @@
 
 <div class="col col100">
 
-    <div class="flo col50">
+    <div class="flo col33">
         @if( p(110) )
             <button class="btn-green form_confirm" data-confirm="order_confirm">
                 <i class="fa fa-file-o"></i>
@@ -70,7 +70,13 @@
         @endif
     </div>
 
-    <div class="flo col50 text-right">
+    <div class="flo col33 center text-center">
+        @include('price.partials.btn_print_large')
+
+        @include('price.partials.btn_print')
+    </div>
+
+    <div class="flo col33 text-right">
         @include('price.partials.btn_clone')
     </div>
 

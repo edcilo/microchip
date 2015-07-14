@@ -31,10 +31,17 @@
                 Folio: {{ $sale->folio }}
                 <small>({{ $sale->status }})</small>
             </h1>
-            @include('service.partials.btn_print')
         </div>
 
         @include('service/partials/header')
+
+        <hr>
+
+        <div class="text-right">
+            @include('service.partials.btn_print_large')
+
+            @include('service.partials.btn_print')
+        </div>
 
     </div>
 

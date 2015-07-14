@@ -27,8 +27,6 @@
         <div class="header">
             <h1>Folio: {{ $sale->folio }}</h1>
             <span>({{ $sale->status }})</span>
-
-            @include('price.partials.btn_print')
         </div>
 
         @include('price.partials.header')

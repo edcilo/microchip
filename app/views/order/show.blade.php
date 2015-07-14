@@ -27,20 +27,26 @@
         <div class="header">
             <h1>{{ $order->folio }}</h1>
             <span>{{ $order->status }}</span>
-
-            @include('order.partials.btn_print')
         </div>
 
         @include('order.partials.data')
 
+        <hr>
+
         <div class="col col100">
 
-            <div class="flo col50 left">
+            <div class="flo col33 left">
                 @include('order.partials.form_cancel')
                 &nbsp;
             </div>
 
-            <div class="flo col50 right text-right">
+            <div class="flo col33 center text-center">
+                @include('order.partials.btn_print_large')
+
+                @include('order.partials.btn_print')
+            </div>
+
+            <div class="flo col33 right text-right">
                 @include('order.partials.form_sale')
 
                 @include('order.partials.btn_edit')

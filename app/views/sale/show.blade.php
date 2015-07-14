@@ -31,19 +31,25 @@
             </h1>
 
             <span>{{ $sale->status }}</span>
-
-            @include('sale.partials.btn_print')
         </div>
 
         @include('sale.partials.data')
 
+        <hr>
+
         <div class="col col100">
-            <div class="flo col50">
+            <div class="flo col33">
                 @include('sale.partials.form_cancel')
                 &nbsp;
             </div>
 
-            <div class="flo col50 text-right">
+            <div class="flo col33 center text-center">
+                @include('sale.partials.btn_print_large')
+
+                @include('sale.partials.btn_print')
+            </div>
+
+            <div class="flo col33 text-right">
                 @include('sale.partials.btn_edit')
             </div>
         </div>

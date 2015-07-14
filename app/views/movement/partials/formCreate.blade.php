@@ -11,7 +11,10 @@
 
     <div class="row flo col33 center">
         {{ Form::label('barcode', 'Producto: ', ['class'=>'label50']) }} <br/>
-        {{ Form::text('barcode', null, ['class'=>'bg-input', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::text('barcode', null, ['title'=>'Este campo es obligatorio.', 'id'=>'barcode', 'class'=>'bg-input text-uppercase stopEnter nextInput', 'autocomplete'=>'off', 'data-required'=>'required', 'data-url'=>route('api.product.search', ['null', 'null'])]) }}
+        <div class="cont-form-search">
+            <div class="resultSearch globe-center hide" id="product_search_and_add"></div>
+        </div>
         <div class="message-error">
             {{ $errors->first('barcode', '<span>:message</span>') }}
         </div>

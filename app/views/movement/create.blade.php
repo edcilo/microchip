@@ -2,7 +2,10 @@
 
 @section ('title') / Registrar movimiento de inventario @stop
 
-@section('scripts')@stop
+@section('scripts')
+    {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/search_product.js') }}
+@stop
 
 @section ('content')
 

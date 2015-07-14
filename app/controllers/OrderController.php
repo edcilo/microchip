@@ -275,10 +275,10 @@ class OrderController extends \BaseController
         $order  = $this->saleRepo->find($id);
         $this->notFoundUnless($order);
 
-        $data       = Input::all();
-        $movements  = [];
+        $data      = Input::all();
+        $movements = [];
 
-        if (count($order->orderProducts) != count($order->pas) and $order->classification == 'Pedido') {
+        if (count($order->orderProducts) != count($order->pas()->where('productOrder',1)) and $order->classification == 'Pedido') {
             return Redirect::back()->with('message', 'Aún hay productos pendientes en este pedido.');
         }
 
@@ -289,16 +289,16 @@ class OrderController extends \BaseController
         }
 
         foreach ($order->orderProducts as $orderProduct) {
-            $total                  = $this->movementRepo->totalStock($orderProduct->product_id);
-            $iva                    = $order->iva;
-            $quantity               = $orderProduct->quantity;
+            $total    = $this->movementRepo->totalStock($orderProduct->product_id);
+            $iva      = $order->iva;
+            $quantity = $orderProduct->quantity;
 
             while ($quantity > 0) {
                 if ($orderProduct->product->type == 'Producto') {
-                    $first                    = $this->movementRepo->firstIn($orderProduct->product_id);
+                    $first = $this->movementRepo->firstIn($orderProduct->product_id);
 
                     $data['purchase_price'] = $first->purchase_price;
-                    $data['quantity']        = ($orderProduct->quantity > $first->in_stock) ? $first->in_stock : $orderProduct->quantity;
+                    $data['quantity']       = ($orderProduct->quantity > $first->in_stock) ? $first->in_stock : $orderProduct->quantity;
                     $in_id                  = $first->id;
                 } else {
                     $data['purchase_price'] = 0;

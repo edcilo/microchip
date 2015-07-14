@@ -93,6 +93,11 @@ Route::group(
 
         });
 
+        Route::get('print/generate/large/{id}', [
+            'as'   => 'price.print.generate_large',
+            'uses' => 'PriceController@generatePrintLarge'
+        ]);
+
         Route::get('print/generate/{id}', [
             'as'   => 'price.print.generate',
             'uses' => 'PriceController@generatePrint',

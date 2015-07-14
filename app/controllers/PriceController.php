@@ -168,13 +168,26 @@ class PriceController extends \BaseController
 
     public function generatePrint($id)
     {
-        $price    = $this->saleRepo->find($id);
+        $price = $this->saleRepo->find($id);
         $this->notFoundUnless($price);
 
         $company    = $this->companyRepo->find(1);
         $configuration = $this->configRepo->find(1);
 
         $pdf = PDF::loadView('price/layoutPrint', compact('price', 'company', 'configuration'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
+
+    public function generatePrintLarge($id)
+    {
+        $price = $this->saleRepo->find($id);
+        $this->notFoundUnless($price);
+
+        $company = $this->companyRepo->find(1);
+        $configuration = $this->configRepo->find(1);
+
+        $pdf = PDF::loadView('price/layout_print_large', compact('price', 'company', 'configuration'))->setPaper('letter');
 
         return $pdf->stream();
     }

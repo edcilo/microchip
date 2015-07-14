@@ -25,6 +25,8 @@
         </div>
 
         <div class="flo col50 text-right">
+            @include('price.partials.btn_print_large')
+
             @include('price.partials.btn_print')
         </div>
     </div>

@@ -2,7 +2,7 @@
     <div class="flo col50 left">
 
         <div class="subtitle">
-            Compras/Ventas
+            <strong>Compras/Ventas</strong>
         </div>
 
         <div class="row">
@@ -25,7 +25,7 @@
     <div class="flo col50 right">
 
         <div class="subtitle">
-            Cupones
+            <strong>Cupones</strong>
         </div>
 
         <div class="row">
@@ -49,85 +49,144 @@
 
 <div class="col col100">
 
-    <div class="flo col50 left">
+    <div class="subtitle">
+        <strong>Códigos de barras</strong>
+    </div>
 
-        <div class="subtitle">
-            Códigos de barras
-        </div>
+    <div class="col col100">
 
-        <div class="row">
-            {{ Form::label('width_paper_barcode', 'Ancho del papel de impresion de codigo de barras:', ['class'=>'label50']) }}
-            {{ Form::text('width_paper_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en centimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} cm.
-            <div class="message-error">
-                {{ $errors->first('width_paper_barcode', '<span>:message</span>') }}
+        <div class="flo col60 left">
+
+            <div class="subtitle">
+                Código de barras del documento
+            </div>
+
+            <div class="col col100 row">
+            <div class="flo col70 left">
+                {{ Form::label('width_bar_document_barcode', 'Ancho de la barra del codigo de barras de los documentos:') }}
+            </div>
+            <div class="flo col30 right text-right">
+                {{ Form::text('width_bar_document_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
+                <div class="message-error">
+                    {{ $errors->first('width_bar_document_barcode', '<span>:message</span>') }}
+                </div>
+            </div>
+            </div>
+
+            <div class="col col100">
+                <div class="flo col60 left">
+                    {{ Form::label('height_document_barcode', 'Alto del codigo de barras de los documentos:') }}
+                </div>
+                <div class="flo col40 right text-right">
+                    {{ Form::text('height_document_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
+                    <div class="message-error">
+                        {{ $errors->first('height_document_barcode', '<span>:message</span>') }}
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row">
-            {{ Form::label('height_paper_barcode', 'Alto del papel de impresion de codigo de barras:', ['class'=>'label50']) }}
-            {{ Form::text('height_paper_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en centimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} cm.
-            <div class="message-error">
-                {{ $errors->first('height_paper_barcode', '<span>:message</span>') }}
-            </div>
-        </div>
-
-        <hr/>
-
-        <div class="row">
-            {{ Form::label('width_bar_document_barcode', 'Ancho de la barra del codigo de barras de los documentos:', ['class'=>'label50']) }}
-            {{ Form::text('width_bar_document_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
-            <div class="message-error">
-                {{ $errors->first('width_bar_document_barcode', '<span>:message</span>') }}
-            </div>
-        </div>
-
-        <div class="row">
-            {{ Form::label('height_document_barcode', 'Alto del codigo de barras de los documentos:', ['class'=>'label50']) }}
-            {{ Form::text('height_document_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
-            <div class="message-error">
-                {{ $errors->first('height_document_barcode', '<span>:message</span>') }}
-            </div>
-        </div>
-
-        <hr/>
-
-        <div class="row">
-            {{ Form::label('width_bar_product_barcode', 'Ancho de la barra del codigo de barras de los productos:', ['class'=>'label50']) }}
-            {{ Form::text('width_bar_product_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
-            <div class="message-error">
-                {{ $errors->first('width_bar_product_barcode', '<span>:message</span>') }}
-            </div>
-        </div>
-
-        <div class="row">
-            {{ Form::label('height_product_barcode', 'Alto del codigo de barras de los productos:', ['class'=>'label50']) }}
-            {{ Form::text('height_product_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
-            <div class="message-error">
-                {{ $errors->first('height_product_barcode', '<span>:message</span>') }}
-            </div>
-        </div>
-
-        <hr/>
-
-        <div class="row">
-            {{ Form::label('width_bar_series_barcode', 'Ancho de la barra del codigo de barras de los números de serie:', ['class'=>'label50']) }}
-            {{ Form::text('width_bar_series_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
-            <div class="message-error">
-                {{ $errors->first('width_bar_series_barcode', '<span>:message</span>') }}
-            </div>
-        </div>
-
-        <div class="row">
-            {{ Form::label('height_series_barcode', 'Alto del codigo de barras de los números de serie:', ['class'=>'label50']) }}
-            {{ Form::text('height_series_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
-            <div class="message-error">
-                {{ $errors->first('height_series_barcode', '<span>:message</span>') }}
-            </div>
+        <div class="flo col40 right text-center">
+            <img src="{{ asset('images/sist/barcode_document.png') }}" alt="codigo de barras de documento">
         </div>
 
     </div>
 
-    <div class="flo col50 right"></div>
+        <hr/>
+
+    <div class="col col100">
+
+        <div class="flo col60 left">
+
+            <div class="subtitle">Papel de código de barras de producto</div>
+
+            <div class="col col100 row">
+                <div class="flo col60 left">
+                    {{ Form::label('width_paper_barcode', 'Ancho de papel:') }}
+                </div>
+                <div class="flo col40 right text-right">
+                    {{ Form::text('width_paper_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en centimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} cm.
+                    <div class="message-error">
+                        {{ $errors->first('width_paper_barcode', '<span>:message</span>') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col100">
+                <div class="flo col60 left">
+                    {{ Form::label('height_paper_barcode', 'Alto del papel:') }}
+                </div>
+                <div class="flo col40 right text-right">
+                    {{ Form::text('height_paper_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en centimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} cm.
+                    <div class="message-error">
+                        {{ $errors->first('height_paper_barcode', '<span>:message</span>') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row"></div>
+
+            <div class="subtitle">Código de barras del producto</div>
+
+            <div class="col col100 row">
+                <div class="flo col60 left">
+                    {{ Form::label('width_bar_product_barcode', 'Ancho de la barra:') }}
+                </div>
+                <div class="flo col40 right text-right">
+                    {{ Form::text('width_bar_product_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
+                    <div class="message-error">
+                        {{ $errors->first('width_bar_product_barcode', '<span>:message</span>') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col100">
+                <div class="flo col60 left">
+                    {{ Form::label('height_product_barcode', 'Alto del la barra:') }}
+                </div>
+                <div class="flo col40 right text-right">
+                    {{ Form::text('height_product_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
+                    <div class="message-error">
+                        {{ $errors->first('height_product_barcode', '<span>:message</span>') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row"></div>
+
+            <div class="subtitle">Código de barras del número de serie</div>
+
+            <div class="col col100 row">
+                <div class="flo col60 left">
+                    {{ Form::label('width_bar_series_barcode', 'Ancho de la barra:') }}
+                </div>
+                <div class="flo col40 right text-right">
+                    {{ Form::text('width_bar_series_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
+                    <div class="message-error">
+                        {{ $errors->first('width_bar_series_barcode', '<span>:message</span>') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col100">
+                <div class="flo col60 left">
+                    {{ Form::label('height_series_barcode', 'Alto de la barra:') }}
+                </div>
+                <div class="flo col40 right text-right">
+                    {{ Form::text('height_series_barcode', null, ['class' => 'sm-input text-right', 'title'=>'Este campo es obligatorio y el valor debe estar expresado en milimetros.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }} mm.
+                    <div class="message-error">
+                        {{ $errors->first('height_series_barcode', '<span>:message</span>') }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flo col40 right text-center">
+            <img src="{{ asset('images/sist/barcode_description.png') }}" alt="codigo de barras de documento">
+        </div>
+
+    </div>
 
 </div>
 

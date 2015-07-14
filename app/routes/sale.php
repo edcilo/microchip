@@ -102,6 +102,11 @@ Route::group(
 
         });
 
+        Route::get('print/generate/large/{id}', [
+            'as'   => 'sale.print.generate_large',
+            'uses' => 'SaleController@generatePrintLarge'
+        ]);
+
         Route::get('print/generate/{id}', [
             'as'   => 'sale.print.generate',
             'uses' => 'SaleController@generatePrint',

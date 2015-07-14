@@ -255,6 +255,25 @@ class SaleController extends \BaseController
         return $pdf->stream();
     }
 
+    public function generatePrintLarge($id)
+    {
+        $sale    = $this->saleRepo->find($id);
+        $this->notFoundUnless($sale);
+
+        $company    = $this->companyRepo->find(1);
+
+        $this->getNewPrice($sale);
+
+        $configuration = $this->configRepo->find(1);
+
+        $no2letter          = new NumberToLetter();
+        $sale->total_text   = strtoupper($no2letter->ValorEnLetras($sale->getTotalAttribute(), 'pesos'));
+
+        $pdf = PDF::loadView('sale/layout_print_large', compact('sale', 'company', 'percentage', 'configuration'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
+
     public function stopRegisterMovements($id)
     {
         $sale = $this->saleRepo->find($id);

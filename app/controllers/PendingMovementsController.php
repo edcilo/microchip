@@ -86,10 +86,20 @@ class PendingMovementsController extends \BaseController
         }
 
         if ($pa->sale->classification == 'Pedido') {
+            $pa->quantity_price = $pa->quantity;
+            $pa->save();
+
             return Redirect::route('order.edit', Input::get('sale_id'));
         } elseif ($pa->sale->classification == 'Cotización') {
+            $pa->quantity_price = $pa->quantity;
+            $pa->productPrice = 1;
+            $pa->productOrder = 0;
+            $pa->save();
+
             return Redirect::route('price.edit', $pa->sale->id);
         } elseif ($pa->sale->classification == 'Servicio') {
+            $pa->quantity_price = $pa->quantity;
+            $pa->productPrice = 1;
             $pa->productOrder = 0;
             $pa->save();
 
@@ -222,10 +232,19 @@ class PendingMovementsController extends \BaseController
         }
 
         if ($pa->sale->classification == 'Pedido') {
+            $pa->quantity_price = $pa->quantity;
+            $pa->save();
+
             return Redirect::route('order.edit', $pa->sale->id);
         } elseif ($pa->sale->classification == 'Cotización') {
+            $pa->quantity_price = $pa->quantity;
+            $pa->productPrice = 1;
+            $pa->save();
+
             return Redirect::route('price.edit', $pa->sale->id);
         } elseif ($pa->sale->classification == 'Servicio') {
+            $pa->quantity_price = $pa->quantity;
+            $pa->productPrice = 1;
             $pa->productOrder = 0;
             $pa->save();
 

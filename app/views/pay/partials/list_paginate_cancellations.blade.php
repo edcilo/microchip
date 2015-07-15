@@ -21,7 +21,11 @@
                 <td>{{ $cancellation->folio }}</td>
                 <td>{{ $cancellation->customer->name }}</td>
                 <td class="text-center">{{ $cancellation->created_at }}</td>
-                <td class="text-right">$ {{ $cancellation->total_f }}</td>
+                @if ($cancellation->classification == 'Venta')
+                    <td class="text-right">$ {{ $cancellation->total_f }}</td>
+                @else
+                    <td class="text-right">$ {{ $cancellation->total_order_f }}</td>
+                @endif
                 <td class="text-right">$ {{ $cancellation->user_total_pay_f }}</td>
                 <td class="text-center">
                     @include('pay.partials.btn_repayment')

@@ -278,7 +278,7 @@ class OrderController extends \BaseController
         $data      = Input::all();
         $movements = [];
 
-        if (count($order->orderProducts) != count($order->pas()->where('productOrder',1)) and $order->classification == 'Pedido') {
+        if (count($order->orderProducts) != $order->pas()->where('productOrder',1)->count() and $order->classification == 'Pedido') {
             return Redirect::back()->with('message', 'Aún hay productos pendientes en este pedido.');
         }
 

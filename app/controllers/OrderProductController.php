@@ -60,12 +60,12 @@ class OrderProductController extends \BaseController
      */
     public function store()
     {
-        $message        = '';
-        $pa             = $this->pendingMovementRepo->find(Input::get('pa_id'));
+        $message = '';
+        $pa      = $this->pendingMovementRepo->find(Input::get('pa_id'));
         $this->notFoundUnless($pa);
 
         if ($pa->status != 'Surtido' and $pa->sale->status != 'Cancelado') {
-            $data = Input::all() + ['selling_price' => $pa->selling_price, 'pa_quantity' => $pa->orders_rest, 'pending_movement_id' => $pa->id, 'sale_id' => $pa->sale_id];
+            $data = Input::all() + ['selling_price' => $pa->selling_price_total, 'pa_quantity' => $pa->orders_rest, 'pending_movement_id' => $pa->id, 'sale_id' => $pa->sale_id];
 
             $validator = Validator::make($data, [
                 'barcode' => 'required|exists:products,barcode'
@@ -90,8 +90,8 @@ class OrderProductController extends \BaseController
                         }
                     }
 
-                    $productOrder               = $order;
-                    $productOrder->quantity    += $data['quantity'];
+                    $productOrder            = $order;
+                    $productOrder->quantity += $data['quantity'];
                     $productOrder->save();
 
                     $c++;
@@ -99,13 +99,13 @@ class OrderProductController extends \BaseController
             }
 
             if ($c == 0) {
-                $productOrder   = $this->orderProductRepo->newOrderProduct();
-                $manager        = new OrderProductRegManager($productOrder, $data);
+                $productOrder = $this->orderProductRepo->newOrderProduct();
+                $manager      = new OrderProductRegManager($productOrder, $data);
                 $manager->save();
             }
 
             if ($pa->orders_rest - $productOrder->quantity <= 0) {
-                $pa->status     = 'Surtido';
+                $pa->status = 'Surtido';
                 $pa->save();
             }
         } else {

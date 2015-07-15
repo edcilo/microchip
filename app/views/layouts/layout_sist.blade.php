@@ -24,17 +24,11 @@
     <div class="load_edc hide"><div class="cle_bleu_load_10"></div></div>
 
     <section class="cont1440">
-        <div class="col col100">
-            <div class="flo col20" >
-                @include('layouts/partials/nav_admin')
-            </div>
-
-            <div class="flo col80 cont_principal" id="col-der">
-
+        <div class="col col100 center">
+            <div class="cont_principal" id="col-der">
                 @include('layouts.partials.messages')
 
                 @yield('content')
-
             </div>
         </div>
     </section>

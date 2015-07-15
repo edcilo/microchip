@@ -7,9 +7,60 @@ $( function () {
     edcOptionsList();
     edcSelect();
     edcAlert();
-    edcShowHide()
+    edcShowHide();
+    edc_close();
+    edc_dropdowMenu();
 
 });
+
+/*
+ * Función que borra la clase .open de todos los elementos que la contengan
+ * al dar click sobre el elemento body
+ */
+var edc_close = function () {
+    "use strict";
+
+    $('body').click( function () {
+        $('.open').removeClass('open');
+    } );
+};
+
+/*
+ * funcion que hace visible el dropdownMenu
+ *
+ * DOM html: div>button.trigger-dropdown{Menu}+ul.dropdown-menu>li*3>a{Option n}
+ * trigger: .trigger-dropdown
+ */
+var edc_dropdowMenu = function () {
+    "use strict";
+
+    var trigger  = $('.trigger-dropdown'),
+        elementP = null;
+
+    $('body').click( function (e) {
+        elementP = ( e === null ) ? e.srcElement : e.target;
+    } );
+
+    trigger.click( function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var element = ( e === null ) ? e.srcElement : e.target;
+
+        $('.open').removeClass('open');
+
+        $(this).parent().addClass('open');
+
+        if ( elementP === element ) {
+            $('.open').removeClass('open');
+            elementP = null;
+        }
+        else {
+            elementP = element;
+        }
+    } );
+
+};
 
 var edcShowHide = function () {
     "use strict";

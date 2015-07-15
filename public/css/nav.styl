@@ -1,0 +1,60 @@
+color-principal = greenEdc1
+
+angle-down()
+    &:after
+        content '\f107'
+        display inline-block
+        font-family FontAwesome
+        font-weight bolder
+        margin-left 3px
+
+.nav-0
+    background-color transparent
+    ul
+        delisting()
+        li
+            display inline-block
+            margin 0
+            a
+            span
+                border-bottom 1px solid transparent
+                cursor pointer
+                display block
+                padding .5em .5em
+                text-decoration none
+                transition all .15s ease-in-out
+                &:focus
+                &:hover
+                    border-bottom-color color-principal
+                    color color-principal
+                &:active
+                    border-bottom-color darken(color-principal, 30%)
+                &.trigger-dropdown
+                    angle-down()
+            ul.dropdown-menu
+                border-color greenEdc1
+                margin-top 2px
+                li
+                    margin 0
+                    width 100%
+                    a
+                    span
+                        color blackEdc1
+                        border-bottom 0 solid transparent
+                        padding 8px 6px
+                        .fa
+                            text-align center
+                            width 20px
+        .active
+            a
+            span
+                color greenEdc1
+        .disabled
+            a
+            span
+                color grayClouds
+                cursor no-drop
+                &:focus
+                &:hover
+                    color grayClouds
+                    border-bottom-color transparent

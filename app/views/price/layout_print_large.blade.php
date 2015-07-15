@@ -111,7 +111,7 @@
     </tbody>
     <tfoot class="text-right">
     <tr>
-        <td colspan="3"></td>
+        <td colspan="4"></td>
         <td><strong>Total:</strong></td>
         <td>$ {{ $price->total_price_f }}</td>
     </tr>

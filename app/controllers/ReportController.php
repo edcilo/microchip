@@ -69,6 +69,7 @@ class ReportController extends \BaseController {
 
     public function moneyStore()
     {
+        dd('hola');
         // TODO registrar la salida de caja
         $corte      = $this->corteRepo->newCorte();
         $manager    = new ReportCorteRegManager($corte, Input::all());

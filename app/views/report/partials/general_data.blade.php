@@ -29,7 +29,7 @@
             <strong>Total en efectivo:</strong>
         </div>
         <div class="flo col50 right text-right">
-            $ {{ number_format($report['total_box'], 2, '.', ',') }}
+            $ <span id="total_report" data-total="{{ $report['total_box'] }}">{{ number_format($report['total_box'], 2, '.', ',') }}</span>
         </div>
     </li>
     <il><hr/></il>

@@ -175,7 +175,6 @@ var hide_show_controls = function () {
 
 	add_attributes = function (e) {
 		e.attr('data-required', 'required');
-		e.attr('data-numeric', 'numeric');
 	};
 
 	hide_elements = function () {
@@ -224,7 +223,7 @@ var hide_show_controls = function () {
 
 			reference.show();
 		}
-	}
+	};
 
 	hide_elements();
 	hide_show(current);

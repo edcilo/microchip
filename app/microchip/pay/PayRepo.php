@@ -43,7 +43,7 @@ class PayRepo extends BaseRepo
             $date = date('Y-m-d');
         }
 
-        $rows = Pay::where('date', '<', $date)->get();
+        $rows = Pay::where('date', '<', $date)->where('method', 'Efectivo')->get();
 
         foreach ($rows as $col) {
             $total += $col->amount - $col->change;

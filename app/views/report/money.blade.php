@@ -2,6 +2,10 @@
 
 @section ('title') / Corte de caja @stop
 
+@section('scripts')
+    {{ HTML::script('js/report_money.js') }}
+@stop
+
 @section ('content')
 
     <div class="col col100 text-center">
@@ -20,7 +24,7 @@
         @if(!empty($report))
             <div class="col col100">
 
-                @include('report.partials.message')
+                <aside class="msg_dialog text-center hide"></aside>
 
                 <div class="flo col50 left">
                     @include('report.partials.general_data')

@@ -64,23 +64,7 @@ class ReportController extends \BaseController {
             $pays   = $result[1];
         }
 
-        $total_calculate = 0;
-        $total_calculate_r = 0;
-        $total_denomination = [];
-        if (isset($data['calculate'])) {
-            $denominations = Input::only('quantity_1000', 'quantity_500', 'quantity_200', 'quantity_100', 'quantity_50', 'quantity_20', 'quantity_10', 'quantity_5', 'quantity_2', 'quantity_1', 'quantity_05');
-            $denominations_r = Input::only('quantity_r_1000', 'quantity_r_500', 'quantity_r_200', 'quantity_r_100', 'quantity_r_50', 'quantity_r_20', 'quantity_r_10', 'quantity_r_5', 'quantity_r_2', 'quantity_r_1', 'quantity_r_05');
-
-            $result = $this->getDenominations($denominations, 'quantity_05', 9);
-            $total_denomination = $result[0];
-            $total_calculate    = $result[1];
-
-            $result = $this->getDenominations($denominations_r, 'quantity_r_05', 11);
-            $total_denomination += $result[0];
-            $total_calculate_r = $result[1];
-        }
-
-        return View::make('report.money', compact('date_init', 'date_end', 'total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays'));
+        return View::make('report.money', compact('date_init', 'date_end', 'report', 'pays'));
     }
 
     public function moneyStore()

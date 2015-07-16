@@ -1,9 +1,6 @@
 {{ Form::open(['method'=>'get', 'class'=>'form validate']) }}
 
-{{ Form::hidden('date_init', $d['date_init']) }}
-{{ Form::hidden('date_end', $d['date_end']) }}
-{{ Form::hidden('total', $total) }}
-{{ Form::hidden('calculate', true) }}
+{{ Form::hidden('total', 0, ['id' => 'total']) }}
 
 <table class="table">
     <thead>
@@ -14,7 +11,7 @@
     </tr>
     <tr>
         <th></th>
-        <th>Denominación</th>
+        <th>Denom.</th>
         <th>Cantidad</th>
         <th>Suma</th>
         <th>Cantidad</th>
@@ -27,24 +24,16 @@
             <td>$</td>
             <td class="text-right">{{ $value }}</td>
             <td class="text-center">
-                {{ Form::text('quantity_'.$key, isset($d['quantity_'.$key]) ? $d['quantity_'.$key] : 0, [($key == 1000) ? 'autofocus' : '', 'class'=>'text-right xs-input', 'data-integer'=>'integer', 'autocomplete'=>'off']) }}
+                {{ Form::text('quantity_'.$key, null, ['class'=>'text-right xs-input demon_quantity d_b', 'data-value' => $key, 'data-integer'=>'integer', 'placeholder'=>0, 'autocomplete'=>'off']) }}
             </td>
             <td class="text-right">
-                @if (isset($total_denomination['quantity_' . $key]))
-                    {{ number_format($total_denomination['quantity_' . $key], 2, '.', ',') }}
-                @else
-                    $0.00
-                @endif
+                $ <span class="total_d">0.00</span>
             </td>
             <td class="text-right">
-                {{ Form::text('quantity_r_'.$key, isset($d['quantity_r_'.$key]) ? $d['quantity_r_'.$key] : 0, ['class'=>'text-right xs-input', 'data-integer'=>'integer', 'autocomplete'=>'off']) }}
+                {{ Form::text('quantity_r_'.$key, null, ['class'=>'text-right xs-input demon_quantity d_o', 'data-value' => $key, 'data-integer'=>'integer', 'placeholder'=>0, 'autocomplete'=>'off']) }}
             </td>
             <td class="text-right">
-                @if (isset($total_denomination['quantity_r_' . $key]))
-                    {{ number_format($total_denomination['quantity_r_' . $key], 2, '.', ',') }}
-                @else
-                    0.00
-                @endif
+                $ <span class="total_d">0.00</span>
             </td>
         </tr>
     @endforeach
@@ -53,18 +42,11 @@
     <tr>
         <td colspan="2"></td>
         <td class="text-right">Efectivo: $</td>
-        <td class="text-right">{{ number_format($total_calculate, 2, '.', ',') }}</td>
+        <td class="text-right total_box">0.00</td>
         <td class="text-right">Retiro: $</td>
-        <td class="text-right">{{ number_format($total_calculate_r, 2, '.', ',') }}</td>
+        <td class="text-right total_out">0.00</td>
     </tr>
     </tfoot>
 </table>
-
-<div class="text-center">
-    <button type="submit" class="btn-blue">
-        <i class="fa fa-calculator"></i>
-        Calcular efectivo
-    </button>
-</div>
 
 {{ Form::close() }}

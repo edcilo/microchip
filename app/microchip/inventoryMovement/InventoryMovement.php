@@ -121,6 +121,33 @@ class InventoryMovement extends BaseEntity
         return $color;
     }
 
+    public function getUtilityFAttribute()
+    {
+        return $this->getUtilityAttribute(',');
+    }
+
+    public function getUtilityAttribute($f = '')
+    {
+        $utility = ($this->selling_price * $this->quantity) - ($this->purchase_price * $this->quantity);
+
+        return number_format($utility, 2, '.', $f);
+    }
+
+    public function getUPercentageFAttribute()
+    {
+        return $this->getUPercentageAttribute(',');
+    }
+
+    public function getUPercentageAttribute($f = '')
+    {
+        $percentage = ($this->selling_price * $this->quantity)/($this->purchase_price * $this->quantity);
+        $percentage -= 1;
+        $percentage *= 100;
+
+        return number_format($percentage, 2, '.', $f);
+    }
+
+
     public function series()
     {
         return $this->hasMany('microchip\series\Series');

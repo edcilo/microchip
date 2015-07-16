@@ -17,6 +17,7 @@
                     <th>P. Costo</th>
                     <th>P. Venta</th>
                     <th>Desc.</th>
+                    <th>Subtotal</th>
                     <th>Utilidad</th>
                     <th>% Utilidad</th>
                 </tr>
@@ -30,8 +31,9 @@
                         <td class="text-right">$ {{ $movement->purchase_price }}</td>
                         <td class="text-right">$ {{ $movement->selling_price }}</td>
                         <td></td>
-                        <td class="text-right">$ {{ $movement->utility }}</td>
-                        <td class="text-right">{{ $movement->u_percentage }} %</td>
+                        <td class="text-right">$ {{ $movement->total_f }}</td>
+                        <td class="text-right">$ {{ $movement->utility_f }}</td>
+                        <td class="text-right">{{ $movement->u_percentage_f }} %</td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -116,7 +116,7 @@ class Sale extends BaseEntity
         $total = 0;
 
         foreach ($this->movements as $movement) {
-            $total += $movement->purchase_price;
+            $total += $movement->purchase_price * $movement->quantity;
         }
 
         return number_format($total, 2, '.', $f);
@@ -319,6 +319,7 @@ class Sale extends BaseEntity
 
         return $date->format('d-m-Y');
     }
+
 
     public function data()
     {

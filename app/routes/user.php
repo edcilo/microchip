@@ -4,17 +4,25 @@
 /*
  * Routes
  */
-Route::group(
-    [
-        'prefix' => 'user/',
-        'before' => 'pr:24',
-    ],
+Route::group(['prefix' => 'user/'],
     function () {
 
-        Route::get('', [
-            'as'   => 'user.index',
-            'uses' => 'UserController@index',
-        ]);
+        Route::group(['before' => 'pr:24'], function () {
+            Route::get('', [
+                'as'   => 'user.index',
+                'uses' => 'UserController@index',
+            ]);
+
+            Route::get('trash', [
+                'as'   => 'user.trash',
+                'uses' => 'UserController@trash',
+            ]);
+
+            Route::get('{slug}/{id}', [
+                'as'   => 'user.show',
+                'uses' => 'UserController@show',
+            ]);
+        });
 
         Route::group(['before' => 'pr:25'], function () {
 
@@ -93,16 +101,6 @@ Route::group(
             ]);
 
         });
-
-        Route::get('trash', [
-            'as'   => 'user.trash',
-            'uses' => 'UserController@trash',
-        ]);
-
-        Route::get('{slug}/{id}', [
-            'as'   => 'user.show',
-            'uses' => 'UserController@show',
-        ]);
 
         Route::get('search', [
             'as'   => 'user.search',

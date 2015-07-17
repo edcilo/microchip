@@ -67,12 +67,13 @@ class ReportController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors($val);
             }
 
+            $users = $this->userRepo->getPaysByRange($date_init, $time_init, $date_end, $time_end);
             $result = $this->getData($date_init, $time_init, $date_end, $time_end);
             $report = $result[0];
             $pays   = $result[1];
         }
 
-        return View::make('report.money', compact('date_init', 'time_init', 'date_end', 'time_end', 'report', 'pays'));
+        return View::make('report.money', compact('date_init', 'time_init', 'date_end', 'time_end', 'report', 'pays', 'users'));
     }
 
     public function moneyStore()
@@ -116,32 +117,30 @@ class ReportController extends \BaseController {
 
     public function show($id)
     {
-        $report_money = $this->corteRepo->find($id);
-        $this->notFoundUnless($report_money);
+        $corte = $this->corteRepo->find($id);
+        $this->notFoundUnless($corte);
 
         if (Request::ajax()) {
-            return Response::json($report_money);
+            return Response::json($corte);
         }
 
-        $data = $report_money->toArray();
-
-        $result = $this->getData($data['date_init'], $data['date_end']);
+        $result = $this->getData($corte->date_init, $corte->time_init, $corte->date_end, $corte->time_end);
         $report = $result[0];
         $pays   = $result[1];
 
-        $users = $this->userRepo->getPaysByRange($data['date_init'], $data['date_end']);
+        $users = $this->userRepo->getPaysByRange($corte->date_init, $corte->time_init, $corte->date_end, $corte->time_end);
 
-        $denominations = ['quantity_1000'=>$data['quantity_1000'], 'quantity_500'=>$data['quantity_500'], 'quantity_200'=>$data['quantity_200'], 'quantity_100'=>$data['quantity_100'], 'quantity_50'=>$data['quantity_50'], 'quantity_20'=>$data['quantity_20'], 'quantity_10'=>$data['quantity_10'], 'quantity_5'=>$data['quantity_5'], 'quantity_2'=>$data['quantity_2'], 'quantity_1'=>$data['quantity_1'], 'quantity_05'=>$data['quantity_05']];
+        $denominations = ['quantity_1000'=>$corte->quantity_1000, 'quantity_500'=>$corte->quantity_500, 'quantity_200'=>$corte->quantity_200, 'quantity_100'=>$corte->quantity_100, 'quantity_50'=>$corte->quantity_50, 'quantity_20'=>$corte->quantity_20, 'quantity_10'=>$corte->quantity_10, 'quantity_5'=>$corte->quantity_5, 'quantity_2'=>$corte->quantity_2, 'quantity_1'=>$corte->quantity_1, 'quantity_05'=>$corte->quantity_05];
         $result = $this->getDenominations($denominations, 'quantity_05', 9);
         $total_denomination = $result[0];
         $total_calculate    = $result[1];
 
-        $denominations_r = ['quantity_r_1000'=>$data['quantity_r_1000'], 'quantity_r_500'=>$data['quantity_r_500'], 'quantity_r_200'=>$data['quantity_r_200'], 'quantity_r_100'=>$data['quantity_r_100'], 'quantity_r_50'=>$data['quantity_r_50'], 'quantity_r_20'=>$data['quantity_r_20'], 'quantity_r_10'=>$data['quantity_r_10'], 'quantity_r_5'=>$data['quantity_r_5'], 'quantity_r_2'=>$data['quantity_r_2'], 'quantity_r_1'=>$data['quantity_r_1'], 'quantity_r_05'=>$data['quantity_r_05']];
+        $denominations_r = ['quantity_r_1000'=>$corte->quantity_r_1000, 'quantity_r_500'=>$corte->quantity_r_500, 'quantity_r_200'=>$corte->quantity_r_200, 'quantity_r_100'=>$corte->quantity_r_100, 'quantity_r_50'=>$corte->quantity_r_50, 'quantity_r_20'=>$corte->quantity_r_20, 'quantity_r_10'=>$corte->quantity_r_10, 'quantity_r_5'=>$corte->quantity_r_5, 'quantity_r_2'=>$corte->quantity_r_2, 'quantity_r_1'=>$corte->quantity_r_1, 'quantity_r_05'=>$corte->quantity_r_05];
         $result = $this->getDenominations($denominations_r, 'quantity_r_05', 11);
         $total_denomination += $result[0];
         $total_calculate_r = $result[1];
 
-        return View::make('report.show', compact('total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays', 'users', 'report_money'));
+        return View::make('report.show', compact('total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays', 'users', 'corte'));
     }
 
     public function edit($id)

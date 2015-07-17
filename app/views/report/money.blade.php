@@ -63,6 +63,10 @@
 
         @include('report.partials.list_card')
 
+        <hr/>
+
+        @include('report.partials.users')
+
     @endif
 
 @stop

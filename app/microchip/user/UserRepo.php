@@ -44,15 +44,30 @@ class UserRepo extends BaseRepo
         return false;
     }
 
-    public function getPaysByRange($date_init, $date_end = null)
+    public function getPaysByRange($date_init = null, $time_init = null, $date_end = null, $time_end = null)
     {
-        return User::with(['pays' => function ($query) use ($date_init, $date_end) {
+        if (is_null($date_init)) {
+            $date_init = date('Y-m-d');
+        }
+        $datetime_init = $date_init . ' ' . $time_init;
+
+        $datetime_end = null;
+        if (!empty($date_end)) {
+            if (empty($time_end)) {
+                $datetime_end  = Carbon::createFromFormat('Y-m-d', $date_end);
+                $datetime_end  = $datetime_end->addDay()->format('Y-m-d');
+            } else {
+                $datetime_end  = $date_end  . ' ' . $time_end;
+            }
+        }
+
+        return User::with(['pays' => function ($query) use ($datetime_init, $datetime_end) {
             $query->with('sale')
-                ->where('date', '>=', $date_init)
-                ->where(function ($query) use ($date_end)
+                ->where('date', '>', $datetime_init)
+                ->where(function ($query) use ($datetime_end)
                 {
-                    if (!is_null($date_end)) {
-                        $query->where('date', '<=', $date_end);
+                    if (!is_null($datetime_end)) {
+                        $query->where('date', '<', $datetime_end);
                     }
                 });
         }])->get();

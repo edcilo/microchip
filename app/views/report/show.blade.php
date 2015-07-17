@@ -19,9 +19,9 @@
     <div class="col col100 block description-product">
 
         <div class="header">
-            <h1>Reporte no. {{ $report_money->id }}</h1>
+            <h1>Reporte no. {{ $corte->id }}</h1>
 
-            @include('report.partials.btn_edit', ['report' => $report_money])
+            @include('report.partials.btn_edit', ['report' => $corte])
         </div>
 
         <div class="col col100">
@@ -33,7 +33,7 @@
             </div>
 
             <div class="flo col50 right">
-                @include('report.partials.calculator_show', ['total'=>$report['total_box'], 'd'=>$report_money->toArray()])
+                @include('report.partials.calculator_show', ['total'=>$report['total_box'], 'd'=>$corte->toArray()])
             </div>
 
         </div>

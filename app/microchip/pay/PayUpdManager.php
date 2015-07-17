@@ -25,7 +25,7 @@ class PayUpdManager extends BaseManager
 
         $data['sale_id']    = $this->entity->sale_id;
 
-        $data['date']   = date('Y-m-d');
+        $data['date']   = date('Y-m-d H:i:s');
 
         if ($data['method'] == 'Efectivo' or $data['method'] == 'Nota de crédito') {
             $data['reference'] = '';

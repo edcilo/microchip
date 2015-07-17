@@ -17,7 +17,10 @@ class CreateReportCorteTable extends Migration {
 			$table->increments('id');
             $table->boolean('close');
             $table->date('date_init');
-            $table->date('date_end');
+            $table->time('time_init')->nullable();
+            $table->date('date_end')->nullable();
+            $table->time('time_end')->nullable();
+            $table->unsignedInteger('pay_id');
 
             $table->integer('quantity_1000');
             $table->integer('quantity_500');

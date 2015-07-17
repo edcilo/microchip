@@ -18,6 +18,8 @@ class PayUpdInManager extends BaseManager
 
     public function prepareData($data)
     {
+        $data['date'] = $data['date'] . ' ' . date('H:i:s');
+
         return $data;
     }
 }

@@ -30,9 +30,9 @@ class Pay extends BaseEntity
 
     public function getDateFAttribute()
     {
-        $date = Carbon::createFromFormat('Y-m-d', $this->date);
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->date);
 
-        return $date->format('d-m-Y');
+        return $date->format('d-m-Y h:ia');
     }
 
     public function sale()

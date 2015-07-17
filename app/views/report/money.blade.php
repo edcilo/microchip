@@ -26,17 +26,21 @@
 
                 <aside class="msg_dialog text-center hide"></aside>
 
-                <div class="flo col50 left">
-                    @include('report.partials.general_data')
+                {{ Form::open(['route'=>'report.money.store', 'class'=>'form']) }}
 
-                    <hr/>
+                    <div class="flo col50 left">
+                        @include('report.partials.general_data')
 
-                    @include('report.partials.form_create')
-                </div>
+                        <hr/>
 
-                <div class="flo col50 right">
-                    @include('report.partials.calculator', ['total'=>$report['total_box'], 'd'=>Input::all()])
-                </div>
+                        @include('report.partials.form_create')
+                    </div>
+
+                    <div class="flo col50 right">
+                        @include('report.partials.calculator')
+                    </div>
+
+                {{ Form::close() }}
 
             </div>
         @endif

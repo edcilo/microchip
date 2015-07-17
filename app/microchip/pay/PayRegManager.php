@@ -25,7 +25,7 @@ class PayRegManager extends BaseManager
         $this->stripTags($data);
 
         $data['change'] = ($data['amount'] > $data['total']) ? $data['amount'] - $data['total'] : 0;
-        $data['date']   = date('Y-m-d');
+        $data['date']   = date('Y-m-d H:i:s');
 
         if ($data['method'] == 'Efectivo' or $data['method'] == 'Vale') {
             $data['reference'] = '';

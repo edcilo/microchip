@@ -118,6 +118,7 @@ return array(
         'quantity'       => 'Cantidad',
         'reference'      => 'Referencia',
         'selling_price'  => 'Precio de venta',
+        'time_init'      => 'Hora de inicio',
         'type'           => 'Tipo de pago',
         'type_other'     => 'Especificar',
         'value'          => 'Valor',

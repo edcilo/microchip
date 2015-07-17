@@ -35,7 +35,7 @@ class CreatePaysTable extends Migration
 
             $table->unsignedInteger('coupon_id');
 
-            $table->date('date');
+            $table->timestamp('date');
             $table->timestamps();
         });
     }

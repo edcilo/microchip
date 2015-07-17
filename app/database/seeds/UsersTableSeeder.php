@@ -17,6 +17,14 @@ class UsersTableSeeder extends Seeder
             'active'        => 1,
             'department_id' => 1,
         ]);
+
+        User::create([
+            'username'        => 'edcilo_v',
+            'password'        => \Hash::make('secret'),
+            'slug'            => \Str::slug('edcilo_v'),
+            'active'          => 1,
+            'department_id'   => 2,
+        ]);
 /*
         User::create([
             'username'        => 'edcilo_a',

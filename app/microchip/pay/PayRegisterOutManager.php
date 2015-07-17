@@ -23,6 +23,7 @@ class PayRegisterOutManager extends BaseManager
     {
         $data['amount'] *= -1;
         $data['method'] = 'Efectivo';
+        $data['date'] = $data['date'] . ' ' . date('H:i:s');
 
         return $data;
     }

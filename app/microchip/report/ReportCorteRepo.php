@@ -16,4 +16,8 @@ class ReportCorteRepo extends BaseRepo{
         return $corte = new ReportCorte();
     }
 
+    public function findLast()
+    {
+        return ReportCorte::orderBy('date_end', 'DESC')->orderBy('time_end', 'DESC')->first();
+    }
 }

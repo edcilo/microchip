@@ -9,7 +9,9 @@ class ReportCorte extends BaseEntity {
 
 	protected $fillable = [
         'date_init',
+        'time_init',
         'date_end',
+        'time_end',
         'quantity_1000',
         'quantity_500',
         'quantity_200',

@@ -149,7 +149,7 @@ class PayController extends \BaseController
                 $pay->sale_id = $sale_id;
                 $pay->user_id = Auth::user()->id;
                 $pay->coupon_id = $coupon->id;
-                $pay->date = date('Y-m-d');
+                $pay->date = date('Y-m-d H:i:s');
                 $pay->save();
 
                 $coupon->available = 0;
@@ -186,7 +186,7 @@ class PayController extends \BaseController
                 $pay->method = 'Monedero';
                 $pay->sale_id = $sale_id;
                 $pay->user_id = Auth::user()->id;
-                $pay->date = date('Y-m-d');
+                $pay->date = date('Y-m-d H:i:s');
                 $pay->save();
 
                 $customer->points -= $amount;
@@ -404,7 +404,7 @@ class PayController extends \BaseController
     public function storeIn()
     {
         $data = Input::all();
-        $data['user_id']    = Auth::user()->id;
+        $data['user_id'] = Auth::user()->id;
 
         $pay = $this->payRepo->newPay();
         $manager = new PayRegisterInManager($pay, $data);
@@ -531,7 +531,7 @@ class PayController extends \BaseController
             $pay->method    = 'Efectivo';
             $pay->sale_id   = $sale->id;
             $pay->user_id   = Auth::user()->id;
-            $pay->date      = date('Y-m-d');
+            $pay->date      = date('Y-m-d H:i:s');
             $pay->save();
 
             $success = true;

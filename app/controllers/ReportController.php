@@ -4,6 +4,7 @@ use microchip\purchasePayment\PurchasePaymentRepo;
 use microchip\pay\PayRepo;
 use microchip\report\ReportCorteRepo;
 use microchip\report\ReportCorteRegManager;
+use microchip\pay\PayRegisterInManager;
 use microchip\user\UserRepo;
 
 class ReportController extends \BaseController {
@@ -40,39 +41,68 @@ class ReportController extends \BaseController {
 	public function money()
     {
         $data       = Input::all();
-        $date_init  = date('Y-m-d');
-        $date_end   = null;
+        $date_end   = empty(Input::get('date_end'))  ? null : Input::get('date_end');
+        $time_end   = empty(Input::get('time_end'))  ? null : Input::get('time_end');
         $report     = [];
+        $pays       = [];
 
-        if (isset($data['date_init'])) {
-            $date_init = $data['date_init'];
-
-            if (!empty($data['date_end'])) {
-                $date_end = $data['date_end'];
+        if ( empty(Input::get('date_init')) ) {
+            $report = $this->corteRepo->findLast();
+            if ($report) {
+                $date_init = $report->date_end;
+                $time_init = substr($report->time_end, 0, 5);
+            } else {
+                $date_init = date('Y-m-d');
+                $time_init = empty(Input::get('time_init'))  ? null : Input::get('time_init');
             }
+        } else {
+            $date_init = Input::get('date_init');
+            $time_init = Input::get('time_init');
+        }
 
+        if (!empty($date_init)) {
             $val = $this->validate($data);
 
             if ($val) {
                 return Redirect::back()->withInput()->withErrors($val);
             }
-        }
 
-        if (isset($data['date_init'])) {
-            $result = $this->getData($data['date_init'], $data['date_end']);
+            $result = $this->getData($date_init, $time_init, $date_end, $time_end);
             $report = $result[0];
             $pays   = $result[1];
         }
 
-        return View::make('report.money', compact('date_init', 'date_end', 'report', 'pays'));
+        return View::make('report.money', compact('date_init', 'time_init', 'date_end', 'time_end', 'report', 'pays'));
     }
 
     public function moneyStore()
     {
-        dd('hola');
-        // TODO registrar la salida de caja
+        $data = Input::all();
+        $denominations = Input::only(
+            'quantity_r_1000', 'quantity_r_500',
+            'quantity_r_200', 'quantity_r_100',
+            'quantity_r_50', 'quantity_r_20',
+            'quantity_r_10', 'quantity_r_5',
+            'quantity_r_2', 'quantity_r_1', 'quantity_r_05'
+        );
+
+        $total_out = $this->getDenominations($denominations, 'quantity_r_05', 11);
+
+        if ($total_out[1] > 0) {
+            $pay_data['user_id']     = Auth::user()->id;
+            $pay_data['amount']      = $total_out[1] * -1;
+            $pay_data['description'] = 'Salida por corte de caja';
+            $pay_data['date']        = date('Y-m-d H:i:s');
+
+            $pay = $this->payRepo->newPay();
+            $manager = new PayRegisterInManager($pay, $pay_data);
+            $manager->save();
+
+            $data['pay_id'] = $pay->id;
+        }
+
         $corte      = $this->corteRepo->newCorte();
-        $manager    = new ReportCorteRegManager($corte, Input::all());
+        $manager    = new ReportCorteRegManager($corte, $data);
         $manager->save();
 
         if (Request::ajax()) {
@@ -165,11 +195,11 @@ class ReportController extends \BaseController {
     }
 
 
-    public function getData($date_init, $date_end)
+    public function getData($date_init, $time_init, $date_end, $time_end)
     {
-        $report['caja_anterior']  = $this->payRepo->getCajaAnetrior($date_init);
+        $report['caja_anterior']  = $this->payRepo->getCajaAnetrior($date_init, $time_init);
 
-        $pays = $this->payRepo->getInRange($date_init, $date_end);
+        $pays = $this->payRepo->getInRange($date_init, $time_init, $date_end, $time_end);
 
         $report['total_cash']        = $this->payRepo->getTotalByMethod($pays, 'Efectivo');
         $report['total_credit_card'] = $this->payRepo->getTotalByMethod($pays, 'Tarjeta de crédito/débito');
@@ -178,14 +208,14 @@ class ReportController extends \BaseController {
         $report['total_card']        = $this->payRepo->getTotalByMethod($pays, 'Monedero');
         $report['total_transfers']   = $this->payRepo->getTotalByMethod($pays, 'Transferencia');
 
-        $report['total_expenses']    = $this->payRepo->getTotalInRange($date_init, $date_end, '-');
+        $report['total_expenses']    = $this->payRepo->getTotalInRange($date_init, $time_init, $date_end, $time_end, '-');
 
         $report['total_box']         = $report['caja_anterior'] + $report['total_cash'] + $report['total_expenses'];
 
         return [$report, $pays];
     }
 
-    public function getDenominations($denominations, $key50, $lenth)
+    public function getDenominations($denominations, $key50, $length)
     {
         $total_denomination = [];
         $total_calculate = 0;
@@ -194,7 +224,7 @@ class ReportController extends \BaseController {
             if ($key == $key50) {
                 $denomination = 0.5;
             } else {
-                $denomination = (int)substr($key, $lenth);
+                $denomination = (int)substr($key, $length);
             }
             $total = $denomination * $value;
             $total_denomination[$key] = $total;

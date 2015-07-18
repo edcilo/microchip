@@ -32,57 +32,6 @@
                 </tr>
             @endif
         @endforeach
-        @if(count($c_credit))
-            <tr>
-                <td colspan="6"><strong>Pagos del cliente con tarjeta de crédito/débito</strong></td>
-            </tr>
-        @endif
-        @foreach($c_credit as $cheque)
-            <tr>
-                <td>{{ $cheque->reference }}</td>
-                <td></td>
-                <td></td>
-                <td class="text-right">{{ $cheque->amount }}</td>
-                <td>{{ $cheque->description }}</td>
-                <td class="text-center">
-                    crear movimiento
-                </td>
-            </tr>
-        @endforeach
-        @if(count($c_cheques))
-            <tr>
-                <td colspan="6"><strong>Cheques de clientes</strong></td>
-            </tr>
-        @endif
-        @foreach($c_cheques as $cheque)
-            <tr>
-                <td>{{ $cheque->reference }}</td>
-                <td></td>
-                <td></td>
-                <td class="text-right">{{ $cheque->amount }}</td>
-                <td>{{ $cheque->description }}</td>
-                <td class="text-center">
-                    crear movimiento
-                </td>
-            </tr>
-        @endforeach
-        @if(count($c_transfer))
-            <tr>
-                <td colspan="6"><strong>Transferencias</strong></td>
-            </tr>
-        @endif
-        @foreach($c_transfer as $cheque)
-            <tr>
-                <td>{{ $cheque->reference }}</td>
-                <td></td>
-                <td></td>
-                <td class="text-right">{{ $cheque->amount }}</td>
-                <td>{{ $cheque->description }}</td>
-                <td class="text-center">
-                    crear movimiento
-                </td>
-            </tr>
-        @endforeach
         </tbody>
     </table>
 

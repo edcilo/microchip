@@ -86,7 +86,7 @@
 
         @else
 
-            <p class="title-clear">No hay pagos pendientes</p>
+            <p>No hay pagos pendientes</p>
 
         @endif
 
@@ -127,7 +127,7 @@
 
         @else
 
-            <p class="title-clear">No hay cancelaciones pendientes</p>
+            <p>No hay cancelaciones pendientes</p>
 
         @endif
 

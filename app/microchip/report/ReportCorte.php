@@ -12,6 +12,7 @@ class ReportCorte extends BaseEntity {
         'time_init',
         'date_end',
         'time_end',
+        'pay_id',
         'quantity_1000',
         'quantity_500',
         'quantity_200',
@@ -35,4 +36,10 @@ class ReportCorte extends BaseEntity {
         'quantity_r_1',
         'quantity_r_05',
     ];
+
+
+    public function pay()
+    {
+        return $this->belongsTo('microchip\pay\Pay');
+    }
 }

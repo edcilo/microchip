@@ -183,6 +183,31 @@ class ReportController extends \BaseController {
         $corte = $this->corteRepo->find($id);
         $this->notFoundUnless($corte);
 
+        $denominations = Input::only(
+            'quantity_r_1000', 'quantity_r_500',
+            'quantity_r_200', 'quantity_r_100',
+            'quantity_r_50', 'quantity_r_20',
+            'quantity_r_10', 'quantity_r_5',
+            'quantity_r_2', 'quantity_r_1', 'quantity_r_05'
+        );
+
+        $total_out = $this->getDenominations($denominations, 'quantity_r_05', 11);
+
+        if ($corte->pay) {
+            $corte->pay->amount = $total_out[1] * -1;
+            $corte->pay->user_id = Auth::user()->id;
+            $corte->pay->save();
+        } elseif ($total_out[0] > 0) {
+            $pay_data['user_id']     = Auth::user()->id;
+            $pay_data['amount']      = $total_out[1] * -1;
+            $pay_data['description'] = 'Salida por corte de caja';
+            $pay_data['date']        = date('Y-m-d H:i:s');
+
+            $pay = $this->payRepo->newPay();
+            $manager = new PayRegisterInManager($pay, $pay_data);
+            $manager->save();
+        }
+
         $manager = new ReportCorteRegManager($corte, Input::all());
         $manager->save();
 

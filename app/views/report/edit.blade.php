@@ -2,6 +2,10 @@
 
 @section ('title') / Corte de caja @stop
 
+@section('scripts')
+    {{ HTML::script('js/report_money.js') }}
+@stop
+
 @section ('content')
 
     <div class="col col100 text-center">
@@ -19,19 +23,23 @@
 
         <div class="col col100">
 
-            @include('report.partials.message')
+            <aside class="msg_dialog text-center hide"></aside>
+
+            {{ Form::open(['route'=>['report.money.update', $report_money->id], 'method'=>'put', 'class'=>'form']) }}
 
             <div class="flo col50 left">
                 @include('report.partials.general_data')
 
                 <hr/>
 
-                @include('report.partials.form_update', ['data' => array_replace($report_money->toArray(), Input::all())])
+                @include('report.partials.form_update')
             </div>
 
             <div class="flo col50 right">
-                @include('report.partials.calculator', ['total'=>$report['total_box'], 'd'=>Input::get('calculate') ? Input::all() : $report_money->toArray()])
+                @include('report.partials.calculator')
             </div>
+
+            {{ Form::close() }}
 
         </div>
 

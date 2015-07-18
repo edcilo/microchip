@@ -155,13 +155,15 @@ class ReportController extends \BaseController {
         }
 
         $date_init  = $data['date_init'];
+        $time_init  = $data['time_init'];
         $date_end   = $data['date_end'];
+        $time_end   = $data['time_end'];
 
-        $result = $this->getData($data['date_init'], $data['date_end']);
+        $result = $this->getData($data['date_init'], $data['time_init'], $data['date_end'], $data['time_end']);
         $report = $result[0];
         $pays   = $result[1];
 
-        $users = $this->userRepo->getPaysByRange($data['date_init'], $data['date_end']);
+        $users = $this->userRepo->getPaysByRange($data['date_init'], $data['time_init'], $data['date_end'], $data['time_end']);
 
         $denominations = ['quantity_1000'=>$data['quantity_1000'], 'quantity_500'=>$data['quantity_500'], 'quantity_200'=>$data['quantity_200'], 'quantity_100'=>$data['quantity_100'], 'quantity_50'=>$data['quantity_50'], 'quantity_20'=>$data['quantity_20'], 'quantity_10'=>$data['quantity_10'], 'quantity_5'=>$data['quantity_5'], 'quantity_2'=>$data['quantity_2'], 'quantity_1'=>$data['quantity_1'], 'quantity_05'=>$data['quantity_05']];
         $result = $this->getDenominations($denominations, 'quantity_05', 9);
@@ -173,7 +175,7 @@ class ReportController extends \BaseController {
         $total_denomination += $result[0];
         $total_calculate_r = $result[1];
 
-        return View::make('report.edit', compact('date_init', 'date_end', 'total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays', 'users', 'report_money'));
+        return View::make('report.edit', compact('date_init', 'time_init', 'date_end', 'time_end', 'total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays', 'users', 'report_money'));
     }
 
     public function update($id)

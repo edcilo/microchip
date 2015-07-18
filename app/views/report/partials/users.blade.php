@@ -13,22 +13,16 @@
                     {{ $user->profile->full_name }}
                 </div>
 
-                <strong>Pagos en efectivo</strong>
                 @include('report.partials.table_report', ['method'=>'Efectivo', 'total'=>0.00])
 
-                <strong>Cobros con tarjeta de crédito/debito</strong>
                 @include('report.partials.table_report', ['method'=>'Tarjeta de crédito/débito', 'total'=>0.00])
 
-                <strong>Transferencias</strong>
                 @include('report.partials.table_report', ['method'=>'Transferencia', 'total'=>0.00])
 
-                <strong>Cheques</strong>
                 @include('report.partials.table_report', ['method'=>'Cheque', 'total'=>0.00])
 
-                <strong>Vales</strong>
                 @include('report.partials.table_report', ['method'=>'Vale', 'total'=>0.00])
 
-                <strong>Monedero electrónico</strong>
                 @include('report.partials.table_report', ['method'=>'Monedero', 'total'=>0.00])
             @endif
         @endforeach

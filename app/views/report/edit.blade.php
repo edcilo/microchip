@@ -8,8 +8,14 @@
 
 @section ('content')
 
-    <div class="col col100 text-center">
-        @include('report.partials.form_dates')
+    <div class="col col100">
+        <div class="flo col80">
+            @include('report.partials.form_dates')
+        </div>
+
+        <div class="flo col20 text-right">
+            @include('report.partials.btn_index')
+        </div>
     </div>
 
     <div class="col col100 block description-product">
@@ -19,6 +25,10 @@
                 <i class="fa fa-book"></i>
                 Corte de caja
             </h1>
+
+            <a href="{{ route('report.money.show', $corte->id) }}" class="btn-blue">
+                <i class="fa fa-eye"></i>
+            </a>
         </div>
 
         <div class="col col100">

@@ -73,6 +73,10 @@
 
         @include('report.partials.users')
 
+        <hr>
+
+        @include('report.partials.pending')
+
     @endif
 
 @stop

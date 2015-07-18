@@ -6,6 +6,7 @@ use microchip\report\ReportCorteRepo;
 use microchip\report\ReportCorteRegManager;
 use microchip\pay\PayRegisterInManager;
 use microchip\user\UserRepo;
+use microchip\sale\SaleRepo;
 
 class ReportController extends \BaseController {
 
@@ -13,18 +14,21 @@ class ReportController extends \BaseController {
     protected $payRepo;
     protected $corteRepo;
     protected $userRepo;
+    protected $saleRepo;
 
     public function __construct(
         PayRepo             $payRepo,
         PurchasePaymentRepo $paymentRepo,
         ReportCorteRepo     $corteRepo,
-        UserRepo            $userRepo
+        UserRepo            $userRepo,
+        SaleRepo            $saleRepo
     )
     {
         $this->purchasePayRepo  = $paymentRepo;
         $this->payRepo          = $payRepo;
         $this->corteRepo        = $corteRepo;
         $this->userRepo         = $userRepo;
+        $this->saleRepo         = $saleRepo;
     }
 
     public function index()
@@ -40,6 +44,10 @@ class ReportController extends \BaseController {
 
 	public function money()
     {
+        $documents_pending = $this->saleRepo->getByStatus('Emitido');
+        $cancellations = $this->saleRepo->getPendingCancellations(false);
+        $pending = $this->payRepo->getPending();
+
         $data       = Input::all();
         $date_end   = empty(Input::get('date_end'))  ? null : Input::get('date_end');
         $time_end   = empty(Input::get('time_end'))  ? null : Input::get('time_end');
@@ -73,7 +81,7 @@ class ReportController extends \BaseController {
             $pays   = $result[1];
         }
 
-        return View::make('report.money', compact('date_init', 'time_init', 'date_end', 'time_end', 'report', 'pays', 'users'));
+        return View::make('report.money', compact('date_init', 'time_init', 'date_end', 'time_end', 'report', 'pays', 'users', 'documents_pending', 'cancellations', 'pending'));
     }
 
     public function moneyStore()

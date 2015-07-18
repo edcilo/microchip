@@ -52,6 +52,13 @@ class SaleRepo extends BaseRepo
         return ($pagination) ? $q->paginate() : $q->get();
     }
 
+    public function getByStatus($status, $col = 'folio', $order = 'ASC')
+    {
+        return  Sale::where('status', $status)
+            ->orderBy($col, $order)
+            ->paginate();
+    }
+
     public function search($terms, $type, $request = '', $take = 10)
     {
         $query = Sale::where('classification', $type)

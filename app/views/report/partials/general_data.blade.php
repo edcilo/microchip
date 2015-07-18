@@ -20,19 +20,45 @@
             <strong>Gastos:</strong>
         </div>
         <div class="flo col50 right text-right">
-            $ {{ number_format($report['total_expenses'], 2, '.', ',') }}
+            @if(isset($corte))
+                $ {{ number_format($report['total_expenses'] + (-1 * $corte->pay->amount), 2, '.', ',') }}
+            @else
+                $ {{ number_format($report['total_expenses'], 2, '.', ',') }}
+            @endif
         </div>
     </li>
-    <il><hr/></il>
+    <li><hr/></li>
     <li class="col col100">
         <div class="flo col50 left">
-            <strong>Total en efectivo:</strong>
+            <strong>Total en caja:</strong>
         </div>
         <div class="flo col50 right text-right">
-            $ <span id="total_report" data-total="{{ $report['total_box'] }}">{{ number_format($report['total_box'], 2, '.', ',') }}</span>
+            @if(isset($corte))
+                $ <span id="total_report" data-total="{{ $report['total_box'] + (-1 * $corte->pay->amount) }}">{{ number_format($report['total_box'] + (-1 * $corte->pay->amount), 2, '.', ',') }}</span>
+            @else
+                $ <span id="total_report" data-total="{{ $report['total_box'] }}">{{ number_format($report['total_box'], 2, '.', ',') }}</span>
+            @endif
         </div>
     </li>
-    <il><hr/></il>
+    @if(isset($corte))
+        <li class="col col100">
+            <div class="flo col50 left">
+                <strong>Retiro por corte:</strong>
+            </div>
+            <div class="flo col50 right text-right">
+                $ {{ $corte->pay->amount }}
+            </div>
+        </li>
+    @endif
+    <li class="col col100">
+        <div class="flo col50 left">
+            <strong>Queda en caja:</strong>
+        </div>
+        <div class="flo col50 right text-right">
+            $ <span class="total_in_box">{{ number_format($report['total_box'], 2, '.', ',') }}</span>
+        </div>
+    </li>
+    <li><hr/></li>
     <li class="col col100">
         <div class="flo col50 left">
             <strong>Cobro con tarjeta de crédito/debito:</strong>

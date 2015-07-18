@@ -145,10 +145,10 @@ class ReportController extends \BaseController {
 
     public function edit($id)
     {
-        $report_money = $this->corteRepo->find($id);
-        $this->notFoundUnless($report_money);
+        $corte = $this->corteRepo->find($id);
+        $this->notFoundUnless($corte);
 
-        $data = $report_money->toArray();
+        $data = $corte->toArray();
         $input = Input::all();
         if (!empty($input)) {
             $data = array_replace($data, $input);
@@ -175,7 +175,7 @@ class ReportController extends \BaseController {
         $total_denomination += $result[0];
         $total_calculate_r = $result[1];
 
-        return View::make('report.edit', compact('date_init', 'time_init', 'date_end', 'time_end', 'total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays', 'users', 'report_money'));
+        return View::make('report.edit', compact('date_init', 'time_init', 'date_end', 'time_end', 'total_calculate', 'total_calculate_r', 'total_denomination', 'report', 'pays', 'users', 'report_money', 'corte'));
     }
 
     public function update($id)

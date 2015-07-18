@@ -25,7 +25,7 @@
 
             <aside class="msg_dialog text-center hide"></aside>
 
-            {{ Form::open(['route'=>['report.money.update', $report_money->id], 'method'=>'put', 'class'=>'form']) }}
+            {{ Form::open(['route'=>['report.money.update', $corte->id], 'method'=>'put', 'class'=>'form']) }}
 
             <div class="flo col50 left">
                 @include('report.partials.general_data')

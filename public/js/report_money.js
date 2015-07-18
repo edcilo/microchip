@@ -1,6 +1,6 @@
 $(function () {
     show_results('.demon_quantity');
-    
+
     calculator();
 });
 
@@ -32,6 +32,7 @@ var print_totals = function (t_b, t_o) {
         total_box    = $('.total_box'),
         total_out    = $('.total_out'),
         total_global = $('.total_global'),
+        in_box       = $('.total_in_box'),
         c_msg        = $('.msg_dialog'),
         msg          = '',
         total        = t_b + t_o;
@@ -48,6 +49,7 @@ var print_totals = function (t_b, t_o) {
         msg = 'El total en efectivo del reporte es menor al especificado en la calculadora.';
     }
 
+    in_box.text(parseFloat(total_r - t_o).toFixed(2));
     c_msg.text(msg).show();
 };
 

@@ -65,10 +65,14 @@ class InventoryMovementController extends \BaseController
 
     public function store()
     {
+        $product = $this->productRepo->getByBarcode(Input::get('barcode'));
+
+        $data = Input::all();
+        $data['product_id'] = $product->id;
+
         if (Input::get('status') == 'out') {
-            $data        = Input::all();
-            $quantity    = $data['quantity'];
-            $movements    = [];
+            $quantity  = $data['quantity'];
+            $movements = [];
 
             while ($quantity > 0) {
                 $first                   = $this->movementRepo->firstIn($data['product_id']);
@@ -87,8 +91,8 @@ class InventoryMovementController extends \BaseController
                 $quantity -= $movement->quantity;
             }
         } elseif (Input::get('status') == 'in') {
-            $movement    = $this->movementRepo->newMovement();
-            $manager    = new InventoryMovementRegManager($movement, Input::all());
+            $movement = $this->movementRepo->newMovement();
+            $manager  = new InventoryMovementRegManager($movement, $data);
             $manager->save();
         }
 

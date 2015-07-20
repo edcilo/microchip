@@ -10,7 +10,7 @@ class InventoryMovementRegManager extends BaseManager
     public function getRules()
     {
         $movementRepo   = new InventoryMovementRepo();
-        $total          = $movementRepo->totalStock(\Input::get('product_id'));
+        $total          = $movementRepo->totalStock($this->data['product_id']);
 
         $rules = [
             'barcode'        => 'required|exists:products,barcode',

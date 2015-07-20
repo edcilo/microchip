@@ -140,6 +140,18 @@ class ChequeController extends \BaseController
         $manager = new ChequeUpdManager($cheque, Input::all());
         $manager->save();
 
+        if ($cheque->status == 'Cancelado') {
+            if ($cheque->payment AND $cheque->payment->bill) {
+                $cheque->payment->bill->progress_1 = 0;
+                $cheque->payment->bill->save();
+            }
+        } else {
+            if ($cheque->payment AND $cheque->payment->bill) {
+                $cheque->payment->bill->progress_1 = 1;
+                $cheque->payment->bill->save();
+            }
+        }
+
         $now = \Carbon\Carbon::today();
         $payment_date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $cheque->payment_date.' 00:00:00');
 

@@ -21,5 +21,10 @@ Route::group(
             'uses' => 'PurchasePaymentController@store',
         ]);
 
+        Route::delete('{payment_id}', [
+            'as'   => 'purchasePayment.delete',
+            'uses' => 'PurchasePaymentController@delete'
+        ]);
+
     }
 );

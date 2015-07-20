@@ -25,6 +25,19 @@ class PurchasePaymentController extends \BaseController
         $this->chequeRepo    = $chequeRepo;
     }
 
+    public function delete($payment_id)
+    {
+        $payment = $this->paymentRepo->find($payment_id);
+        $this->notFoundUnless($payment);
+
+        $payment->bill->status = 'En proceso...';
+        $payment->bill->save();
+
+        $payment->delete();
+
+        return Redirect::back()->with('error', 'El pago fue eliminado.');
+    }
+
     /**
      * Store a newly created resource in storage.
      * POST /purchasepayment.

@@ -39,7 +39,7 @@
     </div>
 
     <div class="row flo col33 center">
-        {{ Form::label('selling_price', 'Precio de venta ($): ', ['class'=>'label50']) }} <br/>
+        {{ Form::label('selling_price', 'Precio de salida ($): ', ['class'=>'label50']) }} <br/>
         {{ Form::text('selling_price', 0.00, ['class'=>'text-right', 'title'=>'Este campo es obligatorio.', 'data-numeric'=>'numeric', 'autocomplete'=>'off', 'data-required'=>'required']) }}
         <div class="message-error">
             {{ $errors->first('selling_price', '<span>:message</span>') }}

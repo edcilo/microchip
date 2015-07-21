@@ -241,7 +241,7 @@ class SaleController extends \BaseController
         $sale    = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
-        $company    = $this->companyRepo->find(1);
+        $company = $this->companyRepo->find(1);
 
         $this->getNewPrice($sale);
 

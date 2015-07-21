@@ -435,4 +435,14 @@ class InventoryMovementController extends \BaseController
             return $product->price_5;
         }
     }
+
+    public function generatePrint($id)
+    {
+        $movement = $this->movementRepo->find($id);
+        $this->notFoundUnless($movement);
+
+        $pdf = PDF::loadView('movement/layout_print', compact('movement'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
 }

@@ -39,6 +39,9 @@
                     <th>Descripción</th>
                     <th>Costeo</th>
                     <th>N/S</th>
+                    <th>
+                        <i class="fa fa-gears"></i>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -75,6 +78,9 @@
                             @if( !count($movement->sales) AND !count($movement->purchases) )
                                 @include('movement.partials.btn_destroy')
                             @endif
+                        </td>
+                        <td class="text-center">
+                            @include('movement.partials.btn_print')
                         </td>
                     </tr>
                 @endforeach

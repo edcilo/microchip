@@ -330,7 +330,9 @@ class SeriesController extends \BaseController
 
         if ($series->status == 'Disponible') {
             $this->seriesRepo->destroy($id);
-            $this->seriesEnd($series->movement->purchases[0], 'purchase');
+            if (count($series->movement->purchases)) {
+                $this->seriesEnd($series->movement->purchases[0], 'purchase');
+            }
         } else {
             $msg = "No es posible eliminar el número de serie $series->ns.";
         }

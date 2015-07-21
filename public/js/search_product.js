@@ -45,7 +45,13 @@ var show_list = function (data, content) {
 
     if (data.length > 0) {
         for (var i=0; i<data.length; i++) {
-            result += '<div><a href="#" class="add_barcode" data-barcode="'+data[i].barcode+'">'+ data[i].barcode+' - '+data[i].s_description+'</a></div>';
+            var p_price = 0;
+
+            if (data[i].p_description !== null) {
+                p_price = data[i].p_description.purchase_price
+            }
+
+            result += '<div><a href="#" class="add_barcode" data-purchase_price="'+p_price+'" data-barcode="'+data[i].barcode+'">'+ data[i].barcode+' - '+data[i].s_description+'</a></div>';
         }
     } else {
         result = '<div class="text-center"><span>La consulta no devolvió resultados.</span></div>';
@@ -53,4 +59,5 @@ var show_list = function (data, content) {
 
     content.html(result).show();
     add_barcode();
+    add_purchase_price();
 };

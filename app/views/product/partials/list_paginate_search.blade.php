@@ -7,10 +7,14 @@
         <th>
             <i class="fa fa-barcode"></i>
         </th>
-        <th>
-            Tipo
-        </th>
         <th>Descripción</th>
+        @if($type == 'product')
+            <th>Categoría</th>
+            <th>Modelo</th>
+            <th>Marca</th>
+            <th>Exist.</th>
+        @endif
+        <th>Precios</th>
         <th>
             <i class="fa fa-gears"></i> Opciones
         </th>
@@ -23,8 +27,18 @@
                 <img src="{{ asset( $product->image ) }}" alt="{{ $product->name }}"/>
             </td>
             <td>{{ $product->barcode }}</td>
-            <td>{{ $product->type }}</td>
             <td>{{ $product->s_description }}</td>
+            @if($product->type == 'Producto')
+                <td>{{ $product->p_description->category->name }}</td>
+                <td>{{ $product->p_description->model }}</td>
+                <td>{{ $product->p_description->mark->name }}</td>
+                <td class="text-right">{{ $product->stock }}</td>
+            @endif
+            <td class="text-center">
+                <nobr>
+                    $ {{ Form::select('prices', $product->arrayPrices) }}
+                </nobr>
+            </td>
             <td class="text-center">
                 <nobr>
                     @include('product.partials.btn_show')

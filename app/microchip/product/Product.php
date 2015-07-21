@@ -3,6 +3,7 @@
 namespace microchip\product;
 
 use microchip\base\BaseEntity;
+use microchip\configuration\ConfigurationRepo;
 
 class Product extends BaseEntity
 {
@@ -108,6 +109,20 @@ class Product extends BaseEntity
         }
 
         return number_format($utility, 2);
+    }
+
+    public function getArrayPricesAttribute()
+    {
+        $confRepo = new ConfigurationRepo();
+        $iva  = $confRepo->find(1)->iva;
+
+        return [
+            $this->getWithIva1Attribute($iva),
+            $this->getWithIva2Attribute($iva),
+            $this->getWithIva3Attribute($iva),
+            $this->getWithIva4Attribute($iva),
+            $this->getWithIva5Attribute($iva),
+        ];
     }
 
 

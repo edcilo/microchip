@@ -147,13 +147,18 @@ class OrderController extends \BaseController
         $order = $this->saleRepo->find($id);
         $this->notFoundUnless($order);
 
-        $folio = $this->saleRepo->getFolio('Pedido');
-
-        $data = Input::all() + ['customer_order' => Input::get('customer_id'), 'folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
-
         $customer = $this->customerRepo->find(Input::get('customer_id'));
         if (!is_null($customer) AND !$customer->active) {
             return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
+        }
+
+        $data = Input::all();
+        $data['customer_order'] = Input::get('customer_id');
+
+        if ($order->folio == '') {
+            $folio = $this->saleRepo->getFolio('Pedido');
+
+            $data['folio_separated'] = str_pad($folio, 8, '0', STR_PAD_LEFT);
         }
 
         $manager = new SaleOrderUpdManager($order, $data);

@@ -260,6 +260,11 @@ class ServiceController extends \BaseController
         }
 
         foreach ($service->order_products as $product) {
+            foreach($product->series as $series) {
+                $series->status = 'Disponible';
+                $series->save();
+            }
+
             $this->orderProductRepo->destroy($product->id);
         }
 

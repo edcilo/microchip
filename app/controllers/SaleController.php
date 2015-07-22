@@ -403,7 +403,7 @@ class SaleController extends \BaseController
             $sale->save();
 
             $route = $sale->separated ? 'order.show' : 'service.show';
-            
+
             return Redirect::route($route, $sale->id);
         }
 

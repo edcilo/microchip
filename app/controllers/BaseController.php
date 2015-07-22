@@ -178,6 +178,7 @@ class BaseController extends Controller
      *
      * @param $sale
      * @param bool $delete
+     * @param string $status_series
      */
     public function undoMovements($sale, $delete = true, $status_series = 'Disponible')
     {

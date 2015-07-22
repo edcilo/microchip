@@ -41,7 +41,7 @@ class PriceController extends \BaseController
             return $this->saleRepo->getByClassification('Cotización', 'id', 'ASC', 'ajax');
         }
 
-        $prices = $this->saleRepo->getByClassification('Cotización', 'folio', 'DESC');
+        $prices = $this->saleRepo->getByClassification('Cotización', 'folio_price', 'DESC');
 
         return View::make('price/index', compact('prices'));
     }
@@ -127,13 +127,18 @@ class PriceController extends \BaseController
         $price = $this->saleRepo->find($id);
         $this->notFoundUnless($price);
 
-        $folio = $this->saleRepo->getFolio('Cotización');
-
-        $data = Input::all() + ['customer_order' => Input::get('customer_id'), 'folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
-
         $customer = $this->customerRepo->find(Input::get('customer_id'));
         if (!is_null($customer) AND !$customer->active) {
             return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
+        }
+
+        $data = Input::all();
+        $data['customer_order'] = Input::get('customer_id');
+
+        if ($price->folio == '') {
+            $folio = $this->saleRepo->getFolio('Cotización');
+
+            $data['folio_price'] = str_pad($folio, 8, '0', STR_PAD_LEFT);
         }
 
         $manager = new SalePriceUpdManager($price, $data);
@@ -203,7 +208,7 @@ class PriceController extends \BaseController
         $folio = $this->saleRepo->getFolio('Cotización');
 
         $clone = $this->saleRepo->newSale();
-        $clone->folio           = str_pad($folio, 8, '0', STR_PAD_LEFT);
+        $clone->folio_price     = str_pad($folio, 8, '0', STR_PAD_LEFT);
         $clone->iva             = $price->iva;
         $clone->dollar          = $price->dollar;
         $clone->classification  = $price->classification;

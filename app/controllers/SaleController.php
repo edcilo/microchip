@@ -156,9 +156,14 @@ class SaleController extends \BaseController
         $valid = $this->validateCustomer(Input::get('customer_id'), Input::get('type'));
 
         if ($valid[0]) {
-            $folio = $this->saleRepo->getFolio('Venta');
+            $data = Input::all();
+            $data['sale'] = 1;
 
-            $data = Input::all() + ['folio' => str_pad($folio, 8, '0', STR_PAD_LEFT), 'sale' => 1];
+            if ($sale->folio == '') {
+                $folio = $this->saleRepo->getFolio('Venta');
+
+                $data['folio_sale'] = str_pad($folio, 8, '0', STR_PAD_LEFT);
+            }
 
             $manager = new SaleUpdManager($sale, $data);
             $manager->save();

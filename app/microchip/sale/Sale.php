@@ -8,7 +8,10 @@ use microchip\base\BaseEntity;
 class Sale extends BaseEntity
 {
     protected $fillable = [
-        'folio',
+        'folio_sale',
+        'folio_separated',
+        'folio_service',
+        'folio_price',
         'iva',
         'dollar',
         'type',                // factura o ticket
@@ -30,6 +33,21 @@ class Sale extends BaseEntity
         'customer_id',
         'user_id',
     ];
+
+    public function getFolioAttribute()
+    {
+        if ($this->classification == 'Venta') {
+            $folio = $this->folio_sale;
+        } elseif ($this->classification == 'Pedido') {
+            $folio = $this->folio_separated;
+        } elseif ($this->classification == 'Servicio') {
+            $folio = $this->folio_service;
+        } else {
+            $folio = $this->folio_price;
+        }
+
+        return $folio;
+    }
 
     public function getIvaRealAttribute()
     {

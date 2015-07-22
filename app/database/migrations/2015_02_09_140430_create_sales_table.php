@@ -13,7 +13,10 @@ class CreateSalesTable extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('folio');
+            $table->string('folio_sale');
+            $table->string('folio_separated');
+            $table->string('folio_service');
+            $table->string('folio_price');
 
             $table->decimal('iva', 5, 2);
             $table->decimal('dollar', 10, 2);

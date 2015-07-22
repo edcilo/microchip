@@ -179,25 +179,26 @@ class BaseController extends Controller
      * @param $sale
      * @param bool $delete
      */
-    public function undoMovements($sale, $delete = true)
+    public function undoMovements($sale, $delete = true, $status_series = 'Disponible')
     {
         foreach ($sale->movements as $movement) {
             $movement_in = $this->movementRepo->find($movement->sales[0]->pivot->movement_in);
 
             if ($movement_in) {
-                $movement_in->in_stock    += $movement->quantity;
+                $movement_in->in_stock += $movement->quantity;
 
                 $movement_in->save();
 
                 foreach ($movement->seriesOut as $series) {
-                    $series->status          = 'Disponible';
-                    $series->movement_out    = 0;
+
+                    $series->status       = $status_series;
+                    $series->movement_out = 0;
                     $series->save();
                 }
             }
 
             if ($delete) {
-                $movement->delete();
+                $this->movementRepo->destroy($movement->id);
             } else {
                 $movement->status = 'cancel';
                 $movement->save();

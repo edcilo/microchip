@@ -387,12 +387,22 @@ class SaleController extends \BaseController
             return Redirect::back()->with('message', $message);
         }
 
-        $this->undoMovements($sale, false);
+        $delete = $sale->sale AND $sale->separated;
+        $status_series = ($sale->sale AND $sale->separated) ? 'Apartado' : 'Disponible';
+        $this->undoMovements($sale, $delete, $status_series);
 
         $this->restPoints($sale);
 
         if ($sale->user_total_pay == 0) {
             $sale->repayment = 1;
+        }
+
+        if ($sale->separated) {
+            $sale->classification = 'Pedido';
+            $sale->sale = 0;
+            $sale->save();
+
+            return Redirect::route('order.show', $sale->id);
         }
 
         $sale->status = 'Cancelado';

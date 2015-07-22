@@ -126,13 +126,18 @@ class ServiceController extends \BaseController
         $service = $this->saleRepo->find($id);
         $this->notFoundUnless($service);
 
-        $folio = $this->saleRepo->getFolio('Servicio');
-
-        $data = Input::all() + ['customer_order' => Input::get('customer_id'), 'folio' => str_pad($folio, 8, '0', STR_PAD_LEFT)];
-
         $customer = $this->customerRepo->find(Input::get('customer_id'));
         if (!is_null($customer) AND !$customer->active) {
             return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
+        }
+
+        $data = Input::all();
+        $data['customer_order'] = Input::get('customer_id');
+
+        if ($service->folio == '') {
+            $folio = $this->saleRepo->getFolio('Servicio');
+
+            $data['folio_service'] = str_pad($folio, 8, '0', STR_PAD_LEFT);
         }
 
         $manager = new SaleServiceUpdManager($service, $data);

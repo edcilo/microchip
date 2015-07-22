@@ -4,6 +4,7 @@
 
 @section('scripts')
     {{ HTML::script('js/admin.js') }}
+    {{ HTML::script('js/sale.js') }}
 @stop
 
 @section ('content')

@@ -2,6 +2,7 @@
 
 <h2>Movimiento de inventario No. {{ $movement->id }}</h2>
 
+<strong>Emitido por:</strong> {{ $movement->user }}
 
 <table class="table">
     <thead>

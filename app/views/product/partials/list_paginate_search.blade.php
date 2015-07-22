@@ -41,6 +41,8 @@
             </td>
             <td class="text-center">
                 <nobr>
+                    @include('product.partials.btn_show_float')
+
                     @include('product.partials.btn_show')
 
                     @include('product.partials.btn_edit')

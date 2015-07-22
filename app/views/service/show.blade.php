@@ -128,8 +128,6 @@
 
     @if( p(91) )
 
-
-
         <div class="col col100">
 
             <div class="flo col70 left">
@@ -160,8 +158,8 @@
 
         </div>
 
-
-
     @endif
+
+    @include('service.partials.send_trash')
 
 @stop

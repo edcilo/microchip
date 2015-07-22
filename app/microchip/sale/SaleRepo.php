@@ -71,10 +71,11 @@ class SaleRepo extends BaseRepo
         return ($request == 'ajax') ? $query->take($take)->get() : $query->paginate();
     }
 
-    public function getServiceOrder($status = '', $request = '')
+    public function getServiceOrder($status = '', $request = '', $trash = 0)
     {
         $q = Sale::select('sales.*', 'service_datas.status as service_status')
             ->leftJoin('service_datas', 'sales.id', '=', 'service_datas.sale_id')
+            ->where('trash', $trash)
             ->where(function ($query) use ($status) {
                 if ($status != '') {
                     $query->where('service_datas.status', $status);

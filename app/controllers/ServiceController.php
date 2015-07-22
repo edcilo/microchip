@@ -6,6 +6,8 @@ use microchip\company\CompanyRepo;
 use microchip\orderProduct\OrderProductRepo;
 use microchip\sale\SaleServiceUpdManager;
 use microchip\customer\CustomerRepo;
+use microchip\comment\CommentRepo;
+use microchip\comment\CommentRegManager;
 
 class ServiceController extends \BaseController
 {
@@ -14,19 +16,22 @@ class ServiceController extends \BaseController
     protected $companyRepo;
     protected $orderProductRepo;
     protected $customerRepo;
+    protected $commentRepo;
 
     public function __construct(
         SaleRepo            $saleRepo,
         ConfigurationRepo   $configurationRepo,
         CompanyRepo         $companyRepo,
         OrderProductRepo    $orderProductRepo,
-        CustomerRepo        $customerRepo
+        CustomerRepo        $customerRepo,
+        CommentRepo         $commentRepo
     ) {
         $this->saleRepo         = $saleRepo;
         $this->configRepo       = $configurationRepo;
         $this->companyRepo      = $companyRepo;
         $this->orderProductRepo = $orderProductRepo;
         $this->customerRepo     = $customerRepo;
+        $this->commentRepo      = $commentRepo;
     }
 
     /**
@@ -286,5 +291,24 @@ class ServiceController extends \BaseController
         $message = 'El servicio se cancelo correctamente';
 
         return Redirect::back()->with('message', $message);
+    }
+
+    public function sendTrash($id)
+    {
+        $service = $this->saleRepo->find($id);
+        $this->notFoundUnless($service);
+
+        $data = Input::all();
+        $data['sale_id'] = $service->id;
+        $data['user_id'] = Auth::user()->id;
+
+        $comment = $this->commentRepo->newComment();
+        $manager = new CommentRegManager($comment, $data);
+        $manager->save();
+
+        $service->trash = 1;
+        $service->save();
+
+        return Redirect::route('service.index');
     }
 }

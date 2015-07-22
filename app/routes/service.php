@@ -98,6 +98,11 @@ Route::group(
 
         });
 
+        Route::post('{id}/send_trash', [
+            'as' => 'service.send.trash',
+            'uses' => 'ServiceController@sendTrash',
+        ]);
+
         Route::get('print/generate/large/{id}', [
             'as'   => 'service.print.generate_large',
             'uses' => 'ServiceController@generatePrintLarge'

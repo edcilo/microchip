@@ -62,18 +62,28 @@ class SaleRepo extends BaseRepo
         return ($pagination) ? $q->paginate() : $q->get();
     }
 
-    public function getByStatus($status, $col = 'folio', $order = 'ASC')
+    public function getByStatus($status, $col = 'folio_sale', $order = 'ASC')
     {
         return  Sale::where('status', $status)
             ->orderBy($col, $order)
             ->paginate();
     }
 
-    public function search($terms, $type, $request = '', $take = 10)
+    public function search($terms, $classification, $request = '', $take = 10)
     {
-        $query = Sale::where('classification', $type)
-            ->where(function ($query) use ($terms) {
-                $query->orwhere('folio', 'like', "%$terms%")
+        if ($classification == 'Venta') {
+            $column = 'folio_sale';
+        } elseif ($classification == 'Pedido') {
+            $column = 'folio_separated';
+        } elseif ($classification == 'Servicio') {
+            $column = 'folio_service';
+        } else {
+            $column = 'folio_price';
+        }
+
+        $query = Sale::where('classification', $classification)
+            ->where(function ($query) use ($terms, $column) {
+                $query->orwhere($column, 'like', "%$terms%")
                     ->orwhere('type', 'like', "%$terms%")
                     ->orwhere('status', 'like', "%$terms%");
             });

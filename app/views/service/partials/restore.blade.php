@@ -1,18 +1,18 @@
-@if($sale->status != 'Cancelado' AND !$sale->trash)
+@if($sale->status != 'Cancelado' AND $sale->trash)
 
     <div class="col col100 block description-product edc-hide-show">
         <div class="subtitle">
-            Descartar servicio
+            Recuperar servicio
             <button class="btn-close edc-hide-show-trigger" type="button"><i class="fa fa-plus"></i></button>
         </div>
 
         <div class="edc-hide-show-element hide">
 
-            {{ Form::open(['route' => ['service.send.trash', $sale->id], 'class'=>'form validate']) }}
+            {{ Form::open(['route' => ['service.restore', $sale->id], 'class'=>'form validate']) }}
 
             <div class="row">
                 {{ Form::textarea('comment', null, [
-                    'placeholder'=>'Razón por la que se descarta el servicio...',
+                    'placeholder'=>'Razón por la que se recupera el servicio...',
                     'class' => 'xb-input',
                     'rows' => 3,
                     'data-required' => 'required'
@@ -23,9 +23,9 @@
             </div>
 
             <div class="text-center">
-                <button type="submit" class="btn-red form_confirm" data-confirm="trash_confirm" title="Descartar servicio">
-                    <i class="fa fa-trash"></i>
-                    Descartar servicio
+                <button type="submit" class="btn-green form_confirm" data-confirm="trash_confirm" title="Descartar servicio">
+                    <i class="fa fa-recycle"></i>
+                    Recuperar servicio
                 </button>
             </div>
 
@@ -33,7 +33,7 @@
 
             <div class="confirm-dialog hide" title="Descartar servicio" id="trash_confirm" data-width="400">
                 <div class="mesasge text-center">
-                    <h3>¿Estas seguro de querer descartar el servicio {{ $sale->folio }}?</h3>
+                    <h3>¿Estas seguro de querer recuperar el servicio {{ $sale->folio }}?</h3>
                 </div>
             </div>
 

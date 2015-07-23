@@ -92,6 +92,12 @@
                                     </a>
                                 </li>
                             @endif
+                            <li>
+                                <a href="{{ route('service.trash') }}" tabindex="-1">
+                                    <i class="fa fa-trash"></i>
+                                    Servicios descartados
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif

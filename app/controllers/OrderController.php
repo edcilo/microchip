@@ -283,6 +283,16 @@ class OrderController extends \BaseController
         $data      = Input::all();
         $movements = [];
 
+        if ($order->status == 'Cancelado' OR $order->trash) {
+            $message = "No es posible vender este $order->classification.";
+
+            if (Request::ajax()) {
+                return Response::json($this->msg304 + ['message' => $message, 'data' => $order]);
+            }
+
+            return Redirect::back()->with('message', $message);
+        }
+
         if (count($order->orderProducts) != $order->pas()->where('productOrder',1)->count() and $order->classification == 'Pedido') {
             return Redirect::back()->with('message', 'Aún hay productos pendientes en este pedido.');
         }

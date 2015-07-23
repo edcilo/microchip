@@ -27,7 +27,7 @@
         <ul>
             <li>
                 <strong>Fecha:</strong>
-                {{ date( 'd/M/Y', time($sale->created_at)) }}
+                {{ $sale->created_at->format('d/m/Y') }}
             </li>
             <li>
                 <strong>I.V.A.:</strong>

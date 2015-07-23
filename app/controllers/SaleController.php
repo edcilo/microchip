@@ -367,6 +367,10 @@ class SaleController extends \BaseController
         $sale = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
+        if ($sale->status == 'Cancelado' OR $sale->trash) {
+            return Redirect::back()->with('message', 'No es posible posponer este servicio.');
+        }
+
         $manager = new SaleDelDateUpdManager($sale, Input::all());
         $manager->save();
 
@@ -374,7 +378,7 @@ class SaleController extends \BaseController
             return Response::json($this->msg200 + ['data' => $sale]);
         }
 
-        return Redirect::back()->with('message', 'La fecha de entrega se modificó exitosamente.');
+        return Redirect::back()->with('alert', 'La fecha de entrega se modificó exitosamente.');
     }
 
     public function cancel($id)

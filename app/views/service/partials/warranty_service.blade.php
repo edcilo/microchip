@@ -30,11 +30,13 @@
 
             <div class="flo col33 right text-right">
 
-                @include('warranty.partials.btn_create')
-                @section('warranty_fields')
-                    {{ Form::hidden('service_id', $sale->id) }}
-                @endsection
-                @include('warranty.partials.form_create_float')
+                @if ($sale->status != 'Cancelado' AND !$sale->trash)
+                    @include('warranty.partials.btn_create')
+                    @section('warranty_fields')
+                        {{ Form::hidden('service_id', $sale->id) }}
+                    @endsection
+                    @include('warranty.partials.form_create_float')
+                @endif
 
             </div>
 

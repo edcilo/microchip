@@ -31,13 +31,17 @@
                 <nobr>
                     @include('warranty.partials.btn_show')
 
-                    @include('warranty.partials.form_send')
+                    @if ($warranty->service->status != 'Cancelado' AND !$warranty->service->trash)
+                        @include('warranty.partials.form_send')
+                    @endif
 
                     @include('warranty.partials.btn_print')
 
                     @include('purchase.partials.btn_download', ['purchase' => $warranty->purchase])
 
-                    @include('warranty.partials.btn_destroy')
+                    @if ($warranty->service->status != 'Cancelado' AND !$warranty->service->trash)
+                        @include('warranty.partials.btn_destroy')
+                    @endif
                 </nobr>
             </td>
         </tr>

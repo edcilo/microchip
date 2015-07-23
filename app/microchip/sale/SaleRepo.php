@@ -19,7 +19,17 @@ class SaleRepo extends BaseRepo
 
     public function getDocument($classification, $folio)
     {
-        return Sale::where('classification', $classification)->where('folio', $folio)->first();
+        if ($classification == 'Venta') {
+            $column = 'folio_sale';
+        } elseif ($classification == 'Pedido') {
+            $column = 'folio_separated';
+        } elseif ($classification == 'Servicio') {
+            $column = 'folio_service';
+        } else {
+            $column = 'folio_price';
+        }
+
+        return Sale::where('classification', $classification)->where($column, $folio)->first();
     }
 
     public function getByUser($user_id, $paginate = true)
@@ -89,6 +99,17 @@ class SaleRepo extends BaseRepo
             ->orderBy('delivery_time');
 
         return ($request == 'ajax') ? $q->get() : $q->paginate();
+    }
+
+    public function getServiceTrash()
+    {
+        return Sale::select('sales.*', 'service_datas.status as service_status')
+            ->leftJoin('service_datas', 'sales.id', '=', 'service_datas.sale_id')
+            ->where('trash', 1)
+            ->where('classification', 'Servicio')
+            ->orderBy('delivery_date')
+            ->orderBy('delivery_time')
+            ->paginate();
     }
 
     public function getFolio($classification)

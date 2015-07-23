@@ -1,5 +1,5 @@
 @if($sale->data->warranty_id != 0)
-    <div class="col col100 edc-hide-show">
+    <div class="col col100 description-product edc-hide-show">
 
         <div class="subtitle">
             <strong>Datos de garantía:</strong>

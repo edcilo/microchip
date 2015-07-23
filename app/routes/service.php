@@ -98,9 +98,19 @@ Route::group(
 
         });
 
+        Route::get('service/trash', [
+            'as'   => 'service.trash',
+            'uses' => 'ServiceController@trash',
+        ]);
+
         Route::post('{id}/send_trash', [
-            'as' => 'service.send.trash',
+            'as'   => 'service.send.trash',
             'uses' => 'ServiceController@sendTrash',
+        ]);
+
+        Route::post('{id}/restore', [
+            'as'   => 'service.restore',
+            'uses' => 'ServiceController@restore'
         ]);
 
         Route::get('print/generate/large/{id}', [

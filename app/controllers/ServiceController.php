@@ -228,6 +228,16 @@ class ServiceController extends \BaseController
         $service = $this->saleRepo->find($id);
         $this->notFoundUnless($service);
 
+        if ($service->status == 'Cancelado' OR $service->trash) {
+            $message = 'No es posible finalizar el servicio.';
+
+            if (Request::ajax()) {
+                return Response::json($this->msg304 + ['message' => $message, 'data' => $service]);
+            }
+
+            return Redirect::back()->with('message', $message);
+        }
+
         $service->data->status = 'Terminado';
         $service->data->save();
 
@@ -243,6 +253,16 @@ class ServiceController extends \BaseController
         $service = $this->saleRepo->find($id);
         $this->notFoundUnless($service);
 
+        if ($service->status == 'Cancelado' OR $service->trash) {
+            $message = 'No es posible regresar el servicio a proceso.';
+
+            if (Request::ajax()) {
+                return Response::json($this->msg304 + ['message' => $message, 'data' => $service]);
+            }
+
+            return Redirect::back()->with('message', $message);
+        }
+
         $service->data->status = 'Pendiente';
         $service->data->save();
 
@@ -254,7 +274,7 @@ class ServiceController extends \BaseController
         $service = $this->saleRepo->find($id);
         $this->notFoundUnless($service);
 
-        if ($service->status == 'Pendiente' or $service->status == 'Cancelado') {
+        if ($service->status == 'Pendiente' or $service->status == 'Cancelado' or $service->trash) {
             $message = 'No es posible cancelar este servicio.';
 
             if (Request::ajax()) {
@@ -293,22 +313,81 @@ class ServiceController extends \BaseController
         return Redirect::back()->with('message', $message);
     }
 
+    public function restore($id)
+    {
+        $service = $this->saleRepo->find($id);
+        $this->notFoundUnless($service);
+
+        if ($service->trash) {
+            $data = Input::all();
+            $data['sale_id'] = $service->id;
+            $data['user_id'] = Auth::user()->id;
+
+            $comment = $this->commentRepo->newComment();
+            $manager = new CommentRegManager($comment, $data);
+            $manager->save();
+
+            $service->trash = 0;
+            $service->save();
+
+            $message = 'El servicio se recupero correctamente.';
+        } else {
+            $message = 'El servicio no esta descartado.';
+        }
+
+        return Redirect::route('service.show', $service->id)->with('message', $message);
+    }
+
+    // todo revisar esta accion
     public function sendTrash($id)
     {
         $service = $this->saleRepo->find($id);
         $this->notFoundUnless($service);
 
-        $data = Input::all();
-        $data['sale_id'] = $service->id;
-        $data['user_id'] = Auth::user()->id;
+        if (!$service->trash) {
+            $data = Input::all();
+            $data['sale_id'] = $service->id;
+            $data['user_id'] = Auth::user()->id;
 
-        $comment = $this->commentRepo->newComment();
-        $manager = new CommentRegManager($comment, $data);
-        $manager->save();
+            $comment = $this->commentRepo->newComment();
+            $manager = new CommentRegManager($comment, $data);
+            $manager->save();
 
-        $service->trash = 1;
-        $service->save();
+            foreach ($service->pas as $pa) {
+                $pa->status = 'Pendiente';
+                $pa->save();
+            }
 
-        return Redirect::route('service.index');
+            foreach ($service->order_products as $product) {
+                foreach($product->series as $series) {
+                    $series->status = 'Disponible';
+                    $series->save();
+                }
+
+                $this->orderProductRepo->destroy($product->id);
+            }
+
+            $this->undoMovements($service, false);
+
+            if ($service->user_total_pay == 0) {
+                $service->repayment = 1;
+            }
+
+            $service->trash = 1;
+            $service->save();
+
+            $message = 'El servicio se descarto correctamente.';
+        } else {
+            $message = 'El servicio ya habia sido descartado.';
+        }
+
+        return Redirect::route('service.index')->with('message', $message);
+    }
+
+    public function trash()
+    {
+        $services = $this->saleRepo->getServiceTrash();
+
+        return View::make('service/trash', compact('services'));
     }
 }

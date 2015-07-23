@@ -28,10 +28,12 @@
                     <i class="fa fa-check"></i>
                 </div>
                 <div class="flo col20 text-center right">
-                    @if( p(102) AND $sale->status != 'Cancelado' )
+                    @if( p(102) AND $sale->status != 'Cancelado' AND !$sale->trash )
                         <a href="{{ route('pas.show', $pa->id) }}" class="btn-yellow" title="Surtir producto">
                             <i class="fa fa-pencil"></i>
                         </a>
+                    @else
+                        &nbsp;
                     @endif
                 </div>
                 <div class="flo col20">&nbsp;</div>

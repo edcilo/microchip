@@ -24,6 +24,13 @@
         </div>
     </div>
 
+    @if($sale->trash)
+        <aside class="msg_dialog">
+            <i class="fa fa-trash"></i>
+            Servicio descartado
+        </aside>
+    @endif
+
     <div class="col col100 block description-product left">
 
         <div class="header">
@@ -54,7 +61,7 @@
 
     </div>
 
-    @if( p(97) AND $sale->status != 'Cancelado' )
+    @if( p(97) AND $sale->status != 'Cancelado' AND !$sale->trash )
         <div class="col col100 block description-product edc-hide-show">
             <div class="subtitle">
                 Posponer fecha de entrega
@@ -69,7 +76,7 @@
         </div>
     @endif
 
-    @if( $sale->status != 'Cancelado' )
+    @if( $sale->status != 'Cancelado' AND !$sale->trash )
         <div class="col col100">
             <div class="flo col50">
                 @include('service.partials.form_cancel')
@@ -104,7 +111,7 @@
             <strong>Cotizado</strong>
         </p>
 
-        @if( p(95) AND $sale->status != 'Cancelado' )
+        @if( p(95) AND $sale->status != 'Cancelado' AND !$sale->trash )
             <div class="subtitle">
                 {{ Form::open(['route'=>['pas.order.store', $sale->id], 'method'=>'post', 'class'=>'form validate']) }}
                 @include('movement.partials.form_create_sale')
@@ -161,5 +168,7 @@
     @endif
 
     @include('service.partials.send_trash')
+
+    @include('service.partials.restore')
 
 @stop

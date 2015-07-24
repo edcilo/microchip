@@ -146,13 +146,15 @@ class InventoryMovementController extends \BaseController
     {
         $data = Input::all();
 
-        $validator = Validator::make(
-            $data,
-            [
-                'sale_id'    => 'required|exists:sales,id',
-                'barcode'    => 'required|exists:products,barcode',
-            ]
-        );
+        $sale = $this->saleRepo->find($data['sale_id']);
+        if ($sale->movements_end) {
+            return Redirect::back()->with('msg', 'No es posible agregar mas productos.');
+        }
+
+        $validator = Validator::make($data, [
+            'sale_id' => 'required|exists:sales,id',
+            'barcode' => 'required|exists:products,barcode',
+        ]);
 
         if ($validator->fails()) {
             if (Request::ajax()) {
@@ -162,14 +164,13 @@ class InventoryMovementController extends \BaseController
             return Redirect::back()->withInput()->withErrors($validator->messages());
         }
 
-        $sale       = $this->saleRepo->find($data['sale_id']);
-        if ($sale->movements_end) {
-            return Redirect::back()->with('msg', 'No es posible agregar mas productos.');
-        }
-
         $product    = $this->productRepo->getByBarcode($data['barcode']);
         $total      = $this->movementRepo->totalStock($product->id);
         $iva        = $sale->iva;
+
+        if ($total == 0) {
+            return Redirect::back()->withInput()->withErrors(['quantity' => 'No hay existencia suficiente']);
+        }
 
         $min_max    = ($product->type == 'Producto') ? '|max:' . $total : '';
 

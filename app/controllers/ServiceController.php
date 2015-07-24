@@ -136,6 +136,12 @@ class ServiceController extends \BaseController
             return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
         }
 
+        if (Input::get('customer_id') == 1) {
+            return Redirect::back()->withInput()->withErrors([
+                'customer_id' => 'No se puede registrar un servicio como venta de mostrador; debe de dar de alta o seleccionar un cliente'
+            ]);
+        }
+
         $data = Input::all();
         $data['customer_order'] = Input::get('customer_id');
 

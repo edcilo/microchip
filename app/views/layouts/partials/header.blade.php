@@ -144,6 +144,12 @@
                                     </a>
                                 </li>
                             @endif
+                                <li>
+                                    <a href="{{ route('support.index') }}">
+                                        <i class="fa fa-inbox"></i>
+                                        Productos en soporte
+                                    </a>
+                                </li>
                             @if( p(51) )
                                 <li class="divider"></li>
                                 <li>

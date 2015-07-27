@@ -65,9 +65,9 @@ class PayController extends \BaseController
 
     public function pending()
     {
-        $sales = $this->saleRepo->getByClassificationStatus('Venta', 'Emitido', 'folio', 'desc');
-        $orders = $this->saleRepo->getByClassificationStatus('Pedido', 'Emitido', 'folio', 'desc');
-        $services = $this->saleRepo->getByClassificationStatus('Servicio', 'Emitido', 'folio', 'desc');
+        $sales = $this->saleRepo->getByClassificationStatus('Venta', 'Emitido', 'folio_sale', 'desc');
+        $orders = $this->saleRepo->getByClassificationStatus('Pedido', 'Emitido', 'folio_separated', 'desc');
+        $services = $this->saleRepo->getByClassificationStatus('Servicio', 'Emitido', 'folio_service', 'desc');
         $cancellations = $this->saleRepo->getPendingCancellations(false);
 
         if (Request::ajax()) {

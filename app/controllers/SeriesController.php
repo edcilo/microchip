@@ -83,8 +83,7 @@ class SeriesController extends \BaseController
 
     public function create($movement_id)
     {
-        $movement    = $this->movementRepo->find($movement_id);
-
+        $movement = $this->movementRepo->find($movement_id);
         $movement->series = ($movement->status == 'in') ? $movement->series : $movement->seriesOut;
 
         return View::make('series/create', compact('movement'));
@@ -98,12 +97,13 @@ class SeriesController extends \BaseController
      */
     public function store()
     {
-        $movement    = $this->movementRepo->find(Input::get('inventory_movement_id'));
+        $movement = $this->movementRepo->find(Input::get('inventory_movement_id'));
         $this->notFoundUnless($movement);
 
-        $collection    = [];
+        $validator = null;
+        $collection = [];
         foreach (Input::get('ns') as $ns) {
-            $data    = [
+            $data = [
                 'ns' => $ns, 'product_id' => $movement->product->id, 'inventory_movement_id' => $movement->id,
             ];
             $data['status'] = ($movement->status == 'in') ? 'Disponible' : 'Vendido';

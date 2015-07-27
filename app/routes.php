@@ -112,6 +112,11 @@ Route::group(['before' => 'auth'], function () {
     require __DIR__.'/routes/product.php';
 
     /*
+     * Rutas relacionadas con los productos en soporte
+     */
+    require __DIR__.'/routes/support.php';
+
+    /*
      * Rutas relacionadas con la administracion de las descripciones de los productos
      */
     require __DIR__.'/routes/productDescription.php';

@@ -101,6 +101,7 @@ return array(
 
     'attributes' => array(
         'amount'         => 'Pago',
+        'authorized_by'  => 'Autorizado por',
         'barcode'        => 'Código de barras',
         'bill_scan'      => 'Factura escaneada',
         'cheque_id'      => 'Cheque',
@@ -112,10 +113,12 @@ return array(
         'entity'         => 'Entidad',
         'folio'          => 'Folio',
         'folio_c'        => 'Folio',
+        'given_by'       => 'Entregado por',
         'name'           => 'Nombre',
         'ns'             => 'Número de serie',
         'observations_c' => 'Observaciones de la note de crédito',
         'quantity'       => 'Cantidad',
+        'received_by'    => 'Recibido por',
         'reference'      => 'Referencia',
         'selling_price'  => 'Precio de venta',
         'time_init'      => 'Hora de inicio',

@@ -127,4 +127,16 @@
 
     </div>
 
+    <div class="col col100 block description-product">
+
+        <div class="subtitle">
+            Eliminar producto en soporte
+        </div>
+
+        <div class="text-center">
+            @include('support.partials.form_destroy')
+        </div>
+
+    </div>
+
 @stop

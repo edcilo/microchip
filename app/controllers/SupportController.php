@@ -137,7 +137,28 @@ class SupportController extends \BaseController
 	 */
 	public function destroy($id)
 	{
-		//
+        $support = $this->supportRepo->find($id);
+        $this->notFoundUnless($support);
+
+        // todo si el producto fue autorizado autorizar la eliminacion
+
+        foreach ($support->movements as $movement) {
+            $movement_in = $this->movementRepo->find($movement->movement_in_id);
+            $movement_in->in_stock += $movement->quantity;
+            $movement_in->save();
+
+            foreach ($movement->seriesOut as $series) {
+                $series->status       = 'Disponible';
+                $series->movement_out = 0;
+                $series->save();
+            }
+
+            $this->movementRepo->destroy($movement->id);
+        }
+
+        $this->supportRepo->destroy($support->id);
+
+        return Redirect::route('support.index')->with('error', 'El registro se elimino y el producto se devolvio a inventario correctamente.');
 	}
 
     public function seriesCreate($support_id, $movement_id)

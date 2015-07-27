@@ -1,9 +1,3 @@
-{{ Form::open(['route'=>['support.authorize', $product->id], 'class'=>'form validate']) }}
-
-<div class="subtitle_mark">
-    Autorizar
-</div>
-
 <div class="row col col100">
     <div class="flo col33 left">
         {{ Form::label('given_by', 'Entregado por:') }}
@@ -29,11 +23,3 @@
         </div>
     </div>
 </div>
-
-<div class="text-center">
-    <button type="submit" class="btn-blue">
-        Autorizar
-    </button>
-</div>
-
-{{ Form::close() }}

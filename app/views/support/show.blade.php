@@ -112,7 +112,21 @@
 
                     @else
 
+                        {{ Form::open(['route'=>['support.authorize', $product->id], 'class'=>'form validate']) }}
+
+                        <div class="subtitle_mark">
+                            Autorizar
+                        </div>
+
                         @include('support.partials.form_authorization')
+
+                        <div class="text-center">
+                            <button type="submit" class="btn-blue">
+                                Autorizar
+                            </button>
+                        </div>
+
+                        {{ Form::close() }}
 
                     @endif
 

@@ -70,12 +70,12 @@ class SupportController extends \BaseController
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $product    = $this->productRepo->getByBarcode($data['barcode']);
+        $product = $this->productRepo->getByBarcode($data['barcode']);
         if ($product->type != 'Producto') {
             return Redirect::back()->withInput()->withErrors(['barcode' => 'No esta permitido registrar Servicios']);
         }
 
-        $total      = $this->movementRepo->totalStock($product->id);
+        $total = $this->movementRepo->totalStock($product->id);
         if ($total == 0 OR $total < $data['quantity']) {
             return Redirect::back()->withInput()->withErrors(['quantity' => 'No hay existencia suficiente']);
         }
@@ -140,7 +140,36 @@ class SupportController extends \BaseController
         $support = $this->supportRepo->find($id);
         $this->notFoundUnless($support);
 
-        // todo si el producto fue autorizado autorizar la eliminacion
+        if ($support->authorized_by) {
+            $data = Input::all();
+            $rules = [
+                'authorized_by' => 'required',
+                'given_by' => 'required',
+                'received_by' => 'required',
+            ];
+
+            $validator = Validator::make($data, $rules);
+
+            if ($validator->fails()) {
+                return Redirect::back()->withErrors($validator);
+            }
+
+            $authorized = $this->userRepo->getUserByPassword($data['authorized_by']);
+            $given = $this->userRepo->getUserByPassword($data['given_by']);
+            $received = $this->userRepo->getUserByPassword($data['received_by']);
+
+            if (!$authorized OR !$given OR !$received) {
+                return Redirect::back()->with('error', 'Vuelva a introducir las contraseñas');
+            }
+
+            if (
+                $support->authorized_by != $authorized->id OR
+                $support->given_by != $given->id OR
+                $support->received_by != $received->id
+            ) {
+                return Redirect::back()->with('error', 'Los usuarios no coinciden');
+            }
+        }
 
         foreach ($support->movements as $movement) {
             $movement_in = $this->movementRepo->find($movement->movement_in_id);
@@ -190,7 +219,7 @@ class SupportController extends \BaseController
         $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
-            return Redirect::back()->withInput()->withErrors($validator);
+            return Redirect::back()->withErrors($validator);
         }
 
         $authorized = $this->userRepo->getUserByPassword($data['authorized_by']);

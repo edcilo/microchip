@@ -236,6 +236,31 @@ class SupportController extends \BaseController
         return Redirect::back()->with('error', 'El producto se devolvio correctamente.');
     }
 
+    public function search()
+    {
+        $terms = Input::get('terms');
+
+        if (Request::ajax()) {
+            $results = $this->supportRepo->search($terms, 'ajax');
+
+            return Response::json($results);
+        } else {
+            $products = $this->supportRepo->search($terms);
+
+            return View::make('support.search', compact('products', 'terms'));
+        }
+    }
+
+    public function generatePrint($id)
+    {
+        $product = $this->supportRepo->find($id);
+        $this->notFoundUnless($product);
+
+        $pdf = PDF::loadView('support/layout_print', compact('product'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
+
     protected function undo($support)
     {
         foreach ($support->movements as $movement) {
@@ -251,15 +276,5 @@ class SupportController extends \BaseController
 
             $this->movementRepo->destroy($movement->id);
         }
-    }
-
-    public function generatePrint($id)
-    {
-        $product = $this->supportRepo->find($id);
-        $this->notFoundUnless($product);
-
-        $pdf = PDF::loadView('support/layout_print', compact('product'))->setPaper('letter');
-
-        return $pdf->stream();
     }
 }

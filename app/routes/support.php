@@ -15,6 +15,11 @@ Route::post('support/', [
     'uses' => 'SupportController@store',
 ]);
 
+Route::get('support/search', [
+    'as' => 'support.search',
+    'uses' => 'SupportController@search'
+]);
+
 Route::get('support/{id}', [
     'as' => 'support.show',
     'uses' => 'SupportController@show',

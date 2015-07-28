@@ -141,6 +141,20 @@
 
     </div>
 
+    @if($product->authorized_by AND !$product->dev_authorized_by)
+        <div class="col col100 block description-product">
+
+            <div class="subtitle">
+                Devolver producto en soporte
+            </div>
+
+            <div class="text-center">
+                @include('support.partials.form_get_down')
+            </div>
+
+        </div>
+    @endif
+
     <div class="col col100 block description-product">
 
         <div class="subtitle">

@@ -1,9 +1,5 @@
 {{ Form::open(['route'=>['support.destroy', $product->id], 'class'=>'form', 'method'=>'delete']) }}
 
-@if($product->authorized_by)
-    @include('support.partials.form_authorization')
-@endif
-
 <button type="submit" class="btn-red form_confirm" data-confirm="destroy_product">
     <i class="fa fa-times"></i>
     Eliminar

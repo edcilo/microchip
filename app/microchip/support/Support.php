@@ -12,6 +12,9 @@ class Support extends BaseEntity {
         'authorized_by',
         'given_by',
         'received_by',
+        'dev_authorized_by',
+        'dev_given_by',
+        'dev_received_by',
         'status',
         'observations',
     ];

@@ -19,6 +19,9 @@ class CreateSupportTable extends Migration {
 			$table->unsignedInteger('authorized_by');
 			$table->unsignedInteger('given_by');
 			$table->unsignedInteger('received_by');
+			$table->unsignedInteger('dev_authorized_by');
+			$table->unsignedInteger('dev_given_by');
+			$table->unsignedInteger('dev_received_by');
 			$table->enum('status', ['Gasto', 'Uso', 'Prestamo', 'Devuelto']);
 			$table->string('observations');
 			$table->timestamps();

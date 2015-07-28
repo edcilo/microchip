@@ -140,50 +140,7 @@ class SupportController extends \BaseController
         $support = $this->supportRepo->find($id);
         $this->notFoundUnless($support);
 
-        if ($support->authorized_by) {
-            $data = Input::all();
-            $rules = [
-                'authorized_by' => 'required',
-                'given_by' => 'required',
-                'received_by' => 'required',
-            ];
-
-            $validator = Validator::make($data, $rules);
-
-            if ($validator->fails()) {
-                return Redirect::back()->withErrors($validator);
-            }
-
-            $authorized = $this->userRepo->getUserByPassword($data['authorized_by']);
-            $given = $this->userRepo->getUserByPassword($data['given_by']);
-            $received = $this->userRepo->getUserByPassword($data['received_by']);
-
-            if (!$authorized OR !$given OR !$received) {
-                return Redirect::back()->with('error', 'Vuelva a introducir las contraseñas');
-            }
-
-            if (
-                $support->authorized_by != $authorized->id OR
-                $support->given_by != $given->id OR
-                $support->received_by != $received->id
-            ) {
-                return Redirect::back()->with('error', 'Los usuarios no coinciden');
-            }
-        }
-
-        foreach ($support->movements as $movement) {
-            $movement_in = $this->movementRepo->find($movement->movement_in_id);
-            $movement_in->in_stock += $movement->quantity;
-            $movement_in->save();
-
-            foreach ($movement->seriesOut as $series) {
-                $series->status       = 'Disponible';
-                $series->movement_out = 0;
-                $series->save();
-            }
-
-            $this->movementRepo->destroy($movement->id);
-        }
+        $this->undo($support);
 
         $this->supportRepo->destroy($support->id);
 
@@ -238,4 +195,61 @@ class SupportController extends \BaseController
         return Redirect::back()->with('error', 'El producto se autorizo correctamente.');
     }
 
+    public function getDown($id)
+    {
+        $support = $this->supportRepo->find($id);
+        $this->notFoundUnless($support);
+
+        if (!$support->authorized_by OR !$support->given_by OR !$support->received_by) {
+            return Redirect::back()->with('error', 'Este producto aún no ha sido autorizado.');
+        }
+
+        $data = Input::only(['given_by', 'received_by', 'authorized_by']);
+        $rules = [
+            'authorized_by' => 'required',
+            'given_by' => 'required',
+            'received_by' => 'required',
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator);
+        }
+
+        $authorized = $this->userRepo->getUserByPassword($data['authorized_by']);
+        $given = $this->userRepo->getUserByPassword($data['given_by']);
+        $received = $this->userRepo->getUserByPassword($data['received_by']);
+
+        if (!$authorized OR !$given OR !$received) {
+            return Redirect::back()->with('error', 'Una de las contraseña es erronea');
+        }
+
+        $this->undo($support);
+
+        $support->status = 'Devuelto';
+        $support->dev_authorized_by = $authorized->id;
+        $support->dev_given_by = $given->id;
+        $support->dev_received_by = $received->id;
+        $support->save();
+
+        return Redirect::back()->with('error', 'El producto se devolvio correctamente.');
+    }
+
+    protected function undo($support)
+    {
+        foreach ($support->movements as $movement) {
+            $movement_in = $this->movementRepo->find($movement->movement_in_id);
+            $movement_in->in_stock += $movement->quantity;
+            $movement_in->save();
+
+            foreach ($movement->seriesOut as $series) {
+                $series->status       = 'Disponible';
+                $series->movement_out = 0;
+                $series->save();
+            }
+
+            $this->movementRepo->destroy($movement->id);
+        }
+    }
 }

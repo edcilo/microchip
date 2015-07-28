@@ -34,3 +34,8 @@ Route::post('support/{id}/authorize', [
     'as' => 'support.authorize',
     'uses' => 'SupportController@authorize'
 ]);
+
+Route::post('support/{id}/get_down', [
+    'as' => 'support.get.down',
+    'uses' => 'SupportController@getDown'
+]);

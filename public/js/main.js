@@ -183,6 +183,7 @@ var search = function (element_form, element_input, element_contResults) {
                         text += ( result[i].card_id     ) ? ' - ' + result[i].card_id   : '';
                         text += ( result[i].type        ) ? ' - ' + result[i].s_description : '';
                         text += ( result[i].folio       ) ? ': ' + result[i].folio      : '';
+                        text += ( result[i].status      ) ? '; ' + result[i].status      : '';
 
                         slug = result[i].slug;
                         if (typeof(slug) == "undefined") {

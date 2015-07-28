@@ -13,8 +13,12 @@
             <h2>Productos en soporte</h2>
         </div>
 
-        <div class="flo col40 text-right">
+        <div class="flo col20 text-right">
             @include('support.partials.btn_create')
+        </div>
+
+        <div class="flo col20 text-right">
+            @include('support.partials.form_filter')
         </div>
 
         <div class="flo col30 text-right">

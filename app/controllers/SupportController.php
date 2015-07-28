@@ -32,9 +32,13 @@ class SupportController extends \BaseController
 	 */
 	public function index()
 	{
-		$products = $this->supportRepo->getAll();
+        $status = Input::get('status');
 
-		return View::make('support.index', compact('products'));
+        $products = empty($status) ?
+		    $this->supportRepo->getAll() :
+            $this->supportRepo->filter($status);
+
+		return View::make('support.index', compact('products', 'status'));
 	}
 
 	/**

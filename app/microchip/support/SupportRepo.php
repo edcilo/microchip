@@ -16,6 +16,11 @@ class SupportRepo extends BaseRepo
         return $support = new Support();
     }
 
+    public function filter($status)
+    {
+        return Support::where('status', $status)->paginate(10);
+    }
+
     public function search($terms, $request='', $take=10)
     {
         $q = Support::select('support.id', 'support.status', 'products.barcode', 'products.s_description')

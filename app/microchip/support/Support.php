@@ -48,4 +48,19 @@ class Support extends BaseEntity {
     {
         return $this->belongsTo('microchip\user\User', 'received_by');
     }
+
+    public function devAuthorizedBy()
+    {
+        return $this->belongsTo('microchip\user\User', 'dev_authorized_by');
+    }
+
+    public function devGivenBy()
+    {
+        return $this->belongsTo('microchip\user\User', 'dev_given_by');
+    }
+
+    public function devReceivedBy()
+    {
+        return $this->belongsTo('microchip\user\User', 'dev_received_by');
+    }
 }

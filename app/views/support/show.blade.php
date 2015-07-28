@@ -24,9 +24,13 @@
 
     <div class="col col100 block description-product">
 
-        <h2 class="header">
-            {{ $product->product->barcode }}
-        </h2>
+        <div class="header">
+            <h1>
+                {{ $product->product->barcode }}
+            </h1>
+
+            @include('support.partials.btn_print')
+        </div>
 
         <div class="col col100">
 
@@ -49,34 +53,7 @@
                     </li>
                 </ul>
 
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Cantidad</th>
-                        <th>Costo de entrada</th>
-                        <th>Costo de salida</th>
-                        <th>
-                            <i class="fa fa-gears"></i>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    @foreach($product->movements as $movement)
-                        <tr class="{{ $movement->class_row_series }}">
-                            <td>{{ $movement->quantity }} {{ $movement->class_row_series }}</td>
-                            <td>$ {{ $movement->purchase_price }}</td>
-                            <td>$ {{ $movement->selling_price }}</td>
-                            <td class="text-center">
-                                @if($movement->product->p_description->have_series)
-                                    <a href="{{ route('support.series.create', [$product->id, $movement->id]) }}" class="btn-green" title="Números de serie">N/S</a>
-                                @endif
-
-                                @include('movement.partials.btn_print')
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                @include('support.partials.list_movements')
             </div>
 
             <div class="flo col50 right">
@@ -95,20 +72,49 @@
 
                     @if($product->authorized_by)
 
-                        <ul>
-                            <li>
-                                <strong>Entregado por:</strong>
-                                {{ $product->givenBy->profile->full_name }}
-                            </li>
-                            <li>
-                                <strong>Recibido por:</strong>
-                                {{ $product->receivedBy->profile->full_name }}
-                            </li>
-                            <li>
-                                <strong>Autorizado por:</strong>
-                                {{ $product->authorizedBy->profile->full_name }}
-                            </li>
-                        </ul>
+                        <div class="col col100">
+
+                            <div class="flo col50 left">
+                                <div class="subtitle_mark">Autorización</div>
+
+                                <ul>
+                                    <li>
+                                        <strong>Entregado por:</strong>
+                                        {{ $product->givenBy->profile->full_name }}
+                                    </li>
+                                    <li>
+                                        <strong>Recibido por:</strong>
+                                        {{ $product->receivedBy->profile->full_name }}
+                                    </li>
+                                    <li>
+                                        <strong>Autorizado por:</strong>
+                                        {{ $product->authorizedBy->profile->full_name }}
+                                    </li>
+                                </ul>
+                            </div>
+
+                            @if($product->dev_authorized_by)
+                                <div class="flo col50 right">
+                                    <div class="subtitle_mark">Entrega</div>
+
+                                    <ul>
+                                        <li>
+                                            <strong>Entregado por:</strong>
+                                            {{ $product->devGivenBy->profile->full_name }}
+                                        </li>
+                                        <li>
+                                            <strong>Recibido por:</strong>
+                                            {{ $product->devReceivedBy->profile->full_name }}
+                                        </li>
+                                        <li>
+                                            <strong>Autorizado por:</strong>
+                                            {{ $product->devAuthorizedBy->profile->full_name }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endif
+
+                        </div>
 
                     @else
 

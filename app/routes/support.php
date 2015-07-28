@@ -39,3 +39,8 @@ Route::post('support/{id}/get_down', [
     'as' => 'support.get.down',
     'uses' => 'SupportController@getDown'
 ]);
+
+Route::get('support/{id}/print', [
+    'as' => 'support.print',
+    'uses' => 'SupportController@generatePrint'
+]);

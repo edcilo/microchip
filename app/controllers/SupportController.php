@@ -252,4 +252,14 @@ class SupportController extends \BaseController
             $this->movementRepo->destroy($movement->id);
         }
     }
+
+    public function generatePrint($id)
+    {
+        $product = $this->supportRepo->find($id);
+        $this->notFoundUnless($product);
+
+        $pdf = PDF::loadView('support/layout_print', compact('product'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
 }

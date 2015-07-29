@@ -36,7 +36,7 @@ Route::group(
                 'uses' => 'ProductController@update',
             ]);
 
-            Route::get('{slug}/{id}/change-prices', [
+            Route::get('{slug}/{id}/change-prices/{movement_id}', [
                 'as'   => 'product.change.prices',
                 'uses' => 'ProductController@priceEdit'
             ]);

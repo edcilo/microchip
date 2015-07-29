@@ -11,6 +11,8 @@ use microchip\category\CategoryRepo;
 use microchip\mark\MarkRepo;
 use microchip\productDescription\ProductDescriptionRegManager;
 use microchip\productDescription\ProductDescriptionUpdManager;
+use microchip\inventoryMovement\InventoryMovementRepo;
+use microchip\product\ProductUpdPricesManager;
 
 class ProductController extends \BaseController
 {
@@ -21,6 +23,7 @@ class ProductController extends \BaseController
     protected $descriptionRepo;
     protected $categoryRepo;
     protected $markRepo;
+    protected $movementRepo;
 
     public function __construct(
         ProductRepo             $productRepo,
@@ -29,7 +32,8 @@ class ProductController extends \BaseController
         ProductDescriptionRepo  $descriptionRepo,
         CategoryRepo            $categoryRepo,
         MarkRepo                $markRepo,
-        ConfigurationRepo       $configurationRepo
+        ConfigurationRepo       $configurationRepo,
+        InventoryMovementRepo   $movementRepo
     ) {
         $this->productRepo      = $productRepo;
         $this->seriesRepo       = $seriesRepo;
@@ -38,6 +42,7 @@ class ProductController extends \BaseController
         $this->categoryRepo     = $categoryRepo;
         $this->markRepo         = $markRepo;
         $this->configRepo       = $configurationRepo;
+        $this->movementRepo     = $movementRepo;
     }
 
     /**
@@ -417,13 +422,38 @@ class ProductController extends \BaseController
         return Response::json($data);
     }
 
-    public function priceEdit($slug, $id)
+    public function priceEdit($slug, $product_id, $movement_id)
     {
-        $product = $this->productRepo->find($id);
+        $product = $this->productRepo->find($product_id);
         $this->notFoundUnless($product);
+
+        $movement = $this->movementRepo->find($movement_id);
+        $this->notFoundUnless($movement);
 
         $iva = $this->configRepo->find(1)->iva;
 
-        return View::make('product/price_edit', compact('product', 'iva'));
+        return View::make('product/price_edit', compact('product', 'movement', 'iva'));
+    }
+
+    public function priceUpdate($id)
+    {
+        $data = Input::only(['price_1', 'price_2', 'price_3', 'price_4', 'price_5', 'offer', 'purchase_price']);
+
+        $product = $this->productRepo->find($id);
+        $this->notFoundUnless($product);
+
+        $manager = new ProductUpdPricesManager($product, $data);
+        $manager->save();
+
+        $product->p_description->purchase_price = $data['purchase_price'];
+        $product->push();
+
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $product];
+
+            return Response::json($response);
+        }
+
+        return Redirect::back()->with('error', 'Los cambios se guardaron correctamente.');
     }
 }

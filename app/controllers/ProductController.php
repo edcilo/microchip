@@ -416,4 +416,14 @@ class ProductController extends \BaseController
 
         return Response::json($data);
     }
+
+    public function priceEdit($slug, $id)
+    {
+        $product = $this->productRepo->find($id);
+        $this->notFoundUnless($product);
+
+        $iva = $this->configRepo->find(1)->iva;
+
+        return View::make('product/price_edit', compact('product', 'iva'));
+    }
 }

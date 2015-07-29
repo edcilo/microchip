@@ -36,6 +36,16 @@ Route::group(
                 'uses' => 'ProductController@update',
             ]);
 
+            Route::get('{slug}/{id}/change-prices', [
+                'as'   => 'product.change.prices',
+                'uses' => 'ProductController@priceEdit'
+            ]);
+
+            Route::put('{id}/update-prices', [
+                'as'   => 'product.update.prices',
+                'uses' => 'ProductController@priceUpdate',
+            ]);
+
         });
 
         Route::group(['before' => 'pr:57'], function () {

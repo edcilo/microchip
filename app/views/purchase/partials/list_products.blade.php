@@ -35,6 +35,8 @@
                 </td>
 
                 <td class="text-right">
+                    @include('purchase.partials.btn_change_prices')
+
                     @if ($movement->product->p_description->have_series )
                         @include('purchase.partials.btn_series')
 

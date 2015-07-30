@@ -204,6 +204,10 @@ class SupportController extends \BaseController
         $support = $this->supportRepo->find($id);
         $this->notFoundUnless($support);
 
+        if ($support->status == 'Desecho') {
+            return Redirect::back()->with('error', 'No es posible devolver un producto desechado.');
+        }
+
         if (!$support->authorized_by OR !$support->given_by OR !$support->received_by) {
             return Redirect::back()->with('error', 'Este producto aún no ha sido autorizado.');
         }
@@ -280,5 +284,20 @@ class SupportController extends \BaseController
 
             $this->movementRepo->destroy($movement->id);
         }
+    }
+
+    public function discard($id)
+    {
+        $product = $this->supportRepo->find($id);
+        $this->notFoundUnless($product);
+
+        if ($product->status == 'Devuelto') {
+            return Redirect::back()->with('error', 'El producto no se puede desechar porque ya fue entregado.');
+        }
+
+        $product->status = 'Desecho';
+        $product->save();
+
+        return Redirect::back()->with('error', 'El producto ha marcado como desechado.');
     }
 }

@@ -49,3 +49,8 @@ Route::get('support/{id}/print', [
     'as' => 'support.print',
     'uses' => 'SupportController@generatePrint'
 ]);
+
+Route::post('support/{id}/discard', [
+    'as' => 'support.discard',
+    'uses' => 'SupportController@discard'
+]);

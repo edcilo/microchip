@@ -147,7 +147,7 @@
 
     </div>
 
-    @if($product->authorized_by AND !$product->dev_authorized_by)
+    @if($product->authorized_by AND !$product->dev_authorized_by AND $product->status != 'Desecho')
         <div class="col col100 block description-product">
 
             <div class="subtitle">
@@ -163,12 +163,26 @@
 
     <div class="col col100 block description-product">
 
-        <div class="subtitle">
-            Eliminar producto en soporte
+        <div class="flo col50 left">
+            <div class="subtitle_mark">
+                Eliminar producto en soporte
+            </div>
+
+            <div class="text-center">
+                @include('support.partials.form_destroy')
+            </div>
         </div>
 
-        <div class="text-center">
-            @include('support.partials.form_destroy')
+        <div class="flo col50 right">
+            @if($product->status != 'Devuelto')
+                <div class="subtitle_mark">
+                    Desechar producto
+                </div>
+
+                <div class="text-center">
+                    @include('support.partials.form_discard')
+                </div>
+            @endif
         </div>
 
     </div>

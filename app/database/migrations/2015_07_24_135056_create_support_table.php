@@ -22,7 +22,7 @@ class CreateSupportTable extends Migration {
 			$table->unsignedInteger('dev_authorized_by');
 			$table->unsignedInteger('dev_given_by');
 			$table->unsignedInteger('dev_received_by');
-			$table->enum('status', ['Gasto', 'Uso', 'Prestamo', 'Devuelto']);
+			$table->enum('status', ['Gasto', 'Uso', 'Prestamo', 'Devuelto', 'Desecho']);
 			$table->string('observations');
 			$table->timestamps();
 		});

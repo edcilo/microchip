@@ -9,6 +9,6 @@
 
 <div class="confirm-dialog hide" title="Eliminar producto" id="destroy_product" data-width="400">
     <div class="mesasge text-center">
-        <p>¿Estas seguro de querer eliminar producto en soporte?</p>
+        <p>¿Estas seguro de querer <strong>eliminar</strong> producto en soporte?</p>
     </div>
 </div>

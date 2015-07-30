@@ -20,6 +20,7 @@ class ChequeRegManager extends BaseManager
 
         $data['status'] = 'Disponible';
         $data['active'] = 1;
+        $data['message'] = 1;
 
         return $data;
     }

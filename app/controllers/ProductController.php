@@ -317,6 +317,18 @@ class ProductController extends \BaseController
     {
         $product = $this->productRepo->find($id);
         $this->notFoundUnless($product);
+        
+        if ($product->stock > 0) {
+            $message = 'No es posible enviar a la papelera a un producto con existencias.';
+
+            if (Request::ajax()) {
+                $response = $this->msg304 + ['message' => $message];
+
+                return Response::json($response);
+            }
+
+            return Redirect::back()->with('message', $message);
+        }
 
         $product->active = 0;
         $product->save();

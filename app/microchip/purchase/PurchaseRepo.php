@@ -29,6 +29,7 @@ class PurchaseRepo extends BaseRepo
             ->orwhere('progress_2', 0)
             ->orwhere('progress_3', 0)
             ->orwhere('progress_4', 1)
+            ->orwhere('progress_5', 0)
             ->orderby($column, $order);
 
         return ($like == 'all') ? $q->get() : $q->paginate();

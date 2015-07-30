@@ -63,6 +63,8 @@
             <div class="flo col50 left">
                 @if( $purchase->progress_4 AND p(61))
                     @include('purchase.partials.form_stop_products')
+                @else
+                    &nbsp;
                 @endif
             </div>
 

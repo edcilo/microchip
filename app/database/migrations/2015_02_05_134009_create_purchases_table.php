@@ -25,6 +25,7 @@ class CreatePurchasesTable extends Migration
             $table->boolean('progress_2'); // subir archivo escaneado
             $table->boolean('progress_3'); // terminar la alta de numeros de serie
             $table->boolean('progress_4'); // termino de alta de productos
+            $table->boolean('progress_5'); // termino de revision de precios
 
             $table->integer('provider_id')->unsigned();
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('no action')->onUpdate('cascade');

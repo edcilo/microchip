@@ -57,11 +57,21 @@
 
         @endif
 
-        @if( $purchase->progress_4 AND p(61))
-            <hr/>
+        <hr>
 
-            @include('purchase.partials.form_stop_products')
-        @endif
+        <div class="col col100">
+            <div class="flo col50 left">
+                @if( $purchase->progress_4 AND p(61))
+                    @include('purchase.partials.form_stop_products')
+                @endif
+            </div>
+
+            <div class="flo col50 right text-right">
+                @include('purchase.partials.btn_check_prices')
+
+                @include('purchase.partials.btn_uncheck_prices')
+            </div>
+        </div>
 
     </div>
 

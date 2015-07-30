@@ -38,6 +38,16 @@ Route::group(
                 'uses' => 'PurchaseController@stopRegisterMovements',
             ]);
 
+            Route::post('check/prices/{id}', [
+                'as'   => 'purchase.check.prices',
+                'uses' => 'PurchaseController@checkPrices'
+            ]);
+
+            Route::delete('uncheck/prices/{id}', [
+                'as'   => 'purchase.uncheck.prices',
+                'uses' => 'PurchaseController@uncheckPrices'
+            ]);
+
             Route::post('save/{id}', [
                 'as'   => 'purchase.save',
                 'uses' => 'PurchaseController@save',

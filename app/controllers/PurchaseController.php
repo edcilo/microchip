@@ -209,4 +209,26 @@ class PurchaseController extends \BaseController
             return View::make('purchase/search', compact('results', 'terms'));
         }
     }
+
+    public function checkPrices($id)
+    {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        $purchase->progress_5 = 1;
+        $purchase->save();
+
+        return Redirect::back()->with('error', 'Los precios de esta compra fuerón revisados');
+    }
+
+    public function uncheckPrices($id)
+    {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        $purchase->progress_5 = 0;
+        $purchase->save();
+
+        return Redirect::back()->with('error', 'La revision de precios se desmarco correctamente.');
+    }
 }

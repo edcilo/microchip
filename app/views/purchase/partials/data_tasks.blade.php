@@ -11,6 +11,7 @@
             <th>Terminar alta de N/S</th>
             <th>Registrar metodo de pago</th>
             <th>Subir factura escaneada</th>
+            <th>Revision de precios</th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +39,13 @@
             </td>
             <td>
                 @if ( $purchase->progress_2 )
+                    <i class="fa fa-check"></i>
+                @else
+                    <i class="fa fa-times"></i>
+                @endif
+            </td>
+            <td>
+                @if ( $purchase->progress_5 )
                     <i class="fa fa-check"></i>
                 @else
                     <i class="fa fa-times"></i>

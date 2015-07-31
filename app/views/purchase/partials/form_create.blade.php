@@ -1,13 +1,17 @@
 <div class="col col100">
 
     <div class="row flo col33 left">
-        {{ Form::label('provider', 'Proveedor: ') }} <br/>
-        {{--
-        {{ Form::select('provider_id', $provider_list, null, ['title'=>'Seleccione un campo valido de la lista.', 'data-required'=>'required']) }}
-        --}}
-        {{ Form::text('provider', null, ['class'=>'xb-input', 'autocomplete'=>'off', 'data-url'=>route('provider.search')]) }}
-        <div class="cont-form-search">
-            <div class="resultSearch globe-center hide" id="provider_search_and_add"></div>
+        {{ Form::label('provider', 'Proveedor: ') }}<br/>
+        <div class="col col100">
+            <div class="flo col85">
+                {{ Form::text('provider', null, ['class'=>'xb-input', 'autofocus', 'autocomplete'=>'off', 'data-url'=>route('provider.search')]) }}
+                <div class="cont-form-search">
+                    <div class="resultSearch globe-center hide" id="provider_search_and_add"></div>
+                </div>
+            </div>
+            <div class="flo col15">
+                @include('provider.partials.btn_create_blank')
+            </div>
         </div>
         <div class="message-error">
             {{ $errors->first('provider', '<span>:message</span>') }}

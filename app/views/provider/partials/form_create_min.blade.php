@@ -1,5 +1,7 @@
 {{ Form::open(['route'=>'provider.store', 'method'=>'post', 'role'=>'form', 'class' => 'form validate']) }}
 
+{{ Form::hidden('back', 1) }}
+
 <div class="col col100">
 
     <div class="row">

@@ -74,8 +74,8 @@ class ProviderController extends \BaseController
      */
     public function store()
     {
-        $provider    = $this->providerRepo->newProvider();
-        $manager    = new ProviderRegManager($provider, Input::all());
+        $provider = $this->providerRepo->newProvider();
+        $manager  = new ProviderRegManager($provider, Input::all());
         $manager->save();
 
         if (Request::ajax()) {
@@ -84,7 +84,10 @@ class ProviderController extends \BaseController
             return Response::json($response);
         }
 
-        return Redirect::route('provider.show', [$provider->slug, $provider->id]);
+        if (Input::get('back'))
+            return Redirect::back()->with('message', "El proveedor $provider->name se creo correctamente.");
+        else
+            return Redirect::route('provider.show', [$provider->slug, $provider->id]);
     }
 
     /**

@@ -4,6 +4,7 @@
 
 @section('scripts')
     {{ HTML::script('js/search_provider.js') }}
+    {{ HTML::script('js/admin.js') }}
 @stop
 
 @section ('content')
@@ -30,5 +31,7 @@
         @include('purchase.partials.form_create')
 
     </div>
+
+    @include('provider.partials.form_create_float')
 
 @stop

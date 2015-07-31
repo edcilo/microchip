@@ -23,19 +23,19 @@ class SaleController extends \BaseController
     protected $type_list    = ['Ticket' => 'Ticket', 'Factura' => 'Factura'];
 
     public function __construct(
-        SaleRepo                $saleRepo,
-        ConfigurationRepo        $configurationRepo,
-        InventoryMovementRepo    $inventoryMovementRepo,
-        SaleFormat                $saleFormat,
-        CustomerRepo            $customerRepo,
-        CompanyRepo                $companyRepo
+        SaleRepo              $saleRepo,
+        ConfigurationRepo     $configurationRepo,
+        InventoryMovementRepo $inventoryMovementRepo,
+        SaleFormat            $saleFormat,
+        CustomerRepo          $customerRepo,
+        CompanyRepo           $companyRepo
     ) {
-        $this->saleRepo        = $saleRepo;
+        $this->saleRepo      = $saleRepo;
         $this->configRepo    = $configurationRepo;
-        $this->movementRepo    = $inventoryMovementRepo;
+        $this->movementRepo  = $inventoryMovementRepo;
         $this->formatData    = $saleFormat;
-        $this->customerRepo    = $customerRepo;
-        $this->companyRepo    = $companyRepo;
+        $this->customerRepo  = $customerRepo;
+        $this->companyRepo   = $companyRepo;
     }
 
     /**

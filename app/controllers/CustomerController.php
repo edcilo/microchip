@@ -117,10 +117,10 @@ class CustomerController extends \BaseController
             return Response::json($customer);
         }
 
-        $sales = $customer->sales()->where('classification', 'Venta')->orderBy('folio', 'desc')->paginate();
-        $orders = $customer->sales()->where('classification', 'Pedido')->orderBy('folio', 'desc')->paginate();
-        $services = $customer->sales()->where('classification', 'Servicio')->orderBy('folio', 'desc')->paginate();
-        $prices = $customer->sales()->where('classification', 'Cotización')->orderBy('folio', 'desc')->paginate();
+        $sales = $customer->sales()->where('classification', 'Venta')->orderBy('folio_sale', 'desc')->paginate();
+        $orders = $customer->sales()->where('classification', 'Pedido')->orderBy('folio_separated', 'desc')->paginate();
+        $services = $customer->sales()->where('classification', 'Servicio')->orderBy('folio_service', 'desc')->paginate();
+        $prices = $customer->sales()->where('classification', 'Cotización')->orderBy('folio_price', 'desc')->paginate();
 
         return View::make('customer/show', compact('customer', 'sales', 'orders', 'services', 'prices'));
     }

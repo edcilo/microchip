@@ -16,6 +16,19 @@ class ChequeRepo extends BaseRepo
         return $cheque = new Cheque();
     }
 
+    public function validateUnique($bank, $folios)
+    {
+        return $bank->cheques()->where(function ($query) use ($folios) {
+            if (is_array($folios)) {
+                foreach ($folios as $folio) {
+                    $query->orWhere('folio', $folio);
+                }
+            } else {
+                $query->where('folio', $folios);
+            }
+        })->count();
+    }
+
     public function getListAvailable()
     {
         $elements = Cheque::select('folio', 'id')

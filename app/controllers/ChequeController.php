@@ -60,6 +60,20 @@ class ChequeController extends \BaseController
         $end     = (int) Input::get('folio_end');
         $bank_id = Input::get('bank_id');
 
+        $bank = $this->bankRepo->find($bank_id);
+        $this->notFoundUnless($bank);
+
+        $folios = [];
+        for ($i=$start; $i <= $end; $i++) {
+            $folios[] = str_pad($i, 7, '0', STR_PAD_LEFT);
+        }
+
+        $cheques = $this->chequeRepo->validateUnique($bank, $folios);
+
+        if ($cheques) {
+            return Redirect::back()->with('message', 'No se pueden registrar folios repetidos.');
+        }
+
         if ($start <= $end) {
             for ($folio = $start; $folio <= $end; $folio++) {
                 $data = compact('folio', 'bank_id');

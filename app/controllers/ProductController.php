@@ -317,7 +317,7 @@ class ProductController extends \BaseController
     {
         $product = $this->productRepo->find($id);
         $this->notFoundUnless($product);
-        
+
         if ($product->stock > 0) {
             $message = 'No es posible enviar a la papelera a un producto con existencias.';
 

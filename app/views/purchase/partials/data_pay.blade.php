@@ -37,7 +37,7 @@
             </td>
             <td class="text-center">{{ $payment->payment_date_f }}</td>
             <td class="text-center">
-                @if( is_object($payment->cheque) AND $payment->cheque->status == 'Cancelado' )
+                @if( !$purchase->progress_1 OR (is_object($payment->cheque) AND $payment->cheque->status == 'Cancelado') )
                     {{ Form::open(['route' => ['purchasePayment.delete', $payment->id], 'method'=>'delete']) }}
                         <button type="submit" class="btn-red form_confirm" data-confirm="destroy_payment">
                             <i class="fa fa-times"></i>

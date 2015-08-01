@@ -328,7 +328,7 @@ class InventoryMovementController extends \BaseController
         $movement = $this->movementRepo->find($id);
         $this->notFoundUnless($movement);
 
-        $status = (count($movement->purchases) > 0) ? $movement->purchases[0]->status : $movement->sales[0]->status;
+        $status = (count($movement->purchases)) ? $movement->purchases[0]->status : $movement->sales[0]->status;
 
         if (count($movement->sales)) {
             if ($movement->sales[0]->movements_end) {
@@ -337,12 +337,14 @@ class InventoryMovementController extends \BaseController
         }
 
         if (count($movement->purchases)) {
-            if (!$movement->purchases[0]->progress_4) {
+            if (!$movement->purchases[0]->progress_1) {
                 return Redirect::back()->with('message', 'No es posible eliminar el producto.');
             }
         }
 
-        if ($status != 'Pendiente' and $status != 'En proceso...') {
+        if (count($movement->sales) AND $status != 'Pendiente') {
+            return Redirect::back()->with('msg', 'No es posible eliminar el producto.');
+        } elseif (count($movement->purchases) AND !$movement->purchases[0]->progress_4) {
             return Redirect::back()->with('msg', 'No es posible eliminar el producto.');
         }
 

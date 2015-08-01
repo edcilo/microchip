@@ -240,6 +240,28 @@ class PurchaseController extends \BaseController
         return Redirect::back();
     }
 
+    public function paymentsStop($id)
+    {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        $purchase->progress_1 = 1;
+        $purchase->save();
+
+        return Redirect::back();
+    }
+
+    public function paymentsEdit($id)
+    {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        $purchase->progress_1 = 0;
+        $purchase->save();
+
+        return Redirect::back();
+    }
+
     /**
      * Busca elementos que coincidan con el termino recibido.
      */

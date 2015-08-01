@@ -47,11 +47,7 @@
 
                     @endif
 
-                    @if( $purchase->status == 'En proceso...' )
-
-                        @include('movement.partials.form_destroy_purchase')
-
-                    @endif
+                    @include('movement.partials.form_destroy_purchase')
                 </td>
             </tr>
         @endif

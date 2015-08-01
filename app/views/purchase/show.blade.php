@@ -84,13 +84,6 @@
                 Pago
             </div>
 
-
-            @if ( $purchase->status != 'Pagado' AND p(61) )
-
-                @include('purchasePayment.partials.formCreate')
-
-            @endif
-
             @if( count($purchase->payments) )
 
                 @include('purchase.partials.data_pay')
@@ -98,6 +91,20 @@
             @else
 
                 <p class="title-clear">Aún no se registra un método de pago.</p>
+
+            @endif
+
+            <hr>
+
+            @if ( $purchase->status != 'Pagado' AND p(61) )
+
+                @include('purchasePayment.partials.formCreate')
+
+            @else
+
+                @include('purchase.partials.form_pays_edit')
+
+                @include('purchase.partials.form_pays_stop')
 
             @endif
 

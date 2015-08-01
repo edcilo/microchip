@@ -84,6 +84,16 @@ Route::group(
             'uses' => 'PurchaseController@productsUpdate'
         ]);
 
+        Route::post('{id}/payments/edit', [
+            'as'   => 'purchase.payments.edit',
+            'uses' => 'PurchaseController@paymentsEdit'
+        ]);
+
+        Route::post('{id}/payments/stop', [
+            'as'   => 'purchase.payments.stop',
+            'uses' => 'PurchaseController@paymentsStop'
+        ]);
+
         Route::get('{slug}/{id}', [
             'as'   => 'purchase.show',
             'uses' => 'PurchaseController@show',

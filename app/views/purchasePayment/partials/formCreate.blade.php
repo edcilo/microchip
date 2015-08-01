@@ -40,7 +40,7 @@
     <div class="row flo col25 right" id="elements_hide_show">
         {{-- mostrar cuando se seleccione otro --}}
         <div id="other_show_hide" class="hide">
-            {{ Form::label('type_other', 'Especificar') }}
+            {{ Form::label('type_other', 'Especificar') }} <br>
             {{ Form::text('type_other', null, ['title'=>'Este campo es obligatorio.']) }}
         </div>
 

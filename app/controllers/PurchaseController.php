@@ -229,6 +229,17 @@ class PurchaseController extends \BaseController
         return Redirect::back()->with('message', $message);
     }
 
+    public function productsUpdate($id)
+    {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        $purchase->progress_4 = 1;
+        $purchase->save();
+
+        return Redirect::back();
+    }
+
     /**
      * Busca elementos que coincidan con el termino recibido.
      */

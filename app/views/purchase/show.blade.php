@@ -64,7 +64,7 @@
                 @if( $purchase->progress_4 AND p(61))
                     @include('purchase.partials.form_stop_products')
                 @else
-                    &nbsp;
+                    @include('purchase.partials.form_products_edit')
                 @endif
             </div>
 

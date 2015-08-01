@@ -27,6 +27,8 @@
 
         <div class="header">
             <h2>Modificar compra {{ $purchase->folio }} con {{ $purchase->provider->name }}</h2>
+
+            @include('purchase.partials.btn_show')
         </div>
 
         {{ Form::model($purchase, ['route'=>['purchase.update', $purchase->id], 'method'=>'put', 'role'=>'form', 'class'=>'form validate']) }}

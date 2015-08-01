@@ -330,7 +330,7 @@ class InventoryMovementController extends \BaseController
 
         $status = (count($movement->purchases) > 0) ? $movement->purchases[0]->status : $movement->sales[0]->status;
 
-        if (count($movement->sales) > 0) {
+        if (count($movement->sales)) {
             if ($movement->sales[0]->movements_end) {
                 return Redirect::back()->with('msg', 'No es posible eliminar el producto.');
             }
@@ -350,6 +350,14 @@ class InventoryMovementController extends \BaseController
             return (Request::ajax()) ?
                 Response::json($this->msg304) :
                 Redirect::back()->with('msg', 'No es posible eliminar el producto '.$movement->product->barcode);
+        }
+
+        if ($movement->series()->count()) {
+            foreach ($movement->series as $series) {
+                if ($series->status != 'Disponible') {
+                    return Redirect::back()->with('msg', 'No es posible eliminar el producto '.$movement->product->barcode);
+                }
+            }
         }
 
         if ($movement->status == 'out' and $movement->product->type == 'Producto') {

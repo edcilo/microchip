@@ -337,7 +337,7 @@ class InventoryMovementController extends \BaseController
         }
 
         if (count($movement->purchases)) {
-            if (!$movement->purchases[0]->progress_1) {
+            if (!$movement->purchases[0]->progress_4) {
                 return Redirect::back()->with('message', 'No es posible eliminar el producto.');
             }
         }

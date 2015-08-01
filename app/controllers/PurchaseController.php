@@ -8,6 +8,7 @@ use microchip\configuration\ConfigurationRepo;
 use microchip\bank\BankRepo;
 use microchip\cheque\ChequeRepo;
 use microchip\purchase\PurchaseRegManager;
+use microchip\purchase\PurchaseUpdManager;
 use microchip\purchase\PurchaseUplUpdManager;
 
 class PurchaseController extends \BaseController
@@ -138,6 +139,42 @@ class PurchaseController extends \BaseController
         $cheque_list = ['' => 'Selecciona...'] + $this->chequeRepo->getListAvailable();
 
         return View::make('purchase/show', compact('purchase', 'method_list', 'type_list', 'bank_list', 'cheque_list'));
+    }
+
+    public function edit($slug, $id)
+    {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        return View::make('purchase.edit', compact('purchase'));
+    }
+
+    public function update($id)
+    {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        $data = Input::all() + ['user_id' => Auth::user()->id];
+
+        $provider = $this->providerRepo->findByName($data['provider']);
+        if (is_null($provider)) {
+            return Redirect::back()
+                ->withInput()
+                ->withErrors(['provider' => 'El proveedor no existe']);
+        }
+
+        $data['provider_id'] = $provider->id;
+
+        $manager = new PurchaseUpdManager($purchase, $data);
+        $manager->save();
+
+        if (Request::ajax()) {
+            $response = $this->msg200 + ['data' => $purchase];
+
+            return Response::json($response);
+        }
+
+        return Redirect::route('purchase.show', [$purchase->folio, $purchase->id]);
     }
 
     /**

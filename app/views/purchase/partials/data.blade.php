@@ -12,6 +12,8 @@
             Folio: {{ $purchase->folio }}
 
         </h1>
+
+        @include('purchase.partials.btn_edit')
     </div>
 
     <div class="col col100">

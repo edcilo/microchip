@@ -4,7 +4,7 @@
         {{ Form::label('provider', 'Proveedor: ') }}<br/>
         <div class="col col100">
             <div class="flo col85">
-                {{ Form::text('provider', null, ['class'=>'xb-input', 'autofocus', 'autocomplete'=>'off', 'data-url'=>route('provider.search')]) }}
+                {{ Form::text('provider', isset($purchase) ? $purchase->provider->name : null, ['class'=>'xb-input', 'autofocus', 'autocomplete'=>'off', 'data-url'=>route('provider.search')]) }}
                 <div class="cont-form-search">
                     <div class="resultSearch globe-center hide" id="provider_search_and_add"></div>
                 </div>
@@ -47,7 +47,7 @@
 
     <div class="row flo col33 center">
         {{ Form::label('iva', 'I.V.A (%): ') }} <br/>
-        {{ Form::text('iva', $iva, ['title'=>'Este campo es obligatorio y debe ser un valor numerico".', 'data-required'=>'required', 'data-numeric'=>'numeric', 'autocomplete'=>'off']) }}
+        {{ Form::text('iva', isset($iva) ? $iva : null, ['title'=>'Este campo es obligatorio y debe ser un valor numerico".', 'data-required'=>'required', 'data-numeric'=>'numeric', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('iva', '<span>:message</span>') }}
         </div>

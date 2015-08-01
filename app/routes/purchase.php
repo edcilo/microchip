@@ -69,6 +69,16 @@ Route::group(
 
         });
 
+        Route::get('{slug}/{id}/edit', [
+            'as'   => 'purchase.edit',
+            'uses' => 'PurchaseController@edit',
+        ]);
+
+        Route::put('{id}', [
+            'as'   => 'purchase.update',
+            'uses' => 'PurchaseController@update',
+        ]);
+
         Route::get('{slug}/{id}', [
             'as'   => 'purchase.show',
             'uses' => 'PurchaseController@show',

@@ -115,6 +115,12 @@ class InventoryMovementController extends \BaseController
     public function purchaseStore()
     {
         $data = Input::all();
+        $purchase = $this->purchaseRepo->find($data['purchase_id']);
+        $this->notFoundUnless($purchase);
+
+        if ($purchase->status == 'Cancelado') {
+            return Redirect::back()->with('message', 'No es posible agregar productos a una compra cancelada');
+        }
 
         $movement = $this->movementRepo->newMovement();
         $manager  = new InventoryMovementPRegManager($movement, $data);

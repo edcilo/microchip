@@ -75,8 +75,8 @@ class PurchaseController extends \BaseController
      */
     public function create()
     {
-        $provider_list    = [0 => 'Selecciona...'] + $this->providerRepo->lists('name', 'id', 'name');
-        $iva            = $this->configurationRepo->first()->iva;
+        $provider_list = [0 => 'Selecciona...'] + $this->providerRepo->lists('name', 'id', 'name');
+        $iva           = $this->configurationRepo->first()->iva;
 
         return View::make('purchase/create', compact('provider_list', 'iva'));
     }
@@ -146,6 +146,10 @@ class PurchaseController extends \BaseController
         $purchase = $this->purchaseRepo->find($id);
         $this->notFoundUnless($purchase);
 
+        if ($purchase->status == 'Cancelado') {
+            return Redirect::back()->with('message', 'No es posible modificar una compra cancelada');
+        }
+
         return View::make('purchase.edit', compact('purchase'));
     }
 
@@ -153,6 +157,10 @@ class PurchaseController extends \BaseController
     {
         $purchase = $this->purchaseRepo->find($id);
         $this->notFoundUnless($purchase);
+
+        if ($purchase->status == 'Cancelado') {
+            return Redirect::back()->with('message', 'No es posible modificar una compra cancelada');
+        }
 
         $data = Input::all() + ['user_id' => Auth::user()->id];
 
@@ -177,16 +185,35 @@ class PurchaseController extends \BaseController
         return Redirect::route('purchase.show', [$purchase->folio, $purchase->id]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * DELETE /purchase/{id}.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function destroy($id)
+    public function cancel($id)
     {
+        $purchase = $this->purchaseRepo->find($id);
+        $this->notFoundUnless($purchase);
+
+        foreach ($purchase->movements as $movement) {
+            if ($movement->in_stock != $movement->quantity) {
+                return Redirect::back()->with('message',
+                    'Ya se han vendido productos de esta compra, por lo que no es posible cancelarla');
+            }
+
+            if ($movement->series()->count()) {
+                foreach ($movement->series as $series) {
+                    if ($series->status != 'Disponible') {
+                        return Redirect::back()->with('message',
+                            'Ya se han vendido productos de esta compra, por lo que no es posible cancelarla');
+                    }
+                }
+            }
+        }
+
+        $purchase->movements()->delete();
+        $purchase->payments()->delete();
+
+        $purchase->status = 'Cancelado';
+        $purchase->save();
+
+        return Redirect::back()->with('message',
+            'La compra se cancelo correctamente y sus movimientos de inventario y metodos de pago.');
     }
 
     public function upload($id)

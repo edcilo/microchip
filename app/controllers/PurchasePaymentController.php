@@ -50,6 +50,10 @@ class PurchasePaymentController extends \BaseController
         $purchase = $this->purchaseRepo->find($data['purchase_id']);
         $this->notFoundUnless($purchase);
 
+        if ($purchase->status == 'Cancelado') {
+            return Redirect::back()->with('message', 'No es posible modificar una compra cancelada');
+        }
+
         if ($purchase->status == 'Pagado') {
             return Redirect::back()->with('message', "La venta $purchase->folio ya esta pagada.");
         }

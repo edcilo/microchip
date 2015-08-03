@@ -23,106 +23,123 @@
         </div>
     </div>
 
-    @include('purchase.partials.data_tasks')
+    @if($purchase->status != 'Cancelado')
+        @include('purchase.partials.data_tasks')
+    @endif
 
     @include('purchase.partials.data')
 
-    <div class="col col100 block description-product">
-
-        <div class="subtitle">
-            Productos
-        </div>
-
-        @if ( Session::get('msg') )
-            <aside class="msg_dialog">{{ Session::get('msg') }}</aside>
-        @endif
-
-        @if ( $purchase->progress_4 AND p(61) )
-
-            @include('movement.partials.form_create_purchase')
-
-            <hr/>
-
-        @endif
-
-        @if( count($purchase->movements) )
-
-            @include('purchase.partials.list_products')
-
-            @include('purchase.partials.series_float')
-
-        @else
-
-            <p class="title-clear">Aún no se registran productos.</p>
-
-        @endif
-
-        <hr>
-
-        <div class="col col100">
-            <div class="flo col50 left">
-                @if( $purchase->progress_4 AND p(61))
-                    @include('purchase.partials.form_stop_products')
-                @else
-                    @include('purchase.partials.form_products_edit')
-                @endif
-            </div>
-
-            <div class="flo col50 right text-right">
-                @include('purchase.partials.btn_check_prices')
-
-                @include('purchase.partials.btn_uncheck_prices')
-            </div>
-        </div>
-
-    </div>
-
-    @if(!$purchase->progress_4)
+    @if($purchase->status != 'Cancelado')
         <div class="col col100 block description-product">
 
             <div class="subtitle">
-                Pago
+                Productos
             </div>
 
-            @if( count($purchase->payments) )
+            @if ( Session::get('msg') )
+                <aside class="msg_dialog">{{ Session::get('msg') }}</aside>
+            @endif
 
-                @include('purchase.partials.data_pay')
+            @if ( $purchase->progress_4 AND p(61) )
+
+                @include('movement.partials.form_create_purchase')
+
+                <hr/>
+
+            @endif
+
+            @if( count($purchase->movements) )
+
+                @include('purchase.partials.list_products')
+
+                @include('purchase.partials.series_float')
 
             @else
 
-                <p class="title-clear">Aún no se registra un método de pago.</p>
+                <p class="title-clear">Aún no se registran productos.</p>
 
             @endif
 
             <hr>
 
-            @if ( $purchase->status != 'Pagado' AND p(61) )
+            <div class="col col100">
+                <div class="flo col50 left">
+                    @if( $purchase->progress_4 AND p(61))
+                        @include('purchase.partials.form_stop_products')
+                    @else
+                        @include('purchase.partials.form_products_edit')
+                    @endif
+                </div>
 
-                @include('purchasePayment.partials.formCreate')
+                <div class="flo col50 right text-right">
+                    @include('purchase.partials.btn_check_prices')
 
-            @else
-
-                @include('purchase.partials.form_pays_edit')
-
-                @include('purchase.partials.form_pays_stop')
-
-            @endif
-
-        </div>
-    @endif
-
-    @include('purchase.partials.warranties')
-
-    @include('purchase.partials.warranty_products')
-
-    @include('purchase.partials.coupons')
-
-    @if( p(61) )
-        <div class="description-product" title="Subir factura escaneada" id="dialogRegister" data-width="500">
-
-            @include('purchase/partials/formUpload')
+                    @include('purchase.partials.btn_uncheck_prices')
+                </div>
+            </div>
 
         </div>
+
+        @if(!$purchase->progress_4)
+            <div class="col col100 block description-product">
+
+                <div class="subtitle">
+                    Pago
+                </div>
+
+                @if( count($purchase->payments) )
+
+                    @include('purchase.partials.data_pay')
+
+                @else
+
+                    <p class="title-clear">Aún no se registra un método de pago.</p>
+
+                @endif
+
+                <hr>
+
+                @if ( $purchase->status != 'Pagado' AND p(61) )
+
+                    @include('purchasePayment.partials.formCreate')
+
+                @else
+
+                    @include('purchase.partials.form_pays_edit')
+
+                    @include('purchase.partials.form_pays_stop')
+
+                @endif
+
+            </div>
+        @endif
+
+        @include('purchase.partials.warranties')
+
+        @include('purchase.partials.warranty_products')
+
+        @include('purchase.partials.coupons')
+
+        <div class="block description-product">
+
+            <div class="subtitle">
+                Cancelar compra
+            </div>
+
+            <div class="text-center">
+                @include('purchase.partials.form_cancel')
+            </div>
+
+        </div>
+
+        @if( p(61) )
+            <div class="description-product" title="Subir factura escaneada" id="dialogRegister" data-width="500">
+
+                @include('purchase/partials/formUpload')
+
+            </div>
+        @endif
+
     @endif
 
 @stop

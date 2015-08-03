@@ -104,5 +104,10 @@ Route::group(
             'uses' => 'PurchaseController@search',
         ]);
 
+        Route::delete('{id}/cancel', [
+            'as'   => 'purchase.cancel',
+            'uses' => 'PurchaseController@cancel',
+        ]);
+
     }
 );

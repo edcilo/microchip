@@ -16,12 +16,16 @@
     @foreach ( $purchases as $purchase )
         <tr>
             <td class="text-center">
-                @if ( $purchase->progress_1 AND $purchase->progress_2 AND
-                    $purchase->progress_3 AND !$purchase->progress_4 AND
-                    $purchase->progress_5)
-                    <i class="fa fa-check"></i>
+                @if($purchase->status == 'Cancelado')
+                    <i class="fa fa-ban"></i>
                 @else
-                    <i class="fa fa-times"></i>
+                    @if ( $purchase->progress_1 AND $purchase->progress_2 AND
+                        $purchase->progress_3 AND !$purchase->progress_4 AND
+                        $purchase->progress_5)
+                        <i class="fa fa-check"></i>
+                    @else
+                        <i class="fa fa-times"></i>
+                    @endif
                 @endif
             </td>
             <td class="text-right">{{ $purchase->folio }}</td>

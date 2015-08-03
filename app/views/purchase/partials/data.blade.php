@@ -3,10 +3,14 @@
     <div class="header">
         <h1>
 
-            @if ( $purchase->progress_1 AND $purchase->progress_2 AND $purchase->progress_3 AND !$purchase->progress_4 )
-                <i title="Factura validada" class="fa fa-check"></i>
+            @if($purchase->status == 'Cancelado')
+                <i class="fa fa-ban"></i>
             @else
-                <i title="Factura en revisión" class="fa fa-times"></i>
+                @if ( $purchase->progress_1 AND $purchase->progress_2 AND $purchase->progress_3 AND !$purchase->progress_4 )
+                    <i title="Factura validada" class="fa fa-check"></i>
+                @else
+                    <i title="Factura en revisión" class="fa fa-times"></i>
+                @endif
             @endif
 
             Folio: {{ $purchase->folio }}

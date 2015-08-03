@@ -25,11 +25,14 @@ class PurchaseRepo extends BaseRepo
 
     public function getIncomplete($like = 'all', $column = 'id', $order = 'ASC')
     {
-        $q = Purchase::where('progress_1', 0)
-            ->orwhere('progress_2', 0)
-            ->orwhere('progress_3', 0)
-            ->orwhere('progress_4', 1)
-            ->orwhere('progress_5', 0)
+        $q = Purchase::where('status', '!=', 'Cancelado')
+            ->where(function ($query) {
+                $query->orwhere('progress_1', 0)
+                    ->orwhere('progress_2', 0)
+                    ->orwhere('progress_3', 0)
+                    ->orwhere('progress_4', 1)
+                    ->orwhere('progress_5', 0);
+            })
             ->orderby($column, $order);
 
         return ($like == 'all') ? $q->get() : $q->paginate();

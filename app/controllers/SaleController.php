@@ -235,6 +235,11 @@ class SaleController extends \BaseController
         $sale = $this->saleRepo->find($id);
         $this->notFoundUnless($sale);
 
+        if ($sale->status != 'Emitido') {
+            return Redirect::back()->with('message',
+                'No se posible ajustar el precio de una venta si su estado es distinto a "Emitido".');
+        }
+
         $manager = new SaleTotalUpdManager($sale, Input::all());
         $manager->save();
 

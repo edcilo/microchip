@@ -3,6 +3,7 @@ $(function () {
 
 	calculate_pay();
 	calculate_rest();
+    change_anticipo();
 	get_vale();
 	hide_show_controls();
 	reset_form();
@@ -33,13 +34,14 @@ var calculate_pay = function () {
 
 	var cont = $('#calculate_pay'),
 		amount = $('#amount'),
-		v_total = parseFloat($('#user_rest').text()),
+		v_total = parseFloat($('#user_rest').data('value')),
 		i_change = $('#change'),
 		inputs = cont.find('input');
 
 	inputs.keyup(function () {
 		var cash = 0,
-			change = 0;
+			change = 0,
+            anticipo = parseFloat($('#anticipo').val());
 
 		inputs.each(function () {
 			var q = parseInt($(this).val()),
@@ -56,8 +58,13 @@ var calculate_pay = function () {
 			cash += q * v;
 		});
 
-		if (cash > v_total) {
-			change = cash - v_total;
+        if (cash > v_total) {
+
+            if (anticipo > 0) {
+                change = cash - anticipo;
+            } else {
+                change = cash - v_total;
+            }
 		}
 
 		i_change.val(parseFloat(change).toFixed(2));
@@ -70,13 +77,18 @@ var calculate_pay = function () {
 var calculate_rest = function () {
 	'use strict';
 
-	var total = parseFloat($('#user_rest').text()),
+	var total = parseFloat($('#user_rest').data('value')),
 		i_a = $('#amount'),
 		c_rest = $('#change');
 
 	i_a.keyup(function () {
 		var amount = parseFloat($(this).val()),
+            anticipo = parseFloat($('#anticipo').val()),
 			rest = amount - total;
+
+        if (anticipo > 0) {
+            rest = amount - anticipo;
+        }
 
 		if (isNaN(rest) || rest < 0) {
 			rest = 0;
@@ -86,11 +98,30 @@ var calculate_rest = function () {
 	})
 };
 
+var change_anticipo = function () {
+    'use strict';
+
+    var inp_ant = $('#anticipo'),
+        c_rest = $('#change');
+
+    inp_ant.keyup(function () {
+        var total = parseFloat($(this).val()),
+            amount = parseFloat($('#amount').val()),
+            rest = amount - total;
+
+        if (isNaN(rest) || rest < 0) {
+            rest = 0;
+        }
+
+        c_rest.val(parseFloat(rest).toFixed(2));
+    });
+};
+
 var get_data_confr = function () {
 	'use strict';
 
 	var method = $('#method').val(),
-		rest = parseFloat($('#user_rest').text()),
+		rest = parseFloat($('#user_rest').data('value')),
 		amount = parseFloat($('#amount').val()),
 		change = parseFloat($('#change').val()),
 		reference = parseFloat($('#reference').data('points')),
@@ -191,9 +222,11 @@ var hide_show_controls = function () {
 	hide_show = function (value) {
 
 		inputs.each(function () {
-			$(this).removeAttr('data-required');
-			$(this).removeAttr('data-accept');
-			$(this).val('');
+            if ($(this).attr('id') != 'anticipo') {
+                $(this).removeAttr('data-required');
+                $(this).removeAttr('data-accept');
+                $(this).val('');
+            }
 		});
 
 		if (value === 'Efectivo') {
@@ -288,7 +321,7 @@ var search_customer = function () {
 			show_data_customer('#customer_show_details', result);
 		}
 	}, 'json');
-}
+};
 
 var show_data_customer = function (content, data) {
 	var c = $(content),

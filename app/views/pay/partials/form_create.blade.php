@@ -24,13 +24,13 @@
 
     <div class="row">
         <strong class="label50">Saldo:</strong>
-        $ <span id="user_rest">{{ $sale->user_rest_total_f }}</span>
+        $ <span id="user_rest" data-value="{{ $sale->getUserRestTotalAttribute('') }}">{{ $sale->user_rest_total_f }}</span>
     </div>
 
     @if( $sale->classification != 'Venta' AND $sale->getPaymentTotalAttribute() == 0 )
         <div class="row">
             <strong class="label50">Anticipo:</strong>
-            $ {{ $sale->advance }}
+            $ <input type="text" id="anticipo" value="{{ $sale->advance }}" class="text-right">
         </div>
     @endif
 

@@ -1,3 +1,9 @@
+<style>
+    body {
+        font-size: 26px;
+    }
+</style>
+
 <p>{{ $company->name }}</p>
 
 <ul class="unlist">
@@ -61,13 +67,17 @@
         <td>Total:</td>
         <td>$ {{ $sale->total_f }}</td>
     </tr>
-    <tr class="text-center">
-        <td colspan="3">En letras: {{ $sale->total_text }}</td>
-    </tr>
     </tfoot>
 </table>
 
+<br>
+<br>
 
+En letras: {{ $sale->total_text }}
+
+
+{{--
 <div class="barcode">
     {{ DNS1D::getBarcodeHTML($sale->folio, "C128", $configuration->width_real_bar_document_barcode, $configuration->height_real_document_barcode) }}
 </div>
+--}}

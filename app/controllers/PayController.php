@@ -154,10 +154,10 @@ class PayController extends \BaseController
                 }
 
                 if (count($sale->payments) == 0 AND
-                    $coupon->value < $sale->advance AND
+                    $coupon->value != $sale->advance AND
                     ($sale->classification=='Pedido' OR $sale->classification=='Servicio')
                 ) {
-                    return Redirect::back()->withInput()->withErrors(['folio' => "El valor del vale $coupon->folio es menor al anticipo del $sale->classification."]);
+                    return Redirect::back()->withInput()->withErrors(['folio' => "El valor del vale $coupon->folio no coincide con el anticipo del $sale->classification."]);
                 }
 
                 $pay = $this->payRepo->newPay();
@@ -197,7 +197,7 @@ class PayController extends \BaseController
                 }
 
                 if (count($sale->payments) == 0 AND
-                    $points < $sale->advance AND
+                    $points != $sale->advance AND
                     ($sale->classification=='Pedido' OR $sale->classification=='Servicio')
                 ) {
                     return Redirect::back()->withInput()->withErrors(['reference' => "Los puntos en el monedero son menores al anticipo del $sale->classification."]);

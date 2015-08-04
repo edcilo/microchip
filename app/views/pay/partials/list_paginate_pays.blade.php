@@ -31,6 +31,8 @@
             <td class="text-center">{{ $pay->date_f }}</td>
             <td class="text-center">
 
+                @include('pay.partials.btn_print')
+
                 @if( $pay->sale )
 
                     @include('pay.partials.btn_edit')

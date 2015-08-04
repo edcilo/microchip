@@ -15,6 +15,10 @@
 
         <div class="header">
             <h3><strong>Pago a {{ $sale->classification }} {{ $sale->folio }}</strong></h3>
+
+            @if ($last_pay)
+                @include('pay.partials.btn_print', ['pay' => $last_pay])
+            @endif
         </div>
 
         {{ Form::open(['route'=>['pay.store', $sale->id], 'method'=>'post', 'class'=>'form validate', 'id'=>'form_pay']) }}

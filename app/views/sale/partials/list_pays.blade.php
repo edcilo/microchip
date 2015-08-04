@@ -48,15 +48,17 @@
                     @endif
                 </td>
                 <td class="text-center">{{ $pay->date }}</td>
-                @if ($sale->status != 'Cancelado')
-                    <td class="text-center">
-                        <nobr>
+                <td class="text-center">
+                    <nobr>
+                        @include('pay.partials.btn_print')
+
+                        @if ($sale->status != 'Cancelado')
                             @include('pay.partials.btn_edit')
 
                             @include('pay.partials.btn_destroy')
-                        </nobr>
-                    </td>
-                @endif
+                        @endif
+                    </nobr>
+                </td>
             </tr>
         @endforeach
         </tbody>

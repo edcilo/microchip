@@ -70,11 +70,13 @@ class PayController extends \BaseController
         $services = $this->saleRepo->getByClassificationStatus('Servicio', 'Emitido', 'folio_service', 'desc');
         $cancellations = $this->saleRepo->getPendingCancellations(false);
 
+        $last_pay = $this->payRepo->getLast();
+
         if (Request::ajax()) {
             return Response::json($sales);
         }
 
-        return View::make('pay/pays_pending', compact('sales', 'orders', 'services', 'cancellations'));
+        return View::make('pay/pays_pending', compact('sales', 'orders', 'services', 'cancellations', 'last_pay'));
     }
 
     /**
@@ -88,7 +90,9 @@ class PayController extends \BaseController
         $sale = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
 
-        return View::make('pay/create', compact('sale'));
+        $last_pay = $sale->payments()->orderBy('id', 'desc')->first();
+
+        return View::make('pay/create', compact('sale', 'last_pay'));
     }
 
     /**
@@ -606,6 +610,38 @@ class PayController extends \BaseController
         $concept            = 'Cancelación de '.$sale->classification.' con folio '.$sale->folio;
 
         $pdf = PDF::loadView('pay/layout_print', compact('sale', 'concept', 'company'))->setPaper('letter');
+
+        return $pdf->stream();
+    }
+
+    public function payPrint($id)
+    {
+        $pay = $this->payRepo->find($id);
+        $this->notFoundUnless($pay);
+
+        $company = $this->companyRepo->find(1);
+        $quantity = $pay->amount - $pay->change;
+
+        $no2letter   = new NumberToLetter();
+        $amount_text = strtoupper($no2letter->ValorEnLetras($quantity, 'pesos'));
+        $sale        = $pay->sale;
+
+        $rest = 0;
+        foreach ($sale->payments as $pay_r) {
+            $rest += ($pay_r->amount - $pay_r->change);
+
+            if ($pay->id == $pay_r->id) {
+                $rest = $sale->payment_total - $rest;
+                break;
+            }
+        }
+        if ($rest < 0) {
+            $rest = 0;
+        }
+
+        $rest = number_format($rest, 2, '.', ',');
+
+        $pdf = PDF::loadView('pay/layout_print_pay', compact('pay', 'quantity', 'rest', 'sale', 'amount_text', 'company'))->setPaper('letter');
 
         return $pdf->stream();
     }

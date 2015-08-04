@@ -30,6 +30,11 @@ class PayRepo extends BaseRepo
             ->get();
     }
 
+    public function getLast()
+    {
+        return Pay::orderBy('id', 'desc')->first();
+    }
+
     public function getPending()
     {
         return Pay::where('change_check', 1)->paginate();

@@ -147,5 +147,10 @@ Route::group(
 
         });
 
+        Route::get('{id}/print', [
+            'as'   => 'pay.print',
+            'uses' => 'PayController@payPrint',
+        ]);
+
     }
 );

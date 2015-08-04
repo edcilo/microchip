@@ -36,7 +36,6 @@
     <br>
 
     <div class="line_sign"></div>
-    {{ $sale->customer->prefix }}
-    {{ $sale->customer->name }}
+    {{ $sale->user->profile->full_name }}
 
 </div>

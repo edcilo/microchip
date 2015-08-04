@@ -631,7 +631,12 @@ class PayController extends \BaseController
             $rest += ($pay_r->amount - $pay_r->change);
 
             if ($pay->id == $pay_r->id) {
-                $rest = $sale->payment_total - $rest;
+                if ($sale->classification == 'Venta') {
+                    $total = $sale->total;
+                } else {
+                    $total = $sale->getTotalOrder();
+                }
+                $rest = $total - $rest;
                 break;
             }
         }

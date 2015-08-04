@@ -30,7 +30,7 @@
     @if( $sale->classification != 'Venta' AND $sale->getPaymentTotalAttribute() == 0 )
         <div class="row">
             <strong class="label50">Anticipo:</strong>
-            $ <input type="text" id="anticipo" value="{{ $sale->advance }}" class="text-right">
+            $ <span id="anticipo">{{ $sale->advance }}</span>
         </div>
     @endif
 

@@ -3,7 +3,6 @@ $(function () {
 
 	calculate_pay();
 	calculate_rest();
-    change_anticipo();
 	get_vale();
 	hide_show_controls();
 	reset_form();
@@ -35,13 +34,13 @@ var calculate_pay = function () {
 	var cont = $('#calculate_pay'),
 		amount = $('#amount'),
 		v_total = parseFloat($('#user_rest').data('value')),
+		anticipo = parseFloat($('#anticipo').text()),
 		i_change = $('#change'),
 		inputs = cont.find('input');
 
 	inputs.keyup(function () {
 		var cash = 0,
-			change = 0,
-            anticipo = parseFloat($('#anticipo').val());
+			change = 0;
 
 		inputs.each(function () {
 			var q = parseInt($(this).val()),
@@ -59,13 +58,12 @@ var calculate_pay = function () {
 		});
 
         if (cash > v_total) {
-
-            if (anticipo > 0) {
-                change = cash - anticipo;
-            } else {
-                change = cash - v_total;
-            }
+            change = cash - v_total;
 		}
+
+        if (anticipo > 0 && cash > anticipo) {
+            change = cash - anticipo;
+        }
 
 		i_change.val(parseFloat(change).toFixed(2));
 		amount.val(parseFloat(cash).toFixed(2));
@@ -78,43 +76,24 @@ var calculate_rest = function () {
 	'use strict';
 
 	var total = parseFloat($('#user_rest').data('value')),
+        anticipo = parseFloat($('#anticipo').text()),
 		i_a = $('#amount'),
 		c_rest = $('#change');
 
 	i_a.keyup(function () {
 		var amount = parseFloat($(this).val()),
-            anticipo = parseFloat($('#anticipo').val()),
 			rest = amount - total;
-
-        if (anticipo > 0) {
-            rest = amount - anticipo;
-        }
 
 		if (isNaN(rest) || rest < 0) {
 			rest = 0;
 		}
 
-		c_rest.val(parseFloat(rest).toFixed(2));
-	})
-};
-
-var change_anticipo = function () {
-    'use strict';
-
-    var inp_ant = $('#anticipo'),
-        c_rest = $('#change');
-
-    inp_ant.keyup(function () {
-        var total = parseFloat($(this).val()),
-            amount = parseFloat($('#amount').val()),
-            rest = amount - total;
-
-        if (isNaN(rest) || rest < 0) {
-            rest = 0;
+        if (anticipo > 0 && amount>anticipo) {
+            rest = amount - anticipo;
         }
 
-        c_rest.val(parseFloat(rest).toFixed(2));
-    });
+		c_rest.val(parseFloat(rest).toFixed(2));
+	})
 };
 
 var get_data_confr = function () {
@@ -222,11 +201,9 @@ var hide_show_controls = function () {
 	hide_show = function (value) {
 
 		inputs.each(function () {
-            if ($(this).attr('id') != 'anticipo') {
-                $(this).removeAttr('data-required');
-                $(this).removeAttr('data-accept');
-                $(this).val('');
-            }
+			$(this).removeAttr('data-required');
+			$(this).removeAttr('data-accept');
+			$(this).val('');
 		});
 
 		if (value === 'Efectivo') {
@@ -327,7 +304,7 @@ var show_data_customer = function (content, data) {
 	var c = $(content),
 		list = '',
 		card = '',
-		address = '';
+		address;
 
 	$('#reference').attr('data-points', data.points);
 
@@ -425,13 +402,13 @@ var show_hide_btn_details = function () {
 var show_list_customers = function (data, content) {
     'use strict';
 
-    var result = '', personal;
+    var result = '';
 
 	hideControls(content);
 
     if (data.length > 0) {
         for (var i=0; i<data.length; i++) {
-        	personal;
+        	var personal;
 
         	if (data[i].cellphone != '') {
         		personal = '(célular: ' + data[i].cellphone + ')';

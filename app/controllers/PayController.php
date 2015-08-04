@@ -99,14 +99,26 @@ class PayController extends \BaseController
      */
     public function store($sale_id)
     {
-        $sale   = $this->saleRepo->find($sale_id);
+        $sale = $this->saleRepo->find($sale_id);
         $this->notFoundUnless($sale);
+        $data = Input::all();
 
-        $rest   = $sale->getUserRestTotalAttribute();
+        $rest = $sale->getUserRestTotalAttribute();
 
         if ($rest > 0) {
-            $data            = Input::all();
             if ($data['method'] != 'Vale' and $data['method'] != 'Monedero') {
+                if (count($sale->payments) == 0 AND
+                    ($sale->classification=='Pedido' OR $sale->classification=='Servicio')
+                ) {
+                    if ($data['amount'] < $sale->advance) {
+                        return Redirect::back()
+                            ->withInput()
+                            ->withErrors(['amount' => 'El pago debe ser igual al anticipo sugerido.']);
+                    } else {
+                        $data['amount'] = $sale->advance;
+                    }
+                }
+
                 $data['change']  = ($data['amount'] > $rest) ? $data['amount'] - $rest : 0;
                 $data['total']   = $rest;
                 $data['sale_id'] = $sale_id;
@@ -130,15 +142,22 @@ class PayController extends \BaseController
                 $coupon = $this->couponRepo->find($data['folio']);
 
                 if (!$coupon->available) {
-                    return Redirect::back()->withINput()->withErrors(['folio' => "El vale $coupon->folio ya fue utilizado."]);
+                    return Redirect::back()->withInput()->withErrors(['folio' => "El vale $coupon->folio ya fue utilizado."]);
                 }
 
                 if ($coupon->lapsed) {
-                    return Redirect::back()->withINput()->withErrors(['folio' => "El vale $coupon->folio ya esta vencido."]);
+                    return Redirect::back()->withInput()->withErrors(['folio' => "El vale $coupon->folio ya esta vencido."]);
                 }
 
                 if ($rest < $coupon->value) {
-                    return Redirect::back()->withINput()->withErrors(['folio' => "El valor del vale $coupon->folio es mayor al saldo de la compra."]);
+                    return Redirect::back()->withInput()->withErrors(['folio' => "El valor del vale $coupon->folio es mayor al saldo de la compra."]);
+                }
+
+                if (count($sale->payments) == 0 AND
+                    $coupon->value < $sale->advance AND
+                    ($sale->classification=='Pedido' OR $sale->classification=='Servicio')
+                ) {
+                    return Redirect::back()->withInput()->withErrors(['folio' => "El valor del vale $coupon->folio es menor al anticipo del $sale->classification."]);
                 }
 
                 $pay = $this->payRepo->newPay();
@@ -175,6 +194,13 @@ class PayController extends \BaseController
 
                 if ($customer->expiration_date == 'Vencido') {
                     return Redirect::back()->withINput()->withErrors(['reference' => 'El monedero ha expirado.']);
+                }
+
+                if (count($sale->payments) == 0 AND
+                    $points < $sale->advance AND
+                    ($sale->classification=='Pedido' OR $sale->classification=='Servicio')
+                ) {
+                    return Redirect::back()->withInput()->withErrors(['reference' => "Los puntos en el monedero son menores al anticipo del $sale->classification."]);
                 }
 
                 $amount = ($rest > $points) ? $points : $rest;

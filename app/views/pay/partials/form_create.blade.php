@@ -102,12 +102,7 @@
 
     <div class="row col col100">
 
-        <div class="flo col50">
-            <a href="{{ route('pay.pending') }}" class="btn-red">
-                <i class="fa fa-arrow-left"></i>
-                Volver a la caja
-            </a>
-        </div>
+        @include('pay.partials.btn_back_pending')
 
         <div class="flo col50 text-right">
             <button type="submit" class="btn-green form_confirm" data-confirm="store_confirm">

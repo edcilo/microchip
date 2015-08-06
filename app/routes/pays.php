@@ -18,6 +18,11 @@ Route::group(
                 'uses' => 'PayController@pending',
             ]);
 
+            Route::get('resume/{sale_id}', [
+                'as'   => 'pay.resume',
+                'uses' => 'PayController@resume',
+            ]);
+
         });
 
         Route::group(['before' => 'pr:71'], function () {

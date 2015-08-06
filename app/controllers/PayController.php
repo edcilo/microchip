@@ -244,11 +244,19 @@ class PayController extends \BaseController
 
         if ($sale->status == 'Pagado') {
             $this->addPoints($sale);
+        }
+
+        return Redirect::route('pay.resume', $sale->id);
+
+        /*
+        if ($sale->status == 'Pagado') {
+            $this->addPoints($sale);
 
             return Redirect::route('pay.pending')->with($message);
         }
 
         return Redirect::back()->with($message);
+        */
     }
 
     /**
@@ -649,5 +657,12 @@ class PayController extends \BaseController
         $pdf = PDF::loadView('pay/layout_print_pay', compact('pay', 'quantity', 'rest', 'sale', 'amount_text', 'company'))->setPaper('letter');
 
         return $pdf->stream();
+    }
+
+    public function resume($sale_id)
+    {
+        $sale = $this->saleRepo->find($sale_id);
+
+        return View::make('pay.resume', compact('sale'));
     }
 }

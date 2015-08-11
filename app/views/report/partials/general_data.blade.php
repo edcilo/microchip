@@ -21,7 +21,12 @@
         </div>
         <div class="flo col50 right text-right">
             @if(isset($corte))
-                $ {{ number_format($report['total_expenses'] + (-1 * $corte->pay->amount), 2, '.', ',') }}
+                $
+                @if (is_object($corte->pay))
+                    {{ number_format($report['total_expenses'] + (-1 * $corte->pay->amount), 2, '.', ',') }}
+                @else
+                    {{ number_format($report['total_expenses'], 2, '.', ',') }}
+                @endif
             @else
                 $ {{ number_format($report['total_expenses'], 2, '.', ',') }}
             @endif
@@ -34,7 +39,12 @@
         </div>
         <div class="flo col50 right text-right">
             @if(isset($corte))
-                $ <span id="total_report" data-total="{{ $report['total_box'] + (-1 * $corte->pay->amount) }}">{{ number_format($report['total_box'] + (-1 * $corte->pay->amount), 2, '.', ',') }}</span>
+                $
+                @if (is_object($corte->pay))
+                    <span id="total_report" data-total="{{ $report['total_box'] + (-1 * $corte->pay->amount) }}">{{ number_format($report['total_box'] + (-1 * $corte->pay->amount), 2, '.', ',') }}</span>
+                @else
+                    <span id="total_report" data-total="{{ $report['total_box'] }}">{{ number_format($report['total_box'], 2, '.', ',') }}</span>
+                @endif
             @else
                 $ <span id="total_report" data-total="{{ $report['total_box'] }}">{{ number_format($report['total_box'], 2, '.', ',') }}</span>
             @endif
@@ -46,7 +56,12 @@
                 <strong>Retiro por corte:</strong>
             </div>
             <div class="flo col50 right text-right">
-                $ {{ $corte->pay->amount }}
+                $
+                @if (is_object($corte->pay))
+                    {{ $corte->pay->amount }}
+                @else
+                    0.00
+                @endif
             </div>
         </li>
     @endif

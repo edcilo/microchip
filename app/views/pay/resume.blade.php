@@ -34,7 +34,6 @@
             <div class="flo col50 right text-right">
                 @if($sale->status == 'Emitido')
                     @include('pay.partials.btn_pay')
-                
                 @endif
             </div>
         </div>

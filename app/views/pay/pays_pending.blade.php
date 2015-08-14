@@ -8,18 +8,12 @@
 
     @include('layouts.partials.messages')
 
-    <div class="col col100">
-        <div class="flo col25 left">
-            @include('pay.partials.btn_big_print', ['pay' => $last_pay])
-        </div>
+    <div class="col col100 text-right">
+        @include('pay.partials.btn_create_out')
 
-        <div class="flo col75 right text-right">
-            @include('pay.partials.btn_create_out')
+        @include('pay.partials.btn_create_out_sale')
 
-            @include('pay.partials.btn_create_out_sale')
-
-            @include('pay.partials.btn_create_in')
-        </div>
+        @include('pay.partials.btn_create_in')
     </div>
 
     <div class="col col100 block description-product">

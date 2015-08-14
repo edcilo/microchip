@@ -18,7 +18,7 @@
             {{ $errors->first('s_description', '<span>:message</span>') }}
         </div>
 
-        {{ Form::textarea('l_description', null, ['class'=>'xb-input', 'placeholder'=>'Descripción larga', 'rows'=>'4', 'title'=>'Este campo es obligatorio.', 'autocomplete'=>'off', 'data-required'=>'required']) }}
+        {{ Form::textarea('l_description', null, ['class'=>'xb-input', 'placeholder'=>'Descripción larga', 'rows'=>'4', 'autocomplete'=>'off']) }}
         <div class="message-error">
             {{ $errors->first('l_description', '<span>:message</span>') }}
         </div>

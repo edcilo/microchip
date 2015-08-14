@@ -11,7 +11,7 @@ class PendingMovementRegManager extends BaseManager
         return [
             'barcode'       => 'required',
             's_description' => 'required|max:120',
-            'l_description' => 'required',
+            'l_description' => '',
             'provider_link' => 'url',
             'image_link'    => 'url',
             'quantity'      => 'required|integer',

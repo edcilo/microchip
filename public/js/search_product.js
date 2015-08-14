@@ -51,7 +51,11 @@ var show_list = function (data, content) {
                 p_price = data[i].p_description.purchase_price
             }
 
-            result += '<div><a href="#" class="add_barcode" data-purchase_price="'+p_price+'" data-barcode="'+data[i].barcode+'">'+ data[i].barcode+' - '+data[i].s_description+'</a></div>';
+            result += '<div><a href="#" class="add_barcode" data-purchase_price="'+p_price+'" data-barcode="'+data[i].barcode+'">';
+            result += data[i].barcode+' - '+data[i].s_description;
+            if (data[i].type == 'Producto')
+                result += ' ('+data[i].stock+' en inventario)';
+            result += '</a></div>';
         }
     } else {
         result = '<div class="text-center"><span>La consulta no devolvió resultados.</span></div>';

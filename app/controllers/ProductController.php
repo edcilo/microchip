@@ -424,10 +424,14 @@ class ProductController extends \BaseController
                 $active = null;
             }
 
-            $product = $this->productRepo->searchFast($terms, $type, $active);
+            $products = $this->productRepo->searchFast($terms, $type, $active);
 
-            if (!is_null($product) AND count($product) > 0) {
-                $data = $product;
+            if (!is_null($products) AND count($products) > 0) {
+                foreach ($products as $product) {
+                    $product->stock = $product->stock;
+                }
+
+                $data = $products;
             }
         }
 

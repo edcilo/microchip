@@ -2,8 +2,8 @@
 
     <div class="flo col33 left">
         <strong>Equipo que deja:</strong> <br/>
-        {{ $sale->data->equipment }}, {{ $sale->data->mark }}, {{ $sale->data->model }}, {{ $sale->data->series }} <br/>
-        {{ $sale->data->details }}
+        {{ $sale->data->equipment }}, marca: {{ $sale->data->mark }}, modelo: {{ $sale->data->model }}, no. de serie {{ $sale->data->series }} <br/>
+        Detalles: {{ $sale->data->details }}
     </div>
 
     <div class="flo col33 center">

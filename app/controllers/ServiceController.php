@@ -132,6 +132,10 @@ class ServiceController extends \BaseController
         $this->notFoundUnless($service);
 
         $customer = $this->customerRepo->find(Input::get('customer_id'));
+        if (is_null($customer)) {
+            return Redirect::back()->withInput()->withErrors(['customer_id' => 'El cliente no esta registrado']);
+        }
+
         if (!is_null($customer) AND !$customer->active) {
             return Redirect::back()->withInput()->with('msg', 'El cliente no esta activo.');
         }

@@ -26,8 +26,8 @@
 
     <div class="flo col33 right text-right">
         <button type="submit" class="btn-green form_confirm" data-confirm="delivery_confirm">
-            <i class="fa fa-save"></i>
-            Guardar
+            <i class="fa fa-calendar"></i>
+            Posponer fecha
         </button>
     </div>
 

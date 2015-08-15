@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>Folio doc.</th>
+        <th>Tipo</th>
         <th>Código de barras</th>
         <th>Descripción</th>
         <th>Cantidad</th>
@@ -16,10 +17,21 @@
         @if($pa->status != 'Surtido')
             <tr>
                 <td>
-                    <a href="{{ route('sale.show', [$pa->sale->folio, $pa->sale->id]) }}">
+                    <a href="
+                        @if($pa->sale->classification == 'Venta')
+                            {{ route('sale.show', [$pa->sale->id]) }}
+                        @elseif($pa->sale->classification == 'Pedido')
+                            {{ route('order.show', [$pa->sale->id]) }}
+                        @elseif($pa->sale->classification == 'Cotización')
+                            {{ route('price.show', [$pa->sale->id]) }}
+                        @else
+                            {{ route('service.show', [$pa->sale->id]) }}
+                        @endif
+                            ">
                         {{ $pa->sale->folio }}
                     </a>
                 </td>
+                <td>{{ $pa->sale->classification }}</td>
                 <td>{{ $pa->barcode }}</td>
                 <td>{{ $pa->s_description }}</td>
                 <td class="text-right">{{ $pa->quantity }}</td>

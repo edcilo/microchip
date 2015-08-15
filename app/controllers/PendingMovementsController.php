@@ -45,7 +45,6 @@ class PendingMovementsController extends \BaseController
 
         foreach ($pas as $pa) {
             $pa->s_description = substr($pa->s_description, 0, 117).'...';
-            $pa->sale->folio = str_pad($pa->sale->id, 8, '0', STR_PAD_LEFT);
         }
 
         return View::make('pa/index', compact('pas'));

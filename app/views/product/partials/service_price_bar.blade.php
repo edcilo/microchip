@@ -1,7 +1,7 @@
 <div class="subtitle col col100">
 
     <div class="flo col25 left">
-        {{ Form::label('purchase_price', 'Precio inicial ($):') }}
+        {{ Form::label('purchase_price', 'Precio inicial sin iva ($):') }}
         {{ Form::text('purchase_price', isset($desc) ? $desc->purchase_price : null, ['class'=>'sm-input text-right', 'title'=>'Este campo es obligatorio.', 'data-required'=>'required', 'data-numeric'=>'numeric']) }}
         <div class="message-error">
             {{ $errors->first('purchase_price', '<span>:message</span>') }}

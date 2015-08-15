@@ -10,7 +10,7 @@
 
 <div class="font-body">
     <p class="text-left">
-        {{ $company->city }}, {{ $company->state }} a {{ \Carbon\Carbon::now()->format('d-m-Y, H:ia') }}.
+        {{ $company->city }}, {{ $company->state }} a {{ $pay->created_at->format('d-m-Y, H:ia') }}.
     </p>
 
     <p class="text-left">
